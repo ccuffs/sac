@@ -79,7 +79,7 @@
 		echo '</div>';
 	echo '</div>';
 	
-	echo '<div class="container">';
+	echo '<div class="container" style="margin-top: 30px;">';
 		echo '<div class="row">';
 				echo '<div class="col-md-4">';
 					echo '<p><strong>Realização:</strong></p>';

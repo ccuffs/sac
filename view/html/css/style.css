@@ -312,5 +312,6 @@ a:visited {
 }
 
 #payment-panel {
+	margin-top: 20px;
 	min-height: 150px;
 }

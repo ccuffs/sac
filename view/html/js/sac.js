@@ -27,7 +27,7 @@ var SAC = new function() {
 	};
 	
 	this.loadPaymentInfo = function(theContainerId) {
-		$('#' + theContainerId).html('<i class="fa fa-circle-o-notch fa-spin"></i> Carregando...');
+		$('#' + theContainerId).html('<i class="fa fa-circle-o-notch fa-spin"></i> Carregando informações sobre pagamentos...');
 
 		$.ajax({
 		  type: 'POST',

@@ -20,10 +20,14 @@ function paymentStatusToString($theStatus) {
 	return isset($aText[$theStatus]) ? $aText[$theStatus] : '???';
 }
 
+function paymentIsBeingAnalyzed($thePaymentInfo) {
+	return $thePaymentInfo == null || ($thePaymentInfo['status'] != 3 && $thePaymentInfo['status'] != 4);
+}
+
 function paymentFindByUser($theUserId) {
 	global $gDb;
 	
-	$aRet = null;
+	$aRet = array();
 	$aQuery = $gDb->prepare("SELECT * FROM payment WHERE fk_user = ?");
 	
 	if ($aQuery->execute(array($theUserId))) {
