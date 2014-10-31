@@ -57,7 +57,7 @@ a:link,a:active,a:hover,a:visited{color:#000;}
 .featurette-heading{font-size:50px;font-weight:200;line-height:1;letter-spacing:-5px;}
 .featurette .lead{font-size:17px;line-height:1.5;}
 .footer p{float:left;font-size:12px;color:#9f9f9f;}
-.footer img{float:right;margin-left:20px;}
+.footer img{width:100px;height:auto;float:right;margin-left:20px;}
 .CodeMirror{border:2px inset #dee;height:600px!important;}
 .form-group small{color:#929292;}
 .competition-page .row{margin-top:20px;}

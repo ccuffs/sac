@@ -283,6 +283,8 @@ a:visited {
 	color: #9f9f9f;
 }
 .footer img {
+	width: 100px;
+	height: auto;
 	float: right;
 	margin-left: 20px;
 }

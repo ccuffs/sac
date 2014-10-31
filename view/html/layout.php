@@ -121,7 +121,6 @@ function layoutFooter($theBaseUrl = '.') {
 			echo '<hr>';
 			echo '<footer class="footer">';
 				echo '<a href="http://fronteiratec.com" target="_blank"><img src="'.$theBaseUrl.'/img/logo_fronteiratec_small.png"/></a>';
-				echo '<a href="http://cc.uffs.edu.br" target="_blank"><img src="'.$theBaseUrl.'/img/logo_cc_bw.png"/></a>';
 				echo '<p>&copy; '.date('Y').' - FronteiraTec - Todos os direitos reservados.</p>';
 			echo '</footer>';
 			

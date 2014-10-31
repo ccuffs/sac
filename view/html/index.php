@@ -8,10 +8,11 @@
 	$aAttending 	= $aData['authenticated'] ? $aData['attending'] : array();
 	$aIsAdmin 		= $aData['isAdmin'];
 
-	echo '<div class="jumbotron">';
-		echo '<div class="container">';
-			echo '<h1>Semana Acadêmica Computação</h1>';
-			echo '<p>20 a 26 de Novembro, 2014</p>';
+	echo '<div class="container">';
+		echo '<div class="row">';
+				echo '<div class="col-md-12">';
+					echo '<img src="'.View::baseUrl().'/img/sac.jpg" style="width: 100%; height: auto;" />';
+				echo '</div>';
 		echo '</div>';
 	echo '</div>';
 	
@@ -74,6 +75,35 @@
 						echo '</div>';
 					echo '</div>';
 				}
+			echo '</div>';
+		echo '</div>';
+	echo '</div>';
+	
+	echo '<div class="container">';
+		echo '<div class="row">';
+				echo '<div class="col-md-4">';
+					echo '<p><strong>Realização:</strong></p>';
+				echo '</div>';
+				echo '<div class="col-md-8">';
+					echo '<p><strong>Apoio:</strong></p>';
+				echo '</div>';
+		echo '</div>';
+		echo '<div class="row">';
+			echo '<div class="col-md-1">';
+				echo '<img src="'.View::baseUrl().'/img/uffs.png" style="width: 100%; height: auto;" />';
+			echo '</div>';
+			echo '<div class="col-md-2">';
+				echo '<img src="'.View::baseUrl().'/img/logo_cc.png" style="width: 100%; height: auto; margin-top: 25px;" />';
+			echo '</div>';
+			echo '<div class="col-md-1">';
+			echo '</div>';
+			
+			echo '<div class="col-md-5">';
+				echo '<a href="http://stmaria.com.br" target="_blank"><img src="'.View::baseUrl().'/img/santamaria.jpg" style="width: 100%; height: auto;" border="0" /></a>';
+			echo '</div>';
+			echo '<div class="col-md-3">';
+				echo '<a href="http://www.gamdias.com/en/" target="_blank"><img src="'.View::baseUrl().'/img/gambdias_small.png" style="width: 100%; height: auto;" border="0" /></a><br/>';
+				echo '<a href="http://fronteiratec.com" target="_blank"><img src="'.View::baseUrl().'/img/fronteiratec.png" style="width: 100%; height: auto; margin-top: 30px;" /></a>';
 			echo '</div>';
 		echo '</div>';
 	echo '</div>';
