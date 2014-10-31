@@ -3,6 +3,7 @@
 require_once dirname(__FILE__).'/config.php';
 
 define('PAYMENT_CONFIRMED', 	3);
+define('PAYMENT_AVAILABLE', 	4);
 
 function paymentStatusToString($theStatus) {
 	$aText = array(
@@ -10,7 +11,7 @@ function paymentStatusToString($theStatus) {
         1 => 'Aguardando baixa',
         2 => 'Em análise',
         3 => 'Aprovado',
-        4 => 'Disponível',
+        4 => 'Aprovado (D)',
         5 => 'Em disputa',
         6 => 'Estornado',
         7 => 'Cancelado'
@@ -38,9 +39,9 @@ function paymentCalculateUserCredit($theUserId) {
 	global $gDb;
 	
 	$aRet = 0;
-	$aQuery = $gDb->prepare("SELECT SUM(amount) AS value FROM payment WHERE fk_user = ? AND status = ?");
+	$aQuery = $gDb->prepare("SELECT SUM(amount) AS value FROM payment WHERE fk_user = ? AND (status = ? OR status = ?)");
 	
-	if ($aQuery->execute(array($theUserId, PAYMENT_CONFIRMED))) {
+	if ($aQuery->execute(array($theUserId, PAYMENT_CONFIRMED, PAYMENT_AVAILABLE))) {
 		$aRow = $aQuery->fetch();
 		$aRet = $aRow['value'];
 	}

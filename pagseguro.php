@@ -15,6 +15,7 @@
             $transaction = PagSeguroNotificationService::checkTransaction($credentials, $notificationCode);
 			$ref = $transaction->getReference();
 			
+			paymentLog('Updating ref=' . $ref . ' to ' . $transaction->getStatus()->getValue());
 			paymentUpdateStatus($ref, $transaction->getStatus()->getValue());
 			
             // Do something with $transaction
