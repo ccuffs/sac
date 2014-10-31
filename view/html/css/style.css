@@ -277,6 +277,10 @@ a:visited {
 	line-height: 1.5;
 }
 
+.footer {
+	margin-bottom: 30px;
+}
+
 .footer p {
 	float: left;
 	font-size: 12px;
