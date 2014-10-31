@@ -19,7 +19,7 @@ function eventFindAll() {
 	global $gDb;
 	
 	$aRet = array();
-	$aQuery = $gDb->prepare("SELECT * FROM event WHERE 1 ORDER BY day ASC, month ASC");
+	$aQuery = $gDb->prepare("SELECT * FROM event WHERE 1 ORDER BY day ASC, month ASC, time ASC");
 	
 	if ($aQuery->execute()) {
 		while ($aRow = $aQuery->fetch()) {
