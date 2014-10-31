@@ -53,11 +53,19 @@
 				echo '</div>';
 			echo '</div>';
 			
-			echo '<div class="col-md-6">';
+			echo '<div class="col-md-4">';
 				echo '<div class="form-group">';
 					echo '<label class="control-label">Horário</label>';
 					echo '<input type="text" name="time" value="'.@$aEvent['time'].'" class="col-lg-6 form-control" /><br/>';
 				echo '</div>';
+			echo '</div>';
+			
+			echo '<div class="col-md-2">';
+				echo '<label class="control-label">Fantasma</label>';
+				echo '<select name="ghost" class="form-control col-lg-2">';
+					echo '<option value="0" '.(@$aEvent['ghost'] == 0 ? 'selected="selected"' : '').'>Não</option>';
+					echo '<option value="1" '.(@$aEvent['ghost'] != 0 ? 'selected="selected"' : '').'>Sim</option>';
+				echo '</select>';
 			echo '</div>';
 		echo '</div>';			
 		

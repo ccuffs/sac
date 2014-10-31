@@ -58,13 +58,15 @@
 													if (is_numeric($aInfo['fk_competition'])) {
 														echo '<a href="competition.php?competition='.$aInfo['fk_competition'].'"><i class="fa fa-info-circle"></i> Infos</a> '.($aIsAdmin ? ' <a href="competition-manager.php?id='.$aInfo['fk_competition'].'"><i class="fa fa-edit"></i></a> ' : '');
 														
-													} else {
+													} else if($aInfo['ghost'] == 0){
 														if (isset($aAttending[$aIdEvent])) {
 															echo '<span class="label label-success"><i class="fa fa-check-square"></i> Inscrito</span>';
 															echo ' <a href="javascript:void(0);" onclick="SAC.unsubscribe('.$aIdEvent.')" title="Clique para remover sua inscrição dessa atividade."><i class="fa fa-remove"></i></a>';
 														} else {
 															echo '<a href="javascript:void(0);" onclick="SAC.subscribe('.$aIdEvent.', '.($aInfo['capacity'] != 0 ? 'true' : 'false').')" title="Clique para se inscrever nessa atividade."><i class="fa fa-square-o"></i></a>';
 														}
+													} else {
+														echo '-';
 													}
 												echo '</td>';
 											}

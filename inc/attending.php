@@ -38,6 +38,10 @@ function attendingAdd($theUserId, $theEventId, $thePaid) {
 		throw new Exception('Evento desconhecido');
 	}
 	
+	if ($aEvent['ghost'] != 0) {
+		throw new Exception('Evento fantasma');
+	}
+	
 	if ($aEvent['capacity'] != 0 && attendingCountEventAttendants($theEventId) >= ($aEvent['capacity'] + $aEvent['waiting_capacity'])) {
 		throw new Exception('Não há mais vagas para essa atividade');
 	}

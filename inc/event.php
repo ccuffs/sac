@@ -49,10 +49,10 @@ function eventUpdateOrCreate($theId, $theEventInfo) {
 	global $gDb;
 	
 	$aRet 	= false;
-	$aQuery = $gDb->prepare("INSERT INTO event (id, fk_competition, day, month, time, title, description, place, price, capacity, waiting_capacity) VALUES
-											   (".(is_numeric($theId) ? '?' : 'NULL').", ".(is_numeric($theEventInfo['fk_competition']) ? '?' : 'NULL').", ?, ?, ?, ?, ?, ?, ?, ?, ?)
+	$aQuery = $gDb->prepare("INSERT INTO event (id, fk_competition, day, month, time, title, description, place, price, capacity, waiting_capacity, ghost) VALUES
+											   (".(is_numeric($theId) ? '?' : 'NULL').", ".(is_numeric($theEventInfo['fk_competition']) ? '?' : 'NULL').", ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 							ON DUPLICATE KEY UPDATE
-											   fk_competition = ".(is_numeric($theEventInfo['fk_competition']) ? '?' : 'NULL').", day = ?, month = ?, time = ?, title = ?, description = ?, place = ?, price = ?, capacity = ?, waiting_capacity = ?");
+											   fk_competition = ".(is_numeric($theEventInfo['fk_competition']) ? '?' : 'NULL').", day = ?, month = ?, time = ?, title = ?, description = ?, place = ?, price = ?, capacity = ?, waiting_capacity = ?, ghost = ?");
 	
 	$aPlaceholders = array();
 	
@@ -68,6 +68,7 @@ function eventUpdateOrCreate($theId, $theEventInfo) {
 	$aPlaceholders[] = $theEventInfo['price'];
 	$aPlaceholders[] = $theEventInfo['capacity'];
 	$aPlaceholders[] = $theEventInfo['waiting_capacity'];
+	$aPlaceholders[] = $theEventInfo['ghost'];
 	
 	if (is_numeric($theEventInfo['fk_competition'])) 	{ $aPlaceholders[] = $theEventInfo['fk_competition']; }
 
@@ -80,6 +81,7 @@ function eventUpdateOrCreate($theId, $theEventInfo) {
 	$aPlaceholders[] = $theEventInfo['price'];
 	$aPlaceholders[] = $theEventInfo['capacity'];
 	$aPlaceholders[] = $theEventInfo['waiting_capacity'];	
+	$aPlaceholders[] = $theEventInfo['ghost'];	
 	
 	$aRet = $aQuery->execute($aPlaceholders);
 	return $aRet;
