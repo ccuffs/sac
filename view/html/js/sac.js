@@ -1,6 +1,6 @@
 var SAC = new function() {
 	var changeAttending = function(theEventId, theAction) {
-		$('#panel-event-' + theEventId).html('<i class="fa fa-circle-o-notch fa-spin"></i> Carregando...');
+		$('#panel-event-' + theEventId).html('<i class="fa fa-circle-o-notch fa-spin"></i>');
 
 		$.ajax({
 		  type: 'POST',

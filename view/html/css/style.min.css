@@ -63,3 +63,4 @@ a:link,a:active,a:hover,a:visited{color:#000;}
 .form-group small{color:#929292;}
 .competition-page .row{margin-top:20px;}
 .team{height:490px;}
+#payment-panel{min-height:150px;}

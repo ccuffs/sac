@@ -10,8 +10,8 @@
 
 	echo '<div class="container">';
 		echo '<div class="row">';
-				echo '<div class="col-md-12">';
-					echo '<img src="'.View::baseUrl().'/img/sac.jpg" style="width: 100%; height: auto;" />';
+				echo '<div class="col-md-12" style="text-align: center;">';
+					echo '<img src="'.View::baseUrl().'/img/sac.jpg" style="width: 60%; height: auto;" />';
 				echo '</div>';
 		echo '</div>';
 	echo '</div>';
@@ -41,7 +41,7 @@
 									echo '<th style="width: 5%;">Vagas</th>';
 									
 									if($aData['authenticated']) {
-										echo '<th style="width: 10%;">Ações</th>';
+										echo '<th style="width: 10%; text-align: center;">Participar</th>';
 									}
 								echo '</thead>';
 								echo '<tbody>';
@@ -54,16 +54,16 @@
 											echo '<td>'.($aInfo['capacity'] != 0 ? $aInfo['capacity'] : '-').'</td>';
 											
 											if ($aData['authenticated']) {
-												echo '<td id="panel-event-'.$aIdEvent.'">';
+												echo '<td id="panel-event-'.$aIdEvent.'" style="text-align: center;">';
 													if (is_numeric($aInfo['fk_competition'])) {
-														echo '<a href="competition.php?competition='.$aInfo['fk_competition'].'">Saber mais</a> '.($aIsAdmin ? ' <a href="competition-manager.php?id='.$aInfo['fk_competition'].'"><i class="fa fa-edit"></i></a> ' : '');
+														echo '<a href="competition.php?competition='.$aInfo['fk_competition'].'"><i class="fa fa-info-circle"></i> Infos</a> '.($aIsAdmin ? ' <a href="competition-manager.php?id='.$aInfo['fk_competition'].'"><i class="fa fa-edit"></i></a> ' : '');
 														
 													} else {
 														if (isset($aAttending[$aIdEvent])) {
-															echo '<span class="label label-success">Inscrito</span>';
-															echo '<a href="#" onclick="SAC.unsubscribe('.$aIdEvent.')">[X]</a>';
+															echo '<span class="label label-success"><i class="fa fa-check-square"></i> Inscrito</span>';
+															echo ' <a href="#" onclick="SAC.unsubscribe('.$aIdEvent.')" title="Clique para remover sua inscrição dessa atividade."><i class="fa fa-remove"></i></a>';
 														} else {
-															echo '<a href="#" onclick="SAC.subscribe('.$aIdEvent.', '.($aInfo['capacity'] != 0 ? 'true' : 'false').')">[S]</a>';
+															echo '<a href="#" onclick="SAC.subscribe('.$aIdEvent.', '.($aInfo['capacity'] != 0 ? 'true' : 'false').')" title="Clique para se inscrever nessa atividade."><i class="fa fa-square-o"></i></a>';
 														}
 													}
 												echo '</td>';

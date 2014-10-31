@@ -310,3 +310,7 @@ a:visited {
 .team {
 	height: 490px;
 }
+
+#payment-panel {
+	min-height: 150px;
+}
