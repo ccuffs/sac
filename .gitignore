@@ -1,0 +1,8 @@
+
+/.buildpath
+/.project
+/.settings/org.eclipse.php.core.prefs
+/img/Thumbs.db
+/inc/config.local.php
+
+/testing/builder/config.local.php

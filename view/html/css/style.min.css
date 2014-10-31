@@ -1,0 +1,64 @@
+body{padding:0px;}
+.icone-ubuntu{background-image:url('../img/headers/ubuntu.png');}
+.icone-windows{background-image:url('../img/headers/windows.png');}
+.icone-sobre{background-image:url('../img/headers/robo.png');}
+.icone-guia{background-image:url('../img/headers/guia.png');}
+.icone-armazenamento{background-image:url('../img/headers/armazenamento.png');}
+.icone-senha{background-image:url('../img/headers/chave.png');}
+a:link,a:active,a:hover,a:visited{color:#000;}
+.navbar{margin-bottom:0px;}
+.code-tab{min-height:660px;overflow:auto;}
+.code-container{position:relative;width:100%;height:600px;}
+.code-editor-container{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;overflow:auto;}
+.challenge-tab{min-height:320px;}
+.challenge-tab small{color:#9f9f9f;}
+.pagination-block{margin-left:20px;text-align:left;}
+.bloco-desafios p{padding:10px;}
+.bloco-comentario-autor{float:right;}
+.markdown-panel{width:100%!important;margin-bottom:3px;}
+.review-work-info{background:#f9f9f9;padding:5px 0px 1px 10px;border:1px solid #cfcfcf;overflow:auto;margin-top:0;}
+.review-work-info li{float:left;margin-right:35px;list-style-type:none;}
+.review-work-info li:first-child{margin-top:10px;}
+.review-work-info li:last-child{float:right;margin-right:0;margin-top:-5px;}
+.review-work-info li p:last-child{font-weight:bold;font-size:1.8em;}
+.assignment-container h4{margin:50px 0 20px 0;}
+.assignment-container h4:first-child{margin:0px 0 20px 0;}
+.tabbable{width:100%;}
+.tabbable .CodeMirror{border:1px inset #dee;height:600px;width:100%;}
+.tab-pane h4{margin-top:25px;}
+.grade-info{float:right;width:120px;height:70px;font-weight:bold;position:relative;margin:1px 0;padding-top:20px;text-align:center;background-color:#fff;border:1px solid #ddd;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;}
+.grade-info strong{font-size:30px;font-weight:bold;}
+.grade-info input{width:50%;font-size:30px;text-align:center;}
+.grade-info-title{position:absolute;width:80px;top:-1px;left:-1px;text-align:center;font-size:12px;font-weight:bold;background-color:#f5f5f5;border:1px solid #ddd;color:#9da0a4;-webkit-border-radius:4px 0 4px 0;-moz-border-radius:4px 0 4px 0;border-radius:4px 0 4px 0;}
+.user-info img{float:left;width:40px;height:40px;margin-right:5px;}
+#info-overlay{display:none;position:fixed;bottom:20px;right:0;width:150px;background:#0f0f0f;border:solid 2px #000;color:#fff;font-size:11px;padding:5px;}
+.terminal-frame{width:100%;height:600px;border:0;}
+.jumbotron{background:#00733C;color:#fff;height:150px;margin:0px 0px 20px 0px;}
+.jumbotron-user-profile{background:#00733C;}
+.jumbotron-user-profile p{font-weight:normal;font-size:1.2em;}
+.jumbotron-user-profile img{width:130px;float:left;margin-right:15px;}
+.jumbotron .container{margin-top:-40px;}
+.competition{background:#000;}
+.jumbotron h1{font-size:50px;}
+.jumbotron-challenges{background-image:url('../img/heroes/hero_index.jpg');}
+.jumbotron-challenges-manager{background-image:url('../img/heroes/hero_index.jpg');}
+.jumbotron-review{background-image:url('../img/heroes/hero_index.jpg');}
+.jumbotron-oops{background-image:url('../img/heroes/hero_index.jpg');}
+.jumbotron-restricted{background-image:url('../img/heroes/hero_index.jpg');}
+.index-hero1 h2,.index-hero2 h2,.index-hero3 h2{font-size:20px;}
+.index-hero1{background:url('../img/icos/gear.png') no-repeat center -10px;padding-top:90px;text-align:center;}
+.index-hero2{background:url('../img/icos/document.png') no-repeat center -10px;padding-top:90px;text-align:center;}
+.index-hero3{background:url('../img/icos/chat.png') no-repeat center -10px;padding-top:90px;text-align:center;}
+.featurette-divider{margin:10px 0 20px 0;}
+.featurette{padding-top:20px;overflow:hidden;}
+.featurette-image{margin-top:10px;padding:10px 0 0 20px;width:420px;height:auto;}
+.featurette-image.pull-left{margin-right:10px;}
+.featurette-image.pull-right{margin-left:10px;}
+.featurette-heading{font-size:50px;font-weight:200;line-height:1;letter-spacing:-5px;}
+.featurette .lead{font-size:17px;line-height:1.5;}
+.footer p{float:left;font-size:12px;color:#9f9f9f;}
+.footer img{float:right;margin-left:20px;}
+.CodeMirror{border:2px inset #dee;height:600px!important;}
+.form-group small{color:#929292;}
+.competition-page .row{margin-top:20px;}
+.team{height:490px;}
