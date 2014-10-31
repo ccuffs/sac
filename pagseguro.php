@@ -32,7 +32,6 @@
 		$strType = $notificationType->getTypeFromValue();
 
 		switch ($strType) {
-
 			case 'TRANSACTION':
 				transactionNotification($code);
 				break;
@@ -40,8 +39,6 @@
 			default:
 				paymentLog("Unknown notification type [" . $notificationType->getValue() . "] " . print_r($_POST, true));
 		}
-
-		self::printLog($strType);
 
 	} else {
 		paymentLog('Invalid notification parameters. ' . print_r($_POST, true));
