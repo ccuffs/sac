@@ -5,6 +5,8 @@
 	authAllowAuthenticated();
 	
 	$aUser 		= authGetAuthenticatedUserInfo();
+	$aUser 		= userGetById($aUser['id']);
+	
 	$aMustPay 	= attendingCalculateUserDept($aUser['id']) + CONFERENCE_PRICE;
 	$aCredit 	= paymentCalculateUserCredit($aUser['id']);
 	$aDebit		= $aMustPay - $aCredit;
@@ -28,7 +30,7 @@
 	$paymentRequest->setCurrency("BRL");
 
 	// Add an item for this payment request
-	$aProduto = $_REQUEST['id'] == 2 ? 'Inscrição de Time - Campeonato CS:GO' : 'Inscrição Semana Academica Computacao (2014) - UFFS';
+	$aProduto = @$_REQUEST['id'] == 2 ? 'Inscrição de Time - Campeonato CS:GO' : 'Inscrição Semana Academica Computacao (2014) - UFFS';
 	$paymentRequest->addItem('0001', $aProduto, 1, $aDebit);
 
 	// Set a reference code for this payment request. It is useful to identify this payment

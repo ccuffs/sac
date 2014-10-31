@@ -46,4 +46,6 @@
 	} else {
 		paymentLog('Invalid notification parameters. ' . print_r($_POST, true));
 	}
+	
+	echo 'Lost anything? :)';
 ?>

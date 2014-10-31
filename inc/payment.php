@@ -64,7 +64,7 @@ function paymentCreate($theUserId, $theAmount) {
 function paymentUpdateStatus($theId, $theStatus) {
 	global $gDb;
 	
-	$aQuery = $gDb->prepare("UPDATE payment SET status = ?, comment = CONCAT(comment, '?') WHERE id = ?");
+	$aQuery = $gDb->prepare("UPDATE payment SET status = ?, comment = CONCAT(comment, ?) WHERE id = ?");
 	return $aQuery->execute(array($theStatus, $theStatus . '('.time().'), ', $theId));
 }
 
