@@ -83,7 +83,7 @@
 													echo '<select name="member'.$i.'">';
 														echo '<option value=""></option>';
 														foreach($aCompetitors as $aIdUser => $aUser) {
-															echo '<option value="'.$aIdUser.'" '.($aTeam['members'][$i] == $aIdUser ? 'selected="selected"' : '').'>'.utilOut($aUser['name']).'</option>';
+															echo '<option value="'.$aIdUser.'" '.(@$aTeam['members'][$i] == $aIdUser ? 'selected="selected"' : '').'>'.utilOut($aUser['name']).'</option>';
 														}
 													echo '</select>';
 												echo '</td>';
@@ -106,7 +106,10 @@
 			$aCount = count($aTeams);
 			
 			if ($aCount == 0) {
-				echo 'Não há times cadastrados no momento.';
+				echo '<div class="col-md-12">';
+					echo 'Não há times cadastrados no momento.';
+				echo '</div>';
+				
 			} else {
 				foreach($aTeams as $aIdTeam => $aInfoTeam) {
 					echo '<div class="col-md-3">';
