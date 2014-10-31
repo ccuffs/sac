@@ -23,6 +23,7 @@
 	}
 
 	$aData['authenticated'] = $aAuthenticated;
+	$aData['isAdmin'] = userIsLevel($aUser, USER_LEVEL_ADMIN);
 	
 	View::render('index', $aData);
 ?>

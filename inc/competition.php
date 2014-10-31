@@ -16,6 +16,21 @@ function competitionGetById($theId) {
 	return $aRet;
 }
 
+function competitionFindAll() {
+	global $gDb;
+	
+	$aRet = array();
+	$aQuery = $gDb->prepare("SELECT * FROM competition WHERE 1");
+	
+	if ($aQuery->execute()) {
+		while ($aRow = $aQuery->fetch()) {
+			$aRet[$aRow['id']] = $aRow;
+		}
+	}
+	
+	return $aRet;
+}
+
 function competitionFindTeams($theCompetitionId) {
 	global $gDb;
 	

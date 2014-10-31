@@ -45,4 +45,44 @@ function eventFindByUserIsAttending($theUserId) {
 	return $aRet;
 }
 
+function eventUpdateOrCreate($theId, $theEventInfo) {
+	global $gDb;
+	
+	$aRet 	= false;
+	$aQuery = $gDb->prepare("INSERT INTO event (id, fk_competition, day, month, time, title, description, place, price, capacity, waiting_capacity) VALUES
+											   (".(is_numeric($theId) ? '?' : 'NULL').", ".(is_numeric($theEventInfo['fk_competition']) ? '?' : 'NULL').", ?, ?, ?, ?, ?, ?, ?, ?, ?)
+							ON DUPLICATE KEY UPDATE
+											   fk_competition = ".(is_numeric($theEventInfo['fk_competition']) ? '?' : 'NULL').", day = ?, month = ?, time = ?, title = ?, description = ?, place = ?, price = ?, capacity = ?, waiting_capacity = ?");
+	
+	$aPlaceholders = array();
+	
+	if (is_numeric($theId)) 							{ $aPlaceholders[] = $theId; }
+	if (is_numeric($theEventInfo['fk_competition'])) 	{ $aPlaceholders[] = $theEventInfo['fk_competition']; }
+	
+	$aPlaceholders[] = $theEventInfo['day'];
+	$aPlaceholders[] = $theEventInfo['month'];
+	$aPlaceholders[] = $theEventInfo['time'];
+	$aPlaceholders[] = $theEventInfo['title'];
+	$aPlaceholders[] = $theEventInfo['description'];
+	$aPlaceholders[] = $theEventInfo['place'];
+	$aPlaceholders[] = $theEventInfo['price'];
+	$aPlaceholders[] = $theEventInfo['capacity'];
+	$aPlaceholders[] = $theEventInfo['waiting_capacity'];
+	
+	if (is_numeric($theEventInfo['fk_competition'])) 	{ $aPlaceholders[] = $theEventInfo['fk_competition']; }
+
+	$aPlaceholders[] = $theEventInfo['day'];
+	$aPlaceholders[] = $theEventInfo['month'];
+	$aPlaceholders[] = $theEventInfo['time'];
+	$aPlaceholders[] = $theEventInfo['title'];
+	$aPlaceholders[] = $theEventInfo['description'];
+	$aPlaceholders[] = $theEventInfo['place'];
+	$aPlaceholders[] = $theEventInfo['price'];
+	$aPlaceholders[] = $theEventInfo['capacity'];
+	$aPlaceholders[] = $theEventInfo['waiting_capacity'];	
+	
+	$aRet = $aQuery->execute($aPlaceholders);
+	return $aRet;
+}
+
 ?>

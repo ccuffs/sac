@@ -42,11 +42,12 @@ function layoutAdminNavBar($theUserInfo) {
 		echo '<li class="dropdown">';
 			echo '<a class="dropdown-toggle" data-toggle="dropdown" href="#">Ações <b class="caret"></b></a>';
 			echo '<ul class="dropdown-menu" role="menu">';
-				echo '<li role="presentation" class="dropdown-header">Pagamentos</li>';
-				echo '<li><a href="challenges-manager.php">Listar</a></li>';
+				//echo '<li role="presentation" class="dropdown-header">Eventos</li>';
+				echo '<li><a href="event-manager.php">Criar evento</a></li>';
+				echo '<li><a href="event-manager.php">Criar campeonato</a></li>';
 				
-				echo '<li class="divider"></li>';
-				echo '<li role="presentation" class="dropdown-header">Inscrições</li>';
+				//echo '<li class="divider"></li>';
+				//echo '<li role="presentation" class="dropdown-header">Inscrições</li>';
 				echo '<li><a href="challenges-manager.php?assignment=true">Listar</a></li>';
 			echo '</ul>';
 		echo '</li>';

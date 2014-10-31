@@ -6,6 +6,7 @@
 	$aData 			= View::data();
 	$aEvents 		= $aData['events'];
 	$aAttending 	= $aData['authenticated'] ? $aData['attending'] : array();
+	$aIsAdmin 		= $aData['isAdmin'];
 
 	echo '<div class="jumbotron">';
 		echo '<div class="container">';
@@ -22,7 +23,7 @@
 			echo '</div>';
 		echo '</div>';
 	}
-	
+
 	echo '<div class="container">';
 		echo '<div class="row">';
 			echo '<div class="col-md-12">';
@@ -46,7 +47,7 @@
 									foreach($aList as $aIdEvent => $aInfo) {
 										echo '<tr>';
 											echo '<td>'.$aInfo['time'].'</td>';
-											echo '<td><strong>'.$aInfo['title'].'</strong><br/>'.$aInfo['description'].'</td>';
+											echo '<td><strong>'.$aInfo['title'].'</strong>'.($aIsAdmin ? ' <a href="event-manager.php?id='.$aIdEvent.'"><i class="fa fa-edit"></i></a> ' : '').'<br/>'.$aInfo['description'].'</td>';
 											echo '<td>'.$aInfo['place'].'</td>';
 											echo '<td>'.($aInfo['price'] > 0 ? 'R$ ' . $aInfo['price'] : '-').'</td>';
 											echo '<td>'.($aInfo['capacity'] != 0 ? $aInfo['capacity'] : '-').'</td>';
