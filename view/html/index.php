@@ -55,7 +55,7 @@
 											if ($aData['authenticated']) {
 												echo '<td id="panel-event-'.$aIdEvent.'">';
 													if (is_numeric($aInfo['fk_competition'])) {
-														echo '<a href="competition.php?competition='.$aInfo['fk_competition'].'">Saber mais</a>';
+														echo '<a href="competition.php?competition='.$aInfo['fk_competition'].'">Saber mais</a> '.($aIsAdmin ? ' <a href="competition-manager.php?id='.$aInfo['fk_competition'].'"><i class="fa fa-edit"></i></a> ' : '');
 														
 													} else {
 														if (isset($aAttending[$aIdEvent])) {

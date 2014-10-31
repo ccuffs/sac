@@ -88,4 +88,35 @@ function competitionUpdateOrCreateTeam($theCompetitionId, $theTeamId, $theTeamIn
 	return $aRet;
 }
 
+function competitionUpdateOrCreate($theCompetitionId, $theCompetitionInfo) {
+	global $gDb;
+	
+	$aRet 	= false;
+	$aQuery = $gDb->prepare("INSERT INTO competition (id, title, headline, description, prizes, rules, style) VALUES (".(is_numeric($theCompetitionId) ? '?' : 'NULL').", ?, ?, ?, ?, ?, ?)
+							ON DUPLICATE KEY UPDATE title = ?, headline = ?, description = ?, prizes = ?, rules = ?, style = ?");
+	
+	$aPlaceholders = array();
+	
+	if (is_numeric($theCompetitionId)) {
+		$aPlaceholders[] = $theCompetitionId;
+	}
+	
+	$aPlaceholders[] = $theCompetitionInfo['title'];
+	$aPlaceholders[] = $theCompetitionInfo['headline'];
+	$aPlaceholders[] = $theCompetitionInfo['description'];
+	$aPlaceholders[] = $theCompetitionInfo['prizes'];
+	$aPlaceholders[] = $theCompetitionInfo['rules'];
+	$aPlaceholders[] = $theCompetitionInfo['style'];
+	
+	$aPlaceholders[] = $theCompetitionInfo['title'];
+	$aPlaceholders[] = $theCompetitionInfo['headline'];
+	$aPlaceholders[] = $theCompetitionInfo['description'];
+	$aPlaceholders[] = $theCompetitionInfo['prizes'];
+	$aPlaceholders[] = $theCompetitionInfo['rules'];
+	$aPlaceholders[] = $theCompetitionInfo['style'];
+
+	$aRet = $aQuery->execute($aPlaceholders);
+	return $aRet;
+}
+
 ?>
