@@ -18,7 +18,7 @@ switch($aAction) {
 			try {
 				attendingAdd($aUser['id'], $aEvent['id'], 0);
 				$aRet = '<span class="label label-success"><i class="fa fa-check-square"></i> Inscrito</span>';
-				$aRet .= ' <a href="#" onclick="SAC.unsubscribe('.$aEventId.')" title="Clique para remover sua inscrição dessa atividade."><i class="fa fa-remove"></i></a>';
+				$aRet .= ' <a href="javascript:void(0);" onclick="SAC.unsubscribe('.$aEventId.')" title="Clique para remover sua inscrição dessa atividade."><i class="fa fa-remove"></i></a>';
 				
 			} catch(Exception $aError) {
 				$aRet = 'Oops! ' . $aError->getMessage();
@@ -36,7 +36,7 @@ switch($aAction) {
 		if ($aEvent != null) {
 			try {
 				attendingRemove($aUser['id'], $aEvent['id'], 0);
-				$aRet = '<a href="#" onclick="SAC.subscribe('.$aEventId.', '.($aEvent['capacity'] != 0 ? 'true' : 'false').')" title="Clique para se inscrever nessa atividade."><i class="fa fa-square-o"></i></a>';
+				$aRet = '<a href="javascript:void(0);" onclick="SAC.subscribe('.$aEventId.', '.($aEvent['capacity'] != 0 ? 'true' : 'false').')" title="Clique para se inscrever nessa atividade."><i class="fa fa-square-o"></i></a>';
 				
 			} catch(Exception $aError) {
 				$aRet = 'Oops! ' . $aError->getMessage();

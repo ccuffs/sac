@@ -7,11 +7,14 @@
 	$aTeam					= null;
 	$aCompetitors			= null;
 	$aUser					= null;
+	$aIsAdmin				= false;
 	
 	if($aAuthenticated) {
 		$aUser				= authGetAuthenticatedUserInfo();
 		$aTeam				= competitionFindTeamByLeaderId($aId, $aUser['id']);
 		$aCompetitors		= userFindAll();
+		
+		$aIsAdmin 			= userIsLevel($aUser, USER_LEVEL_ADMIN);
 	}
 	
 	if (isset($_REQUEST['register']) && $aComptetition != null && $aAuthenticated && $aUser != null) {
@@ -36,5 +39,6 @@
 		'team' 				=> $aTeam,
 		'competitors' 		=> $aCompetitors,
 		'authenticated'		=> $aAuthenticated,
+		'isAdmin'			=> $aIsAdmin,
 	));
 ?>

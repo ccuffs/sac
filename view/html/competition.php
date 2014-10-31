@@ -9,6 +9,7 @@
 	$aTeam			= $aData['team'];
 	$aAuthenticated	= $aData['authenticated'];
 	$aCompetitors	= $aData['competitors'];
+	$aIsAdmin		= $aData['isAdmin'];
 	
 	echo '<div class="jumbotron competition">';
 		echo '<div class="container" style="'.$aCompetition['style'].'">';
@@ -18,19 +19,31 @@
 	echo '</div>';
 	
 	echo '<div class="container competition-page">';
-		echo '<div class="row">';
-			echo '<div class="col-md-12">';
-				echo '<h2>Descrição</h2>';
-				echo $aCompetition['description'];
+		if ($aIsAdmin) {
+			echo '<div class="row">';
+				echo '<div class="col-md-12">';
+					echo '<a href="competition-manager.php?id='.$aCompetition['id'].'" class=" pull-right"><i class="fa fa-edit"></i> Editar competição</a>';
+				echo '</div>';
 			echo '</div>';
-		echo '</div>';
+		}
+	
+		if($aCompetition['description'] != '') {
+			echo '<div class="row">';
+				echo '<div class="col-md-12">';
+					echo '<h2>Descrição</h2>';
+					echo $aCompetition['description'];
+				echo '</div>';
+			echo '</div>';
+		}
 
-		echo '<div class="row">';
-			echo '<div class="col-md-12">';
-				echo '<h2>Premiação</h2>';
-				echo $aCompetition['prizes'];
+		if($aCompetition['prizes'] != '') {
+			echo '<div class="row">';
+				echo '<div class="col-md-12">';
+					echo '<h2>Premiação</h2>';
+					echo $aCompetition['prizes'];
+				echo '</div>';
 			echo '</div>';
-		echo '</div>';
+		}
 		
 		echo '<div class="row">';
 			echo '<div class="col-md-12">';
@@ -120,12 +133,14 @@
 			}
 		echo '</div>';
 		
-		echo '<div class="row">';
-			echo '<div class="col-md-12">';
-				echo '<h2>Regulamento</h2>';
-				echo $aCompetition['rules'];
+		if($aCompetition['rules'] != '') {
+			echo '<div class="row">';
+				echo '<div class="col-md-12">';
+					echo '<h2>Regulamento</h2>';
+					echo $aCompetition['rules'];
+				echo '</div>';
 			echo '</div>';
-		echo '</div>';
+		}
 	echo '</div>';
 	
 	layoutFooter(View::baseUrl());

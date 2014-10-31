@@ -89,7 +89,7 @@
 			echo '<div class="col-md-3"></div>';
 			echo '<div class="col-md-5">';
 				echo '<div class="alert alert-warning" role="alert"><strong>*OBS:</strong> Se você é aluno/professor da UFFS, use sua senha do <strong>Moodle</strong> para efetuar login.</div>';
-				echo '<p>Em caso de problemas com o cadastro ou senha, escreva para <strong><a href="mailto:cacomputacao@gmail.com">cacomputacao@gmail.com</a></strong>.</p>';
+				echo '<p>Em caso de problemas com o cadastro ou senha, escreva para <strong><a href="mailto:cacomputacaouffs@gmail.com">cacomputacao@gmail.com</a></strong>.</p>';
 			echo '</div>';
 		echo '</div>';			
 	echo '</div>';		
