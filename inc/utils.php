@@ -15,7 +15,7 @@ function utilMonthToString($theMonth) {
 		11 => 'Novembro',
 		12 => 'Dezembro'
 	);
-	return $aMonths[$theMonth];
+	return isset($aMonths[$theMonth]) ? $aMonths[$theMonth] : '?';
 }
 
 function utilOut($theScript) {
