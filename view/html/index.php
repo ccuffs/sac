@@ -1,7 +1,7 @@
 <?php 
 	require_once dirname(__FILE__).'/layout.php';
 	
-	layoutHeader('Start', View::baseUrl());
+	layoutHeader('Programação', View::baseUrl());
 	
 	$aData 			= View::data();
 	$aEvents 		= $aData['events'];

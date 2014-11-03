@@ -3,9 +3,11 @@
 
 	layoutHeader('Restrito', View::baseUrl());
 	
-	echo '<div class="hero-unit">';
-		echo '<h1>Restrito!</h1>';
-		echo '<p>Você não tem permissão para acessar a página solicitada.</p>';
+	echo '<div class="jumbotron">';
+		echo '<div class="container">';
+			echo '<h1>Restrito!</h1>';
+			echo '<p>Você não tem permissão para acessar a página solicitada.</p>';
+		echo '</div>';
 	echo '</div>';
 
 	echo '<div class="row">';

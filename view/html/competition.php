@@ -1,7 +1,7 @@
 <?php 
 	require_once dirname(__FILE__).'/layout.php';
 	
-	layoutHeader('Login', View::baseUrl());
+	layoutHeader('Campeonato', View::baseUrl());
 	
 	$aData 			= View::data();
 	$aCompetition	= $aData['competition'];

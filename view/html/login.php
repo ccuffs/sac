@@ -1,8 +1,6 @@
 <?php 
 	require_once dirname(__FILE__).'/layout.php';
 	
-	layoutHeader('Login', View::baseUrl());
-	
 	$aData 			= View::data();
 	$aUser			= $aData['user'];
 	$aUffs			= $aData['uffs'];
@@ -11,6 +9,8 @@
 	$aPassworde		= $aData['passworde'];
 	$aPassword		= $aData['password'];
 	$aIsLogin		= $aData['isLogin'];
+	
+	layoutHeader($aIsLogin ? 'Login' : 'Inscrição', View::baseUrl());
 	
 	echo '<div class="jumbotron">';
 		echo '<div class="container">';

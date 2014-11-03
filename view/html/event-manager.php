@@ -5,7 +5,7 @@
 	$aUser 	= $aData['user'];
 	$aEvent = $aData['event'];
 		
-	layoutHeader('Editor de desafios', View::baseUrl());
+	layoutHeader('Editor de atividade', View::baseUrl());
 	
 	echo '<div class="jumbotron">';
 		echo '<div class="container">';

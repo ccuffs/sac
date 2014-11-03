@@ -82,7 +82,7 @@ function layoutHeader($theTitle, $theBaseUrl = '.') {
 	echo '<html lang="en">';
 	echo '<head>';
 		echo '<meta charset="utf-8">';
-		echo '<title>'.(empty($theTitle) ? '' : $theTitle).' | Codebot</title>';
+		echo '<title>'.(empty($theTitle) ? '' : $theTitle).' | Semana Acadêmica Ciência da Computação - 17 a 21 de outubro de 2014</title>';
 		echo '<meta name="description" content="">';
 		echo '<meta name="author" content="">';
 		
