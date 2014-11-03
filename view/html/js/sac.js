@@ -26,6 +26,12 @@ var SAC = new function() {
 		changeAttending(theEventId, 'unsubscribe');
 	};
 	
+	this.deleteEvent = function(theEventId) {
+		if(confirm('Deseja mesmo apagar esse evento?')) {
+			document.location = 'event-manager.php?delete=' + theEventId;
+		}
+	}
+	
 	this.loadPaymentInfo = function(theContainerId) {
 		$('#' + theContainerId).html('<i class="fa fa-circle-o-notch fa-spin"></i> Carregando informações sobre pagamentos...');
 

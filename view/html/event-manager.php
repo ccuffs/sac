@@ -18,13 +18,13 @@
 	
 	if (isset($aData['createdOrUpdated'])) {
 		if ($aData['createdOrUpdated'] == true) {
-			echo '<div class="alert alert-success"><strong>Tudo certo!</strong> Evento alterado com sucesso!</div>';
+			echo '<div class="alert alert-success"><strong>Tudo certo!</strong> Operação realizada com sucesso!</div>';
 			
 		} else {
 			echo '<div class="alert alert-danger"><strong>Oops!</strong> Alguma coisa saiu errada.</div>';
 		}
 	}
-
+	
 	echo '<form action="event-manager.php" method="post" name="formEvent" id="formEvent">';
 		echo '<div class="row">';
 			echo '<div class="col-md-8">';
@@ -121,8 +121,11 @@
 		echo '</div>';
 		
 		echo '<div class="row" style="margin-top: 15px;">';
-			echo '<div class="col-md-12">';
+			echo '<div class="col-md-7">';
 				echo '<input type="submit" name="submit" value="Salvar" class="btn btn-success" />';
+			echo '</div>';
+			echo '<div class="col-md-1">';
+				echo '<a href="javascript:void(0);" onclick="SAC.deleteEvent('.@$aEvent['id'].');" class="btn btn-danger" style="color: white;" />Apagar</a>';
 			echo '</div>';
 		echo '</div>';
 	echo '</form>';

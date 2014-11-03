@@ -91,7 +91,8 @@ function layoutHeader($theTitle, $theBaseUrl = '.') {
 		echo '<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>';
 		echo '<![endif]-->';
 		
-		$aRandURLs = DEBUG_MODE ? '?'.rand(20, 9999) : '';
+		$aRandURLs = '?20141103';
+		$aRandURLs .= DEBUG_MODE ? rand(20, 9999) : '';
 		
 		echo '<!-- Le styles -->';
 		echo '<link href="'.$theBaseUrl.'/css/bootstrap.css" rel="stylesheet">';

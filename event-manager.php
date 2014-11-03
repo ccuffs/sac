@@ -9,6 +9,7 @@
 	$aEventId 	= isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
 	
 	$aData['user'] = $aUser;
+	$aData['event'] = array();
 	
 	if (!$aIsAdmin) {
 		header("Location: restricted.php");
@@ -16,11 +17,17 @@
 	}
 	
 	if (isset($_POST['hasValue'])) {
-		$aData['createdOrUpdated'] 	= eventUpdateOrCreate($aEventId, $_POST);
+		$aData['createdOrUpdated'] = eventUpdateOrCreate($aEventId, $_POST);
+	}
+
+	if (isset($_REQUEST['delete'])) {
+		$aData['createdOrUpdated'] = eventDelete($_REQUEST['delete']);
+		
+	} else {
+		$aData['event'] = eventGetById($aEventId);	
 	}
 	
-	$aData['event'] = eventGetById($aEventId);
 	$aData['competitions'] = competitionFindAll();
-	
+
 	View::render('event-manager', $aData);
 ?>

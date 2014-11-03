@@ -15,6 +15,13 @@ function eventGetById($theId) {
 	return $aRet;
 }
 
+function eventDelete($theId) {
+	global $gDb;
+	
+	$aQuery = $gDb->prepare("DELETE FROM event WHERE id = ?");
+	return $aQuery->execute(array($theId));
+}
+
 function eventFindAll() {
 	global $gDb;
 	
