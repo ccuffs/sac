@@ -48,7 +48,7 @@ function layoutAdminNavBar($theUserInfo) {
 				
 				echo '<li class="divider"></li>';
 				echo '<li role="presentation" class="dropdown-header">Inscrições</li>';
-				echo '<li><a href="challenges-manager.php?assignment=true">Listar</a></li>';
+				echo '<li><a href="registrations.php">Listar</a></li>';
 			echo '</ul>';
 		echo '</li>';
 	echo '</ul>';

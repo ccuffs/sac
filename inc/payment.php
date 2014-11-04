@@ -80,4 +80,30 @@ function paymentLog($theText) {
 	return $aQuery->execute(array(time(), $theText));
 }
 
+function paymentFindUsersWithPaidCredit() {
+	global $gDb;
+	
+	$aRet = array();
+	$aQuery = $gDb->prepare("
+		SELECT
+			u.id, SUM(p.amount) AS paid_amount
+		FROM
+			users AS u
+		JOIN
+			payment AS p ON u.id = p.fk_user
+		WHERE 
+			u.id > 0 AND (p.status = 3 OR p.status = 4)
+		GROUP BY
+			u.id
+	");
+	
+	if ($aQuery->execute()) {
+		while ($aRow = $aQuery->fetch()) {
+			$aRet[$aRow['id']] = $aRow['paid_amount'];
+		}
+	}
+	
+	return $aRet;
+}
+
 ?>

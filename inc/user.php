@@ -23,7 +23,7 @@ function userFindAll() {
 	global $gDb;
 	
 	$aRet = array();
-	$aQuery = $gDb->prepare("SELECT id, name FROM users WHERE 1");
+	$aQuery = $gDb->prepare("SELECT id, login, name, email, type FROM users WHERE 1");
 	
 	if ($aQuery->execute()) {	
 		while ($aRow = $aQuery->fetch()) {

@@ -315,3 +315,13 @@ a:visited {
 	margin-top: 20px;
 	min-height: 150px;
 }
+
+.dashboard-registration p {
+	float: left;
+	margin-right: 10%;
+}
+
+.dashboard-registration p strong {
+	font-size: 3em;
+	font-weight: bolder;
+}
