@@ -91,11 +91,12 @@
 				echo '</div>';
 		echo '</div>';
 		echo '<div class="row">';
+			echo '<div class="col-md-2">';
+				echo '<a href="http://cc.uffs.edu.br" target="_blank"><img src="'.View::baseUrl().'/img/ca.png" style="width: 100%; height: auto;" border="0" /></a>';
+				echo '<a href="http://cc.uffs.edu.br" target="_blank"><img src="'.View::baseUrl().'/img/logo_cc.png" style="width: 100%; height: auto; margin-top: 25px;" border="0" /></a>';
+			echo '</div>';
 			echo '<div class="col-md-1">';
 				echo '<a href="http://www.uffs.edu.br" target="_blank"><img src="'.View::baseUrl().'/img/uffs.png" style="width: 100%; height: auto;" border="0" /></a>';
-			echo '</div>';
-			echo '<div class="col-md-2">';
-				echo '<a href="http://cc.uffs.edu.br" target="_blank"><img src="'.View::baseUrl().'/img/logo_cc.png" style="width: 100%; height: auto; margin-top: 25px;" border="0" /></a>';
 			echo '</div>';
 			echo '<div class="col-md-1">';
 			echo '</div>';
