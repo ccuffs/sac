@@ -13,3 +13,4 @@ a[href]:after{content:none!important;}
 .logo-gambdias{width:180px!important;height:auto;}
 .logo-fronteiratec{width:180px!important;height:auto;}
 footer img{display:none;}
+div{page-break-inside:avoid;}

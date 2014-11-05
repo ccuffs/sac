@@ -69,3 +69,7 @@ a[href]:after {
 footer img {
 	display: none;
 }
+
+div {
+	page-break-inside: avoid;
+}
