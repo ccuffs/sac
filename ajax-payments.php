@@ -14,13 +14,10 @@ $aData['payments'] 			= paymentFindByUser($aUser['id']);
 $aData['showPayButton']		= $aDebit > 0;
 $aData['noDept']			= $aDebit <= 0;
 
-$aPaymentIsBeingAnalyzed = false;
+$aPaymentIsBeingAnalyzed = true;
 
 foreach($aData['payments'] as $aId => $aPayment) {
-	if (paymentIsBeingAnalyzed($aPayment)) {
-		$aPaymentIsBeingAnalyzed = true;
-		break;
-	}
+	$aPaymentIsBeingAnalyzed = false;
 }
 
 $aData['beingAnalyzed'] = $aPaymentIsBeingAnalyzed;

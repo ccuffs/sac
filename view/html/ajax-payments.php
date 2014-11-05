@@ -16,11 +16,9 @@ if($aData['noDept']) {
 	
 } else if ($aData['beingAnalyzed']) {
 	echo '<div class="alert alert-warning" role="alert">';
-		echo '<strong>Pagamento em andamento!</strong><br/><br/> Estamos aguardando o seu pagamento ou ele está sendo analisado pela organização. <br/>';
+		echo '<strong>Inscrição em andamento!</strong><br/>O valor que você terá que pagar para a inscrição está sendo analisado pela organização. Por favor, aguarde até que ele seja definido.<br/>';
 		
 		if (isset($aPayments)) {
-			echo 'Abaixo estão seus pagamentos e o status de cada um: <br/><br/>';
-			
 			foreach($aPayments as $aId => $aInfo) {
 				echo '<i class="fa fa-calendar"></i> ' . date('d/m/Y').' ';
 				echo '<strong> &nbsp;&nbsp;&nbsp;&nbsp; R$ ';
@@ -28,8 +26,6 @@ if($aData['noDept']) {
 				echo '</strong> &nbsp;&nbsp;&nbsp;&nbsp; <em> '.paymentStatusToString($aInfo['status']).'</em>.<br/>';
 			}
 		}
-		echo '<br/>';
-		echo '<button onclick="window.location=\'pay.php\'" class="btn btn-warning" style="position: absolute; top: 20px; right: 30px;">Pagar com PagSeguro</button>';
 	echo '</div>';
 } else {
 	echo '<div class="alert alert-danger" role="alert">';
