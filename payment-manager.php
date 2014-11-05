@@ -7,8 +7,6 @@
 	$aUser 			= userGetById($_SESSION['user']['id']);
 	$aIsAdmin 		= userIsLevel($aUser, USER_LEVEL_ADMIN);
 	
-	$aData['user'] = $aUser;
-	
 	if (!$aIsAdmin) {
 		header("Location: restricted.php");
 		exit();
@@ -16,6 +14,12 @@
 	
 	if (isset($_POST['hasValue'])) {
 		$aData['createdOrUpdated'] 	= paymentCreate($_REQUEST['fk_user'], $_REQUEST['amount'], $_REQUEST['comment']);
+		
+		if ($aData['createdOrUpdated']) {
+			$aUser 	= userGetById($_REQUEST['fk_user']);
+			$aHeaders = 'From: sac@cc.uffs.edu.br' . "\r\n" . 'Reply-To: cacomputacaouffs@gmail.com';
+			mail($aUser['email'], 'Pagamento validado - Semana Academica CC UFFS', "Olá\n\nSeu pagamento de R$ ".sprintf('%.2f', $_REQUEST['amount'])." foi validado pela organização.\n\nAtenciosamente,\nOrganização 3ª Semana Acadêmica da Computaçao - UFFS");
+		}
 	}
 	
 	if (isset($_REQUEST['delete'])) {

@@ -36,9 +36,17 @@ if($aData['noDept']) {
 		echo '<strong>Inscrição pendente!</strong><br/>';
 		echo 'Sua inscrição ainda não foi paga. Você precisa pagar <strong>R$ ';
 		printf('%.2f', $aDept);
-		echo '</strong> para participar do evento.';
+		echo '</strong> para participar do evento. ';
 		
-		echo '<button onclick="window.location=\'pay.php\'" class="btn btn-danger" style="position: absolute; top: 20px; right: 30px;">Pagar com PagSeguro</button>';
+		echo 'Abaixo estão os dados da conta para pagamento: <br/><br/>';
+		echo '<strong>';
+			echo 'Banco do Brasil <br/>';
+			echo 'Agência: 3004-X<br/>';
+			echo 'Conta: 21.680-1<br/>';
+			echo 'Titular: Doglas André Finco<br/>';
+		echo '</strong><br/>';
+		
+		echo 'O pagamento também pode ser feito em mãos com os seguintes representantes do CA: <strong>Aline Menin, Doglas André Finco, Dinara Rigon ou Mario Urlich</strong>.<br/>';
 	echo '</div>';
 }
 
