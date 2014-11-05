@@ -11,7 +11,7 @@
 	echo '<div class="container schedule">';
 		echo '<div class="row">';
 				echo '<div class="col-md-12" style="text-align: center;">';
-					echo '<img src="'.View::baseUrl().'/img/sac.jpg" />';
+					echo '<img src="'.View::baseUrl().'/img/sac.png" />';
 				echo '</div>';
 		echo '</div>';
 	echo '</div>';
