@@ -1,10 +1,4 @@
 body{padding:0px;}
-.icone-ubuntu{background-image:url('../img/headers/ubuntu.png');}
-.icone-windows{background-image:url('../img/headers/windows.png');}
-.icone-sobre{background-image:url('../img/headers/robo.png');}
-.icone-guia{background-image:url('../img/headers/guia.png');}
-.icone-armazenamento{background-image:url('../img/headers/armazenamento.png');}
-.icone-senha{background-image:url('../img/headers/chave.png');}
 a:link,a:active,a:hover,a:visited{color:#000;}
 .navbar{margin-bottom:0px;}
 .code-tab{min-height:660px;overflow:auto;}
@@ -66,3 +60,10 @@ a:link,a:active,a:hover,a:visited{color:#000;}
 #payment-panel{margin-top:20px;min-height:150px;}
 .dashboard-registration p{float:left;margin-right:10%;}
 .dashboard-registration p strong{font-size:3em;font-weight:bolder;}
+.schedule img{width:60%;height:auto;}
+.event-schedule thead th:nth-child(1){width:10%;}
+.event-schedule thead th:nth-child(2){width:55%;}
+.event-schedule thead th:nth-child(3),.event-schedule thead th:nth-child(4){width:10%;}
+.event-schedule thead th:nth-child(5){width:5%;}
+.event-schedule thead th:nth-child(6){width:10%;}
+.footer-partners img{width:100%;height:auto;margin-top:30px;}

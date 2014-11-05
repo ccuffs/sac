@@ -96,12 +96,13 @@ function layoutHeader($theTitle, $theBaseUrl = '.') {
 		echo '<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>';
 		echo '<![endif]-->';
 		
-		$aRandURLs = '?20141103';
+		$aRandURLs = '?20141105';
 		$aRandURLs .= DEBUG_MODE ? rand(20, 9999) : '';
 		
 		echo '<!-- Le styles -->';
 		echo '<link href="'.$theBaseUrl.'/css/bootstrap.css" rel="stylesheet">';
-		echo '<link href="'.$theBaseUrl.'/css/style.css'.$aRandURLs.'" rel="stylesheet">';
+		echo '<link href="'.$theBaseUrl.'/css/style.css'.$aRandURLs.'" rel="stylesheet" media="screen">';
+		echo '<link href="'.$theBaseUrl.'/css/print.css'.$aRandURLs.'" rel="stylesheet" media="print">';
 		
 		echo '<!-- Le fav and touch icons -->';
 		echo '<link rel="shortcut icon" href="img/favicon.ico">';
@@ -130,7 +131,7 @@ function layoutFooter($theBaseUrl = '.') {
 				//echo '<p>&copy; '.date('Y').' - FronteiraTec - Todos os direitos reservados.</p>';
 			echo '</footer>';
 			
-			echo '<div id="info-overlay">Salvando...</div>';
+			echo '<div id="info-overlay"></div>';
 			
 		if(DEBUG_MODE) {
 			echo '<div class="row" style="margin-top: 80px;">';

@@ -8,10 +8,10 @@
 	$aAttending 	= $aData['authenticated'] ? $aData['attending'] : array();
 	$aIsAdmin 		= $aData['isAdmin'];
 
-	echo '<div class="container">';
+	echo '<div class="container schedule">';
 		echo '<div class="row">';
 				echo '<div class="col-md-12" style="text-align: center;">';
-					echo '<img src="'.View::baseUrl().'/img/sac.jpg" style="width: 60%; height: auto;" />';
+					echo '<img src="'.View::baseUrl().'/img/sac.jpg" />';
 				echo '</div>';
 		echo '</div>';
 	echo '</div>';
@@ -32,13 +32,13 @@
 					echo '<div class="panel panel-default item-descriptor">';
 						echo '<div class="panel-heading"><strong>'.$aDate.'</strong></div>';
 						echo '<div class="panel-body">';
-							echo '<table class="table table-hover">';
+							echo '<table class="table table-hover event-schedule">';
 								echo '<thead>';
-									echo '<th style="width: 10%;">Horário</th>';
-									echo '<th style="width: 55%;">Atividade</th>';
-									echo '<th style="width: 10%;">Local</th>';
-									echo '<th style="width: 10%;">Custo</th>';
-									echo '<th style="width: 5%;">Vagas</th>';
+									echo '<th>Horário</th>';
+									echo '<th>Atividade</th>';
+									echo '<th>Local</th>';
+									echo '<th>Custo</th>';
+									echo '<th>Vagas</th>';
 									
 									if($aData['authenticated']) {
 										echo '<th style="width: 10%; text-align: center;">Participar</th>';
@@ -48,13 +48,13 @@
 									foreach($aList as $aIdEvent => $aInfo) {
 										echo '<tr>';
 											echo '<td>'.$aInfo['time'].'</td>';
-											echo '<td><strong>'.$aInfo['title'].'</strong>'.($aIsAdmin ? ' <a href="event-manager.php?id='.$aIdEvent.'"><i class="fa fa-edit"></i></a> ' : '').'<br/>'.$aInfo['description'].'</td>';
+											echo '<td><strong>'.$aInfo['title'].'</strong>'.($aIsAdmin ? ' <a href="event-manager.php?id='.$aIdEvent.'"><i class="fa fa-edit"></i></a> ' : '').'<br/><p class="event-description">'.$aInfo['description'].'</p></td>';
 											echo '<td>'.$aInfo['place'].'</td>';
 											echo '<td>'.($aInfo['price'] > 0 ? 'R$ ' . $aInfo['price'] : '-').'</td>';
 											echo '<td>'.($aInfo['capacity'] != 0 ? $aInfo['capacity'] : '-').'</td>';
 											
 											if ($aData['authenticated']) {
-												echo '<td id="panel-event-'.$aIdEvent.'" style="text-align: center;">';
+												echo '<td id="panel-event-'.$aIdEvent.'" style="text-align: center;" class="panel-event">';
 													if (is_numeric($aInfo['fk_competition'])) {
 														echo '<a href="competition.php?competition='.$aInfo['fk_competition'].'"><i class="fa fa-info-circle"></i> Infos</a> '.($aIsAdmin ? ' <a href="competition-manager.php?id='.$aInfo['fk_competition'].'"><i class="fa fa-edit"></i></a> ' : '');
 														
@@ -81,7 +81,7 @@
 		echo '</div>';
 	echo '</div>';
 	
-	echo '<div class="container" style="margin-top: 30px;">';
+	echo '<div class="container footer-partners" style="margin-top: 30px;">';
 		echo '<div class="row">';
 				echo '<div class="col-md-4">';
 					echo '<p><strong>Realização:</strong></p>';
@@ -91,22 +91,22 @@
 				echo '</div>';
 		echo '</div>';
 		echo '<div class="row">';
-			echo '<div class="col-md-2">';
-				echo '<a href="http://cc.uffs.edu.br" target="_blank"><img src="'.View::baseUrl().'/img/ca.png" style="width: 100%; height: auto;" border="0" /></a>';
-				echo '<a href="http://cc.uffs.edu.br" target="_blank"><img src="'.View::baseUrl().'/img/logo_cc.png" style="width: 100%; height: auto; margin-top: 25px;" border="0" /></a>';
+			echo '<div class="col-md-2 staff-logo">';
+				echo '<a href="http://cc.uffs.edu.br" target="_blank"><img src="'.View::baseUrl().'/img/ca.png" border="0" /></a>';
+				echo '<a href="http://cc.uffs.edu.br" target="_blank"><img src="'.View::baseUrl().'/img/logo_cc.png" border="0" /></a>';
 			echo '</div>';
-			echo '<div class="col-md-1">';
-				echo '<a href="http://www.uffs.edu.br" target="_blank"><img src="'.View::baseUrl().'/img/uffs.png" style="width: 100%; height: auto;" border="0" /></a>';
+			echo '<div class="col-md-1 staff-logo">';
+				echo '<a href="http://www.uffs.edu.br" target="_blank"><img src="'.View::baseUrl().'/img/uffs.png" class="logo-uffs" border="0" /></a>';
 			echo '</div>';
-			echo '<div class="col-md-1">';
+			echo '<div class="col-md-1 staff-logo">';
 			echo '</div>';
 			
-			echo '<div class="col-md-5">';
-				echo '<a href="http://stmaria.com.br" target="_blank"><img src="'.View::baseUrl().'/img/santamaria.jpg" style="width: 100%; height: auto;" border="0" /></a>';
+			echo '<div class="col-md-5 partner-logo">';
+				echo '<a href="http://stmaria.com.br" target="_blank"><img src="'.View::baseUrl().'/img/santamaria.jpg" class="logo-santamaria" border="0" /></a>';
 			echo '</div>';
 			echo '<div class="col-md-3">';
-				echo '<a href="http://www.gamdias.com/en/" target="_blank"><img src="'.View::baseUrl().'/img/gambdias_small.png" style="width: 100%; height: auto;" border="0" /></a><br/>';
-				echo '<a href="http://fronteiratec.com" target="_blank"><img src="'.View::baseUrl().'/img/fronteiratec.png" style="width: 100%; height: auto; margin-top: 30px;" /></a>';
+				echo '<a href="http://www.gamdias.com/en/" target="_blank"><img src="'.View::baseUrl().'/img/gambdias_small.png" class="logo-gambdias" border="0" /></a><br/>';
+				echo '<a href="http://fronteiratec.com" target="_blank"><img src="'.View::baseUrl().'/img/fronteiratec.png" class="logo-fronteiratec" /></a>';
 			echo '</div>';
 		echo '</div>';
 	echo '</div>';
