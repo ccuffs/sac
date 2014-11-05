@@ -32,6 +32,12 @@ var SAC = new function() {
 		}
 	}
 	
+	this.deletePayment = function(theId) {
+		if(confirm('Deseja mesmo apagar esse pagamento?')) {
+			document.location = 'payment-manager.php?delete=' + theId;
+		}
+	}
+	
 	this.loadPaymentInfo = function(theContainerId) {
 		$('#' + theContainerId).html('<i class="fa fa-circle-o-notch fa-spin"></i> Carregando informações sobre pagamentos...');
 

@@ -39,6 +39,21 @@ function paymentFindByUser($theUserId) {
 	return $aRet;
 }
 
+function paymentFindAll() {
+	global $gDb;
+	
+	$aRet = array();
+	$aQuery = $gDb->prepare("SELECT * FROM payment WHERE 1");
+	
+	if ($aQuery->execute(array())) {
+		while ($aRow = $aQuery->fetch()) {
+			$aRet[$aRow['id']] = $aRow;
+		}
+	}
+	
+	return $aRet;
+}
+
 function paymentCalculateUserCredit($theUserId) {
 	global $gDb;
 	
@@ -53,13 +68,13 @@ function paymentCalculateUserCredit($theUserId) {
 	return $aRet;
 }
 
-function paymentCreate($theUserId, $theAmount) {
+function paymentCreate($theUserId, $theAmount, $theComment) {
 	global $gDb;
 	
 	$aRet = false;
 	$aQuery = $gDb->prepare("INSERT INTO payment (id, fk_user, date, amount, status, comment) VALUES (NULL, ?, ?, ?, ?, ?)");
 	
-	if ($aQuery->execute(array($theUserId, time(), $theAmount, 1, ''))) {
+	if ($aQuery->execute(array($theUserId, time(), $theAmount, PAYMENT_CONFIRMED, $theComment))) {
 		$aRet = $gDb->lastInsertId();
 	}
 	
@@ -71,6 +86,13 @@ function paymentUpdateStatus($theId, $theStatus) {
 	
 	$aQuery = $gDb->prepare("UPDATE payment SET status = ?, comment = CONCAT(comment, ?) WHERE id = ?");
 	return $aQuery->execute(array($theStatus, $theStatus . '('.time().'), ', $theId));
+}
+
+function paymentDelete($theId) {
+	global $gDb;
+	
+	$aQuery = $gDb->prepare("DELETE FROM payment WHERE id = ?");
+	return $aQuery->execute(array($theId));
 }
 
 function paymentLog($theText) {
