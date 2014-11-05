@@ -16,16 +16,17 @@
 		
 		$aIsAdmin 			= userIsLevel($aUser, USER_LEVEL_ADMIN);
 	}
-	
+
 	if (isset($_REQUEST['register']) && $aComptetition != null && $aAuthenticated && $aUser != null) {
 		$aTeamId = @$_REQUEST['id'];
 		
 		$aTeam['fk_leader'] = $aUser['id'];
-		$aTeam['name']		= @$_POST['name'];
+		$aTeam['name']		= isset($_POST['name']) ? $_POST['name'] : '';
+		$aTeam['url'] 		= isset($_POST['url']) ? $_POST['url'] : '';
 		$aTeam['members'] 	= serialize(array(@$_POST['member0'], @$_POST['member1'], @$_POST['member2'], @$_POST['member3'], @$_POST['member4']));
-		$aTeam['url'] 		= @$_POST['url'];
 		
 		$aOk = competitionUpdateOrCreateTeam($aComptetition['id'], $aTeamId, $aTeam);
+		$aTeam = competitionFindTeamByLeaderId($aComptetition['id'], $aUser['id']);
 	}
 
 	if($aTeam != null) {

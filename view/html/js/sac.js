@@ -30,7 +30,13 @@ var SAC = new function() {
 		if(confirm('Deseja mesmo apagar esse evento?')) {
 			document.location = 'event-manager.php?delete=' + theEventId;
 		}
-	}
+	};
+	
+	this.createTeam = function(theCompetitionId) {
+		if(confirm('Seu time será mostrado na lista de times participantes do campeonato. Continuar?')) {
+			document.location = 'competition.php?competition='+theCompetitionId+'&register=true';
+		}
+	};
 	
 	this.deletePayment = function(theId) {
 		if(confirm('Deseja mesmo apagar esse pagamento?')) {
