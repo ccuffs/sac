@@ -105,8 +105,10 @@
 				echo '<a href="http://stmaria.com.br" target="_blank"><img src="'.View::baseUrl().'/img/santamaria.jpg" class="logo-santamaria" border="0" /></a>';
 			echo '</div>';
 			echo '<div class="col-md-3">';
-				echo '<a href="http://www.gamdias.com/en/" target="_blank"><img src="'.View::baseUrl().'/img/gambdias_small.png" class="logo-gambdias" border="0" /></a><br/>';
+				echo '<a href="https://www.facebook.com/GAMDIASGAMING.BR" target="_blank"><img src="'.View::baseUrl().'/img/gambdias_small.png" class="logo-gambdias" border="0" /></a><br/>';
 				echo '<a href="http://fronteiratec.com" target="_blank"><img src="'.View::baseUrl().'/img/fronteiratec.png" class="logo-fronteiratec" /></a>';
+				echo '<a href="http://www.donsini.com.br/" target="_blank"><img src="'.View::baseUrl().'/img/donsini.jpg" class="logo-donsini" /></a>';
+				echo '<img src="'.View::baseUrl().'/img/tomray.jpg" class="logo-tomray" />';
 			echo '</div>';
 		echo '</div>';
 	echo '</div>';
