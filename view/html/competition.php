@@ -48,9 +48,9 @@
 		echo '<div class="row">';
 			echo '<div class="col-md-12">';
 				echo '<h2>Times</h2>';
-				if($aTeam == null) {
+				if($aTeam == null && $aAuthenticated) {
 					echo '<div class="alert alert-warning" role="alert">Se você é capitão de algum tipe, clique no botão ao lado para cadastrar seu time. <button class="btn btn-default pull-right" onclick="SAC.createTeam('.$aCompetition['id'].');" style="margin-top: -5px;">Cadastrar time</button></div>';
-				} else {
+				} else if($aAuthenticated) {
 					echo '<form action="competition.php?competition='.$aCompetition['id'].'" name="form-team" method="post" role="form">';
 						echo '<div class="panel panel-'.($aTeam['paid'] ? 'success' : 'danger').'">';
 							echo '<div class="panel-heading">';
