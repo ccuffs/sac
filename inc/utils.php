@@ -18,6 +18,21 @@ function utilMonthToString($theMonth) {
 	return isset($aMonths[$theMonth]) ? $aMonths[$theMonth] : '?';
 }
 
+function utilWeekDayToString($theDay, $theMonth) {
+	$aDay = date('N', mktime(0, 0, 0, $theMonth, $theDay, date('Y')));
+	
+	$aWeek = array(
+		1 => 'segunda-feira',
+		2 => 'terça-feira',
+		3 => 'quarta-feira',
+		4 => 'quinta-feira',
+		5 => 'sexta-feira',
+		6 => 'sábado',
+		7 => 'domingo'
+	);
+	return isset($aWeek[$aDay]) ? $aWeek[$aDay] : '?';
+}
+
 function utilOut($theScript) {
 	return htmlentities($theScript);
 }

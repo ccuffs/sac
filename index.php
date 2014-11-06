@@ -9,7 +9,7 @@
 	$aEvents = eventFindAll();
 	
 	foreach($aEvents as $aId => $aInfo) {
-		$aDate = $aInfo['day'] . ' de ' . utilMonthToString($aInfo['month']);
+		$aDate = $aInfo['day'] . ' de ' . utilMonthToString($aInfo['month']) . ' ('.utilWeekDayToString($aInfo['day'], $aInfo['month']).')';
 		
 		if (!isset($aData['events'][$aDate])) {
 			$aData['events'][$aDate] = array();
