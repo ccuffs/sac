@@ -9,7 +9,8 @@
 @define('PASSWORD_SALT', 			'dlaejhdwieugr34712-13fkj3-122045*&@#$)*&Gkdf*%$@I&$fdfd');
 
 // Conference
-@define('CONFERENCE_PRICE', 		20.0);
+@define('CONFERENCE_PRICE', 		30.0);
+@define('CONFERENCE_PRICE_EXTERNAL',50.0);
 
 
 // Pagseguro

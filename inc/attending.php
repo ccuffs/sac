@@ -17,13 +17,15 @@ function attendingFindByUserId($theUserId) {
 	return $aRet;
 }
 
-function attendingCalculateUserDept($theUserId) {
+function attendingCalculateUserDept($theUserInfo) {
 	$aRet = 0;
-	$aEvents = eventFindByUserIsAttending($theUserId);
+	$aEvents = eventFindByUserIsAttending($theUserInfo['id']);
 	
 	foreach($aEvents as $aId => $aInfo) {
 		$aRet += $aInfo['price'];
 	}
+
+	$aRet += $theUserInfo['type'] == USER_LEVEL_EXTERNAL ? CONFERENCE_PRICE_EXTERNAL : CONFERENCE_PRICE;
 	
 	return $aRet;
 }

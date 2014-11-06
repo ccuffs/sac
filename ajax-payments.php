@@ -4,7 +4,7 @@ require_once dirname(__FILE__).'/inc/globals.php';
 authAllowAuthenticated();
 
 $aUser 		= authGetAuthenticatedUserInfo();
-$aMustPay 	= attendingCalculateUserDept($aUser['id']) + CONFERENCE_PRICE;
+$aMustPay 	= attendingCalculateUserDept($aUser);
 $aCredit 	= paymentCalculateUserCredit($aUser['id']);
 $aDebit		= $aMustPay - $aCredit;
 

@@ -42,7 +42,8 @@ if($aData['noDept']) {
 			echo 'Titular: Doglas André Finco<br/>';
 		echo '</strong><br/>';
 		
-		echo 'O pagamento também pode ser feito em mãos com os seguintes representantes do CA: <strong>Aline Menin, Doglas André Finco, Dinara Rigon ou Mario Urlich</strong>.<br/>';
+		echo '<strong>IMPORTANTE:</strong> Envie o comprovante da operação por e-mail para <a href="cacomputacaouffs@gmail.com">cacomputacaouffs@gmail.com</a>. ';
+		echo 'O pagamento também pode ser feito em mãos com os seguintes representantes do CA: <strong> Aline Menin, Doglas André Finco, Dinara Rigon ou Mario Urlich </strong>.';
 	echo '</div>';
 }
 

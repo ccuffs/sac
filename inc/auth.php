@@ -32,7 +32,7 @@ function authLogin($theUserLogin) {
 }
 
 function authGetAuthenticatedUserInfo() {
-	return $_SESSION['user'];
+	return userGetById($_SESSION['user']['id']);
 }
 
 function authAllowNonAuthenticated() {
