@@ -70,6 +70,6 @@ footer img {
 	display: none;
 }
 
-div {
+div.item-descriptor {
 	page-break-inside: avoid;
 }
