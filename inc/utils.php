@@ -34,7 +34,7 @@ function utilWeekDayToString($theDay, $theMonth) {
 }
 
 function utilOut($theScript) {
-	return htmlentities($theScript);
+	return htmlspecialchars($theScript, ENT_QUOTES, "UTF-8");
 }
 
 ?>
