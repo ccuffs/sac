@@ -48,7 +48,7 @@
 									foreach($aList as $aIdEvent => $aInfo) {
 										echo '<tr>';
 											echo '<td>'.$aInfo['time'].'</td>';
-											echo '<td><strong>'.$aInfo['title'].'</strong>'.($aIsAdmin ? ' <a href="event-manager.php?id='.$aIdEvent.'"><i class="fa fa-edit"></i></a> ' : '').'<br/><p class="event-description">'.$aInfo['description'].'</p></td>';
+											echo '<td><strong>'.$aInfo['title'].'</strong>'.($aIsAdmin ? ' <a href="event-manager.php?id='.$aIdEvent.'" title="Editar evento"><i class="fa fa-edit"></i></a> <a href="attending-event.php?id='.$aIdEvent.'" title="Listar as pessoas que estão inscritas para essa atividade"><i class="fa fa-group"></i></a>' : '').'<br/><p class="event-description">'.$aInfo['description'].'</p></td>';
 											echo '<td>'.$aInfo['place'].'</td>';
 											echo '<td>'.($aInfo['price'] > 0 ? 'R$ ' . $aInfo['price'] : '-').'</td>';
 											echo '<td>'.($aInfo['capacity'] != 0 ? $aInfo['capacity'] : '-').'</td>';

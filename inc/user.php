@@ -19,6 +19,29 @@ function userGetById($theUserId) {
 	return $aUser;
 }
 
+function userFindByIds($theUserIds) {
+	global $gDb;
+	
+	$aUsers = array();
+	$aIds = '';
+
+	foreach($theUserIds as $aKey => $aValue) {
+		$theUserIds[$aKey] = (int)$aValue;
+	}
+	$aIds = implode(',', $theUserIds);
+
+	$aQuery = $gDb->prepare("SELECT id, login, name, email, type FROM users WHERE id IN (".$aIds.")");
+	
+	if(count($theUserIds) > 0) {
+		if ($aQuery->execute()) {	
+			while ($aRow = $aQuery->fetch()) {
+				$aUsers[$aRow['id']] = $aRow;
+			}
+		}
+	}
+	return $aUsers;
+}
+
 function userFindAll() {
 	global $gDb;
 	

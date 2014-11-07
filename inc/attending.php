@@ -17,6 +17,21 @@ function attendingFindByUserId($theUserId) {
 	return $aRet;
 }
 
+function attendingFindUsersByEventId($theEventId) {
+	global $gDb;
+	
+	$aRet = array();
+	$aQuery = $gDb->prepare("SELECT * FROM attending WHERE fk_event = ? ORDER BY date ASC");
+	
+	if ($aQuery->execute(array($theEventId))) {
+		while ($aRow = $aQuery->fetch()) {
+			$aRet[$aRow['fk_user']] = $aRow;
+		}
+	}
+	
+	return $aRet;
+}
+
 function attendingCalculateUserDept($theUserInfo) {
 	$aRet = 0;
 	$aEvents = eventFindByUserIsAttending($theUserInfo['id']);
