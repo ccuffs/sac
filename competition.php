@@ -5,14 +5,13 @@
 	$aComptetition 			= competitionGetById($aId);
 	$aAuthenticated 		= authIsAuthenticated();	
 	$aTeam					= null;
-	$aCompetitors			= null;
 	$aUser					= null;
 	$aIsAdmin				= false;
+	$aCompetitors			= userFindAll();
 	
 	if($aAuthenticated) {
 		$aUser				= authGetAuthenticatedUserInfo();
 		$aTeam				= competitionFindTeamByLeaderId($aId, $aUser['id']);
-		$aCompetitors		= userFindAll();
 		
 		$aIsAdmin 			= userIsLevel($aUser, USER_LEVEL_ADMIN);
 	}
