@@ -13,7 +13,7 @@
 		exit();
 	}
 	
-	$aEvent		= eventGetById($_REQUEST['id']);
+	$aEvent		= eventGetById($aId);
 	$aUsers 	= array();
 	$aAttending = array();
 	
