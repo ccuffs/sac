@@ -45,6 +45,14 @@ function attendingCalculateUserDept($theUserInfo) {
 	return $aRet;
 }
 
+function attendingDoesUserHavePaidConferencePass($theUserId) {
+	$aUser 			= userGetById($theUserId);
+	$aPaidCredit 	= paymentCalculateUserCredit($theUserId);
+	
+	return $aUser != null && $aPaidCredit >= userGetConferencePrice($aUser);
+}
+
+
 function attendingAdd($theUserId, $theEventId, $thePaid) {
 	global $gDb;
 	
@@ -57,6 +65,10 @@ function attendingAdd($theUserId, $theEventId, $thePaid) {
 	
 	if ($aEvent['ghost'] != 0) {
 		throw new Exception('Evento fantasma');
+	}
+	
+	if (!attendingDoesUserHavePaidConferencePass($theUserId)) {
+		throw new Exception('Sua inscrição ainda não foi paga. Você não pode se increver em atividades.');
 	}
 	
 	if ($aEvent['capacity'] != 0 && attendingCountEventAttendants($theEventId) >= ($aEvent['capacity'] + $aEvent['waiting_capacity'])) {

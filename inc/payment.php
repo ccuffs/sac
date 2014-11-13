@@ -62,7 +62,7 @@ function paymentCalculateUserCredit($theUserId) {
 	
 	if ($aQuery->execute(array($theUserId, PAYMENT_CONFIRMED, PAYMENT_AVAILABLE))) {
 		$aRow = $aQuery->fetch();
-		$aRet = $aRow['value'];
+		$aRet = (float)$aRow['value'];
 	}
 	
 	return $aRet;
