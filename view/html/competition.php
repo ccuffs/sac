@@ -112,23 +112,23 @@
 				
 			} else {
 				foreach($aTeams as $aIdTeam => $aInfoTeam) {
+					$aMembers = unserialize($aInfoTeam['members']);
+								
+					if ($aMembers === false || count($aMembers) == 0 || implode('', $aMembers) == '') continue;
+
 					echo '<div class="col-md-3">';
 						echo '<div class="thumbnail team">';
 							echo '<img src="'.($aInfoTeam['url'] == '' ? View::baseUrl().'/img/avatar.png' : utilOut($aInfoTeam['url'])).'" alt="'.utilOut($aInfoTeam['name']).'">';
 							echo '<div class="caption">';
 								echo '<h3>'.($aInfoTeam['paid'] ? '<i class="fa fa-check-circle" title="Inscrição confirmada!"></i>' : '').' '.utilOut($aInfoTeam['name']).'</h3>';
 								
-								$aMembers = unserialize($aInfoTeam['members']);
-								
-								if ($aMembers !== false) {
-									echo '<div class="list-group">';
-										foreach($aMembers as $aMember) {
-											if($aMember != '') {
-												echo '<p class="list-group-item"><i class="fa fa-user"></i> '.utilOut($aCompetitors[$aMember]['name']).'</p>';
-											}
+								echo '<div class="list-group">';
+									foreach($aMembers as $aMember) {
+										if($aMember != '') {
+											echo '<p class="list-group-item"><i class="fa fa-user"></i> '.utilOut($aCompetitors[$aMember]['name']).'</p>';
 										}
-									echo '</div>';
-								}
+									}
+								echo '</div>';
 							echo '</div>';
 						echo '</div>';
 					echo '</div>';
