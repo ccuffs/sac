@@ -58,7 +58,7 @@ a:link,a:active,a:hover,a:visited{color:#000;}
 .competition-page .row{margin-top:20px;}
 .team{height:490px;}
 #payment-panel{margin-top:20px;min-height:150px;}
-.dashboard-registration p{float:left;margin-right:10%;}
+.dashboard-registration p{float:left;margin-right:5%;}
 .dashboard-registration p strong{font-size:3em;font-weight:bolder;}
 .schedule img{width:60%;height:auto;}
 .event-schedule thead th:nth-child(1){width:10%;}

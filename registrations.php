@@ -23,7 +23,7 @@
 	$aData['users_total']			= count($aUsers);
 	
 	foreach($aUsers as $aId => $aInfo) {
-		$aUsers[$aId]['paid'] 			= isset($aPaidCredit[$aId]);
+		$aUsers[$aId]['paid'] 			= isset($aPaidCredit[$aId]) && $aPaidCredit[$aId] >= userGetConferencePrice($aInfo);
 		$aUsers[$aId]['paid_credit'] 	= isset($aPaidCredit[$aId]) ? $aPaidCredit[$aId] : 0;
 		$aUsers[$aId]['admin'] 			= $aInfo['type'] == USER_LEVEL_ADMIN;
 		
@@ -38,10 +38,12 @@
 		
 		if ($aUsers[$aId]['paid']) {
 			$aData['users_paid_total']++;
-			$aData['total_paid'] += (float)$aUsers[$aId]['paid_credit'];
+
 		} else {
 			$aData['users_nonpaid_total']++;
 		}
+		
+		$aData['total_paid'] += (float)$aUsers[$aId]['paid_credit'];
 	}
 	
 	$aData['users'] = $aUsers;

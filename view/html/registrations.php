@@ -50,7 +50,17 @@
 										echo '<td>'.$aInfo['login'].'</td>';
 										echo '<td>'.$aInfo['email'].'</td>';
 										echo '<td>'.$aInfo['source'].'</td>';
-										echo '<td>'.($aInfo['paid'] ? '<span class="label label-success">Sim R$ '.sprintf('%.2f', $aInfo['paid_credit']).'</span>' : '<span class="label label-danger">Não</span>').'</td>';
+										echo '<td>';
+											if ($aInfo['paid']) {
+												echo '<span class="label label-success">Sim R$ '.sprintf('%.2f', $aInfo['paid_credit']).'</span>';
+												
+											} else if ($aInfo['paid_credit'] > 0) {
+												echo '<span class="label label-warning">Parcial R$ '.sprintf('%.2f', $aInfo['paid_credit']).'</span>';
+												
+											} else {
+												echo '<span class="label label-danger">Não</span>';
+											}
+										'</td>';
 									echo '</tr>';
 								}
 							echo '</tbody>';

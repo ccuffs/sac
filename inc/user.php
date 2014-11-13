@@ -61,6 +61,10 @@ function userIsLevel($theUserInfo, $theLevel) {
 	return $theUserInfo['type'] == $theLevel;
 }
 
+function userGetConferencePrice($theUserInfo) {
+	return $theUserInfo['type'] == USER_LEVEL_EXTERNAL ? CONFERENCE_PRICE_EXTERNAL : CONFERENCE_PRICE;
+}
+
 function userLoginfyName($theName) {
 	$aParts = explode(' ', strtolower($theName));
 	$aName  = '';
