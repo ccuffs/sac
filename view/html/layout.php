@@ -96,7 +96,7 @@ function layoutHeader($theTitle, $theBaseUrl = '.') {
 		echo '<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>';
 		echo '<![endif]-->';
 		
-		$aRandURLs = '?201411052';
+		$aRandURLs = '?20141113';
 		$aRandURLs .= DEBUG_MODE ? rand(20, 9999) : '';
 		
 		echo '<!-- Le styles -->';
