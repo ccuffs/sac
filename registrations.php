@@ -21,8 +21,9 @@
 	$aData['users_insiders']		= 0;
 	$aData['users_outsiders']		= 0;
 	$aData['users_total']			= count($aUsers);
-	
+
 	foreach($aUsers as $aId => $aInfo) {
+		$aUsers[$aId]['no_payment'] 	= !isset($aPaidCredit[$aId]);
 		$aUsers[$aId]['paid'] 			= isset($aPaidCredit[$aId]) && $aPaidCredit[$aId] >= userGetConferencePrice($aInfo);
 		$aUsers[$aId]['paid_credit'] 	= isset($aPaidCredit[$aId]) ? $aPaidCredit[$aId] : 0;
 		$aUsers[$aId]['admin'] 			= $aInfo['type'] == USER_LEVEL_ADMIN;

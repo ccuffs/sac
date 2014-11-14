@@ -40,7 +40,7 @@
 								echo '<th style="width: 25%;">CPF</th>';
 								echo '<th style="width: 25%;">E-mail</th>';
 								echo '<th style="width: 5%;">Vínculo</th>';
-								echo '<th style="width: 5%;">Pago</th>';
+								echo '<th style="width: 5%;">Pagou?</th>';
 
 							echo '</thead>';
 							echo '<tbody>';
@@ -56,6 +56,9 @@
 												
 											} else if ($aInfo['paid_credit'] > 0) {
 												echo '<span class="label label-warning">Parcial R$ '.sprintf('%.2f', $aInfo['paid_credit']).'</span>';
+												
+											} else if ($aInfo['no_payment']) {
+												echo '<span class="label label-primary">Nada</span>';
 												
 											} else {
 												echo '<span class="label label-danger">Não</span>';

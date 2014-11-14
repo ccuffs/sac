@@ -121,7 +121,7 @@ function paymentFindUsersWithPaidCredit() {
 	
 	if ($aQuery->execute()) {
 		while ($aRow = $aQuery->fetch()) {
-			if($aRow['paid_amount'] > 0) {
+			if($aRow['paid_amount'] >= 0) {
 				$aRet[$aRow['id']] = $aRow['paid_amount'];
 			}
 		}
