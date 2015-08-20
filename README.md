@@ -1,7 +1,7 @@
 # Sac
 A web app to manage tiny conferences. It allows administrators to manage payments, schedules, attendance lists, competitions, rooms, etc. Visitors can book the events they want to participate.
 
-https://cloud.githubusercontent.com/assets/512405/9394995/f7962954-4761-11e5-9e9e-4a509f0cead5.png
+![sac_screenshot](https://cloud.githubusercontent.com/assets/512405/9394995/f7962954-4761-11e5-9e9e-4a509f0cead5.png)
 
 ## Motivation
 
