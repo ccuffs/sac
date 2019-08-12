@@ -4,20 +4,24 @@
     border: 1px solid red;
 }
 
-.card {
+.card { /* cria apenas a aparência externa: não faz nada com o que está dentro */
     background: #ececec;
     width: 90%;
     display: block;
 
-    padding: 1rem;
+    padding: 1rem; /* sem isso */
     margin: auto;
     border-radius: 0.5rem;
 }
 
-.card-header {
+.card-body { /* cria uma espécie de container para o que está dentro. */
 
 }
 
-.card-img {
+.card-header { /* Cria um header bonitinho */
+
+}
+
+.card-img { /* posiciona a imagem dentro do card de forma organizada */
 
 }
