@@ -1,0 +1,23 @@
+.miau {
+    height: 40px;
+    width: 100px;
+    border: 1px solid red;
+}
+
+.card {
+    background: #ececec;
+    width: 90%;
+    display: block;
+
+    padding: 1rem;
+    margin: auto;
+    border-radius: 0.5rem;
+}
+
+.card-header {
+
+}
+
+.card-img {
+
+}
