@@ -1,5 +1,5 @@
 
-button{
+.btn {
     border: none;
     margin: 0;
     padding: 0;
@@ -8,8 +8,6 @@ button{
     background: transparent;
     color: inherit;
     font: inherit;
-}
-.btt {
     background-color: #FFF;
     color: #000000;
     padding: 0.625em 2.188em;
@@ -21,36 +19,36 @@ button{
     border-radius: 2px;
     font-weight: bold;
   }
-    .btt--small {
+    .btn__small {
         padding: .25rem .5rem;
         font-size: .875rem;
 
     }
-    .btt--medium{
+    .btn__medium{
         padding: .5rem 1rem;
         line-height: 1.5;
     }
-    .btt--large{
+    .btn__large{
         padding: 1.1rem 3rem;
         line-height: 1.5;
     }
 
-.btt.btt__primary{
+.btn--primary{
     border-color: transparent;  
-    background-color:#4CAF50;
+    background-color:#00693E;
     color:#FFF;
      
 }
-.btt.btt__secondary{
+.btn--secondary{
     background-color: #6D6D6D;
     color: #FFF;
 }
-.btt.btt__danger{
+.btn--danger{
     border-color: transparent;
     background-color: #F53240; 
     color: #FFF;  
 }
-.btt.btt__ghost{
+.btn--ghost{
     background-color:transparent;
     border:1px solid #4CAF50;
     color:#FFF;
