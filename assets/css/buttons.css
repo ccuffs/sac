@@ -1,11 +1,7 @@
 
 .btn {
     border: none;
-    margin: 0;
-    padding: 0;
-    width: auto;
     overflow:none;
-    background: transparent;
     color: inherit;
     font: inherit;
     background-color: #FFF;
@@ -15,26 +11,25 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
-    border-radius: 2px;
+    border-radius:0.125em;
     font-weight: bold;
   }
-    .btn__small {
+    .btn--small {
         padding: .25rem .5rem;
         font-size: .875rem;
 
     }
-    .btn__medium{
+    .btn--medium{
         padding: .5rem 1rem;
         line-height: 1.5;
     }
-    .btn__large{
+    .btn--large{
         padding: 1.1rem 3rem;
         line-height: 1.5;
     }
 
 .btn--primary{
-    border-color: transparent;  
+
     background-color:#00693E;
     color:#FFF;
      
@@ -44,7 +39,6 @@
     color: #FFF;
 }
 .btn--danger{
-    border-color: transparent;
     background-color: #F53240; 
     color: #FFF;  
 }
