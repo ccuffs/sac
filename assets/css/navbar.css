@@ -1,0 +1,25 @@
+.navbar{
+    background-color: transparent;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    z-index: 1;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+    
+}
+.navbar__menu{
+    text-align: right;
+}
+
+.navbar__archor{
+    display: inline-block;
+    text-decoration: none;
+    color:#6a708e;
+    padding: .5em .4em;
+    text-transform: uppercase;
+    transition:0.4s;
+}
+.navbar__archor:hover{
+    text-decoration: none;
+    color: #00693E;
+}
