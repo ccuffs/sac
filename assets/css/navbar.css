@@ -1,57 +1,73 @@
 .navbar{
-    background-color: transparent;
-    padding-top: 25px;
-    padding-bottom: 25px;
-    z-index: 1;
+    background-color: rgba(255, 255, 255, .9);
+    padding: 7px 0;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 25;
 }
+
 .navbar__archor{
-    display: inline-block;
-    text-decoration: none;
-    color:#6a708e;
-    padding: .5em .4em;
     text-transform: uppercase;
-    transition:0.5s;
+    transition: 0.5s;
+    display: block;
+    padding: 15px;
+    color: #FFF;
+    transition: 0.4s;
+    text-align: center;
 }
-.navbar__archor:hover{
-    text-decoration: none;
-    color: #00693E;
-    border-bottom: 1px solid #00693E;  
-    border-top: 1px solid #00693E;
-    padding: .3em .2em;
+
+.navbar__logo {
+    margin: 0;
 }
-.menu-mobile__toggle-button{
+
+.navbar__toggle-button{
     font-size: 30px;
     background-color: transparent;
     border: none;
     color: #00693E;
 }
 
-@media only screen and (max-width: 480px ) {
-    .menu-mobile__content{
-        display: none;
-        position: fixed;
-        width: 100%;
-        background-color: #00693E;
-        left: 0px;
-        transition: 0.5s ease-in-out;
+.navbar__archor:hover{
+    text-decoration: none;
+    color: #FFF;
+    background: rgba(0, 0, 0, .3);
+}
+
+@media (min-width: 768px) {
+    .navbar__menu {
+        text-align: right;
     }
-    .menu-mobile__open{
-        display: block;
+
+    .navbar__archor {
+        color: #00693E;
+        display: inline-block;
+        border-radius: 15px;
     }
-    .navbar__archor{
-        display:block;
-        padding:20px;
-        color:#FFF;
-        transition: 0.4s;
-        text-align: center;
-    }
+
     .navbar__archor:hover{
-        color: #FFF;
-        padding:30px;
-        border-bottom: 1px solid #FFF;  
-        border-top: 1px solid #FFF;
+        text-decoration: none;
+        color: #00693E;
+        background-color: rgba(0, 105, 62, .1);
     }
-    
-  }
-  
+}
+
+/* MENU MOBILE */
+.menu-mobile {
+    z-index: 20;
+    position: fixed;
+    transition: .3s all ease;
+    top: 65px;
+    width: 100vw;
+    transform: translateY(calc(-100% - 65px));
+}
+
+.menu-mobile--opened {
+    transform: translateY(0);
+}
+
+.menu-mobile__content{
+    width: 100%;
+    background-color: #00693E;
+}
