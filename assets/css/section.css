@@ -72,3 +72,34 @@
         font-size: 2.6rem;
     }
 }
+
+/* Section */
+.speakers {
+    background-color: rgba(0, 105, 62, .1);
+}
+
+.speakers__title {
+    font-size: 2.8em;
+    text-align: center;
+    margin-bottom: .6em;
+    color: #00693c;
+}
+
+.speaker-card__title {
+    color: #1f344e;
+    font-size: 1.8em;
+    margin: 0;
+}
+
+.speaker-card__subtitle {
+    color: #1f344e;
+    font-size: 1.3em;
+    margin-bottom: .4em;
+    line-height: 1.4;
+}
+
+@media (min-width: 768px) {
+    .speakers__title {
+        font-size: 3.5em;
+    }
+}
