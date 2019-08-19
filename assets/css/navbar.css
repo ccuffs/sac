@@ -1,6 +1,6 @@
 .navbar{
-    background-color: rgba(255, 255, 255, .9);
-    padding: 7px 0;
+    background-color: rgba(255, 255, 255, .8);
+    padding: 10px 0;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     position: fixed;
     top: 0;
@@ -22,6 +22,10 @@
     margin: 0;
 }
 
+.navbar__logo img {
+    height: 45px;
+}
+
 .navbar__toggle-button{
     font-size: 30px;
     background-color: transparent;
@@ -36,6 +40,10 @@
 }
 
 @media (min-width: 768px) {
+    .navbar {
+        padding: 13px 0;
+    }
+
     .navbar__menu {
         text-align: right;
     }
@@ -51,6 +59,10 @@
         color: #00693E;
         background-color: rgba(0, 105, 62, .1);
     }
+
+    .navbar__logo img {
+        height: 55px;
+    }
 }
 
 /* MENU MOBILE */
@@ -58,7 +70,7 @@
     z-index: 20;
     position: fixed;
     transition: .3s all ease;
-    top: 65px;
+    top: 68px;
     width: 100vw;
     transform: translateY(calc(-100% - 65px));
 }
