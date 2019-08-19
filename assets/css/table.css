@@ -1,35 +1,41 @@
-table {
+.table {
     width: 100%;
     /* box-sizing: border-box; */
 }
 
-thead {
+.table thead {
     vertical-align: middle;
     border-bottom: 2px solid #cdcdcd;
 }
 
-tbody {
+.table tbody {
     vertical-align: middle;
 }
 
-tr {
+.table tr {
     border-bottom: 1px solid #dadada;
 }
 
-th, td {
+.table th,
+.table td {
     padding: 0.6rem;
     text-align: left;
 }
 
-.stripped > thead > tr,
-.stripped > tbody > tr {
+.table--stripped > thead > tr,
+.table--stripped > tbody > tr {
     border: none;
 }
 
-.stripped > tbody > tr:nth-child(odd) {
+.table--stripped > tbody > tr:nth-child(odd) {
     background: #f2f2f2;
 }
 
-.highlight > tbody > tr:hover {
+.table--highlight > tbody > tr:hover {
     background: #f2f2f2;
+}
+
+.table--lg td,
+.table--lg th {
+    padding: 1rem;
 }
