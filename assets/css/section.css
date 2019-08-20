@@ -112,20 +112,28 @@
     text-align: center;
     color: #00693c;
 }
-.programming--day{
+.programmingItem__day{
     font-size: 1.8rem;
     font-weight: 700;
     color: #00693c;
 }   
-.programming--time{
+.programmingItem__lectures--time{
     color:#1f344e;
     margin-top: 10px;
     margin-right: 11px;
 }
-.details--item{
+.programmingItem__lectures__details{
     color:#1f344e;
     font-size: 1.5em;
 }
-.item--speaker{
+.lectures__details--speaker{
     color:#00693c;
+}
+@media (min-width: 768px) {
+    .programmingItem__day{
+        text-align: right;
+    }
+    .programmingItem{
+        margin-bottom: 1rem; 
+    }  
 }
