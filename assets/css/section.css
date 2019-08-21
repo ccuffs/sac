@@ -46,7 +46,7 @@
 /* About */
 .about__title {
     color: #1f344e;
-    font-size: 2.6rem; 
+    font-size: 2.6rem;
 }
 
 .about-item {
@@ -101,5 +101,45 @@
 @media (min-width: 768px) {
     .speakers__title {
         font-size: 3.5em;
+    }
+}
+/*programming*/
+.lecture{
+    margin-bottom: 1rem;
+    margin-top: .9rem;
+    display: flex;
+}
+.programming__title{
+    font-size: 2.8em;
+    text-align: center;
+    color: #00693c;
+}
+.programming-item__day{
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-top: 0.2em;
+    color: #00693c;
+}   
+.lecture__time{
+    color:#1f344e;
+    margin-right: 11px;
+}
+.lecture__title{
+    color:#1f344e;
+    font-size: 1.5em;
+    line-height: 1.2;
+}
+.lecture__speaker{
+    color:#00693c;
+}
+
+@media (min-width: 992px) {
+    .programming-item{
+        margin-bottom: 1rem; 
+    }  
+
+    .programming-item__day{
+        text-align: right;
+        margin-top: 0;
     }
 }
