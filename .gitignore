@@ -5,4 +5,9 @@
 /img/Thumbs.db
 /inc/config.local.php
 
+### Composer ###
+composer.phar
+/vendor/
+
+
 /testing/builder/config.local.php
