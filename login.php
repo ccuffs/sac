@@ -1,4 +1,4 @@
-<?php 
+<?php 	
 	require_once dirname(__FILE__).'/inc/globals.php';
 	
 	authAllowNonAuthenticated();
@@ -9,7 +9,6 @@
 	
 	if(count($_POST) > 0) {
 		if (isset($_POST['user'], $_POST['password'])) {
-			
 			// TODO: fix this because the login string might have . and -
 			$aCpf = str_replace(array('.', '-', ' ', ','), '', $_POST['user']);
 			$aCpf = ltrim($aCpf,  '0');
@@ -22,12 +21,17 @@
 
 			} else {
 				// TODO: it would be nice to have some sort of auth plugins here :)
-				$aMoodleInfo = authLoginUsingMoodle($aCpf, $_POST['password']);
-				
-				if ($aIsUFFS && $aMoodleInfo != null) {
-					$aMoodleInfo['email'] = @$_POST['email'];
-					$aHasAccount = authCreateLocalAccountUsingLoginMoodle($aMoodleInfo, $aCpf, $_POST['password']);
-				
+				//$aMoodleInfo = authLoginUsingMoodle($aCpf, $_POST['password']);
+
+				$aPortalInfo = authLoginUsingPortal($aCpf, $_POST['password']);
+
+				if ($aIsUFFS && $aPortalInfo != null) {
+					$aPortalInfo['email'] = $_POST['email'];
+					$aPortalInfo['user'] = $_POST['email'];
+
+					// TODO would be better if a user logins only with users idUffs
+					$aHasAccount = authCreateLocalAccountUsingLoginMoodle($aPortalInfo, $aCpf, $_POST['password']);
+
 					if($aHasAccount) {
 						$aUser = $aCpf;
 					} else {
