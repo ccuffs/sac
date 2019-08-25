@@ -1,6 +1,7 @@
 <?php
 
 require_once dirname(__FILE__).'/config.php';
+require_once dirname(__FILE__). '/../vendor/rmccue/requests/library/Requests.php';
 
 
 function authIsValidUser($theUserLogin, $thePassword) {
@@ -109,6 +110,7 @@ function authCreateLocalAccountUsingInfos($theUserInfo, $theCpf, $thePassword) {
 	return $aOk;
 }
 
+//TODO: this function isn't being used anymore
 function authLoginUsingMoodle($theUser, $thePassword) {
 	$aRet = null;
 	$aCh = curl_init('https://moodle.uffs.edu.br/login/index.php');
@@ -153,6 +155,51 @@ function authLoginUsingMoodle($theUser, $thePassword) {
 	
 	curl_close($aCh);
 	return $aRet;
+}
+
+function authLoginUsingPortal($username, $password){
+	Requests::register_autoloader();
+	$headers = array(
+	    'Accept-API-Version' => 'protocol=1.0,resource=2.0',
+	    'Sec-Fetch-Mode' => 'cors',
+	    'Origin' => 'https://id.uffs.edu.br',
+	    'Accept-Encoding' => 'gzip, deflate, br',
+	    'X-Password' => 'anonymous',
+	    'Accept-Language' => 'en-US,en;q=0.9',
+	    'X-Requested-With' => 'XMLHttpRequest',
+	    'Connection' => 'keep-alive',
+	    'X-Username' => 'anonymous',
+	    'User-Agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.87 Safari/537.36',
+	    'Content-Type' => 'application/json',
+	    'Accept' => 'application/json, text/javascript, */*; q=0.01',
+	    'Cache-Control' => 'no-cache',
+	    'Referer' => 'https://id.uffs.edu.br/id/XUI/',
+	    'Sec-Fetch-Site' => 'same-origin',
+	    'X-NoSession' => 'true',
+	    'Cookie' => 'JSESSIONID=F9D685160995A7AED0A89FF926DFF23C; _ga=GA1.3.1694994789.1564943473; i18next=en-US; amlbcookie=01'
+	);
+	$data = '{"authId":"eyAidHlwIjogIkpXVCIsICJhbGciOiAiSFMyNTYiIH0.eyAib3RrIjogImtranZqbG9uMGlicmJ0cDVkbGQ0NXZqajI4IiwgInJlYWxtIjogImRjPW9wZW5hbSxkYz1mb3JnZXJvY2ssZGM9b3JnIiwgInNlc3Npb25JZCI6ICJBUUlDNXdNMkxZNFNmY3paUU1LV2R1akQtRlJLOC05WVBMVjZBTDZLZGlaSm1Way4qQUFKVFNRQUNNREVBQWxOTEFCUXROREl3TnpBek1UQTJNREkyTXpneE1qWTFOZ0FDVXpFQUFBLi4qIiB9.7jwDw0grbOGJwHX05mjgt0-aKM8Y4R_sWjliPklsPYs","template":"","stage":"DataStore1","header":"Entre com seu IdUFFS","callbacks":[{"type":"NameCallback","output":[{"name":"prompt","value":"IdUFFS ou CPF"}],"input":[{"name":"IDToken1","value":"USUARIO"}]},{"type":"PasswordCallback","output":[{"name":"prompt","value":"Senha"}],"input":[{"name":"IDToken2","value":"SENHA"}]}]}';
+
+	$data = str_replace("USUARIO", $username, $data);
+	$data = str_replace("SENHA", $password, $data);
+
+
+	$response = Requests::post('https://id.uffs.edu.br/id/json/authenticate?realm=/', $headers, $data);
+
+	$response = json_decode($response->body);
+
+
+	if(isset($response->code)) {
+		$message["user"] = $username;
+		$message["authenticated"] = false;
+	}
+	else{
+		$message["user"] = $username;
+		$message["authenticated"] = true;
+	}
+
+	//echo json_encode($message);
+	return $message;
 }
 
 ?>
