@@ -4,7 +4,7 @@ var SAC = new function() {
 
 		$.ajax({
 		  type: 'POST',
-		  url: 'ajax-attending.php',
+		  url: 'api/attending-event/update-subscription',
 		  data: {'event': theEventId, 'action' : theAction }
 		})
 		.done(function( msg ) {
@@ -48,8 +48,7 @@ var SAC = new function() {
 		$('#' + theContainerId).html('<i class="fa fa-circle-o-notch fa-spin"></i> Carregando informações sobre pagamentos...');
 
 		$.ajax({
-		  type: 'POST',
-		  url: 'ajax-payments.php'
+		  url: 'api/payment/'
 		})
 		.done(function( msg ) {
 			$('#' + theContainerId).fadeOut(function() {

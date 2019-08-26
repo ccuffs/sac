@@ -56,41 +56,34 @@ function eventUpdateOrCreate($theId, $theEventInfo) {
 	global $gDb;
 	
 	$aRet 	= false;
-	$aQuery = $gDb->prepare("INSERT INTO event (id, fk_competition, day, month, time, title, description, place, price, capacity, waiting_capacity, ghost) VALUES
-											   (".(is_numeric($theId) ? '?' : 'NULL').", ".(is_numeric($theEventInfo['fk_competition']) ? '?' : 'NULL').", ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-							ON DUPLICATE KEY UPDATE
-											   fk_competition = ".(is_numeric($theEventInfo['fk_competition']) ? '?' : 'NULL').", day = ?, month = ?, time = ?, title = ?, description = ?, place = ?, price = ?, capacity = ?, waiting_capacity = ?, ghost = ?");
-	
-	$aPlaceholders = array();
-	
-	if (is_numeric($theId)) 							{ $aPlaceholders[] = $theId; }
-	if (is_numeric($theEventInfo['fk_competition'])) 	{ $aPlaceholders[] = $theEventInfo['fk_competition']; }
-	
-	$aPlaceholders[] = $theEventInfo['day'];
-	$aPlaceholders[] = $theEventInfo['month'];
-	$aPlaceholders[] = $theEventInfo['time'];
-	$aPlaceholders[] = $theEventInfo['title'];
-	$aPlaceholders[] = $theEventInfo['description'];
-	$aPlaceholders[] = $theEventInfo['place'];
-	$aPlaceholders[] = $theEventInfo['price'];
-	$aPlaceholders[] = $theEventInfo['capacity'];
-	$aPlaceholders[] = $theEventInfo['waiting_capacity'];
-	$aPlaceholders[] = $theEventInfo['ghost'];
-	
-	if (is_numeric($theEventInfo['fk_competition'])) 	{ $aPlaceholders[] = $theEventInfo['fk_competition']; }
 
-	$aPlaceholders[] = $theEventInfo['day'];
-	$aPlaceholders[] = $theEventInfo['month'];
-	$aPlaceholders[] = $theEventInfo['time'];
-	$aPlaceholders[] = $theEventInfo['title'];
-	$aPlaceholders[] = $theEventInfo['description'];
-	$aPlaceholders[] = $theEventInfo['place'];
-	$aPlaceholders[] = $theEventInfo['price'];
-	$aPlaceholders[] = $theEventInfo['capacity'];
-	$aPlaceholders[] = $theEventInfo['waiting_capacity'];	
-	$aPlaceholders[] = $theEventInfo['ghost'];	
+	$ghost = $theEventInfo['ghost'] == 1;
+
+	/* I'm interpolating ghost in the sql because for some reason when I bindParam it I got and error  */
+
+	$sql = "INSERT INTO event (id , fk_competition , day , month , time , title , description , place , price , capacity , waiting_capacity , ghost) VALUES
+		 					  (:id, :fk_competition, :day, :month, :time, :title, :description, :place, :price, :capacity, :waiting_capacity, $ghost)
+		ON DUPLICATE KEY UPDATE
+		fk_competition = :fk_competition, day = :day, month = :month, time = :time, title = :title, description = :description, place = :place, price = :price, capacity = :capacity, waiting_capacity = :waiting_capacity, ghost = $ghost";
+	$aQuery = $gDb->prepare($sql);
+
+	$id = is_numeric($theId) ? $theId : null;
+	$fk_competition = $theEventInfo['fk_competition'] ? $theEventInfo['fk_competition'] : null;
 	
-	$aRet = $aQuery->execute($aPlaceholders);
+	$aQuery->bindParam('fk_competition', $fk_competition);
+	$aQuery->bindParam('id', $id);
+	$aQuery->bindParam('day', $theEventInfo['day']);
+	$aQuery->bindParam('month', $theEventInfo['month']);
+	$aQuery->bindParam('time', $theEventInfo['time']);
+	$aQuery->bindParam('title', $theEventInfo['title']);
+	$aQuery->bindParam('description', $theEventInfo['description']);
+	$aQuery->bindParam('place', $theEventInfo['place']);
+	$aQuery->bindParam('price', $theEventInfo['price']);
+	$aQuery->bindParam('capacity', $theEventInfo['capacity']);
+	$aQuery->bindParam('waiting_capacity', $theEventInfo['waiting_capacity']);
+	$aQuery->bindParam('ghost', $ghost);
+	
+	$aRet = $aQuery->execute();
 	return $aRet;
 }
 

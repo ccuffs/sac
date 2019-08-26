@@ -1,6 +1,8 @@
 <?php 
 	require_once dirname(__FILE__).'/layout.php';
 	
+	use \core\View;
+
 	$aData 			= View::data();
 	$aUser			= $aData['user'];
 	$aUffs			= $aData['uffs'];
@@ -22,7 +24,7 @@
 	echo '<div class="container">';
 		echo '<div class="row">';
 			echo '<div class="col-md-12">';
-				echo '<form class="form-horizontal" action="login.php'.($aIsLogin ? '?login=1' : '').'" method="post" role="form">
+				echo '<form class="form-horizontal" action="login" method="post" role="form">
 						<div class="form-group">
 						  <div class="form-group '.($aData['loginError'] ? 'error' : '').'">
 							<label class="col-md-3 control-label">CPF</label>

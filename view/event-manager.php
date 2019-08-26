@@ -1,11 +1,13 @@
 <?php 
 	require_once dirname(__FILE__).'/layout.php';
 	
+	use \core\View;
+
 	$aData	= View::data();
 	$aUser 	= $aData['user'];
 	$aEvent = $aData['event'];
 		
-	layoutHeader('Editor de atividade', View::baseUrl());
+	layoutHeader('Editor de atividade', View::baseUrl() . '../');
 	
 	echo '<div class="jumbotron">';
 		echo '<div class="container">';
@@ -25,7 +27,7 @@
 		}
 	}
 	
-	echo '<form action="event-manager.php" method="post" name="formEvent" id="formEvent">';
+	echo '<form method="post" name="formEvent" id="formEvent">';
 		echo '<div class="row">';
 			echo '<div class="col-md-8">';
 				echo '<input type="hidden" name="hasValue" value="1" />';

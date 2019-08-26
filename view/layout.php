@@ -70,13 +70,13 @@ function layoutUserBar($theUserInfo) {
 			echo '<li class="dropdown">';
 				echo '<a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>';
 				echo '<ul class="dropdown-menu" role="menu">';
-					echo '<li><a href="logout.php"><i class="fa fa-sign-out"></i> Sair</a></li>';
+					echo '<li><a href="logout"><i class="fa fa-sign-out"></i> Sair</a></li>';
 				echo '</ul>';				
 			echo '</li>';
 		} else {
 			echo '<li class="dropdown">';
-				echo '<button class="btn btn-info" onclick="window.location=\'login.php\';" style="margin-top: 7px;"><span class="fa fa-user"></span> Inscrever-se</button> ';
-				echo '<button class="btn btn-success" onclick="window.location=\'login.php?login=1\';" style="margin-top: 7px;"><span class="fa fa-user"></span> Login</button>';
+				echo '<button class="btn btn-info" onclick="window.location=\'inscricao\';" style="margin-top: 7px;"><span class="fa fa-user"></span> Inscrever-se</button> ';
+				echo '<button class="btn btn-success" onclick="window.location=\'login\';" style="margin-top: 7px;"><span class="fa fa-user"></span> Login</button>';
 			echo '</li>';
 		}
 	echo '</ul>';
@@ -100,9 +100,9 @@ function layoutHeader($theTitle, $theBaseUrl = '.') {
 		$aRandURLs .= DEBUG_MODE ? rand(20, 9999) : '';
 		
 		echo '<!-- Le styles -->';
-		echo '<link href="'.$theBaseUrl.'/css/bootstrap.css" rel="stylesheet">';
-		echo '<link href="'.$theBaseUrl.'/css/style.css'.$aRandURLs.'" rel="stylesheet" media="screen">';
-		echo '<link href="'.$theBaseUrl.'/css/print.css'.$aRandURLs.'" rel="stylesheet" media="print">';
+		echo '<link href="'.$theBaseUrl.'../css/bootstrap.css" rel="stylesheet">';
+		echo '<link href="'.$theBaseUrl.'../css/style.css'.$aRandURLs.'" rel="stylesheet" media="screen">';
+		echo '<link href="'.$theBaseUrl.'../css/print.css'.$aRandURLs.'" rel="stylesheet" media="print">';
 		
 		echo '<!-- Le fav and touch icons -->';
 		echo '<link rel="shortcut icon" href="img/favicon.ico">';
@@ -113,9 +113,9 @@ function layoutHeader($theTitle, $theBaseUrl = '.') {
 		echo '<!-- FontAwesome -->';
 		echo '<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">';
 		
-		echo '<script src="'.$theBaseUrl.'/js/jquery.js'.$aRandURLs.'"></script>';
-		echo '<script src="'.$theBaseUrl.'/js/bootstrap.js'.$aRandURLs.'"></script>';
-		echo '<script src="'.$theBaseUrl.'/js/sac.js'.$aRandURLs.'"></script>';
+		echo '<script src="'.$theBaseUrl.'/../../js/jquery.js'.$aRandURLs.'"></script>';
+		echo '<script src="'.$theBaseUrl.'/../../js/bootstrap.js'.$aRandURLs.'"></script>';
+		echo '<script src="'.$theBaseUrl.'/../../js/sac.js'.$aRandURLs.'"></script>';
 	echo '</head>';
 	
 	echo '<body>';
@@ -127,7 +127,7 @@ function layoutFooter($theBaseUrl = '.') {
 		echo '<div class="container">';
 			echo '<hr>';
 			echo '<footer class="footer">';
-				echo '<a href="http://fronteiratec.com" target="_blank"><img src="'.$theBaseUrl.'/img/logo_fronteiratec_small.png"/></a>';
+				echo '<a href="http://fronteiratec.com" target="_blank"><img src="'.$theBaseUrl.'/../../img/logo_fronteiratec_small.png"/></a>';
 				//echo '<p>&copy; '.date('Y').' - FronteiraTec - Todos os direitos reservados.</p>';
 			echo '</footer>';
 			

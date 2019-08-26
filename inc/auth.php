@@ -98,7 +98,7 @@ function authCreateLocalAccountUsingInfos($theUserInfo, $theCpf, $thePassword) {
 	$aUser = null;
 	$aQuery = $gDb->prepare("INSERT INTO users (login, password, name, email, type) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE password = ?"); // TODO: fix this!
 	
-	$aEmail = $theUserInfo['email'];
+	$aEmail = isset($theUserInfo['email']) ? $theUserInfo['email'] : '';
 	$aPwd	= authHash($thePassword);
 	$aOk	= strlen($theCpf) >= 5 && strlen($thePassword) > 1 &&  strlen($theUserInfo['name']) >= 5 &&  strlen($aEmail) >= 5;
 	
