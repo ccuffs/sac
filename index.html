@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="assets/css/buttons.css">
   <link rel="stylesheet" href="assets/css/navbar.css">
   <link rel="stylesheet" href="assets/css/section.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
   <link href="https://fonts.googleapis.com/css?family=Trebuchet+MS:400,600,700&display=swap" rel="stylesheet">
   <!-- <link rel="stylesheet" href="assets/css/tables.css">
   <link rel="stylesheet" href="assets/css/text.css"> -->
@@ -40,9 +41,9 @@
           </div>
           <div class="col-md-10 d-none d-md-block">
             <nav class="navbar__menu">
-              <a class="navbar__archor" href="#">Sobre</a>
-              <a class="navbar__archor" href="#">Palestrantes</a>
-              <a class="navbar__archor" href="#">Programação</a>
+              <a class="navbar__archor" href="#about">Sobre</a>
+              <a class="navbar__archor" href="#speakers">Palestrantes</a>
+              <a class="navbar__archor" href="#programming">Programação</a>
               <a class="navbar__archor" href="#">Inscrições</a>
             </nav>
           </div>
@@ -56,27 +57,27 @@
     </div>
     <div class="menu-mobile">
       <nav id="menu" class="menu-mobile__content">
-        <a class="navbar__archor" href="#">Sobre</a>
-        <a class="navbar__archor" href="#">Palestrantes</a>
-        <a class="navbar__archor" href="#">Programação</a>
+        <a class="navbar__archor" href="#about">Sobre</a>
+        <a class="navbar__archor" href="#speakers">Palestrantes</a>
+        <a class="navbar__archor" href="#programming">Programação</a>
         <a class="navbar__archor" href="#">Inscrições</a>
       </nav>
     </div>
   </header>
 
-  <section class="intro">
+  <section class="intro" id="intro">
     <div class="intro__content">
       <div class="container">
-        <h1 class="title intro__big-title">SEMANA ACÂDEMICA VII</h1>
-        <p class="title">Ciência da Computação - UFFS</p>
+        <h1 class="title intro__big-title" scroll-sensitive="animate-top-down">SEMANA ACÂDEMICA VII</h1>
+        <p class="title" scroll-sensitive="animate-bottom-up">Ciência da Computação - UFFS</p>
       </div>
     </div>
   </section>
 
-  <section class="about section">
+  <section class="about section" id="about">
     <div class="container">
       <div class="row justify-content-between">
-        <div class="col-12 col-md-5">
+        <div class="col-12 col-md-5" scroll-sensitive="animate-left-right">
           <h2 class="about__title title">O que é SACC?</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a velit accumsan, condimentum libero eu,
             vestibulum tellus. Sed nulla leo, varius a fringilla in, fringilla id arcu. In hac habitasse platea
@@ -84,19 +85,19 @@
             faucibus dui. Nunc quis semper ex.</p>
         </div>
         <div class="col-12 col-md-6">
-          <div class="about-item">
+          <div class="about-item" scroll-sensitive="animate-right-left">
             <h3 class="about-item__title title">Por quê ir?</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a velit accumsan, condimentum libero eu,
               vestibulum tellus. Sed nulla leo, varius a fringilla in, fringilla id arcu. In hac habitasse platea
               dictumst. Mauris in elementum enim. Nunc quis semper ex.</p>
           </div>
-          <div class="about-item">
+          <div class="about-item" scroll-sensitive="animate-right-left-2">
             <h3 class="about-item__title title">Objetivo</h3>
             <p>Lorem ipsum dolor sit amet, elit. Aliquam a velit accumsan, condimentum libero eu, vestibulum tellus. Sed
               nulla leo, varius a fringilla in, fringilla id arcu. In hac habitasse platea dictumst. Vitae turpis varius
               ultricies in at mauris. Fusce eget faucibus dui. Nunc quis semper ex.</p>
           </div>
-          <div class="about-item">
+          <div class="about-item" scroll-sensitive="animate-right-left-3">
             <h3 class="about-item__title title">Para quem?</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a velit accumsan, vestibulum tellus.
               Vivamus rarius ultricies in at mauris. Mauris in elementum enim. Fusce eget faucibus dui. Nunc quis semper
@@ -107,11 +108,11 @@
     </div>
   </section>
 
-  <section class="speakers section">
+  <section class="speakers section" id="speakers">
     <div class="container">
-      <h2 class="speakers__title title">Palestrantes</h2>
+      <h2 class="speakers__title title" scroll-sensitive="animate-top-down">Palestrantes</h2>
       <div class="spearkers__list">
-        <div class="speaker-card card">
+        <div class="speaker-card card" scroll-sensitive="animate-left-right">
           <div class="card__body">
             <div class="row align-items-center">
               <div class="col-12 col-md-5 col-lg-4">
@@ -132,7 +133,7 @@
             </div>
           </div>
         </div>
-        <div class="speaker-card card">
+        <div class="speaker-card card" scroll-sensitive="animate-right-left">
           <div class="card__body">
             <div class="row align-items-center">
               <div class="col-12 col-md-5 col-lg-4">
@@ -154,7 +155,7 @@
           </div>
         </div>
       </div>
-      <div class="speaker-card card">
+      <div class="speaker-card card" scroll-sensitive="animate-left-right">
         <div class="card__body">
           <div class="row align-items-center">
             <div class="col-12 col-md-5 col-lg-4">
@@ -178,18 +179,18 @@
     </div>
   </section>
 
-  <section class="programming section">
+  <section class="programming section" id="programming">
     <div class="container">
-      <h2 class="programming__title title">Programação</h2>
+      <h2 class="programming__title title" scroll-sensitive="animate-top-down">Programação</h2>
 
       <div class="programming-item">
         <div class="row">
           <div class="col-12 col-lg-6">
-            <div class="programming-item__day">Segunda, 07 de Outubro</div>
+            <div class="programming-item__day" scroll-sensitive="animate-left-right">Segunda, 07 de Outubro</div>
           </div>
           <div class="col-12 col-lg-6">
             <div class="">
-              <div class="lecture">
+              <div class="lecture" scroll-sensitive="animate-right-left">
                 <div class="lecture__time">
                   13:30<br>
                   14:20
@@ -201,7 +202,7 @@
                   <span class="lecture__speaker">Nome Pastrante(UFFS-Chapecó)</span>
                 </div>
               </div>
-              <div class="lecture">
+              <div class="lecture" scroll-sensitive="animate-right-left-2">
                   <div class="lecture__time">
                     13:30<br>
                     14:20
@@ -213,7 +214,7 @@
                     <span class="lecture__speaker">Nome Pastrante(UFFS-Chapecó)</span>
                   </div>
               </div>
-              <div class="lecture">
+              <div class="lecture" scroll-sensitive="animate-right-left-3">
                   <div class="lecture__time">
                     13:30<br>
                     14:20
@@ -232,10 +233,10 @@
       <div class="programming-item">
         <div class="row">
           <div class="col-12 col-lg-6">
-            <div class="programming-item__day">Terça 08 de Outubro</div>
+            <div class="programming-item__day" scroll-sensitive="animate-left-right">Terça 08 de Outubro</div>
           </div>
           <div class="col-12 col-lg-6">
-            <div class="lecture">
+            <div class="lecture" scroll-sensitive="animate-right-left">
               <div class="lecture__time">
                 13:30<br>
                 14:20
@@ -247,7 +248,7 @@
                 <span class="lecture__speaker">Nome Pastrante(UFFS-Chapecó)</span>
               </div>
             </div>
-            <div class="lecture">
+            <div class="lecture" scroll-sensitive="animate-right-left-2">
                 <div class="lecture__time">
                   13:30<br>
                   14:20
@@ -259,7 +260,7 @@
                   <span class="lecture__speaker">Nome Pastrante(UFFS-Chapecó)</span>
                 </div>
             </div>
-            <div class="lecture">
+            <div class="lecture" scroll-sensitive="animate-right-left-3">
                 <div class="lecture__time">
                   13:30<br>
                   14:20
@@ -277,10 +278,10 @@
       <div class="programming-item">
           <div class="row">
             <div class="col-12 col-lg-6">
-              <div class="programming-item__day">Quarta, 08 de Outubro</div>
+              <div class="programming-item__day" scroll-sensitive="animate-left-right">Quarta, 08 de Outubro</div>
             </div>
             <div class="col-12 col-lg-6">
-                <div class="lecture">
+                <div class="lecture" scroll-sensitive="animate-right-left">
                   <div class="lecture__time">
                     13:30<br>
                     14:20
@@ -294,7 +295,7 @@
                     </span>
                   </div>
                 </div>
-                <div class="lecture">
+                <div class="lecture" scroll-sensitive="animate-right-left-2">
                     <div class="lecture__time">
                       13:30<br>
                       14:20
@@ -306,7 +307,7 @@
                       <span class="lecture__speaker">Nome Pastrante(UFFS-Chapecó)</span>
                     </div>
                 </div>
-                <div class="lecture">
+                <div class="lecture" scroll-sensitive="animate-right-left-3">
                     <div class="lecture__time">
                       13:30<br>
                       14:20
