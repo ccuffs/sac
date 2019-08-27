@@ -1,12 +1,14 @@
 <?php
 
+use \core\View;
+
 function layoutNavBar($theBaseUrl) {
 	$aPage = basename($_SERVER['PHP_SELF']);
 	
 	echo '<nav class="navbar navbar-default" role="navigation">';
 		echo '<div class="container">';
 			echo '<div class="navbar-header">';
-				echo '<a class="navbar-brand" href="index.php" title="Ir para página inicial"><i class="fa fa-calendar"/></i> Programação</a>';
+				echo '<a class="navbar-brand" href="'.base_url("/").'" title="Ir para página inicial"><i class="fa fa-calendar"/></i> Programação</a>';
 			echo '</div>';
 			
 			echo '<div class="collapse navbar-collapse">';
@@ -43,13 +45,13 @@ function layoutAdminNavBar($theUserInfo) {
 			echo '<a class="dropdown-toggle" data-toggle="dropdown" href="#">Ações <b class="caret"></b></a>';
 			echo '<ul class="dropdown-menu" role="menu">';
 				echo '<li role="presentation" class="dropdown-header">Programação</li>';
-				echo '<li><a href="event-manager.php">Criar evento</a></li>';
-				echo '<li><a href="competition-manager.php">Criar campeonato</a></li>';
+				echo '<li><a href="'.base_url("/admin/evento").'">Criar evento</a></li>';
+				echo '<li><a href="'.base_url("/admin/campeonato").'">Criar campeonato</a></li>';
 				
 				echo '<li class="divider"></li>';
 				echo '<li role="presentation" class="dropdown-header">Inscrições</li>';
-				echo '<li><a href="registrations.php">Listar</a></li>';
-				echo '<li><a href="payment-manager.php">Pagamentos</a></li>';
+				echo '<li><a href="'.base_url("/admin/inscricoes").'">Listar</a></li>';
+				echo '<li><a href="'.base_url("/admin/pagamento").'">Pagamentos</a></li>';
 				
 				echo '<li class="divider"></li>';
 				echo '<li role="presentation" class="dropdown-header">Frequência</li>';
@@ -100,9 +102,9 @@ function layoutHeader($theTitle, $theBaseUrl = '.') {
 		$aRandURLs .= DEBUG_MODE ? rand(20, 9999) : '';
 		
 		echo '<!-- Le styles -->';
-		echo '<link href="'.$theBaseUrl.'../css/bootstrap.css" rel="stylesheet">';
-		echo '<link href="'.$theBaseUrl.'../css/style.css'.$aRandURLs.'" rel="stylesheet" media="screen">';
-		echo '<link href="'.$theBaseUrl.'../css/print.css'.$aRandURLs.'" rel="stylesheet" media="print">';
+		echo '<link href="'.base_url('/css/bootstrap.css').'" rel="stylesheet">';
+		echo '<link href="'.base_url('/css/style.css').'" rel="stylesheet" media="screen">';
+		echo '<link href="'.base_url('/css/print.css').'" rel="stylesheet" media="print">';
 		
 		echo '<!-- Le fav and touch icons -->';
 		echo '<link rel="shortcut icon" href="img/favicon.ico">';
@@ -113,9 +115,9 @@ function layoutHeader($theTitle, $theBaseUrl = '.') {
 		echo '<!-- FontAwesome -->';
 		echo '<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">';
 		
-		echo '<script src="'.$theBaseUrl.'/../../js/jquery.js'.$aRandURLs.'"></script>';
-		echo '<script src="'.$theBaseUrl.'/../../js/bootstrap.js'.$aRandURLs.'"></script>';
-		echo '<script src="'.$theBaseUrl.'/../../js/sac.js'.$aRandURLs.'"></script>';
+		echo '<script src="'.base_url('/js/jquery.js').'"></script>';
+		echo '<script src="'.base_url('/js/bootstrap.js').'"></script>';
+		echo '<script src="'.base_url('/js/sac.js').'"></script>';
 	echo '</head>';
 	
 	echo '<body>';

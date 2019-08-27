@@ -1,6 +1,8 @@
 <?php 
 	require_once dirname(__FILE__).'/layout.php';
 
+	use \core\View;
+
 	layoutHeader('Restrito', View::baseUrl());
 	
 	echo '<div class="jumbotron">';

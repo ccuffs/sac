@@ -37,4 +37,9 @@ function utilOut($theScript) {
 	return htmlspecialchars($theScript, ENT_QUOTES, "UTF-8");
 }
 
+function base_url($url) {
+	/* TODO: Config this */
+	return "http://localhost:81/sac" . $url;
+}
+
 ?>

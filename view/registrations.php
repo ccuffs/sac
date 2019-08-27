@@ -1,5 +1,7 @@
 <?php 
 	require_once dirname(__FILE__).'/layout.php';
+
+	use \core\View;
 	
 	layoutHeader('Cadastros', View::baseUrl());
 	

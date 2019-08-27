@@ -24,6 +24,13 @@
 
 	$app->get('/admin/evento', 'Controllers\EventController:adminIndex');
 	$app->post('/admin/evento', 'Controllers\EventController:create');
+	$app->get('/admin/campeonato', 'Controllers\CompetitionController:index');
+	$app->post('/admin/campeonato', 'Controllers\CompetitionController:create');
+	$app->get('/admin/inscricoes', 'Controllers\SubscribeController:index');
+	$app->get('/admin/pagamento', 'Controllers\SubscribeController:payment');
+	$app->post('/admin/pagamento', 'Controllers\SubscribeController:paymentCreate');
+
+	$app->get('/times', 'Controllers\TeamController:index');
 
 	// Run app
 	$app->run();

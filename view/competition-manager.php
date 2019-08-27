@@ -1,6 +1,8 @@
 <?php 
 	require_once dirname(__FILE__).'/layout.php';
 	
+	use \core\View;
+
 	$aData			= View::data();
 	$aUser 			= $aData['user'];
 	$aCompetition 	= $aData['competition'];
@@ -25,7 +27,7 @@
 		}
 	}
 
-	echo '<form action="competition-manager.php" method="post" name="formCompetition" id="formCompetition">';
+	echo '<form method="post" name="formCompetition" id="formCompetition">';
 		echo '<div class="row">';
 			echo '<div class="col-md-12">';
 				echo '<input type="hidden" name="hasValue" value="1" />';

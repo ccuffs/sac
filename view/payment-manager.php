@@ -1,5 +1,7 @@
 <?php 
 	require_once dirname(__FILE__).'/layout.php';
+
+	use \core\View;
 	
 	$aData			= View::data();
 	$aUsers			= $aData['users'];
@@ -25,7 +27,7 @@
 		}
 	}
 
-	echo '<form action="payment-manager.php" method="post" name="formPayment" id="formPayment">';
+	echo '<form method="post" name="formPayment" id="formPayment">';
 		echo '<input type="hidden" name="addEntry" value="1" />';
 		
 		echo '<div class="row">';
