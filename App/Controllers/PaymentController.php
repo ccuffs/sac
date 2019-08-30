@@ -1,8 +1,8 @@
 <?php
 
-namespace Controllers;
+namespace App\Controllers;
 
-require_once dirname(__FILE__).'/inc/3rdparty/PagSeguroLibrary/PagSeguroLibrary.php';
+require_once dirname(__FILE__).'/../../inc/3rdparty/PagSeguroLibrary/PagSeguroLibrary.php';
 
 class PaymentController {
     public function apiIndex ($request, $response, $args)
