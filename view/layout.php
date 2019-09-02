@@ -1,6 +1,7 @@
 <?php
 
 use \core\View;
+use App\Models\User;
 
 function layoutNavBar($theBaseUrl) {
 	$aPage = basename($_SERVER['PHP_SELF']);
@@ -15,7 +16,7 @@ function layoutNavBar($theBaseUrl) {
 				$aUserInfo = null;
 				
 				if (authIsAuthenticated()) {
-					$aUserInfo = userGetById($_SESSION['user']['id']);
+					$aUserInfo = User::getById($_SESSION['user']['id']);
 					
 					echo '<ul class="nav navbar-nav">';
 						//echo '<li '.($aPage == 'challenges.php' 	? 'class="active"' : '').'><a href="challenges.php">Desafios</a></li>';
@@ -33,10 +34,10 @@ function layoutNavBar($theBaseUrl) {
 	echo '</nav>';
 }
 
-function layoutAdminNavBar($theUserInfo) {
+function layoutAdminNavBar($user) {
 	$aPage = basename($_SERVER['PHP_SELF']);
 	
-	if (!userIsLevel($theUserInfo, USER_LEVEL_ADMIN)) {
+	if (!$user->isLevel(User::USER_LEVEL_ADMIN)) {
 		return;
 	}
 	
@@ -66,7 +67,7 @@ function layoutUserBar($theUserInfo) {
 	echo '<ul class="nav navbar-nav navbar-right">';
 		if (authIsAuthenticated()) {
 			echo '<li style="margin-top: -5px;">';
-				layoutPrintUser($theUserInfo['id'], $theUserInfo, true);
+				layoutPrintUser($theUserInfo->id, $theUserInfo, true);
 			echo '</li>';
 
 			echo '<li class="dropdown">';
@@ -153,20 +154,20 @@ function layoutFooter($theBaseUrl = '.') {
 
 function layoutPrintUser($theUserId, $theUserInfo = null, $theSimplified = false) {
 	$theUserId = (int)$theUserId;
-	$theUserInfo = !isset($theUserInfo) ? userGetById($theUserId) : $theUserInfo;
+	$theUserInfo = !isset($theUserInfo) ? User::getById($theUserId) : $theUserInfo;
 	
 	if ($theUserInfo != null) {
-		$aRole = $theUserInfo['type'] == USER_LEVEL_ADMIN ? '<span class="label label-info">Admin</span> ' : '';
-		$aAvatar = '<img src="'.(DEBUG_MODE ? '' : 'http://avatars.io/email/'.$theUserInfo['email']).'" class="img-circle" title="'.$theUserInfo['name'].'" style="'.($theSimplified ? 'width: 25px;' : '').'" />';
+		$aRole = $theUserInfo->type == User::USER_LEVEL_ADMIN ? '<span class="label label-info">Admin</span> ' : '';
+		$aAvatar = '<img src="'.(DEBUG_MODE ? '' : 'http://avatars.io/email/'.$theUserInfo->email).'" class="img-circle" title="'.$theUserInfo->name.'" style="'.($theSimplified ? 'width: 25px;' : '').'" />';
 	
 		if ($theSimplified) {
-			echo '<a href="#">'. $aAvatar . ' ' . $aRole . '<strong>'.$theUserInfo['name'].'</strong></a>';
+			echo '<a href="#">'. $aAvatar . ' ' . $aRole . '<strong>'.$theUserInfo->name.'</strong></a>';
 			
 		} else {
 			echo '<div class="user-info">';
 				// TODO: use user data to show profile image
 				echo $aAvatar;
-				echo '<a href="#"><strong>'.$theUserInfo['name'] . '</strong></a><br/>';
+				echo '<a href="#"><strong>'.$theUserInfo->name . '</strong></a><br/>';
 				echo $aRole;
 				
 				echo '<small><i class="icon-ok-circle"></i> 10 <i class="icon-briefcase"></i> 3 <i class="icon-fire"></i> 4</small>';

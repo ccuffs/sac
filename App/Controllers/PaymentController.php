@@ -2,6 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Models\Subscription;
+use App\Models\Payment;
+
 require_once dirname(__FILE__).'/../../inc/3rdparty/PagSeguroLibrary/PagSeguroLibrary.php';
 
 class PaymentController {
@@ -10,13 +13,13 @@ class PaymentController {
         authAllowAuthenticated();
 
         $aUser 		= authGetAuthenticatedUserInfo();
-        $aMustPay 	= attendingCalculateUserDept($aUser);
-        $aCredit 	= paymentCalculateUserCredit($aUser['id']);
+        $aMustPay 	= Payment::calculateUserDept($aUser);
+        $aCredit 	= Payment::calculateUserCredit($aUser->id);
         $aDebit		= $aMustPay - $aCredit;
 
         $aData						= array();
         $aData['dept'] 				= $aDebit;
-        $aData['payments'] 			= paymentFindByUser($aUser['id']);
+        $aData['payments'] 			= Payment::findByUser($aUser->id);
         $aData['showPayButton']		= $aDebit > 0;
         $aData['noDept']			= $aDebit <= 0;
 
@@ -40,8 +43,8 @@ class PaymentController {
         $aUser 		= authGetAuthenticatedUserInfo();
         $aUser 		= userGetById($aUser['id']);
         
-        $aMustPay 	= attendingCalculateUserDept($aUser['id']) + CONFERENCE_PRICE;
-        $aCredit 	= paymentCalculateUserCredit($aUser['id']);
+        $aMustPay 	= Payment::calculateUserDept($aUser['id']) + CONFERENCE_PRICE;
+        $aCredit 	= Payment::calculateUserCredit($aUser['id']);
         $aDebit		= $aMustPay - $aCredit;
         
         if ($aDebit < 0) {

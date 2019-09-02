@@ -3,6 +3,7 @@
 require_once dirname(__FILE__).'/config.php';
 require_once dirname(__FILE__). '/../vendor/rmccue/requests/library/Requests.php';
 
+use App\Models\User;
 
 function authIsValidUser($theUserLogin, $thePassword) {
 	global $gDb;
@@ -33,7 +34,7 @@ function authLogin($theUserLogin) {
 }
 
 function authGetAuthenticatedUserInfo() {
-	return userGetById($_SESSION['user']['id']);
+	return User::getById($_SESSION['user']['id']);
 }
 
 function authAllowNonAuthenticated() {
@@ -85,7 +86,7 @@ function authCreateLocalAccountUsingLoginMoodle($theUserInfo, $theCpf, $thePassw
 	$aOk	= strlen($aEmail) >= 5;
 	
 	if($aOk) {
-		$aQuery->execute(array($theCpf, $aPwd, $theUserInfo['user'], $aEmail, USER_LEVEL_UFFS, $aPwd));
+		$aQuery->execute(array($theCpf, $aPwd, $theUserInfo['user'], $aEmail, User::USER_LEVEL_UFFS, $aPwd));
 		$aOk = $aQuery->rowCount() != 0;
 		
 	}
@@ -103,7 +104,7 @@ function authCreateLocalAccountUsingInfos($theUserInfo, $theCpf, $thePassword) {
 	$aOk	= strlen($theCpf) >= 5 && strlen($thePassword) > 1 &&  strlen($theUserInfo['name']) >= 5 &&  strlen($aEmail) >= 5;
 	
 	if($aOk) {
-		$aQuery->execute(array($theCpf, $aPwd, $theUserInfo['name'], $aEmail, USER_LEVEL_EXTERNAL, $aPwd));
+		$aQuery->execute(array($theCpf, $aPwd, $theUserInfo['name'], $aEmail, User::USER_LEVEL_EXTERNAL, $aPwd));
 		$aOk = $aQuery->rowCount() != 0;
 	}
 	

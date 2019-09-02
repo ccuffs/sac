@@ -2,6 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Models\Event;
+use App\Models\Subscription;
+
 class AttendingEventController {
     public function updateSubscription ($request, $response, $args)
     {
@@ -15,12 +18,12 @@ class AttendingEventController {
         
         switch($aAction) {
             case 'subscribe':
-                $aEvent = eventGetById($aEventId);
+                $aEvent = Event::getById($aEventId);
                 $aUser	= authGetAuthenticatedUserInfo();
         
                 if ($aEvent != null) {
                     try {
-                        attendingAdd($aUser['id'], $aEvent['id'], 0);
+                        Subscription::Add($aUser->id, $aEvent['id'], 0);
                         $aRet = '<span class="label label-success"><i class="fa fa-check-square"></i> Inscrito</span>';
                         $aRet .= ' <a href="javascript:void(0);" onclick="SAC.unsubscribe('.$aEventId.')" title="Clique para remover sua inscrição dessa atividade."><i class="fa fa-remove"></i></a>';
                         
@@ -34,12 +37,12 @@ class AttendingEventController {
                 break;
                 
             case 'unsubscribe':
-                $aEvent = eventGetById($aEventId);
+                $aEvent = Event::getById($aEventId);
                 $aUser	= authGetAuthenticatedUserInfo();
         
                 if ($aEvent != null) {
                     try {
-                        attendingRemove($aUser['id'], $aEvent['id'], 0);
+                        Subscription::remove($aUser->id, $aEvent->id, 0);
                         $aRet = '<a href="javascript:void(0);" onclick="SAC.subscribe('.$aEventId.', '.($aEvent['capacity'] != 0 ? 'true' : 'false').')" title="Clique para se inscrever nessa atividade."><i class="fa fa-square-o"></i></a>';
                         
                     } catch(Exception $aError) {

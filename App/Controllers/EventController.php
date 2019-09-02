@@ -3,6 +3,9 @@
 namespace App\Controllers;
 
 use \core\View;
+use App\Models\User;
+use App\Models\Event;
+use App\Models\Competition;
 
 class EventController {
     public function  adminIndex ($request, $response, $args)
@@ -10,8 +13,8 @@ class EventController {
         authAllowAuthenticated();
 	
         $aData		= array();
-        $aUser 		= userGetById($_SESSION['user']['id']);
-        $aIsAdmin 	= userIsLevel($aUser, USER_LEVEL_ADMIN);
+        $aUser 		= User::getById($_SESSION['user']['id']);
+        $aIsAdmin 	= $aUser->isLevel(User::USER_LEVEL_ADMIN);
         $aEventId 	= isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
         
         $aData['user'] = $aUser;
@@ -26,10 +29,10 @@ class EventController {
             $aData['createdOrUpdated'] = eventDelete($_REQUEST['delete']);
             
         } else {
-            $aData['event'] = eventGetById($aEventId);	
+            $aData['event'] = Event::getById($aEventId);	
         }
         
-        $aData['competitions'] = competitionFindAll();
+        $aData['competitions'] = Competition::findAll();
 
         View::render('event-manager', $aData);
         return $response;
@@ -40,8 +43,8 @@ class EventController {
         authAllowAuthenticated();
 	
         $aData		= array();
-        $aUser 		= userGetById($_SESSION['user']['id']);
-        $aIsAdmin 	= userIsLevel($aUser, USER_LEVEL_ADMIN);
+        $aUser 		= User::getById($_SESSION['user']['id']);
+        $aIsAdmin 	= $aUser->isLevel(User::USER_LEVEL_ADMIN);
         $aEventId 	= isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
         
         if (!$aIsAdmin) {
@@ -52,9 +55,9 @@ class EventController {
         $aData['user'] = $aUser;
         $aData['event'] = array();
 
-        $aData['createdOrUpdated'] = eventUpdateOrCreate($aEventId, $_POST);
+        $aData['createdOrUpdated'] = Event::create($_POST);
 
-        $aData['competitions'] = competitionFindAll();
+        $aData['competitions'] = Competition::findAll();
 
         View::render('event-manager', $aData);
         return $response;
@@ -67,15 +70,15 @@ class EventController {
 	
         $aData			= array();
         $aId			= isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
-        $aUser 			= userGetById($_SESSION['user']['id']);
-        $aIsAdmin 		= userIsLevel($aUser, USER_LEVEL_ADMIN);
+        $aUser 			= User::getById($_SESSION['user']['id']);
+        $aIsAdmin 		= $aUser->isLevel(User::USER_LEVEL_ADMIN);
         
         if (!$aIsAdmin) {
             header("Location: restricted.php");
             exit();
         }
         
-        $aEvent			= eventGetById($aId);
+        $aEvent			= Event::getById($aId);
         $aUsers 		= array();
         $aAttending 	= array();
         $aPaidCredit	= paymentFindUsersWithPaidCredit();	
@@ -92,8 +95,8 @@ class EventController {
         }
 
         foreach($aUsers as $aId => $aInfo) {
-            $aUsers[$aId]['admin'] 	= $aInfo['type'] == USER_LEVEL_ADMIN;
-            $aUsers[$aId]['source'] = $aInfo['type'] == USER_LEVEL_UFFS || $aInfo['type'] == USER_LEVEL_ADMIN ? 'UFFS' : 'Externo';
+            $aUsers[$aId]['admin'] 	= $aInfo['type'] == User::USER_LEVEL_ADMIN;
+            $aUsers[$aId]['source'] = $aInfo['type'] == User::USER_LEVEL_UFFS || $aInfo['type'] == User::USER_LEVEL_ADMIN ? 'UFFS' : 'Externo';
             $aUsers[$aId]['paid'] 	= isset($aPaidCredit[$aId]) && $aPaidCredit[$aId] >= userGetConferencePrice($aInfo);
             
             if ($aUsers[$aId]['paid']) {

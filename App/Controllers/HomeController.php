@@ -2,34 +2,41 @@
 
 namespace App\Controllers;
 
+use App\Models\Event;
+use App\Models\User;
+use App\Models\Subscription;
+
 class HomeController {
-    public function home ($request, $response, $args)
-    {
-        $aAuthenticated = authIsAuthenticated();	
-        $aData = array();
-        $aUser = $aAuthenticated ? authGetAuthenticatedUserInfo() : null;
+    public function home ($request, $response, $args) {
+        $authenticated = authIsAuthenticated();
+        $data = array();
+        $user = $authenticated ? authGetAuthenticatedUserInfo() : null;
         
-        $aData['events'] = array();
-        $aEvents = eventFindAll();
+        $data['events'] = array();
+        $events = Event::findAll();
         
-        foreach($aEvents as $aId => $aInfo) {
-            $aDate = $aInfo['day'] . ' de ' . utilMonthToString($aInfo['month']) . ' ('.utilWeekDayToString($aInfo['day'], $aInfo['month']).')';
+        foreach($events as $id => $info) {
+            $date = $info['day'] . ' de ' . utilMonthToString($info['month']) . ' ('.utilWeekDayToString($info['day'], $info['month']).')';
             
-            if (!isset($aData['events'][$aDate])) {
-                $aData['events'][$aDate] = array();
+            if (!isset($data['events'][$date])) {
+                $data['events'][$date] = array();
             }
             
-            $aData['events'][$aDate][$aId] = $aInfo;
+            $data['events'][$date][$id] = $info;
         }
         
-        if ($aAuthenticated) {
-            $aData['attending']	= attendingFindByUserId($aUser['id']);
+        if ($authenticated) {
+            $data['attending']	= Subscription::findByUserId($user->id);
         }
 
-        $aData['authenticated'] = $aAuthenticated;
-        $aData['isAdmin'] = userIsLevel($aUser, USER_LEVEL_ADMIN);
+        $data['authenticated'] = $authenticated;
+        $data['isAdmin'] = false;
+
+        if ($user) {
+            $data['isAdmin'] = $user->isLevel(User::USER_LEVEL_ADMIN);
+        }
         
-        \core\View::render('index', $aData);
+        \core\View::render('index', $data);
         return $response;
     }
 }
