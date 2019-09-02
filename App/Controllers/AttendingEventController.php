@@ -4,11 +4,12 @@ namespace App\Controllers;
 
 use App\Models\Event;
 use App\Models\Subscription;
+use App\Models\AuthHelper;
 
 class AttendingEventController {
     public function updateSubscription ($request, $response, $args)
     {
-        authAllowAuthenticated();
+        AuthHelper::allowAuthenticated();
 
         $aEventId 	= isset($_REQUEST['event']) ? (int)$_REQUEST['event'] : '';
         $aAction 	= isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
@@ -19,7 +20,7 @@ class AttendingEventController {
         switch($aAction) {
             case 'subscribe':
                 $aEvent = Event::getById($aEventId);
-                $aUser	= authGetAuthenticatedUserInfo();
+                $aUser	= AuthHelper::getAuthenticatedUserInfo();
         
                 if ($aEvent != null) {
                     try {
@@ -38,7 +39,7 @@ class AttendingEventController {
                 
             case 'unsubscribe':
                 $aEvent = Event::getById($aEventId);
-                $aUser	= authGetAuthenticatedUserInfo();
+                $aUser	= AuthHelper::getAuthenticatedUserInfo();
         
                 if ($aEvent != null) {
                     try {

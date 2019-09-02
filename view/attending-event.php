@@ -1,5 +1,5 @@
 <?php 
-	use \core\View;
+	use App\Helpers\View;
 	
 	require_once dirname(__FILE__).'/layout.php';
 	

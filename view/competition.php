@@ -1,5 +1,7 @@
 <?php 
 	require_once dirname(__FILE__).'/layout.php';
+
+	use App\Helpers\UtilsHelper;
 	
 	layoutHeader('Campeonato', View::baseUrl());
 	
@@ -83,7 +85,7 @@
 													echo '<select name="member'.$i.'">';
 														echo '<option value=""></option>';
 														foreach($aCompetitors as $aIdUser => $aUser) {
-															echo '<option value="'.$aIdUser.'" '.(@$aTeam['members'][$i] == $aIdUser ? 'selected="selected"' : '').'>'.utilOut($aUser['name']).'</option>';
+															echo '<option value="'.$aIdUser.'" '.(@$aTeam['members'][$i] == $aIdUser ? 'selected="selected"' : '').'>'.UtilsHelper::out($aUser['name']).'</option>';
 														}
 													echo '</select>';
 												echo '</td>';
@@ -118,14 +120,14 @@
 
 					echo '<div class="col-md-3">';
 						echo '<div class="thumbnail team">';
-							echo '<img src="'.($aInfoTeam['url'] == '' ? View::baseUrl().'/img/avatar.png' : utilOut($aInfoTeam['url'])).'" alt="'.utilOut($aInfoTeam['name']).'">';
+							echo '<img src="'.($aInfoTeam['url'] == '' ? View::baseUrl().'/img/avatar.png' : UtilsHelper::out($aInfoTeam['url'])).'" alt="'.UtilsHelper::out($aInfoTeam['name']).'">';
 							echo '<div class="caption">';
-								echo '<h3>'.($aInfoTeam['paid'] ? '<i class="fa fa-check-circle" title="Inscrição confirmada!"></i>' : '').' '.utilOut($aInfoTeam['name']).'</h3>';
+								echo '<h3>'.($aInfoTeam['paid'] ? '<i class="fa fa-check-circle" title="Inscrição confirmada!"></i>' : '').' '.UtilsHelper::out($aInfoTeam['name']).'</h3>';
 								
 								echo '<div class="list-group">';
 									foreach($aMembers as $aMember) {
 										if($aMember != '') {
-											echo '<p class="list-group-item"><i class="fa fa-user"></i> '.utilOut($aCompetitors[$aMember]['name']).'</p>';
+											echo '<p class="list-group-item"><i class="fa fa-user"></i> '.UtilsHelper::out($aCompetitors[$aMember]['name']).'</p>';
 										}
 									}
 								echo '</div>';

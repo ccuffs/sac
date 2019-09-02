@@ -4,13 +4,14 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\Event;
+use App\Helpers\DatabaseHelper;
 
 class Subscription {
     public static function findByUserId($theUserId) {
-        global $gDb;
+        $conn = DatabaseHelper::getConn();
         
         $aRet = array();
-        $aQuery = $gDb->prepare("SELECT * FROM attending WHERE fk_user = ?");
+        $aQuery = $conn->prepare("SELECT * FROM attending WHERE fk_user = ?");
         
         if ($aQuery->execute(array($theUserId))) {
             while ($aRow = $aQuery->fetch()) {
@@ -22,10 +23,10 @@ class Subscription {
     }
     
     public static function findUsersByEventId($theEventId) {
-        global $gDb;
+        $conn = DatabaseHelper::getConn();
         
         $aRet = array();
-        $aQuery = $gDb->prepare("SELECT * FROM attending WHERE fk_event = ? ORDER BY date ASC");
+        $aQuery = $conn->prepare("SELECT * FROM attending WHERE fk_event = ? ORDER BY date ASC");
         
         if ($aQuery->execute(array($theEventId))) {
             while ($aRow = $aQuery->fetch()) {
@@ -45,7 +46,7 @@ class Subscription {
     
     
     public function add($theUserId, $theEventId, $thePaid) {
-        global $gDb;
+        $conn = DatabaseHelper::getConn();
         
         $aRet 		= null; 
         $aEvent 	= Event::getById($theEventId);	
@@ -72,17 +73,17 @@ class Subscription {
             throw new \Exception('Você já está inscrito nessa atividade');
         }
         
-        $aQuery = $gDb->prepare("INSERT INTO attending (fk_event, fk_user, date, paid) VALUES (?, ?, ?, ?)");
+        $aQuery = $conn->prepare("INSERT INTO attending (fk_event, fk_user, date, paid) VALUES (?, ?, ?, ?)");
         $aRet 	= $aQuery->execute(array($theEventId, $theUserId, time(), $thePaid));
         
         return $aRet;
     }
     
     public function remove($theUserId, $theEventId) {
-        global $gDb;
+        $conn = DatabaseHelper::getConn();
         
         $aRet = null;
-        $aQuery = $gDb->prepare("DELETE FROM attending WHERE fk_user = ? AND fk_event = ?");
+        $aQuery = $conn->prepare("DELETE FROM attending WHERE fk_user = ? AND fk_event = ?");
         
         $aRet = $aQuery->execute(array($theUserId, $theEventId));
         
@@ -90,10 +91,10 @@ class Subscription {
     }
     
     public static function countEventAttendants($theEventId) {
-        global $gDb;
+        $conn = DatabaseHelper::getConn();
         
         $aRet = 0;
-        $aQuery = $gDb->prepare("SELECT COUNT(*) AS total FROM attending WHERE fk_event = ?");
+        $aQuery = $conn->prepare("SELECT COUNT(*) AS total FROM attending WHERE fk_event = ?");
         
         if ($aQuery->execute(array($theEventId))) {
             $aRow = $aQuery->fetch();

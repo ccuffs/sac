@@ -4,15 +4,16 @@ namespace App\Controllers;
 
 use App\Models\Subscription;
 use App\Models\Payment;
+use App\Helpers\AuthHelper;
 
-require_once dirname(__FILE__).'/../../inc/3rdparty/PagSeguroLibrary/PagSeguroLibrary.php';
+require_once dirname(__FILE__).'/../../lib/PagSeguroLibrary/PagSeguroLibrary.php';
 
 class PaymentController {
     public function apiIndex ($request, $response, $args)
     {
-        authAllowAuthenticated();
+        AuthHelper::AllowAuthenticated();
 
-        $aUser 		= authGetAuthenticatedUserInfo();
+        $aUser 		= AuthHelper::getAuthenticatedUserInfo();
         $aMustPay 	= Payment::calculateUserDept($aUser);
         $aCredit 	= Payment::calculateUserCredit($aUser->id);
         $aDebit		= $aMustPay - $aCredit;
@@ -31,16 +32,16 @@ class PaymentController {
 
         $aData['beingAnalyzed'] = $aPaymentIsBeingAnalyzed;
 
-        \core\View::render('ajax-payments', $aData);
+        \App\Helpers\View::render('ajax-payments', $aData);
         return $response;
     }
 
     /* TODO: test this function */
     public function execute ()
     {
-        authAllowAuthenticated();
+        AuthHelper::AllowAuthenticated();
         
-        $aUser 		= authGetAuthenticatedUserInfo();
+        $aUser 		= AuthHelper::getAuthenticatedUserInfo();
         $aUser 		= userGetById($aUser['id']);
         
         $aMustPay 	= Payment::calculateUserDept($aUser['id']) + CONFERENCE_PRICE;

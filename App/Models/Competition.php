@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Helpers\DatabaseHelper;
+
 class Competition {
   public function getById($theId) {
-    global $gDb;
+    $conn = DatabaseHelper::getConn();
     
     $result = null;
-    $query = $gDb->prepare("SELECT * FROM competition WHERE id = ?");
+    $query = $conn->prepare("SELECT * FROM competition WHERE id = ?");
     
     if ($query->execute(array($theId))) {
       $result = $query->fetch();
@@ -17,10 +19,10 @@ class Competition {
   }
   
   public function findAll() {
-    global $gDb;
+    $conn = DatabaseHelper::getConn();
     
     $result = array();
-    $query = $gDb->prepare("SELECT * FROM competition WHERE 1");
+    $query = $conn->prepare("SELECT * FROM competition WHERE 1");
     
     if ($query->execute()) {
       while ($aRow = $query->fetch()) {
@@ -32,10 +34,10 @@ class Competition {
   }
   
   public function findTeams($theCompetitionId) {
-    global $gDb;
+    $conn = DatabaseHelper::getConn();
     
     $result = array();
-    $query = $gDb->prepare("SELECT * FROM teams WHERE fk_competition = ?");
+    $query = $conn->prepare("SELECT * FROM teams WHERE fk_competition = ?");
     
     if ($query->execute(array($theCompetitionId))) {
       while ($aRow = $query->fetch()) {
@@ -47,10 +49,10 @@ class Competition {
   }
   
   public function findTeamByLeaderId($theCompetitionId, $theLeaderId) {
-    global $gDb;
+    $conn = DatabaseHelper::getConn();
     
     $result = null;
-    $query = $gDb->prepare("SELECT * FROM teams WHERE fk_competition = ? AND fk_leader = ?");
+    $query = $conn->prepare("SELECT * FROM teams WHERE fk_competition = ? AND fk_leader = ?");
     
     if ($query->execute(array($theCompetitionId, $theLeaderId))) {
       $result = $query->fetch();
@@ -60,10 +62,10 @@ class Competition {
   }
   
   public function updateOrCreateTeam($theCompetitionId, $theTeamId, $theTeamInfo) {
-    global $gDb;
+    $conn = DatabaseHelper::getConn();
     
     $result 	= false;
-    $query = $gDb->prepare("INSERT INTO teams (id, fk_leader, fk_competition, name, members, url) VALUES (".(is_numeric($theTeamId) ? '?' : 'NULL').", ?, ?, ?, ?, ?)
+    $query = $conn->prepare("INSERT INTO teams (id, fk_leader, fk_competition, name, members, url) VALUES (".(is_numeric($theTeamId) ? '?' : 'NULL').", ?, ?, ?, ?, ?)
             ON DUPLICATE KEY UPDATE fk_leader = ?, fk_competition = ?, name = ?, members = ?, url = ?");
     
     $query_params = array();
@@ -89,10 +91,10 @@ class Competition {
   }
   
   public static function create($theCompetitionInfo) {
-    global $gDb;
+    $conn = DatabaseHelper::getConn();
     
     $result 	= false;
-    $query = $gDb->prepare("INSERT INTO competition (title, headline, description, prizes, rules, style)
+    $query = $conn->prepare("INSERT INTO competition (title, headline, description, prizes, rules, style)
                                           VALUES (:title, :headline, :description, :prizes, :rules, :style)");
     
     $query_params = [

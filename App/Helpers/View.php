@@ -1,6 +1,6 @@
 <?php
 
-namespace core;
+namespace App\Helpers;
 
 class View {
 	private static $mBaseUrl;
@@ -18,7 +18,7 @@ class View {
 		self::$mBaseUrl = 'view/';
 		self::$mData 	= $theData;
 		
-		$view_file = dirname(__FILE__).'/../'.self::$mBaseUrl.'/'.$theFile.'.php';
+		$view_file = dirname(__FILE__).'/../../'.self::$mBaseUrl.'/'.$theFile.'.php';
 
 		require_once $view_file;
 	}

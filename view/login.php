@@ -1,7 +1,7 @@
 <?php 
 	require_once dirname(__FILE__).'/layout.php';
 	
-	use \core\View;
+	use App\Helpers\View;
 
 	$aData 			= View::data();
 	$aUser			= $aData['user'];

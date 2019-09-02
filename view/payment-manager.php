@@ -1,7 +1,8 @@
 <?php 
 	require_once dirname(__FILE__).'/layout.php';
 
-	use \core\View;
+	use App\Helpers\View;
+	use App\Helpers\UtilsHelper;
 	
 	$aData			= View::data();
 	$aUsers			= $aData['users'];
@@ -37,7 +38,7 @@
 					echo '<select name="fk_user" class="col-lg-6 form-control">';
 						echo '<option value=""></option>';
 						foreach($aUsers as $aIdUser => $aUser) {
-							echo '<option value="'.$aIdUser.'">'.utilOut($aUser['name']).'</option>';
+							echo '<option value="'.$aIdUser.'">'.UtilsHelper::out($aUser['name']).'</option>';
 						}
 					echo '</select>';
 				echo '</div>';

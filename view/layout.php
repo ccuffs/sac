@@ -1,7 +1,9 @@
 <?php
 
-use \core\View;
+use App\Helpers\View;
 use App\Models\User;
+use App\Helpers\AuthHelper;
+use App\Helpers\UtilsHelper;
 
 function layoutNavBar($theBaseUrl) {
 	$aPage = basename($_SERVER['PHP_SELF']);
@@ -9,13 +11,13 @@ function layoutNavBar($theBaseUrl) {
 	echo '<nav class="navbar navbar-default" role="navigation">';
 		echo '<div class="container">';
 			echo '<div class="navbar-header">';
-				echo '<a class="navbar-brand" href="'.base_url("/").'" title="Ir para página inicial"><i class="fa fa-calendar"/></i> Programação</a>';
+				echo '<a class="navbar-brand" href="'.UtilsHelper::base_url("/").'" title="Ir para página inicial"><i class="fa fa-calendar"/></i> Programação</a>';
 			echo '</div>';
 			
 			echo '<div class="collapse navbar-collapse">';
 				$aUserInfo = null;
 				
-				if (authIsAuthenticated()) {
+				if (AuthHelper::isAuthenticated()) {
 					$aUserInfo = User::getById($_SESSION['user']['id']);
 					
 					echo '<ul class="nav navbar-nav">';
@@ -26,7 +28,7 @@ function layoutNavBar($theBaseUrl) {
 				
 				layoutUserBar($aUserInfo);
 					
-				if(authIsAuthenticated()) {
+				if(AuthHelper::isAuthenticated()) {
 					layoutAdminNavBar($aUserInfo);
 				}
 			echo '</div>';
@@ -46,13 +48,13 @@ function layoutAdminNavBar($user) {
 			echo '<a class="dropdown-toggle" data-toggle="dropdown" href="#">Ações <b class="caret"></b></a>';
 			echo '<ul class="dropdown-menu" role="menu">';
 				echo '<li role="presentation" class="dropdown-header">Programação</li>';
-				echo '<li><a href="'.base_url("/admin/evento").'">Criar evento</a></li>';
-				echo '<li><a href="'.base_url("/admin/campeonato").'">Criar campeonato</a></li>';
+				echo '<li><a href="'.UtilsHelper::base_url("/admin/evento").'">Criar evento</a></li>';
+				echo '<li><a href="'.UtilsHelper::base_url("/admin/campeonato").'">Criar campeonato</a></li>';
 				
 				echo '<li class="divider"></li>';
 				echo '<li role="presentation" class="dropdown-header">Inscrições</li>';
-				echo '<li><a href="'.base_url("/admin/inscricoes").'">Listar</a></li>';
-				echo '<li><a href="'.base_url("/admin/pagamento").'">Pagamentos</a></li>';
+				echo '<li><a href="'.UtilsHelper::base_url("/admin/inscricoes").'">Listar</a></li>';
+				echo '<li><a href="'.UtilsHelper::base_url("/admin/pagamento").'">Pagamentos</a></li>';
 				
 				echo '<li class="divider"></li>';
 				echo '<li role="presentation" class="dropdown-header">Frequência</li>';
@@ -63,9 +65,9 @@ function layoutAdminNavBar($user) {
 }
 
 function layoutUserBar($theUserInfo) {
-	$aClassLink	= authIsAdmin() ? 'btn-danger' : 'btn-primary';
+	$aClassLink	= AuthHelper::isAdmin() ? 'btn-danger' : 'btn-primary';
 	echo '<ul class="nav navbar-nav navbar-right">';
-		if (authIsAuthenticated()) {
+		if (AuthHelper::isAuthenticated()) {
 			echo '<li style="margin-top: -5px;">';
 				layoutPrintUser($theUserInfo->id, $theUserInfo, true);
 			echo '</li>';
@@ -103,9 +105,9 @@ function layoutHeader($theTitle, $theBaseUrl = '.') {
 		$aRandURLs .= DEBUG_MODE ? rand(20, 9999) : '';
 		
 		echo '<!-- Le styles -->';
-		echo '<link href="'.base_url('/css/bootstrap.css').'" rel="stylesheet">';
-		echo '<link href="'.base_url('/css/style.css').'" rel="stylesheet" media="screen">';
-		echo '<link href="'.base_url('/css/print.css').'" rel="stylesheet" media="print">';
+		echo '<link href="'.UtilsHelper::base_url('/css/bootstrap.css').'" rel="stylesheet">';
+		echo '<link href="'.UtilsHelper::base_url('/css/style.css').'" rel="stylesheet" media="screen">';
+		echo '<link href="'.UtilsHelper::base_url('/css/print.css').'" rel="stylesheet" media="print">';
 		
 		echo '<!-- Le fav and touch icons -->';
 		echo '<link rel="shortcut icon" href="img/favicon.ico">';
@@ -116,9 +118,9 @@ function layoutHeader($theTitle, $theBaseUrl = '.') {
 		echo '<!-- FontAwesome -->';
 		echo '<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">';
 		
-		echo '<script src="'.base_url('/js/jquery.js').'"></script>';
-		echo '<script src="'.base_url('/js/bootstrap.js').'"></script>';
-		echo '<script src="'.base_url('/js/sac.js').'"></script>';
+		echo '<script src="'.UtilsHelper::base_url('/js/jquery.js').'"></script>';
+		echo '<script src="'.UtilsHelper::base_url('/js/bootstrap.js').'"></script>';
+		echo '<script src="'.UtilsHelper::base_url('/js/sac.js').'"></script>';
 	echo '</head>';
 	
 	echo '<body>';
@@ -130,7 +132,7 @@ function layoutFooter($theBaseUrl = '.') {
 		echo '<div class="container">';
 			echo '<hr>';
 			echo '<footer class="footer">';
-				echo '<a href="http://fronteiratec.com" target="_blank"><img src="'.$theBaseUrl.'/../../img/logo_fronteiratec_small.png"/></a>';
+				echo '<a href="http://fronteiratec.com" target="_blank"><img src="'.UtilsHelper::base_url('/img/logo_fronteiratec_small.png').'"/></a>';
 				//echo '<p>&copy; '.date('Y').' - FronteiraTec - Todos os direitos reservados.</p>';
 			echo '</footer>';
 			

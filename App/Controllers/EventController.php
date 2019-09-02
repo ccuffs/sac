@@ -2,15 +2,17 @@
 
 namespace App\Controllers;
 
-use \core\View;
+use App\Helpers\View;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\Competition;
+use App\Models\Payment;
+use App\Helpers\AuthHelper;
 
 class EventController {
     public function  adminIndex ($request, $response, $args)
     {
-        authAllowAuthenticated();
+        AuthHelper::allowAuthenticated();
 	
         $aData		= array();
         $aUser 		= User::getById($_SESSION['user']['id']);
@@ -40,7 +42,7 @@ class EventController {
 
     public function create ($request, $response, $args)
     {
-        authAllowAuthenticated();
+        AuthHelper::allowAuthenticated();
 	
         $aData		= array();
         $aUser 		= User::getById($_SESSION['user']['id']);
@@ -66,7 +68,7 @@ class EventController {
     /* TODO: Implement this */
     public function attempt()
     {
-        authAllowAuthenticated();
+        AuthHelper::allowAuthenticated();
 	
         $aData			= array();
         $aId			= isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
@@ -81,7 +83,7 @@ class EventController {
         $aEvent			= Event::getById($aId);
         $aUsers 		= array();
         $aAttending 	= array();
-        $aPaidCredit	= paymentFindUsersWithPaidCredit();	
+        $aPaidCredit	= Payment::findUsersWithPaidCredit();	
         $aEmailsPaid	= array();
         $aEmailsNonPaid	= array();
         

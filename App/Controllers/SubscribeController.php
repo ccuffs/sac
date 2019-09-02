@@ -2,14 +2,15 @@
 
 namespace App\Controllers;
 
-use \core\View;
+use App\Helpers\View;
 use App\Models\User;
 use App\Models\Payment;
+use App\Helpers\AuthHelper;
 
 class SubscribeController {
     public function index ($request, $response, $args)
     {
-        authAllowAuthenticated();
+        AuthHelper::allowAuthenticated();
 	
         $aData			= array();
         $user 			= User::getById($_SESSION['user']['id']);
@@ -21,7 +22,7 @@ class SubscribeController {
         }
         
         $users 						= User::findAll();
-        $aPaidCredit					= paymentFindUsersWithPaidCredit();
+        $aPaidCredit					= Payment::findUsersWithPaidCredit();
         
         $aData['total_paid']			= 0;					
         $aData['users_paid_total'] 		= 0;
@@ -63,7 +64,7 @@ class SubscribeController {
 
     public function payment ($request, $response, $args)
     {
-        authAllowAuthenticated();
+        AuthHelper::allowAuthenticated();
 	
         $aData			= array();
         $user 			= User::getById($_SESSION['user']['id']);
@@ -94,7 +95,7 @@ class SubscribeController {
 
     public function paymentCreate ($request, $response, $args)
     {
-        authAllowAuthenticated();
+        AuthHelper::allowAuthenticated();
 	
         $aData			= array();
         $user 			= User::getById($_SESSION['user']['id']);

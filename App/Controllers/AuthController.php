@@ -2,18 +2,19 @@
 
 namespace App\Controllers;
 
-use \core\View;
+use App\Helpers\View;
+use App\Helpers\AuthHelper;
 
 class AuthController {
     public function logout ($request, $response, $args) {
-        authLogout();
+        AuthHelper::logout();
 	    return $response
             ->withHeader('Location', $request->getUri() . "/..")
             ->withStatus(302);      
     }
 
     public function loginForm ($request, $response, $args) {
-        authAllowNonAuthenticated();
+        AuthHelper::allowNonAuthenticated();
 	
         $aLoginError = false;
         $aIsUFFS = isset($_POST['uffs']) && $_POST['uffs'] == '1';
@@ -33,7 +34,7 @@ class AuthController {
     }
 
     public function login ($request, $response, $args) {
-        authAllowNonAuthenticated();
+        AuthHelper::allowNonAuthenticated();
 	
         $aLoginError 	= false;
         $aIsUFFS 		= isset($_POST['uffs']) && $_POST['uffs'] == '1';
@@ -44,7 +45,7 @@ class AuthController {
             $aCpf = str_replace(array('.', '-', ' ', ','), '', $_POST['user']);
             $aCpf = ltrim($aCpf,  '0');
             
-            $aHasAccount = authIsValidUser($aCpf, $_POST['password']);
+            $aHasAccount = AuthHelper::isValidUser($aCpf, $_POST['password']);
             $aUser = '';
             
             if ($aHasAccount) {
@@ -54,7 +55,7 @@ class AuthController {
                 // TODO: it would be nice to have some sort of auth plugins here :)
                 //$aMoodleInfo = authLoginUsingMoodle($aCpf, $_POST['password']);
 
-                $aPortalInfo = authLoginUsingPortal($aCpf, $_POST['password']);
+                $aPortalInfo = AuthHelper::loginUsingPortal($aCpf, $_POST['password']);
 
                 if ($aIsUFFS && $aPortalInfo != null) {
                     $aPortalInfo['email'] = $_POST['email'];
@@ -62,7 +63,7 @@ class AuthController {
 
                     // TODO would be better if a user logins only with users idUffs
 
-                    $aHasAccount = authCreateLocalAccountUsingLoginMoodle($aPortalInfo, $aCpf, $_POST['password']);
+                    $aHasAccount = AuthHelper::CreateLocalAccountUsingLoginMoodle($aPortalInfo, $aCpf, $_POST['password']);
 
                     if($aHasAccount) {
                         $aUser = $aCpf;
@@ -75,7 +76,7 @@ class AuthController {
                     } else {
                         // Create account for external attendant
                         $_POST['password'] = @$_POST['passworde'];
-                        $aHasAccount = authCreateLocalAccountUsingInfos($_POST, $aCpf, $_POST['password']);
+                        $aHasAccount = AuthHelper::createLocalAccountUsingInfos($_POST, $aCpf, $_POST['password']);
                 
                         if($aHasAccount) {
                             $aUser = $aCpf;
@@ -87,7 +88,7 @@ class AuthController {
             }
 
             if($aHasAccount) {
-                authLogin($aUser);
+                AuthHelper::login($aUser);
                 return $response
                     ->withHeader('Location', $request->getUri() . "/..")
                     ->withStatus(302);    
@@ -111,7 +112,7 @@ class AuthController {
     }
 
     public function subscriptionForm ($request, $response, $args) {
-        authAllowNonAuthenticated();
+        AuthHelper::allowNonAuthenticated();
 	
         $aLoginError 	= false;
         $aIsUFFS 		= isset($_POST['uffs']) && $_POST['uffs'] == '1';

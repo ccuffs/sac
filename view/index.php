@@ -1,6 +1,6 @@
 <?php 
 
-    use \core\view;
+    use App\Helpers\View;
 
 	require_once dirname(__FILE__).'/layout.php';
 	

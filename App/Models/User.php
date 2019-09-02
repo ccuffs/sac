@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\DatabaseHelper;
 
 class User {
     const USER_LEVEL_UFFS = 1;
@@ -15,10 +16,10 @@ class User {
     public $type;
 
     public static function getById($theUserId) {
-        global $gDb;
+        $conn = DatabaseHelper::getConn();
         
         $user = null;
-        $query = $gDb->prepare("SELECT id, login, name, email, type FROM users WHERE id = ?");
+        $query = $conn->prepare("SELECT id, login, name, email, type FROM users WHERE id = ?");
         
         if ($query->execute(array($theUserId))) {	
             $data = $query->fetch();
@@ -34,7 +35,7 @@ class User {
     }
     
     public function findByIds($theUserIds) {
-        global $gDb;
+        $conn = DatabaseHelper::getConn();
         
         $aUsers = array();
         $aIds = '';
@@ -44,7 +45,7 @@ class User {
         }
         $aIds = implode(',', $theUserIds);
     
-        $aQuery = $gDb->prepare("SELECT id, login, name, email, type FROM users WHERE id IN (".$aIds.")");
+        $aQuery = $conn->prepare("SELECT id, login, name, email, type FROM users WHERE id IN (".$aIds.")");
         
         if(count($theUserIds) > 0) {
             if ($aQuery->execute()) {	
@@ -57,10 +58,10 @@ class User {
     }
     
     public function findAll() {
-        global $gDb;
+        $conn = DatabaseHelper::getConn();
         
         $aRet = array();
-        $aQuery = $gDb->prepare("SELECT id, login, name, email, type FROM users WHERE 1 ORDER BY name ASC");
+        $aQuery = $conn->prepare("SELECT id, login, name, email, type FROM users WHERE 1 ORDER BY name ASC");
         
         if ($aQuery->execute()) {	
             while ($aRow = $aQuery->fetch()) {

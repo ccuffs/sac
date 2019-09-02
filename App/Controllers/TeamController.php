@@ -2,13 +2,15 @@
 
 namespace App\Controllers;
 
+use App\Helpers\AuthHelper;
+
 /* TODO: Test controller */
 
 class TeamController {
     public function index ($request, $response, $args)
     {
 
-        authAllowAuthenticated();
+        AuthHelper::allowAuthenticated();
 
         $aEventId 	= isset($_REQUEST['event']) ? (int)$_REQUEST['event'] : '';
         $aAction 	= isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
@@ -19,7 +21,7 @@ class TeamController {
         switch($aAction) {
             case 'subscribe':
                 $aEvent = eventGetById($aEventId);
-                $aUser	= authGetAuthenticatedUserInfo();
+                $aUser	= AuthHelper::getAuthenticatedUserInfo();
 
                 if ($aEvent != null) {
                     try {
@@ -38,7 +40,7 @@ class TeamController {
                 
             case 'unsubscribe':
                 $aEvent = eventGetById($aEventId);
-                $aUser	= authGetAuthenticatedUserInfo();
+                $aUser	= AuthHelper::getAuthenticatedUserInfo();
 
                 if ($aEvent != null) {
                     try {

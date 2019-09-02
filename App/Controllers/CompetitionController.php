@@ -2,13 +2,14 @@
 
 namespace App\Controllers;
 
-use \core\View;
+use App\Helpers\View;
 use App\Models\User;
 use App\Models\Competition;
+use App\Helpers\AuthHelper;
 
 class CompetitionController {
     public function index ($request, $response, $args) {
-        authAllowAuthenticated();
+        AuthHelper::allowAuthenticated();
         
         $data			= array();
         $user 			= User::getById($_SESSION['user']['id']);
@@ -29,7 +30,7 @@ class CompetitionController {
     }
 
     public function create ($request, $response, $args) {
-        authAllowAuthenticated();
+        AuthHelper::allowAuthenticated();
         $data			= array();
         $user 			= User::getById($_SESSION['user']['id']);
         $isAdmin 		= $user->isLevel(User::USER_LEVEL_ADMIN);
@@ -53,14 +54,14 @@ class CompetitionController {
     {
         $aId 					= isset($_REQUEST['competition']) ? $_REQUEST['competition'] : 0;
         $aComptetition 			= Competition::getById($aId);
-        $aAuthenticated 		= authIsAuthenticated();	
+        $aAuthenticated 		= AuthHelper::isAuthenticated();	
         $aTeam					= null;
         $user					= null;
         $isAdmin				= false;
         $aCompetitors			= userFindAll();
         
         if($aAuthenticated) {
-            $user				= authGetAuthenticatedUserInfo();
+            $user				= AuthHelper::getAuthenticatedUserInfo();
             $aTeam				= competitionFindTeamByLeaderId($aId, $user['id']);
             
             $isAdmin 			= $user->isLevel(User::USER_LEVEL_ADMIN);

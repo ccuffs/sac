@@ -1,10 +1,11 @@
 <?php 
 
-use \core\View;
+use App\Helpers\View;
+use App\Helpers\AuthHelper;
 
 require_once dirname(__FILE__).'/layout.php';
 
-authAllowAuthenticated();
+AuthHelper::allowAuthenticated();
 
 $aData 			= View::data();
 $aDept 			= @$aData['dept'];

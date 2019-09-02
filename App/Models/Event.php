@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Helpers\DatabaseHelper;
+
 class Event {
     public static function getById($theId) {
-        global $gDb;
+        $conn = DatabaseHelper::getConn();
         
         $result = null;
-        $aQuery = $gDb->prepare("SELECT * FROM event WHERE id = ?");
+        $aQuery = $conn->prepare("SELECT * FROM event WHERE id = ?");
         
         if ($aQuery->execute(array($theId))) {
             $result = $aQuery->fetch();
@@ -17,17 +19,17 @@ class Event {
     }
   
     public function delete($theId) {
-        global $gDb;
+        $conn = DatabaseHelper::getConn();
         
-        $aQuery = $gDb->prepare("DELETE FROM event WHERE id = ?");
+        $aQuery = $conn->prepare("DELETE FROM event WHERE id = ?");
         return $aQuery->execute(array($theId));
     }
   
     public function findAll() {
-        global $gDb;
+        $conn = DatabaseHelper::getConn();
         
         $result = array();
-        $aQuery = $gDb->prepare("SELECT * FROM event WHERE 1 ORDER BY day ASC, month ASC, time ASC");
+        $aQuery = $conn->prepare("SELECT * FROM event WHERE 1 ORDER BY day ASC, month ASC, time ASC");
         
         if ($aQuery->execute()) {
             while ($aRow = $aQuery->fetch()) {
@@ -39,10 +41,10 @@ class Event {
     }
   
     public function findByUserIsAttending($theUserId) {
-        global $gDb;
+        $conn = DatabaseHelper::getConn();
         
         $result = array();
-        $aQuery = $gDb->prepare("SELECT * FROM event WHERE id IN (SELECT fk_event FROM attending WHERE fk_user = ?)");
+        $aQuery = $conn->prepare("SELECT * FROM event WHERE id IN (SELECT fk_event FROM attending WHERE fk_user = ?)");
         
         if ($aQuery->execute(array($theUserId))) {
             while ($aRow = $aQuery->fetch()) {
@@ -54,7 +56,7 @@ class Event {
     }
   
     public function create($data) {
-        global $gDb;
+        $conn = DatabaseHelper::getConn();
 
         $result 	= false;
 
@@ -64,7 +66,7 @@ class Event {
 
         $sql = "INSERT INTO event (fk_competition , day , month , time , title , description , place , price , capacity , waiting_capacity , ghost) VALUES
                     (:fk_competition, :day, :month, :time, :title, :description, :place, :price, :capacity, :waiting_capacity, $ghost)";
-        $aQuery = $gDb->prepare($sql);
+        $aQuery = $conn->prepare($sql);
 
         $fk_competition = $data['fk_competition'] ? $data['fk_competition'] : null;
 
