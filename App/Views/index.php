@@ -1,10 +1,11 @@
 <?php 
 
-    use App\Helpers\View;
+	use App\Helpers\View;
+	use App\Helpers\UtilsHelper;
 
 	require_once dirname(__FILE__).'/layout.php';
 	
-	layoutHeader('Programação', View::baseUrl());
+	layoutHeader('Programação');
 	
 	$aData 			= View::data();
 	$aEvents 		= $aData['events'];
@@ -15,7 +16,7 @@
 	<div class="container schedule">
 		<div class="row">
             <div class="col-md-12" style="text-align: center;">
-                <img src="<?= View::baseUrl().'../img/sac.png'?>" />
+                <img src="<?= UtilsHelper::base_url('/img/sac.png')?>" />
             </div>
 		</div>
 	</div>
@@ -101,27 +102,27 @@
 		</div>
 		<div class="row">
 			<div class="col-md-2 staff-logo">
-				<a href="http://cc.uffs.edu.br" target="_blank"><img src="<?= View::baseUrl().'../img/ca.png' ?>" border="0" /></a>
-				<a href="http://cc.uffs.edu.br" target="_blank"><img src="<?= View::baseUrl().'../img/logo_cc.png' ?>" border="0" /></a>
+				<a href="http://cc.uffs.edu.br" target="_blank"><img src="<?= UtilsHelper::base_url('/img/ca.png') ?>" border="0" /></a>
+				<a href="http://cc.uffs.edu.br" target="_blank"><img src="<?= UtilsHelper::base_url('/img/logo_cc.png') ?>" border="0" /></a>
 			</div>
 			<div class="col-md-1 staff-logo">
-				<a href="http://www.uffs.edu.br" target="_blank"><img src="<?= View::baseUrl().'../img/uffs.png' ?>" class="logo-uffs" border="0" /></a>
+				<a href="http://www.uffs.edu.br" target="_blank"><img src="<?= UtilsHelper::base_url('/img/uffs.png') ?>" class="logo-uffs" border="0" /></a>
 			</div>
 			<div class="col-md-1 staff-logo">
 			</div>
 			
 			<div class="col-md-5 partner-logo">
-				<a href="http://stmaria.com.br" target="_blank"><img src="<?= View::baseUrl().'../img/santamaria.jpg' ?>" class="logo-santamaria" border="0" /></a>
+				<a href="http://stmaria.com.br" target="_blank"><img src="<?= UtilsHelper::base_url('/img/santamaria.jpg') ?>" class="logo-santamaria" border="0" /></a>
 			</div>
 			<div class="col-md-3">
-				<a href="https://www.facebook.com/GAMDIASGAMING.BR" target="_blank"><img src="<?= View::baseUrl().'../img/gambdias_small.png' ?>" class="logo-gambdias" border="0" /></a><br/>
-				<a href="http://fronteiratec.com" target="_blank"><img src="<?= View::baseUrl().'../img/fronteiratec.png' ?>" class="logo-fronteiratec" /></a>
-				<a href="http://www.donsini.com.br/" target="_blank"><img src="<?= View::baseUrl().'../img/donsini.jpg' ?>" class="logo-donsini" /></a>
-				<img src="<?= View::baseUrl().'../img/tomray.jpg' ?>" class="logo-tomray" />
+				<a href="https://www.facebook.com/GAMDIASGAMING.BR" target="_blank"><img src="<?= UtilsHelper::base_url('/img/gambdias_small.png') ?>" class="logo-gambdias" border="0" /></a><br/>
+				<a href="http://fronteiratec.com" target="_blank"><img src="<?= UtilsHelper::base_url('/img/fronteiratec.png') ?>" class="logo-fronteiratec" /></a>
+				<a href="http://www.donsini.com.br/" target="_blank"><img src="<?= UtilsHelper::base_url('/img/donsini.jpg') ?>" class="logo-donsini" /></a>
+				<img src="<?= UtilsHelper::base_url('/img/tomray.jpg') ?>" class="logo-tomray" />
 			</div>
 		</div>
 	</div>
 	
 	<script>SAC.loadPaymentInfo('payment-panel');</script>
 	
-	<?php layoutFooter(View::baseUrl()); ?>
+	<?php layoutFooter(); ?>

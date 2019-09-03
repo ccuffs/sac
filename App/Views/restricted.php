@@ -3,7 +3,7 @@
 
 	use App\Helpers\View;
 
-	layoutHeader('Restrito', View::baseUrl());
+	layoutHeader('Restrito');
 	
 	echo '<div class="jumbotron">';
 		echo '<div class="container">';
@@ -17,5 +17,5 @@
 		echo '</div>';
 	echo '</div>';
 	
-	layoutFooter(View::baseUrl());
+	layoutFooter();
 ?>

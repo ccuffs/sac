@@ -3,7 +3,7 @@
 
 	use App\Helpers\View;
 	
-	layoutHeader('Cadastros', View::baseUrl());
+	layoutHeader('Cadastros');
 	
 	$aData 	= View::data();
 	$aUsers = $aData['users'];
@@ -76,5 +76,5 @@
 		echo '</div>';
 	echo '</div>';
 	
-	layoutFooter(View::baseUrl());
+	layoutFooter();
 ?>

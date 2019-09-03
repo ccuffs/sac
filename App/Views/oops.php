@@ -1,7 +1,7 @@
 <?php 
 	require_once dirname(__FILE__).'/layout.php';
 
-	layoutHeader('Oops!', View::baseUrl());
+	layoutHeader('Oops!');
 	
 	echo '<div class="jumbotron">';
 		echo '<div class="container">';
@@ -18,5 +18,5 @@
 		echo '</div>';
 	echo '</div>';
 	
-	layoutFooter(View::baseUrl());
+	layoutFooter();
 ?>

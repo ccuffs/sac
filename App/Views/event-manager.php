@@ -7,7 +7,7 @@
 	$aUser 	= $aData['user'];
 	$aEvent = $aData['event'];
 		
-	layoutHeader('Editor de atividade', View::baseUrl() . '../');
+	layoutHeader('Editor de atividade');
 	
 	echo '<div class="jumbotron">';
 		echo '<div class="container">';
@@ -136,5 +136,5 @@
 	
 	echo '</div>';
 	
-	layoutFooter(View::baseUrl());
+	layoutFooter();
 ?>

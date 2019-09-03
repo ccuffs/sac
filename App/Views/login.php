@@ -12,7 +12,7 @@
 	$aPassword		= $aData['password'];
 	$aIsLogin		= $aData['isLogin'];
 	
-	layoutHeader($aIsLogin ? 'Login' : 'Inscrição', View::baseUrl());
+	layoutHeader($aIsLogin ? 'Login' : 'Inscrição');
 	
 	echo '<div class="jumbotron">';
 		echo '<div class="container">';
@@ -96,5 +96,5 @@
 		echo '</div>';			
 	echo '</div>';		
 	
-	layoutFooter(View::baseUrl());
+	layoutFooter();
 ?>

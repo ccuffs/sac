@@ -3,7 +3,7 @@
 
 	use App\Helpers\UtilsHelper;
 	
-	layoutHeader('Campeonato', View::baseUrl());
+	layoutHeader('Campeonato');
 	
 	$aData 			= View::data();
 	$aCompetition	= $aData['competition'];
@@ -120,7 +120,7 @@
 
 					echo '<div class="col-md-3">';
 						echo '<div class="thumbnail team">';
-							echo '<img src="'.($aInfoTeam['url'] == '' ? View::baseUrl().'/img/avatar.png' : UtilsHelper::out($aInfoTeam['url'])).'" alt="'.UtilsHelper::out($aInfoTeam['name']).'">';
+							echo '<img src="'.($aInfoTeam['url'] == '' ? UtilsHelper::base_url('/img/avatar.png') : UtilsHelper::out($aInfoTeam['url'])).'" alt="'.UtilsHelper::out($aInfoTeam['name']).'">';
 							echo '<div class="caption">';
 								echo '<h3>'.($aInfoTeam['paid'] ? '<i class="fa fa-check-circle" title="Inscrição confirmada!"></i>' : '').' '.UtilsHelper::out($aInfoTeam['name']).'</h3>';
 								
@@ -148,5 +148,5 @@
 		}
 	echo '</div>';
 	
-	layoutFooter(View::baseUrl());
+	layoutFooter();
 ?>

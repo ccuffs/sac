@@ -8,7 +8,7 @@
 	$aUsers			= $aData['users'];
 	$aPayments 		= $aData['payments'];
 		
-	layoutHeader('Gerenciador de pagamento', View::baseUrl());
+	layoutHeader('Gerenciador de pagamento');
 	
 	echo '<div class="jumbotron">';
 		echo '<div class="container">';
@@ -108,5 +108,5 @@
 	
 	echo '</div>';
 	
-	layoutFooter(View::baseUrl());
+	layoutFooter();
 ?>

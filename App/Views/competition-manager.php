@@ -7,7 +7,7 @@
 	$aUser 			= $aData['user'];
 	$aCompetition 	= $aData['competition'];
 		
-	layoutHeader('Editor de competição', View::baseUrl());
+	layoutHeader('Editor de competição');
 	
 	echo '<div class="jumbotron">';
 		echo '<div class="container">';
@@ -94,5 +94,5 @@
 	
 	echo '</div>';
 	
-	layoutFooter(View::baseUrl());
+	layoutFooter();
 ?>

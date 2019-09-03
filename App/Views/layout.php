@@ -5,7 +5,7 @@ use App\Models\User;
 use App\Helpers\AuthHelper;
 use App\Helpers\UtilsHelper;
 
-function layoutNavBar($theBaseUrl) {
+function layoutNavBar() {
 	$aPage = basename($_SERVER['PHP_SELF']);
 	
 	echo '<nav class="navbar navbar-default" role="navigation">';
@@ -87,7 +87,7 @@ function layoutUserBar($theUserInfo) {
 	echo '</ul>';
 }
 
-function layoutHeader($theTitle, $theBaseUrl = '.') {
+function layoutHeader($theTitle) {
 	echo '<!DOCTYPE html>';
 	echo '<html lang="en">';
 	echo '<head>';
@@ -125,10 +125,10 @@ function layoutHeader($theTitle, $theBaseUrl = '.') {
 	
 	echo '<body>';
 	
-	layoutNavBar($theBaseUrl);
+	layoutNavBar();
 }
 
-function layoutFooter($theBaseUrl = '.') {
+function layoutFooter() {
 		echo '<div class="container">';
 			echo '<hr>';
 			echo '<footer class="footer">';

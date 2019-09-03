@@ -11,11 +11,11 @@ class View {
 	}
 	
 	public static function baseUrl() {
-		return self::$mBaseUrl;
+		return "http://localhost:81/sac/";
 	}
 	
 	public static function render($theFile, $theData = array()) {
-		self::$mBaseUrl = 'view/';
+		self::$mBaseUrl = 'App/Views/';
 		self::$mData 	= $theData;
 		
 		$view_file = dirname(__FILE__).'/../../'.self::$mBaseUrl.'/'.$theFile.'.php';
