@@ -20,7 +20,7 @@ class AuthController {
         $aIsUFFS = isset($_POST['uffs']) && $_POST['uffs'] == '1';
         $aHasAccount = false;
         
-        View::render('login', array(
+        View::render('auth/login', array(
             'loginError' => $aLoginError,
             'user' => @$_POST['user'],
             'uffs' => !isset($_POST['uffs']) ? '1' : $_POST['uffs'],
@@ -42,8 +42,9 @@ class AuthController {
         
         if (isset($_POST['user'], $_POST['password'])) {
             // TODO: fix this because the login string might have . and -
-            $aCpf = str_replace(array('.', '-', ' ', ','), '', $_POST['user']);
-            $aCpf = ltrim($aCpf,  '0');
+            // $aCpf = str_replace(array('.', '-', ' ', ','), '', $_POST['user']);
+            // $aCpf = ltrim($aCpf,  '0');
+            $aCpf = $_POST['user'];
             
             $aHasAccount = AuthHelper::isValidUser($aCpf, $_POST['password']);
             $aUser = '';
@@ -97,7 +98,7 @@ class AuthController {
             $aLoginError = true;
         }
 
-        View::render('login', array(
+        View::render('auth/login', array(
             'loginError' 	=> $aLoginError,
             'user'			=> @$_POST['user'],
             'uffs'			=> !isset($_POST['uffs']) ? '1' : $_POST['uffs'],
@@ -118,7 +119,7 @@ class AuthController {
         $aIsUFFS 		= isset($_POST['uffs']) && $_POST['uffs'] == '1';
         $aHasAccount 	= false;
 
-        View::render('login', array(
+        View::render('auth/register', array(
             'loginError' => $aLoginError,
             'user' => @$_POST['user'],
             'uffs' => !isset($_POST['uffs']) ? '1' : $_POST['uffs'],
