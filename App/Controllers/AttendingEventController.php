@@ -20,7 +20,7 @@ class AttendingEventController {
         switch($aAction) {
             case 'subscribe':
                 $aEvent = Event::getById($aEventId);
-                $aUser	= AuthHelper::getAuthenticatedUserInfo();
+                $aUser	= AuthHelper::getAuthenticatedUser();
         
                 if ($aEvent != null) {
                     try {
@@ -39,7 +39,7 @@ class AttendingEventController {
                 
             case 'unsubscribe':
                 $aEvent = Event::getById($aEventId);
-                $aUser	= AuthHelper::getAuthenticatedUserInfo();
+                $aUser	= AuthHelper::getAuthenticatedUser();
         
                 if ($aEvent != null) {
                     try {

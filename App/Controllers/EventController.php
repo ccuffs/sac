@@ -15,7 +15,7 @@ class EventController {
         AuthHelper::allowAuthenticated();
 	
         $aData		= array();
-        $aUser 		= User::getById($_SESSION['user']['id']);
+        $aUser 		= User::getById($_SESSION['user']);
         $aIsAdmin 	= $aUser->isLevel(User::USER_LEVEL_ADMIN);
         $aEventId 	= isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
         
@@ -45,7 +45,7 @@ class EventController {
         AuthHelper::allowAuthenticated();
 	
         $aData		= array();
-        $aUser 		= User::getById($_SESSION['user']['id']);
+        $aUser 		= User::getById($_SESSION['user']);
         $aIsAdmin 	= $aUser->isLevel(User::USER_LEVEL_ADMIN);
         $aEventId 	= isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
         
@@ -72,7 +72,7 @@ class EventController {
 	
         $aData			= array();
         $aId			= isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
-        $aUser 			= User::getById($_SESSION['user']['id']);
+        $aUser 			= User::getById($_SESSION['user']);
         $aIsAdmin 		= $aUser->isLevel(User::USER_LEVEL_ADMIN);
         
         if (!$aIsAdmin) {

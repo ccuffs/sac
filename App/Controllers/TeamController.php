@@ -21,7 +21,7 @@ class TeamController {
         switch($aAction) {
             case 'subscribe':
                 $aEvent = eventGetById($aEventId);
-                $aUser	= AuthHelper::getAuthenticatedUserInfo();
+                $aUser	= AuthHelper::getAuthenticatedUser();
 
                 if ($aEvent != null) {
                     try {
@@ -40,7 +40,7 @@ class TeamController {
                 
             case 'unsubscribe':
                 $aEvent = eventGetById($aEventId);
-                $aUser	= AuthHelper::getAuthenticatedUserInfo();
+                $aUser	= AuthHelper::getAuthenticatedUser();
 
                 if ($aEvent != null) {
                     try {

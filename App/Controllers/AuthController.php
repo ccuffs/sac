@@ -35,81 +35,32 @@ class AuthController {
 
     public function login ($request, $response, $args) {
         AuthHelper::allowNonAuthenticated();
-	
         $aLoginError 	= false;
-        $aIsUFFS 		= isset($_POST['uffs']) && $_POST['uffs'] == '1';
         $aHasAccount 	= false;
         
-        if (isset($_POST['user'], $_POST['password'])) {
-            // TODO: fix this because the login string might have . and -
-            // $aCpf = str_replace(array('.', '-', ' ', ','), '', $_POST['user']);
-            // $aCpf = ltrim($aCpf,  '0');
-            $aCpf = $_POST['user'];
-            
-            $aHasAccount = AuthHelper::isValidUser($aCpf, $_POST['password']);
-            $aUser = '';
-            
-            if ($aHasAccount) {
-                $aUser = $aCpf;	
-
-            } else {
-                // TODO: it would be nice to have some sort of auth plugins here :)
-                //$aMoodleInfo = authLoginUsingMoodle($aCpf, $_POST['password']);
-
-                $aPortalInfo = AuthHelper::loginUsingPortal($aCpf, $_POST['password']);
-
-                if ($aIsUFFS && $aPortalInfo != null) {
-                    $aPortalInfo['email'] = $_POST['email'];
-                    $aPortalInfo['user'] = $_POST['email'];
-
-                    // TODO would be better if a user logins only with users idUffs
-
-                    $aHasAccount = AuthHelper::CreateLocalAccountUsingLoginMoodle($aPortalInfo, $aCpf, $_POST['password']);
-
-                    if($aHasAccount) {
-                        $aUser = $aCpf;
-                    } else {
-                        $aLoginError = true;
-                    }
-                } else {
-                    if($aIsUFFS) {
-                        $aLoginError = true;
-                    } else {
-                        // Create account for external attendant
-                        $_POST['password'] = @$_POST['passworde'];
-                        $aHasAccount = AuthHelper::createLocalAccountUsingInfos($_POST, $aCpf, $_POST['password']);
-                
-                        if($aHasAccount) {
-                            $aUser = $aCpf;
-                        } else {
-                            $aLoginError = true;
-                        }
-                    }
-                }
-            }
-
-            if($aHasAccount) {
-                AuthHelper::login($aUser);
-                return $response
-                    ->withHeader('Location', $request->getUri() . "/..")
-                    ->withStatus(302);    
-            }
-        } else {
-            $aLoginError = true;
+        if (!isset($_POST['user'], $_POST['password'])) {
+            View::render('auth/login', array(
+                'loginError' => true
+            ));
+            return $response;
         }
 
-        View::render('auth/login', array(
-            'loginError' 	=> $aLoginError,
-            'user'			=> @$_POST['user'],
-            'uffs'			=> !isset($_POST['uffs']) ? '1' : $_POST['uffs'],
-            'email'			=> @$_POST['email'],
-            'name'			=> @$_POST['name'],
-            'passworde'		=> @$_POST['passworde'],
-            'password'		=> @$_POST['password'],
-            'isLogin'		=> true
-        ));
+        $username = $_POST['user'];
 
-        return $response;
+        $user = AuthHelper::loginUsingPortal($username, $_POST['password']);
+
+        if (!$user) {
+            View::render('auth/login', array(
+                'loginError' => true
+            ));
+            return $response;
+        }
+
+        $_SESSION['user'] = $user->id;
+
+        return $response
+            ->withHeader('Location', $request->getUri() . "/..")
+            ->withStatus(302);    
     }
 
     public function subscriptionForm ($request, $response, $args) {

@@ -18,7 +18,7 @@ function layoutNavBar() {
 				$aUserInfo = null;
 				
 				if (AuthHelper::isAuthenticated()) {
-					$aUserInfo = User::getById($_SESSION['user']['id']);
+					$aUserInfo = User::getById($_SESSION['user']);
 					
 					echo '<ul class="nav navbar-nav">';
 						//echo '<li '.($aPage == 'challenges.php' 	? 'class="active"' : '').'><a href="challenges.php">Desafios</a></li>';
@@ -75,7 +75,7 @@ function layoutUserBar($theUserInfo) {
 			echo '<li class="dropdown">';
 				echo '<a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>';
 				echo '<ul class="dropdown-menu" role="menu">';
-					echo '<li><a href="logout"><i class="fa fa-sign-out"></i> Sair</a></li>';
+				echo '<li><a href="'.UtilsHelper::base_url("/logout").'"><i class="fa fa-sign-out"></i> Sair</a></li>';
 				echo '</ul>';				
 			echo '</li>';
 		} else {

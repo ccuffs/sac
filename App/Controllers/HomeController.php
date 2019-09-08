@@ -12,7 +12,7 @@ class HomeController {
     public function home ($request, $response, $args) {
         $authenticated = AuthHelper::isAuthenticated();
         $data = array();
-        $user = $authenticated ? AuthHelper::getAuthenticatedUserInfo() : null;
+        $user = AuthHelper::getAuthenticatedUser();
         
         $data['events'] = array();
         $events = Event::findAll();

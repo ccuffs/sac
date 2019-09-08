@@ -13,7 +13,7 @@ class SubscribeController {
         AuthHelper::allowAuthenticated();
 	
         $aData			= array();
-        $user 			= User::getById($_SESSION['user']['id']);
+        $user 			= User::getById($_SESSION['user']);
         $aIsAdmin 		= $user->isLevel(User::USER_LEVEL_ADMIN);
         
         if (!$aIsAdmin) {
@@ -67,7 +67,7 @@ class SubscribeController {
         AuthHelper::allowAuthenticated();
 	
         $aData			= array();
-        $user 			= User::getById($_SESSION['user']['id']);
+        $user 			= User::getById($_SESSION['user']);
         $aIsAdmin 		= $user->isLevel(User::USER_LEVEL_ADMIN);
         
         if (!$aIsAdmin) {
@@ -98,7 +98,7 @@ class SubscribeController {
         AuthHelper::allowAuthenticated();
 	
         $aData			= array();
-        $user 			= User::getById($_SESSION['user']['id']);
+        $user 			= User::getById($_SESSION['user']);
         $aIsAdmin 		= $user->isLevel(User::USER_LEVEL_ADMIN);
         
         if (!$aIsAdmin) {

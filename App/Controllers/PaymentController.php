@@ -13,7 +13,7 @@ class PaymentController {
     {
         AuthHelper::AllowAuthenticated();
 
-        $aUser 		= AuthHelper::getAuthenticatedUserInfo();
+        $aUser 		= AuthHelper::getAuthenticatedUser();
         $aMustPay 	= Payment::calculateUserDept($aUser);
         $aCredit 	= Payment::calculateUserCredit($aUser->id);
         $aDebit		= $aMustPay - $aCredit;
@@ -41,7 +41,7 @@ class PaymentController {
     {
         AuthHelper::AllowAuthenticated();
         
-        $aUser 		= AuthHelper::getAuthenticatedUserInfo();
+        $aUser 		= AuthHelper::getAuthenticatedUser();
         $aUser 		= userGetById($aUser['id']);
         
         $aMustPay 	= Payment::calculateUserDept($aUser['id']) + CONFERENCE_PRICE;

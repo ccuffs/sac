@@ -12,7 +12,7 @@ class CompetitionController {
         AuthHelper::allowAuthenticated();
         
         $data			= array();
-        $user 			= User::getById($_SESSION['user']['id']);
+        $user 			= User::getById($_SESSION['user']);
         $isAdmin 		= $user->isLevel(User::USER_LEVEL_ADMIN);
         $competition 	= isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
         
@@ -32,7 +32,7 @@ class CompetitionController {
     public function create ($request, $response, $args) {
         AuthHelper::allowAuthenticated();
         $data			= array();
-        $user 			= User::getById($_SESSION['user']['id']);
+        $user 			= User::getById($_SESSION['user']);
         $isAdmin 		= $user->isLevel(User::USER_LEVEL_ADMIN);
         $competition 	= isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
         $data['user'] = $user;
@@ -61,7 +61,7 @@ class CompetitionController {
         $aCompetitors			= userFindAll();
         
         if($aAuthenticated) {
-            $user				= AuthHelper::getAuthenticatedUserInfo();
+            $user				= AuthHelper::getAuthenticatedUser();
             $aTeam				= competitionFindTeamByLeaderId($aId, $user['id']);
             
             $isAdmin 			= $user->isLevel(User::USER_LEVEL_ADMIN);
