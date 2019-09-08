@@ -64,12 +64,12 @@ function layoutAdminNavBar($user) {
 	echo '</ul>';
 }
 
-function layoutUserBar($theUserInfo) {
-	$aClassLink	= AuthHelper::isAdmin() ? 'btn-danger' : 'btn-primary';
+function layoutUserBar($user) {
+	$aClassLink	= $user->isLevel(User::USER_LEVEL_ADMIN) ? 'btn-danger' : 'btn-primary';
 	echo '<ul class="nav navbar-nav navbar-right">';
 		if (AuthHelper::isAuthenticated()) {
 			echo '<li style="margin-top: -5px;">';
-				layoutPrintUser($theUserInfo->id, $theUserInfo, true);
+				layoutPrintUser($user->id, $user, true);
 			echo '</li>';
 
 			echo '<li class="dropdown">';

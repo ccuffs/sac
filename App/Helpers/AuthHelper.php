@@ -9,32 +9,8 @@ use App\Helpers\DatabaseHelper;
 use App\Helpers\AuthHelper;
 
 class AuthHelper {
-	public static function isValidUser($theUserLogin, $thePassword) {
-		$conn = DatabaseHelper::getConn();
-		
-		$aQuery = $conn->prepare("SELECT id FROM users WHERE login = ? AND password = ?");
-		$aRet = false;
-	
-		$aQuery->execute(array($theUserLogin, AuthHelper::hash($thePassword)));
-		
-		return $aQuery->rowCount() == 1;
-	}
-	
 	public static function hash($thePassword) {
 		return md5($thePassword . PASSWORD_SALT);
-	}
-	
-	public static function login($theUserLogin) {
-		$conn = DatabaseHelper::getConn();
-		
-		$aQuery = $conn->prepare("SELECT id, name, type FROM users WHERE login = ?");
-		
-		if ($aQuery->execute(array($theUserLogin))) {	
-			$aUser = $aQuery->fetch();
-			
-			$_SESSION['authenticaded'] = true;
-			$_SESSION['user'] = array('name' => $aUser['name'], 'id' => $aUser['id'], 'type' => $aUser['type']);
-		}
 	}
 	
 	public static function getAuthenticatedUser() {
@@ -45,7 +21,7 @@ class AuthHelper {
 	
 	public static function allowNonAuthenticated() {
 		if(AuthHelper::isAuthenticated()) {
-			header('Location: ' . (AuthHelper::isAdmin() ? 'admin.index.php' : 'index.php'));
+			header('Location: index.php');
 			exit();
 		}
 	}
@@ -55,7 +31,7 @@ class AuthHelper {
 			header('Location: login.php');
 			exit();
 			
-		} else if(!AuthHelper::isAdmin()){
+		} else {
 			header('Location: restricted.php');
 			exit();
 		}
@@ -74,10 +50,6 @@ class AuthHelper {
 	
 	public function isAuthenticated() {
 		return isset($_SESSION['user']);
-	}
-	
-	public function isAdmin() {
-		return isset($_SESSION['admin']) && $_SESSION['admin'] == true;
 	}
 	
 	private static function formatIdUffsResult ($data) {

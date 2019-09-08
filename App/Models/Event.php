@@ -60,12 +60,13 @@ class Event {
 
         $result 	= false;
 
-        $ghost = $data['ghost'] == 1;
+        $ghost = (int) ($data['ghost'] == 1);
 
         /* I'm interpolating ghost in the sql because for some reason when I bindParam it I got and error  */
 
         $sql = "INSERT INTO event (fk_competition , day , month , time , title , description , place , price , capacity , waiting_capacity , ghost) VALUES
                     (:fk_competition, :day, :month, :time, :title, :description, :place, :price, :capacity, :waiting_capacity, $ghost)";
+
         $aQuery = $conn->prepare($sql);
 
         $fk_competition = $data['fk_competition'] ? $data['fk_competition'] : null;
