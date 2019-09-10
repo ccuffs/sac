@@ -78,11 +78,9 @@ class AuthHelper {
 		$user_data = SELF::getUserInPortal($username, $user_token);
 		if (!$user_data) { return null; }
 
-		if (User::isUsernameAvailable($username)) {
+		if (User::isUsernameAvailable($user_data->username)) {
 			$user = SELF::getUserByData($user_data);
 			$user->save();
-			print_r($user);
-			exit();
 			return $user;
 		}
 
