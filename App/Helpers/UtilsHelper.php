@@ -42,7 +42,7 @@ class UtilsHelper {
 	
 	public static function base_url($url) {
 		/* TODO: Config this */
-		return "http://localhost:81/sac" . $url;
+		return BASE_URL . $url;
 	}
 }
 

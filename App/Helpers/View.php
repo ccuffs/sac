@@ -11,7 +11,7 @@ class View {
 	}
 	
 	public static function baseUrl() {
-		return "http://localhost:81/sac/";
+		return BASE_URL;
 	}
 	
 	public static function render($theFile, $theData = array()) {
