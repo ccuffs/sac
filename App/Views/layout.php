@@ -15,10 +15,10 @@ function layoutNavBar() {
 			echo '</div>';
 			
 			echo '<div class="collapse navbar-collapse">';
-				$aUserInfo = null;
+				$user = null;
 				
 				if (AuthHelper::isAuthenticated()) {
-					$aUserInfo = User::getById($_SESSION['user']);
+					$user = User::getById($_SESSION['user']);
 					
 					echo '<ul class="nav navbar-nav">';
 						//echo '<li '.($aPage == 'challenges.php' 	? 'class="active"' : '').'><a href="challenges.php">Desafios</a></li>';
@@ -26,10 +26,10 @@ function layoutNavBar() {
 					echo '</ul>';
 				}
 				
-				layoutUserBar($aUserInfo);
+				layoutUserBar($user);
 					
 				if(AuthHelper::isAuthenticated()) {
-					layoutAdminNavBar($aUserInfo);
+					layoutAdminNavBar($user);
 				}
 			echo '</div>';
 		echo '</div>';
@@ -38,7 +38,7 @@ function layoutNavBar() {
 
 function layoutAdminNavBar($user) {
 	$aPage = basename($_SERVER['PHP_SELF']);
-	
+
 	if (!$user->isLevel(User::USER_LEVEL_ADMIN)) {
 		return;
 	}
@@ -65,7 +65,8 @@ function layoutAdminNavBar($user) {
 }
 
 function layoutUserBar($user) {
-	$aClassLink	= $user->isLevel(User::USER_LEVEL_ADMIN) ? 'btn-danger' : 'btn-primary';
+	$is_admin = $user && $user->isLevel(User::USER_LEVEL_ADMIN);
+	$aClassLink	= $is_admin ? 'btn-danger' : 'btn-primary';
 	echo '<ul class="nav navbar-nav navbar-right">';
 		if (AuthHelper::isAuthenticated()) {
 			echo '<li style="margin-top: -5px;">';
