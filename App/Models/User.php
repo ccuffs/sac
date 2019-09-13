@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use App\Helpers\DatabaseHelper;
-
-class User {
+class User extends Model {
     const USER_LEVEL_UFFS = 1;
     const USER_LEVEL_EXTERNAL = 2;
     const USER_LEVEL_ADMIN = 3;
@@ -17,10 +15,8 @@ class User {
     public $type;
 
     public static function getById($theUserId) {
-        $conn = DatabaseHelper::getConn();
-        
         $user = null;
-        $query = $conn->prepare("SELECT id, login, name, email, type FROM users WHERE id = ?");
+        $query = SELF::conn()->prepare("SELECT id, login, name, email, type FROM users WHERE id = ?");
         
         if ($query->execute(array($theUserId))) {	
             $data = $query->fetch();
@@ -36,10 +32,8 @@ class User {
     }
 
     public static function isUsernameAvailable ($username) {
-        $conn = DatabaseHelper::getConn();
-        
         $sql = "SELECT count(*) as amount FROM users WHERE login=:username";
-        $query = $conn->prepare($sql);
+        $query = SELF::conn()->prepare($sql);
         $query->execute([
             'username' => $username
         ]);
@@ -47,11 +41,9 @@ class User {
         return !$data['amount'];
     }
     
-    public function findById($id) {
-        $conn = DatabaseHelper::getConn();
-        
+    public static function findById($id) {
         $sql = "SELECT * FROM users WHERE id = :id";
-        $query = $conn->prepare($sql);
+        $query = SELF::conn()->prepare($sql);
         $query->execute(['id' => $id]);
         $user_data = $query->fetch();
 
@@ -61,10 +53,8 @@ class User {
     }
     
     public function findAll() {
-        $conn = DatabaseHelper::getConn();
-        
         $aRet = array();
-        $aQuery = $conn->prepare("SELECT id, login, name, email, type FROM users WHERE 1 ORDER BY name ASC");
+        $aQuery = SELF::conn()->prepare("SELECT id, login, name, email, type FROM users WHERE 1 ORDER BY name ASC");
         
         if ($aQuery->execute()) {	
             while ($aRow = $aQuery->fetch()) {
@@ -83,10 +73,9 @@ class User {
         return $this->type == SELF::USER_LEVEL_EXTERNAL ? CONFERENCE_PRICE_EXTERNAL : CONFERENCE_PRICE;
     }
 
-    public function findByUsername ($username) {
-        $conn = DatabaseHelper::getConn();
+    public static function findByUsername ($username) {
         $sql = "SELECT * FROM users WHERE login = :username";
-        $query = $conn->prepare($sql);
+        $query = SELF::conn()->prepare($sql);
         $query->execute(['username' => $username]);
         $user_data = $query->fetch();
 
@@ -106,7 +95,6 @@ class User {
     }
 
     public function create () {
-        $conn = DatabaseHelper::getConn();
         $sql = "INSERT INTO users SET
             name = :name,
             cpf = :cpf,
@@ -114,7 +102,7 @@ class User {
             email = :email,
             type = :type
         ";
-        $query = $conn->prepare($sql);
+        $query = SELF::conn()->prepare($sql);
         $success = $query->execute([
             'name' => $this->name,
             'cpf' => $this->cpf,
@@ -122,7 +110,7 @@ class User {
             'email' => $this->email,
             'type' => $this->type || 1
         ]);
-        $this->id = $conn->lastInsertId();
+        $this->id = SELF::conn()->lastInsertId();
         return $success;
     }
 

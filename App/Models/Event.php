@@ -2,14 +2,10 @@
 
 namespace App\Models;
 
-use App\Helpers\DatabaseHelper;
-
-class Event {
+class Event extends Model {
     public static function getById($theId) {
-        $conn = DatabaseHelper::getConn();
-        
         $result = null;
-        $aQuery = $conn->prepare("SELECT * FROM event WHERE id = ?");
+        $aQuery = SELF::conn()->prepare("SELECT * FROM event WHERE id = ?");
         
         if ($aQuery->execute(array($theId))) {
             $result = $aQuery->fetch();
@@ -19,17 +15,13 @@ class Event {
     }
   
     public function delete($theId) {
-        $conn = DatabaseHelper::getConn();
-        
-        $aQuery = $conn->prepare("DELETE FROM event WHERE id = ?");
+        $aQuery = SELF::conn()->prepare("DELETE FROM event WHERE id = ?");
         return $aQuery->execute(array($theId));
     }
   
     public function findAll() {
-        $conn = DatabaseHelper::getConn();
-        
         $result = array();
-        $aQuery = $conn->prepare("SELECT * FROM event WHERE 1 ORDER BY day ASC, month ASC, time ASC");
+        $aQuery = SELF::conn()->prepare("SELECT * FROM event WHERE 1 ORDER BY day ASC, month ASC, time ASC");
         
         if ($aQuery->execute()) {
             while ($aRow = $aQuery->fetch()) {
@@ -41,10 +33,8 @@ class Event {
     }
   
     public function findByUserIsAttending($theUserId) {
-        $conn = DatabaseHelper::getConn();
-        
         $result = array();
-        $aQuery = $conn->prepare("SELECT * FROM event WHERE id IN (SELECT fk_event FROM attending WHERE fk_user = ?)");
+        $aQuery = SELF::conn()->prepare("SELECT * FROM event WHERE id IN (SELECT fk_event FROM attending WHERE fk_user = ?)");
         
         if ($aQuery->execute(array($theUserId))) {
             while ($aRow = $aQuery->fetch()) {
@@ -56,8 +46,6 @@ class Event {
     }
   
     public function create($data) {
-        $conn = DatabaseHelper::getConn();
-
         $result 	= false;
 
         $ghost = (int) ($data['ghost'] == 1);
@@ -67,7 +55,7 @@ class Event {
         $sql = "INSERT INTO event (fk_competition , day , month , time , title , description , place , price , capacity , waiting_capacity , ghost) VALUES
                     (:fk_competition, :day, :month, :time, :title, :description, :place, :price, :capacity, :waiting_capacity, $ghost)";
 
-        $aQuery = $conn->prepare($sql);
+        $aQuery = SELF::conn()->prepare($sql);
 
         $fk_competition = $data['fk_competition'] ? $data['fk_competition'] : null;
 

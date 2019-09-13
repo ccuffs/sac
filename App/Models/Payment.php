@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Models\Event;
 use App\Helpers\DatabaseHelper;
 
-class Payment {
+class Payment extends Model {
     const PAYMENT_CONFIRMED = 3;
     const PAYMENT_AVAILABLE = 4;
     
@@ -29,10 +29,8 @@ class Payment {
     }
     
     public static function findByUser($theUserId) {
-        $conn = DatabaseHelper::getConn();
-        
         $aRet = array();
-        $aQuery = $conn->prepare("SELECT * FROM payment WHERE fk_user = ?");
+        $aQuery = SELF::conn()->prepare("SELECT * FROM payment WHERE fk_user = ?");
         
         if ($aQuery->execute(array($theUserId))) {
             while ($aRow = $aQuery->fetch()) {
@@ -44,10 +42,8 @@ class Payment {
     }
     
     public static function findAll() {
-        $conn = DatabaseHelper::getConn();
-        
         $aRet = array();
-        $aQuery = $conn->prepare("SELECT * FROM payment WHERE 1");
+        $aQuery = SELF::conn()->prepare("SELECT * FROM payment WHERE 1");
         
         if ($aQuery->execute(array())) {
             while ($aRow = $aQuery->fetch()) {
@@ -72,10 +68,8 @@ class Payment {
     }
     
     public static function calculateUserCredit($theUserId) {
-        $conn = DatabaseHelper::getConn();
-        
         $aRet = 0;
-        $aQuery = $conn->prepare("SELECT SUM(amount) AS value FROM payment WHERE fk_user = ? AND (status = ? OR status = ?)");
+        $aQuery = SELF::conn()->prepare("SELECT SUM(amount) AS value FROM payment WHERE fk_user = ? AND (status = ? OR status = ?)");
         
         if ($aQuery->execute(array($theUserId, SELF::PAYMENT_CONFIRMED, SELF::PAYMENT_AVAILABLE))) {
             $aRow = $aQuery->fetch();
@@ -86,44 +80,34 @@ class Payment {
     }
     
     public static function create($theUserId, $theAmount, $theComment) {
-        $conn = DatabaseHelper::getConn();
-        
         $aRet = false;
-        $aQuery = $conn->prepare("INSERT INTO payment (id, fk_user, date, amount, status, comment) VALUES (NULL, ?, ?, ?, ?, ?)");
+        $aQuery = SELF::conn()->prepare("INSERT INTO payment (id, fk_user, date, amount, status, comment) VALUES (NULL, ?, ?, ?, ?, ?)");
         
         if ($aQuery->execute(array($theUserId, time(), $theAmount, SELF::PAYMENT_CONFIRMED, $theComment))) {
-            $aRet = $conn->lastInsertId();
+            $aRet = SELF::conn()->lastInsertId();
         }
         
         return $aRet;
     }
     
     public static function updateStatus($theId, $theStatus) {
-        $conn = DatabaseHelper::getConn();
-        
-        $aQuery = $conn->prepare("UPDATE payment SET status = ?, comment = CONCAT(comment, ?) WHERE id = ?");
+        $aQuery = SELF::conn()->prepare("UPDATE payment SET status = ?, comment = CONCAT(comment, ?) WHERE id = ?");
         return $aQuery->execute(array($theStatus, $theStatus . '('.time().'), ', $theId));
     }
     
     public static function delete($theId) {
-        $conn = DatabaseHelper::getConn();
-        
-        $aQuery = $conn->prepare("DELETE FROM payment WHERE id = ?");
+        $aQuery = SELF::conn()->prepare("DELETE FROM payment WHERE id = ?");
         return $aQuery->execute(array($theId));
     }
     
     public static function log($theText) {
-        $conn = DatabaseHelper::getConn();
-        
-        $aQuery = $conn->prepare("INSERT INTO payment_log (id, date, text) VALUES (NULL, ?, ?)");
+        $aQuery = SELF::conn()->prepare("INSERT INTO payment_log (id, date, text) VALUES (NULL, ?, ?)");
         return $aQuery->execute(array(time(), $theText));
     }
     
     public static function findUsersWithPaidCredit() {
-        $conn = DatabaseHelper::getConn();
-        
         $aRet = array();
-        $aQuery = $conn->prepare("
+        $aQuery = SELF::conn()->prepare("
             SELECT
                 u.id, SUM(p.amount) AS paid_amount
             FROM
