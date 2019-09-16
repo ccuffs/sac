@@ -3,7 +3,7 @@
 namespace App\Helpers;
 
 class View {
-	private static $mBaseUrl;
+	private static $mBaseUrl = 'App/Views/';
 	private static $mData;
 
 	public static function data() {
@@ -14,12 +14,11 @@ class View {
 		return BASE_URL;
 	}
 	
-	public static function render($theFile, $theData = array()) {
-		self::$mBaseUrl = 'App/Views/';
-		self::$mData 	= $theData;
+	public static function render($file, $data = []) {
+		extract($data);
+		self::$mData = $data;
 		
-		$view_file = dirname(__FILE__).'/../../'.self::$mBaseUrl.'/'.$theFile.'.php';
-
+		$view_file = dirname(__FILE__).'/../../'.self::$mBaseUrl.'/'.$file.'.php';
 		require_once $view_file;
 	}
 }
