@@ -17,14 +17,14 @@ class HomeController {
         $data['events'] = array();
         $events = Event::findAll();
         
-        foreach($events as $id => $info) {
-            $date = $info['day'] . ' de ' . UtilsHelper::monthToString($info['month']) . ' ('.UtilsHelper::weekDayToString($info['day'], $info['month']).')';
+        foreach($events as $id => $event) {
+            $date = $event->day . ' de ' . UtilsHelper::monthToString($event->month) . ' ('.UtilsHelper::weekDayToString($event->day, $event->month).')';
             
             if (!isset($data['events'][$date])) {
                 $data['events'][$date] = array();
             }
             
-            $data['events'][$date][$id] = $info;
+            $data['events'][$date][$id] = $event;
         }
         
         if ($authenticated) {

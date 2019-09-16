@@ -50,30 +50,30 @@
                                     <?php endif; ?>
 								</thead>
 								<tbody>
-									<?php foreach($aList as $aIdEvent => $aInfo): ?>
+									<?php foreach($aList as $aIdEvent => $event): ?>
 										<tr>
-											<td><?= $aInfo['time'] ?></td>
-                                            <td><strong><?= $aInfo['title'] ?> </strong>
+											<td><?= $event->time ?></td>
+                                            <td><strong><?= $event->title ?> </strong>
                                                 <?= ($aIsAdmin
                                                     ? ' <a href="event-manager.php?id='.$aIdEvent.'" title="Editar evento"><i class="fa fa-edit"></i></a> <a href="attending-event.php?id='.$aIdEvent.'" title="Listar as pessoas que estão inscritas para essa atividade"><i class="fa fa-group"></i></a>'
                                                     : '')
                                                 ?>
-                                            <br/><p class="event-description"> <?= $aInfo['description'] ?></p></td>
-											<td><?= $aInfo['place'] ?></td>
-											<td><?= ($aInfo['price'] > 0 ? 'R$ ' . $aInfo['price'] : '-') ?></td>
-											<td><?= ($aInfo['capacity'] != 0 ? $aInfo['capacity'] : '-') ?></td>
+                                            <br/><p class="event-description"> <?= $event->description ?></p></td>
+											<td><?= $event->place ?></td>
+											<td><?= ($event->price > 0 ? 'R$ ' . $event->price : '-') ?></td>
+											<td><?= ($event->capacity != 0 ? $event->capacity : '-') ?></td>
 											
 											<?php if ($aData['authenticated']): ?>
 												<td id="panel-event-'.$aIdEvent.'" style="text-align: center;" class="panel-event">
-													<?php if (is_numeric($aInfo['fk_competition'])): ?>
-														<a href="competition.php?competition='.$aInfo['fk_competition'].'"><i class="fa fa-info-circle"></i> Infos</a> '.($aIsAdmin ? ' <a href="competition-manager.php?id='.$aInfo['fk_competition'].'"><i class="fa fa-edit"></i></a> ' : ''
-														
-                                                    <?php elseif($aInfo['ghost'] == 0): ?>
+													<?php if (is_numeric($event->fk_competition)): ?>
+														<a href="competition.php?competition=<?= $event->fk_competition ?>"><i class="fa fa-info-circle"></i> Infos</a>
+														<?= $aIsAdmin ? ' <a href="competition-manager.php?id='.$event->fk_competition.'"><i class="fa fa-edit"></i></a>' : '' ?>
+                                                    <?php elseif($event->ghost == 0): ?>
 														<?php if (isset($aAttending[$aIdEvent])): ?>
 															<span class="label label-success"><i class="fa fa-check-square"></i> Inscrito</span>
 															 <a href="javascript:void(0);" onclick="SAC.unsubscribe('.$aIdEvent.')" title="Clique para remover sua inscrição dessa atividade."><i class="fa fa-remove"></i></a>
                                                         <?php else: ?>
-															<a href="javascript:void(0);" onclick="SAC.subscribe(<?=$aIdEvent ?>, <?= ($aInfo['capacity'] != 0 ? 'true' : 'false') ?>)" title="Clique para se inscrever nessa atividade."><i class="fa fa-square-o"></i></a>
+															<a href="javascript:void(0);" onclick="SAC.subscribe(<?=$aIdEvent ?>, <?= ($event->capacity != 0 ? 'true' : 'false') ?>)" title="Clique para se inscrever nessa atividade."><i class="fa fa-square-o"></i></a>
                                                         <?php endif; ?>
 													<?php else: ?>
 														-

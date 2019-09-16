@@ -7,22 +7,38 @@ use App\Models\User;
 use App\Models\Event;
 use App\Models\Competition;
 use App\Models\Payment;
+use App\Models\Subscription;
 use App\Helpers\AuthHelper;
 
 class EventController {
+    public function index ($request, $response, $args) {
+        $user = AuthHelper::getAuthenticatedUser();
+        
+        $data = [
+            'title' => 'Evento',
+            'user' => $user,
+            'events' => Event::findAll()
+        ];
+
+        View::render('layout/header', $data);
+        View::render('event/index', $data);
+        View::render('layout/footer', $data);
+
+        return $response;
+    }
     public function  adminIndex ($request, $response, $args)
     {
         AuthHelper::allowAuthenticated();
 	
-        $aData		= array();
+        $aData		= [];
         $aUser 		= User::getById($_SESSION['user']);
-        $aIsAdmin 	= $aUser->isLevel(User::USER_LEVEL_ADMIN);
+        $isAdmin 	= $aUser->isLevel(User::USER_LEVEL_ADMIN);
         $aEventId 	= isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
         
         $aData['user'] = $aUser;
-        $aData['event'] = array();
+        $aData['event'] = [];
         
-        if (!$aIsAdmin) {
+        if (!$isAdmin) {
             View::render('restricted');
             return $response;
         }
@@ -44,76 +60,75 @@ class EventController {
     {
         AuthHelper::allowAuthenticated();
 	
-        $aData		= array();
-        $aUser 		= User::getById($_SESSION['user']);
-        $aIsAdmin 	= $aUser->isLevel(User::USER_LEVEL_ADMIN);
-        $aEventId 	= isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
+        $user = User::getById($_SESSION['user']);
+        $isAdmin = $user->isLevel(User::USER_LEVEL_ADMIN);
+        $aEventId = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
         
-        if (!$aIsAdmin) {
+        if (!$isAdmin) {
             View::render('restricted');
             return $response;
         }
+        
+        $data = [];
+        $data['user'] = $user;
+        $data['event'] = [];
 
-        $aData['user'] = $aUser;
-        $aData['event'] = array();
+        $data['createdOrUpdated'] = Event::create($_POST);
 
-        $aData['createdOrUpdated'] = Event::create($_POST);
+        $data['competitions'] = Competition::findAll();
 
-        $aData['competitions'] = Competition::findAll();
-
-        View::render('event-manager', $aData);
+        View::render('event-manager', $data);
         return $response;
     }
 
     /* TODO: Implement this */
-    public function attempt()
+    public function attempt($request, $response, $args)
     {
         AuthHelper::allowAuthenticated();
 	
-        $aData			= array();
-        $aId			= isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
-        $aUser 			= User::getById($_SESSION['user']);
-        $aIsAdmin 		= $aUser->isLevel(User::USER_LEVEL_ADMIN);
+        $data = [];
+        $user = User::getById($_SESSION['user']);
+        $isAdmin = $user->isLevel(User::USER_LEVEL_ADMIN);
         
-        if (!$aIsAdmin) {
+        if (!$isAdmin) {
             header("Location: restricted.php");
             exit();
         }
         
-        $aEvent			= Event::getById($aId);
-        $aUsers 		= array();
-        $aAttending 	= array();
-        $aPaidCredit	= Payment::findUsersWithPaidCredit();	
-        $aEmailsPaid	= array();
-        $aEmailsNonPaid	= array();
+        $event = Event::getById($args['id']);
+        $users = [];
+        $attending = [];
+        $paidCredit = Payment::findUsersWithPaidCredit();	
+        $emailsPaid = [];
+        $emailsNonPaid = [];
         
-        if($aEvent != null) {
+        if($event) {
             if (isset($_REQUEST['remove'])) {
-                $aData['createdOrUpdated'] = attendingRemove($_REQUEST['remove'], $aEvent['id']);
+                $data['createdOrUpdated'] = attendingRemove($_REQUEST['remove'], $event['id']);
             }
             
-            $aAttending = attendingFindUsersByEventId($aId);
-            $aUsers = userFindByIds(array_keys($aAttending));
+            $attending = Subscription::findByUserId($args['id']);
+            $users = userFindByIds(array_keys($attending));
         }
 
-        foreach($aUsers as $aId => $aInfo) {
-            $aUsers[$aId]['admin'] 	= $aInfo['type'] == User::USER_LEVEL_ADMIN;
-            $aUsers[$aId]['source'] = $aInfo['type'] == User::USER_LEVEL_UFFS || $aInfo['type'] == User::USER_LEVEL_ADMIN ? 'UFFS' : 'Externo';
-            $aUsers[$aId]['paid'] 	= isset($aPaidCredit[$aId]) && $aPaidCredit[$aId] >= userGetConferencePrice($aInfo);
+        foreach($users as $aId => $aInfo) {
+            $users[$aId]['admin'] 	= $aInfo['type'] == User::USER_LEVEL_ADMIN;
+            $users[$aId]['source'] = $aInfo['type'] == User::USER_LEVEL_UFFS || $aInfo['type'] == User::USER_LEVEL_ADMIN ? 'UFFS' : 'Externo';
+            $users[$aId]['paid'] 	= isset($paidCredit[$aId]) && $paidCredit[$aId] >= userGetConferencePrice($aInfo);
             
-            if ($aUsers[$aId]['paid']) {
-                $aEmailsPaid[] = $aInfo['email'];
+            if ($users[$aId]['paid']) {
+                $emailsPaid[] = $aInfo['email'];
             } else {
-                $aEmailsNonPaid[] = $aInfo['email'];
+                $emailsNonPaid[] = $aInfo['email'];
             }
         }
         
-        $aData['users'] 		= $aUsers;
-        $aData['event'] 		= $aEvent;
-        $aData['attending'] 	= $aAttending;
-        $aData['emailsPaid'] 	= $aEmailsPaid;
-        $aData['emailsNonPaid'] = $aEmailsNonPaid;
+        $data['users'] = $users;
+        $data['event'] = $event;
+        $data['attending'] = $attending;
+        $data['emailsPaid'] = $emailsPaid;
+        $data['emailsNonPaid'] = $emailsNonPaid;
         
-        View::render('attending-event', $aData);
+        View::render('attending-event', $data);
     }
 }
