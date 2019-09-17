@@ -8,8 +8,6 @@
 	$aUffs			= $aData['uffs'];
 	$aPassword		= $aData['password'];
 	$aIsLogin		= $aData['isLogin'];
-	
-	layoutHeader('Login');
 ?>
 
 <div class="jumbotron">
@@ -55,6 +53,4 @@
 			<p>Em caso de problemas com o cadastro ou senha, escreva para <strong><a href="mailto:cacomputacaouffs@gmail.com">cacomputacao@gmail.com</a></strong>.</p>
 		</div>
 	</div>			
-</div>		
-
-<?php layoutFooter();?>
+</div>

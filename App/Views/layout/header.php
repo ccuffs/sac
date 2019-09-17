@@ -19,7 +19,7 @@ use App\Models\User;
 		<![endif]-->
 		
 		<!-- Le styles -->
-		<link href="<?= UtilsHelper::base_url('/css/bootstrap.css') ?>" rel="stylesheet">
+		<link href="<?= UtilsHelper::base_url('/css/bootstrap.min.css') ?>" rel="stylesheet">
 		<link href="<?= UtilsHelper::base_url('/css/style.css') ?>" rel="stylesheet" media="screen">
 		<link href="<?= UtilsHelper::base_url('/css/print.css') ?>" rel="stylesheet" media="print">
 		
@@ -47,7 +47,7 @@ use App\Models\User;
 			
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<?php if ($user): ?>
+					<?php if (isset($user)): ?>
 						<li style="margin-top: -5px;">
 							<a href="#">
 							<img src="<?= 'http://avatars.io/email/'.$user->email ?>" class="img-circle" title="<?= $user->name ?>" style="width: 25px;"/>
@@ -63,13 +63,17 @@ use App\Models\User;
 						</li>
 					<?php else: ?> 
 						<li class="dropdown">
-							<button class="btn btn-info" onclick="window.location=\'inscricao\';" style="margin-top: 7px;"><span class="fa fa-user"></span> Inscrever-se</button> 
-							<button class="btn btn-success" onclick="window.location=\'login\';" style="margin-top: 7px;"><span class="fa fa-user"></span> Login</button>
+							<a role="button" class="btn btn-info" style="margin-top: 7px;">
+								<span class="fa fa-user"></span> Inscrever-se
+							</a> 
+							<a href="<?= UtilsHelper::base_url("/login")?>" role="button" class="btn btn-success" style="margin-top: 7px;">
+								<span class="fa fa-user"></span> Login
+							</a>
 						</li>
 					<?php endif; ?>
 				</ul>
 					
-				<?php if(true): ?>
+				<?php if(isset($user) && $user->isLevel(User::USER_LEVEL_ADMIN)): ?>
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#">Ações <b class="caret"></b></a>

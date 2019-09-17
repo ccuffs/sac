@@ -20,6 +20,7 @@ class AuthController {
         $aIsUFFS = isset($_POST['uffs']) && $_POST['uffs'] == '1';
         $aHasAccount = false;
         
+        View::render('layout/header');
         View::render('auth/login', array(
             'loginError' => $aLoginError,
             'user' => @$_POST['user'],
@@ -30,6 +31,7 @@ class AuthController {
             'password' => @$_POST['password'],
             'isLogin' => true
         ));
+        View::render('layout/footer');
         return  $response;
     }
 
@@ -39,9 +41,11 @@ class AuthController {
         $aHasAccount 	= false;
         
         if (!isset($_POST['user'], $_POST['password'])) {
+            View::render('layout/header', $data);
             View::render('auth/login', array(
                 'loginError' => true
             ));
+            View::render('layout/footer', $data);
             return $response;
         }
 
@@ -50,9 +54,11 @@ class AuthController {
         $user = AuthHelper::loginUsingPortal($username, $_POST['password']);
 
         if (!$user) {
+            View::render('layout/header', $data);
             View::render('auth/login', array(
                 'loginError' => true
             ));
+			View::render('layout/footer', $data);
             return $response;
         }
 
@@ -60,7 +66,7 @@ class AuthController {
 
         return $response
             ->withHeader('Location', $request->getUri() . "/..")
-            ->withStatus(302);    
+            ->withStatus(302);
     }
 
     public function subscriptionForm ($request, $response, $args) {

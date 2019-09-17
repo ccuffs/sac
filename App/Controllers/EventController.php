@@ -13,6 +13,7 @@ use App\Helpers\UtilsHelper;
 
 class EventController {
     public function index ($request, $response, $args) {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
         $user = AuthHelper::getAuthenticatedUser();
         
         $data = [
@@ -29,6 +30,7 @@ class EventController {
     }
 
     public function show ($request, $response, $args) {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
         $user = AuthHelper::getAuthenticatedUser();
         
         $event = Event::findById($args['id']);
@@ -44,6 +46,7 @@ class EventController {
     }
 
     public function edit ($request, $response, $args) {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
         $user = AuthHelper::getAuthenticatedUser();
         
         /* TODO: 404 if not exists */
@@ -62,6 +65,7 @@ class EventController {
     }
 
     public function update ($request, $response, $args) {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
         $event = Event::findById($args['id']);
         $body = $request->getParsedBody();
         $event->setAttr('title', $body['title']);
@@ -83,6 +87,7 @@ class EventController {
     }
 
     public function delete ($request, $response, $args) {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
         $event = Event::findById($args['id']);
         $event->delete();
         return $response
@@ -90,9 +95,8 @@ class EventController {
             ->withStatus(302);  
     }
 
-    public function create ($request, $response, $args)
-    {
-        AuthHelper::allowAuthenticated();
+    public function create ($request, $response, $args) {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
         $user = AuthHelper::getAuthenticatedUser();
         $isAdmin = $user->isLevel(User::USER_LEVEL_ADMIN);
         
@@ -114,6 +118,7 @@ class EventController {
     }
 
     public function store ($request, $response, $args) {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
         $event = new Event();
         $body = $request->getParsedBody();
         $event->setAttr('title', $body['title']);
@@ -140,40 +145,10 @@ class EventController {
             ->withStatus(302);   
     }
 
-    public function  adminIndex ($request, $response, $args)
-    {
-        AuthHelper::allowAuthenticated();
-	
-        $aData		= [];
-        $aUser 		= User::getById($_SESSION['user']);
-        $isAdmin 	= $aUser->isLevel(User::USER_LEVEL_ADMIN);
-        $aEventId 	= isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
-        
-        $aData['user'] = $aUser;
-        $aData['event'] = [];
-        
-        if (!$isAdmin) {
-            View::render('restricted');
-            return $response;
-        }
-
-        if (isset($_REQUEST['delete'])) {
-            $aData['createdOrUpdated'] = eventDelete($_REQUEST['delete']);
-            
-        } else {
-            $aData['event'] = Event::getById($aEventId);	
-        }
-        
-        $aData['competitions'] = Competition::findAll();
-
-        View::render('event-manager', $aData);
-        return $response;
-    }
-
     /* TODO: Implement this */
     public function attempt($request, $response, $args)
     {
-        AuthHelper::allowAuthenticated();
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
 	
         $data = [];
         $user = User::getById($_SESSION['user']);

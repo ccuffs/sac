@@ -7,6 +7,7 @@ require_once dirname(__FILE__). '/../../vendor/rmccue/requests/library/Requests.
 use App\Models\User;
 use App\Helpers\DatabaseHelper;
 use App\Helpers\AuthHelper;
+use App\Helpers\View;
 
 class AuthHelper {
 	public static function hash($thePassword) {
@@ -38,8 +39,26 @@ class AuthHelper {
 	}
 	
 	public static function allowAuthenticated() {
+		$user = AuthHelper::getAuthenticatedUser();
+        $title = '401';
+        $data = compact(['user', 'title']);
 		if(!AuthHelper::isAuthenticated()) {
-			header('Location: login.php');
+			View::render('layout/header', $data);
+			View::render('errors/401', $data);
+			View::render('layout/footer', $data);
+			exit();
+		}
+	}
+
+	public static function restrictToPermission($level) {
+		$title = '401';
+		$isAuthenticated = AuthHelper::isAuthenticated();
+		$user = AuthHelper::getAuthenticatedUser();
+		if(!$isAuthenticated || !$user->isLevel($level)) {
+			$data = compact(['user', 'title']);
+			View::render('layout/header', $data);
+			View::render('errors/401', $data);
+			View::render('layout/footer', $data);
 			exit();
 		}
 	}
