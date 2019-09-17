@@ -50,7 +50,7 @@ class CompetitionController {
     }
 
     /* TODO: test this function */
-    public function execute ($request, $response, $args)
+    public function show ($request, $response, $args)
     {
         $aId 					= isset($_REQUEST['competition']) ? $_REQUEST['competition'] : 0;
         $aComptetition 			= Competition::getById($aId);

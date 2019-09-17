@@ -13,6 +13,17 @@ a:visited {
 	margin-bottom: 0px;
 }
 
+.navbar a[role=button] {
+	display: inline-block;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	color: white !important; 
+}
+
+.navbar a[role=button]:hover {
+	color: #666 !important; 
+}
+
 .code-tab {
 	min-height: 660px;
 	overflow: auto;

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 class User extends Model {
+    protected $table = "user";
+    
     const USER_LEVEL_UFFS = 1;
     const USER_LEVEL_EXTERNAL = 2;
     const USER_LEVEL_ADMIN = 3;
@@ -84,14 +86,6 @@ class User extends Model {
         }
         
         return SELF::newByData($user_data);
-    }
-
-    public function save () {
-        if ($this->id) {
-            $this->update();
-        } else {
-            $this->create();
-        }
     }
 
     public function create () {

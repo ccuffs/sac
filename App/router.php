@@ -21,13 +21,21 @@ $app->get('/inscricao', 'App\Controllers\AuthController:subscriptionForm');
 $app->post('/login', 'App\Controllers\AuthController:login');
 $app->get('/logout', 'App\Controllers\AuthController:logout');
 
-$app->get('/admin/evento', 'App\Controllers\EventController:adminIndex');
+$app->get('/admin/evento', 'App\Controllers\EventController:index');
+$app->get('/admin/evento/create', 'App\Controllers\EventController:create');
+$app->post('/admin/evento/create', 'App\Controllers\EventController:store');
+$app->get('/admin/evento/{id}', 'App\Controllers\EventController:show');
+$app->get('/admin/evento/{id}/edit', 'App\Controllers\EventController:edit');
+$app->post('/admin/evento/{id}/edit', 'App\Controllers\EventController:update');
+$app->get('/admin/evento/{id}/delete', 'App\Controllers\EventController:delete');
+
 $app->post('/admin/evento', 'App\Controllers\EventController:create');
 $app->get('/admin/campeonato', 'App\Controllers\CompetitionController:index');
 $app->post('/admin/campeonato', 'App\Controllers\CompetitionController:create');
 $app->get('/admin/inscricoes', 'App\Controllers\SubscribeController:index');
 $app->get('/admin/pagamento', 'App\Controllers\SubscribeController:payment');
 $app->post('/admin/pagamento', 'App\Controllers\SubscribeController:paymentCreate');
+$app->get('/attempt/{id}', 'App\Controllers\EventController:attempt');
 
 $app->get('/times', 'App\Controllers\TeamController:index');
 
