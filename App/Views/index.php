@@ -54,10 +54,6 @@
 										<tr>
 											<td><?= $event->time ?></td>
                                             <td><strong><?= $event->title ?> </strong>
-                                                <?= ($aIsAdmin
-                                                    ? ' <a href="event-manager.php?id='.$aIdEvent.'" title="Editar evento"><i class="fa fa-edit"></i></a> <a href="attending-event.php?id='.$aIdEvent.'" title="Listar as pessoas que estão inscritas para essa atividade"><i class="fa fa-group"></i></a>'
-                                                    : '')
-                                                ?>
                                             <br/><p class="event-description"> <?= $event->description ?></p></td>
 											<td><?= $event->place ?></td>
 											<td><?= ($event->price > 0 ? 'R$ ' . $event->price : '-') ?></td>
