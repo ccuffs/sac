@@ -99,17 +99,12 @@ class Event extends Model {
     }
   
     public function create() {
-        $ghost = (int) ($this->ghost == 1);
-
-        /* I'm interpolating ghost in the sql because for some reason when I bindParam it I got and error  */
-
         $sql = "INSERT INTO event (fk_competition , day , month , time , title , description , place , price , capacity , waiting_capacity , ghost) VALUES
-                    (:fk_competition, :day, :month, :time, :title, :description, :place, :price, :capacity, :waiting_capacity, $ghost)";
+                    (:fk_competition, :day, :month, :time, :title, :description, :place, :price, :capacity, :waiting_capacity, :ghost)";
 
         $query = SELF::conn()->prepare($sql);
 
-        $fk_competition = $this->fk_competition ? $this->fk_competition : null;
-        $query->bindParam('fk_competition', $fk_competition);
+        $query->bindParam('fk_competition', $this->fk_competition);
         $query->bindParam('day', $this->day);
         $query->bindParam('month', $this->month);
         $query->bindParam('time', $this->time);
@@ -118,6 +113,7 @@ class Event extends Model {
         $query->bindParam('place', $this->place);
         $query->bindParam('price', $this->price);
         $query->bindParam('capacity', $this->capacity);
+        $query->bindParam('ghost', $this->ghost);
         $query->bindParam('waiting_capacity', $this->waitingCapacity);
 
         $result = $query->execute();
