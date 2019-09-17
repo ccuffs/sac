@@ -25,6 +25,8 @@ $app->get('/admin/evento', 'App\Controllers\EventController:index');
 $app->get('/admin/evento/{id}', 'App\Controllers\EventController:show');
 $app->get('/admin/evento/{id}/edit', 'App\Controllers\EventController:edit');
 $app->post('/admin/evento/{id}/edit', 'App\Controllers\EventController:update');
+$app->get('/admin/evento/{id}/delete', 'App\Controllers\EventController:delete');
+
 $app->post('/admin/evento', 'App\Controllers\EventController:create');
 $app->get('/admin/campeonato', 'App\Controllers\CompetitionController:index');
 $app->post('/admin/campeonato', 'App\Controllers\CompetitionController:create');

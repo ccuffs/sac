@@ -13,6 +13,7 @@ use App\Helpers\UtilsHelper;
     <div>
         <a href="<?= UtilsHelper::base_url("/admin/evento") ?>" class="btn btn-default">Voltar</a>
         <a href="<?= UtilsHelper::base_url("/admin/evento/" . $event->id . "/edit") ?>" class="btn btn-primary">Editar</a>
+        <a href="<?= UtilsHelper::base_url("/admin/evento/" . $event->id . "/delete") ?>" class="btn btn-warning">Remover</a>
     </div>
     <br>
     <div class="panel panel-default">

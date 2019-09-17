@@ -82,6 +82,14 @@ class EventController {
             ->withStatus(302);      
     }
 
+    public function delete ($request, $response, $args) {
+        $event = Event::findById($args['id']);
+        $event->delete();
+        return $response
+            ->withHeader('Location', UtilsHelper::base_url("/admin/evento"))
+            ->withStatus(302);  
+    }
+
     public function  adminIndex ($request, $response, $args)
     {
         AuthHelper::allowAuthenticated();

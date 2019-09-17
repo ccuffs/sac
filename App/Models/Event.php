@@ -3,6 +3,8 @@
 namespace App\Models;
 
 class Event extends Model {
+    protected $table = "event";
+
     public $id;
     public $day;
     public $month;
@@ -31,11 +33,6 @@ class Event extends Model {
         return SELF::newByData($data);
     }
   
-    public function delete($theId) {
-        $query = SELF::conn()->prepare("DELETE FROM event WHERE id = ?");
-        return $query->execute(array($theId));
-    }
-  
     public function findAll() {
         $result = [];
         $query = SELF::conn()->prepare("SELECT * FROM event WHERE 1 ORDER BY day ASC, month ASC, time ASC");
@@ -60,14 +57,6 @@ class Event extends Model {
         }
         
         return $result;
-    }
-
-    public function save () {
-        if ($this->id) {
-            $this->update();
-        } else {
-            $this->create();
-        }
     }
 
     public function update() {
