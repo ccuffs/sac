@@ -75,7 +75,7 @@ use App\Models\User;
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#">Ações <b class="caret"></b></a>
 							<ul class="dropdown-menu" role="menu">
 								<li role="presentation" class="dropdown-header">Programação</li>
-								<li><a href="<?= UtilsHelper::base_url("/admin/evento")?>">Criar evento</a></li>
+								<li><a href="<?= UtilsHelper::base_url("/admin/evento")?>">Eventos</a></li>
 								<li><a href="<?= UtilsHelper::base_url("/admin/campeonato")?>">Criar campeonato</a></li>
 							
 								<li class="divider"></li>
