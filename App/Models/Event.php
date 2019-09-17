@@ -16,7 +16,7 @@ class Event extends Model {
     public $ghost;
     public $fk_competition;
 
-    public static function getById($id) {
+    public static function findById($id) {
         $result = null;
         $query = SELF::conn()->prepare("SELECT * FROM event WHERE id = :id");
         $query->execute([
@@ -59,6 +59,53 @@ class Event extends Model {
             }
         }
         
+        return $result;
+    }
+
+    public function save () {
+        if ($this->id) {
+            $this->update();
+        } else {
+            $this->create();
+        }
+    }
+
+    public function update() {
+        $sql = "UPDATE `event`
+            SET
+                day = :day,
+                month = :month,
+                time = :time,
+                title = :title,
+                description = :description,
+                place = :place,
+                price = :price,
+                capacity = :capacity,
+                waiting_capacity = :waiting_capacity,
+                ghost = :ghost,
+                fk_competition = :fk_competition 
+            WHERE id = :id    
+        ";
+
+        $query = SELF::conn()->prepare($sql);
+
+        $this->fk_competition = null;
+
+        $query->bindParam('id', $this->id);
+        $query->bindParam('day', $this->day);
+        $query->bindParam('month', $this->month);
+        $query->bindParam('time', $this->time);
+        $query->bindParam('title', $this->title);
+        $query->bindParam('description', $this->description);
+        $query->bindParam('place', $this->place);
+        $query->bindParam('price', $this->price);
+        $query->bindParam('capacity', $this->capacity);
+        $query->bindParam('waiting_capacity', $this->waitingCapacity);
+        $query->bindParam('ghost', $this->ghost);
+        $query->bindParam('fk_competition', $this->fk_competition);
+        
+        $result = $query->execute();
+
         return $result;
     }
   

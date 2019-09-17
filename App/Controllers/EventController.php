@@ -9,6 +9,7 @@ use App\Models\Competition;
 use App\Models\Payment;
 use App\Models\Subscription;
 use App\Helpers\AuthHelper;
+use App\Helpers\UtilsHelper;
 
 class EventController {
     public function index ($request, $response, $args) {
@@ -26,6 +27,61 @@ class EventController {
 
         return $response;
     }
+
+    public function show ($request, $response, $args) {
+        $user = AuthHelper::getAuthenticatedUser();
+        
+        $event = Event::findById($args['id']);
+        $title = 'Evento';
+
+        $data = compact(['user', 'event', 'title']);
+
+        View::render('layout/header', $data);
+        View::render('event/show', $data);
+        View::render('layout/footer', $data);
+
+        return $response;
+    }
+
+    public function edit ($request, $response, $args) {
+        $user = AuthHelper::getAuthenticatedUser();
+        
+        /* TODO: 404 if not exists */
+        $event = Event::findById($args['id']);
+        $competitions = Competition::findAll();
+
+        $title = 'Evento';
+
+        $data = compact(['user', 'event', 'competitions', 'title']);
+
+        View::render('layout/header', $data);
+        View::render('event/edit', $data);
+        View::render('layout/footer', $data);
+
+        return $response;
+    }
+
+    public function update ($request, $response, $args) {
+        $event = Event::findById($args['id']);
+        $body = $request->getParsedBody();
+        $event->setAttr('title', $body['title']);
+        $event->setAttr('description', $body['description']);
+        $event->setAttr('day', $body['day']);
+        $event->setAttr('time', $body['time']);
+        $event->setAttr('month', $body['month']);
+        $event->setAttr('place', $body['place']);
+        $event->setAttr('ghost', $body['ghost']);
+        $event->setAttr('price', $body['price']);
+        $event->setAttr('capacity', $body['capacity']);
+        $event->setAttr('waitingCapacity', $body['waiting_capacity']);
+        $event->setAttr('fk_competition', $body['fk_competition']);
+        $event->save();
+
+        return $response
+            ->withHeader('Location', UtilsHelper::base_url("/admin/evento/".$args['id']))
+            ->withStatus(302);      
+    }
+
     public function  adminIndex ($request, $response, $args)
     {
         AuthHelper::allowAuthenticated();
