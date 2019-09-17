@@ -98,10 +98,8 @@ class Event extends Model {
         return $result;
     }
   
-    public function create($data) {
-        $result 	= false;
-
-        $ghost = (int) ($data['ghost'] == 1);
+    public function create() {
+        $ghost = (int) ($this->ghost == 1);
 
         /* I'm interpolating ghost in the sql because for some reason when I bindParam it I got and error  */
 
@@ -110,21 +108,21 @@ class Event extends Model {
 
         $query = SELF::conn()->prepare($sql);
 
-        $fk_competition = $data['fk_competition'] ? $data['fk_competition'] : null;
-
+        $fk_competition = $this->fk_competition ? $this->fk_competition : null;
         $query->bindParam('fk_competition', $fk_competition);
-        $query->bindParam('day', $data['day']);
-        $query->bindParam('month', $data['month']);
-        $query->bindParam('time', $data['time']);
-        $query->bindParam('title', $data['title']);
-        $query->bindParam('description', $data['description']);
-        $query->bindParam('place', $data['place']);
-        $query->bindParam('price', $data['price']);
-        $query->bindParam('capacity', $data['capacity']);
-        $query->bindParam('waiting_capacity', $data['waiting_capacity']);
+        $query->bindParam('day', $this->day);
+        $query->bindParam('month', $this->month);
+        $query->bindParam('time', $this->time);
+        $query->bindParam('title', $this->title);
+        $query->bindParam('description', $this->description);
+        $query->bindParam('place', $this->place);
+        $query->bindParam('price', $this->price);
+        $query->bindParam('capacity', $this->capacity);
+        $query->bindParam('waiting_capacity', $this->waitingCapacity);
 
         $result = $query->execute();
-        return $result;
+        if (!$result) return false;
+        return SELF::conn()->lastInsertId(); 
     }
 
     private static function newByData ($data) {

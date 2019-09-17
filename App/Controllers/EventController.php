@@ -90,6 +90,56 @@ class EventController {
             ->withStatus(302);  
     }
 
+    public function create ($request, $response, $args)
+    {
+        AuthHelper::allowAuthenticated();
+        $user = AuthHelper::getAuthenticatedUser();
+        $isAdmin = $user->isLevel(User::USER_LEVEL_ADMIN);
+        
+        if (!$isAdmin) {
+            View::render('restricted');
+            return $response;
+        }
+        
+        $competitions = Competition::findAll();
+
+        $title = 'Evento';
+
+        $data = compact(['user', 'competitions', 'title']);
+
+        View::render('layout/header', $data);
+        View::render('event/create', $data);
+        View::render('layout/footer', $data);
+        return $response;
+    }
+
+    public function store ($request, $response, $args) {
+        $event = new Event();
+        $body = $request->getParsedBody();
+        $event->setAttr('title', $body['title']);
+        $event->setAttr('description', $body['description']);
+        $event->setAttr('day', $body['day']);
+        $event->setAttr('time', $body['time']);
+        $event->setAttr('month', $body['month']);
+        $event->setAttr('place', $body['place']);
+        $event->setAttr('ghost', $body['ghost']);
+        $event->setAttr('price', $body['price']);
+        $event->setAttr('capacity', $body['capacity']);
+        $event->setAttr('waitingCapacity', $body['waiting_capacity']);
+        $event->setAttr('fk_competition', $body['fk_competition']);
+        $id = $event->save();
+
+        if (!$id) {
+            return $response
+                ->withHeader('Location', UtilsHelper::base_url("/admin/evento/create"))
+                ->withStatus(302);   
+        }
+
+        return $response
+            ->withHeader('Location', UtilsHelper::base_url("/admin/evento/$id"))
+            ->withStatus(302);   
+    }
+
     public function  adminIndex ($request, $response, $args)
     {
         AuthHelper::allowAuthenticated();
@@ -117,31 +167,6 @@ class EventController {
         $aData['competitions'] = Competition::findAll();
 
         View::render('event-manager', $aData);
-        return $response;
-    }
-
-    public function create ($request, $response, $args)
-    {
-        AuthHelper::allowAuthenticated();
-	
-        $user = User::getById($_SESSION['user']);
-        $isAdmin = $user->isLevel(User::USER_LEVEL_ADMIN);
-        $aEventId = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
-        
-        if (!$isAdmin) {
-            View::render('restricted');
-            return $response;
-        }
-        
-        $data = [];
-        $data['user'] = $user;
-        $data['event'] = [];
-
-        $data['createdOrUpdated'] = Event::create($_POST);
-
-        $data['competitions'] = Competition::findAll();
-
-        View::render('event-manager', $data);
         return $response;
     }
 

@@ -22,6 +22,8 @@ $app->post('/login', 'App\Controllers\AuthController:login');
 $app->get('/logout', 'App\Controllers\AuthController:logout');
 
 $app->get('/admin/evento', 'App\Controllers\EventController:index');
+$app->get('/admin/evento/create', 'App\Controllers\EventController:create');
+$app->post('/admin/evento/create', 'App\Controllers\EventController:store');
 $app->get('/admin/evento/{id}', 'App\Controllers\EventController:show');
 $app->get('/admin/evento/{id}/edit', 'App\Controllers\EventController:edit');
 $app->post('/admin/evento/{id}/edit', 'App\Controllers\EventController:update');

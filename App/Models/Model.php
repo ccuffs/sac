@@ -19,9 +19,9 @@ class Model {
 
     public function save () {
         if ($this->id) {
-            $this->update();
+            return $this->update();
         } else {
-            $this->create();
+            return $this->create();
         }
     }
 
