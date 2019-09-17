@@ -6,6 +6,8 @@ use App\Models\Event;
 use App\Helpers\DatabaseHelper;
 
 class Payment extends Model {
+    protected $table = "payment";
+
     const PAYMENT_CONFIRMED = 3;
     const PAYMENT_AVAILABLE = 4;
     
@@ -93,11 +95,6 @@ class Payment extends Model {
     public static function updateStatus($theId, $theStatus) {
         $aQuery = SELF::conn()->prepare("UPDATE payment SET status = ?, comment = CONCAT(comment, ?) WHERE id = ?");
         return $aQuery->execute(array($theStatus, $theStatus . '('.time().'), ', $theId));
-    }
-    
-    public static function delete($theId) {
-        $aQuery = SELF::conn()->prepare("DELETE FROM payment WHERE id = ?");
-        return $aQuery->execute(array($theId));
     }
     
     public static function log($theText) {
