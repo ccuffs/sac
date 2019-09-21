@@ -9,23 +9,19 @@ use App\Helpers\AuthHelper;
 
 class CompetitionController {
     public function index ($request, $response, $args) {
-        AuthHelper::allowAuthenticated();
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        $user = AuthHelper::getAuthenticatedUser();
         
-        $data			= array();
-        $user 			= User::getById($_SESSION['user']);
-        $isAdmin 		= $user->isLevel(User::USER_LEVEL_ADMIN);
-        $competition 	= isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
-        
-        $data['user'] = $user;
-        
-        if (!$isAdmin) {
-            View::render('restricted');
-            return $response;
-        }
-        
-        $data['competition'] = Competition::getById($competition);
-        
-        View::render('competition-manager', $data);
+        $data = [
+            'title' => 'Competição',
+            'user' => $user,
+            'events' => Competition::findAll()
+        ];
+
+        View::render('layout/header', $data);
+        View::render('competition/index', $data);
+        View::render('layout/footer', $data);
+
         return $response;
     }
 
@@ -50,48 +46,19 @@ class CompetitionController {
     }
 
     /* TODO: test this function */
-    public function show ($request, $response, $args)
-    {
-        $aId 					= isset($_REQUEST['competition']) ? $_REQUEST['competition'] : 0;
-        $aComptetition 			= Competition::getById($aId);
-        $aAuthenticated 		= AuthHelper::isAuthenticated();	
-        $aTeam					= null;
-        $user					= null;
-        $isAdmin				= false;
-        $aCompetitors			= userFindAll();
+    public function show ($request, $response, $args) {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        $user = AuthHelper::getAuthenticatedUser();
         
-        if($aAuthenticated) {
-            $user				= AuthHelper::getAuthenticatedUser();
-            $aTeam				= competitionFindTeamByLeaderId($aId, $user['id']);
-            
-            $isAdmin 			= $user->isLevel(User::USER_LEVEL_ADMIN);
-        }
+        $competition = Competition::findById($args['id']);
+        $title = 'Evento';
 
-        if (isset($_REQUEST['register']) && $aComptetition != null && $aAuthenticated && $user != null) {
-            $aTeamId = @$_REQUEST['id'];
-            
-            $aTeam['fk_leader'] = $user['id'];
-            $aTeam['name']		= isset($_POST['name']) ? $_POST['name'] : '';
-            $aTeam['url'] 		= isset($_POST['url']) ? $_POST['url'] : '';
-            $aTeam['members'] 	= serialize(array(@$_POST['member0'], @$_POST['member1'], @$_POST['member2'], @$_POST['member3'], @$_POST['member4']));
-            
-            $aOk = competitionUpdateOrCreateTeam($aComptetition['id'], $aTeamId, $aTeam);
-            $aTeam = competitionFindTeamByLeaderId($aComptetition['id'], $user['id']);
-        }
+        $data = compact(['user', 'competition', 'title']);
 
-        if($aTeam != null) {
-            $aArray = @unserialize($aTeam['members']);
-            $aTeam['members'] = $aArray === false ? array() : $aArray;
-        }
-        
-        View::render('competition', array(
-            'competition' 		=> $aComptetition,
-            'teams' 			=> competitionFindTeams($aId),
-            'team' 				=> $aTeam,
-            'competitors' 		=> $aCompetitors,
-            'authenticated'		=> $aAuthenticated,
-            'isAdmin'			=> $isAdmin,
-        ));
+        View::render('layout/header', $data);
+        View::render('competition/show', $data);
+        View::render('layout/footer', $data);
+
         return $response;
     }
 }
