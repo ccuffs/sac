@@ -1,13 +1,12 @@
-.main{
-    background-color:#F7F7F7;
+.main {
+    background-color:transparent;
     width: 100vw;
     height: 100vh;
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
-    
 }
-.login{
+.login {
     background-color: #F7F7F7;
     display: flex;
     justify-content: center;
@@ -18,72 +17,32 @@
     padding: 30px;
     border-radius: 5px;
 }
-.login--img{
-    margin-bottom: 10px;
-}
-.login__title{
-   font-weight: normal;
-   margin-bottom: 30px;
-}
-
-.input__name{
-    padding: 5px;
-    color: black;
-}
-.form__text input[type=text]{
-    border-color: #CDCDCD;
-    width:570px;
-    height: 46px;
-    border-radius: 4px;
+.form__content {
+    display: flex;
+    justify-content: center;
     margin-bottom: 15px;
     color: black;
     font-size: 18px;
-    overflow: none;
-    padding: 8px;
 }
-.form__text input[type=text]::placeholder{  
-    padding-left: 8px;
-}   
-.form__pass input[type=password]{
-    border-color: #CDCDCD;
-    width:570px;
-    height: 46px;
-    border-radius: 4px;
-    color: black;
-    font-size: 18px;
-    padding: 8px;
-   
+
+.login--img {
+    margin-bottom: 10px;
 }
-.form__pass input[type=password]::placeholder{  
-    padding-left: 8px;
-}   
-.form__check input[type=checkbox]{
-    height: 20px;
-    margin-bottom: 20px;
-    margin-top: 20px;
+
+.login__title {
+    font-weight: normal;
+    margin-bottom: 30px;
 }
-.form__btn-submit button[type=submit]{
-    width:570px;
-    height: 46px;
-    border-color: transparent;
-    border-radius: 4px;
-    background-color: #519287;
-    color: #F7F7F7;
-    text-transform: uppercase;
-    
-}
-.form__btn-submit button[type=submit]:hover{
-       background-color:#0E693C; 
-}
-.form__resources{
+.form__resources {
     margin-top: 20px;
     text-align: center;
     display: flex;
     justify-content: space-around;
 }
-.resources__anchor{
-    color: #519287;
+
+@media (min-width: 542px) {
+    .resources__anchor{
+        margin-right: 10px;
+    }
 }
-.resources__anchor:hover{
-    color: #519287;
-}
+

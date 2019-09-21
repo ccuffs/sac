@@ -1,0 +1,38 @@
+
+.form__input{
+    border-color: #CDCDCD;  
+    border-radius: 4px;
+    width: 100%;
+    padding-left: 5px;
+}
+
+.form__input::placeholder {
+    padding-left:3px;
+    color:#757575;
+}
+.form__check{
+    color:black;
+}
+.form__btn{
+    text-align: center;
+}
+.form__btn-submit{
+    background-color: #519287;
+    border-color: transparent;
+    color: #F7F7F7;
+    text-transform: uppercase;
+    border-radius:5px;
+    width: 100%;
+    padding: 
+}
+.form__btn-submit:hover{
+    background-color: #0E693C;
+}
+.resources__anchor {
+    color: #519287;
+}
+
+.resources__anchor:hover {
+    color: #519287;
+}
+    

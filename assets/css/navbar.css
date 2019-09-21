@@ -70,9 +70,9 @@
     z-index: 20;
     position: fixed;
     transition: .3s all ease;
-    top: 68px;
+    top: 76px;
     width: 100vw;
-    transform: translateY(calc(-100% - 65px));
+    transform: translateY(calc(-100% - 76px));
 }
 
 .menu-mobile--opened {

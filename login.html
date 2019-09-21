@@ -1,69 +1,72 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" href="assets/img/favicon.ico" />
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap-reboot.min.css">
-    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap-utilities.min.css">
-    <!--FontAwesome-->
-    <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
-    <!-- index CSS -->
-    <link rel="stylesheet" href="assets/css/fonts.css">
-    <link rel="stylesheet" href="assets/css/index.css">
-    <link rel="stylesheet" href="assets/css/card.css">
-    <link rel="stylesheet" href="assets/css/buttons.css">
-    <link rel="stylesheet" href="assets/css/navbar.css">
-    <link rel="stylesheet" href="assets/css/section.css">
-    <link rel="stylesheet" href="assets/css/animations.css">
-    <link rel="stylesheet" href="assets/css/login.css">
-    <link href="https://fonts.googleapis.com/css?family=Trebuchet+MS:400,600,700&display=swap" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="assets/css/tables.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" href="assets/img/favicon.ico" />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap-utilities.min.css">
+  <!--FontAwesome-->
+  <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
+  <!-- index CSS -->
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="assets/css/index.css">
+  <link rel="stylesheet" href="assets/css/card.css">
+  <link rel="stylesheet" href="assets/css/buttons.css">
+  <link rel="stylesheet" href="assets/css/navbar.css">
+  <link rel="stylesheet" href="assets/css/section.css">
+  <link rel="stylesheet" href="assets/css/form.css">
+  <link rel="stylesheet" href="assets/css/login.css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Trebuchet+MS:400,600,700&display=swap" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="assets/css/tables.css">
   <link rel="stylesheet" href="assets/css/text.css"> -->
-    <title>SACC | UFFS</title>
+
+  <title>SACC | UFFS</title>
 </head>
 
 <body>
-    <header>
-        <div class="navbar">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col col-md-2">
-                        <figure class="navbar__logo">
-                            <a href="#">
-                                <img src="assets/img/logo.png">
-                            </a>
-                        </figure>
-                    </div>
-                    <div class="col-md-10 d-none d-md-block">
-                        <nav class="navbar__menu">
-                            <a class="navbar__archor" href="#about">Sobre</a>
-                            <a class="navbar__archor" href="#speakers">Palestrantes</a>
-                            <a class="navbar__archor" href="#programming">Programação</a>
-                            <a class="navbar__archor" href="#">Inscrições</a>
-                        </nav>
-                    </div>
-                    <div class="col text-right d-block d-md-none">
-                        <button class="navbar__toggle-button">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="menu-mobile">
-            <nav id="menu" class="menu-mobile__content">
-                <a class="navbar__archor" href="#about">Sobre</a>
-                <a class="navbar__archor" href="#speakers">Palestrantes</a>
-                <a class="navbar__archor" href="#programming">Programação</a>
-                <a class="navbar__archor" href="#">Inscrições</a>
+
+  <header>
+    <div class="navbar">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col col-md-2">
+            <figure class="navbar__logo">
+              <a href="#">
+                <img src="assets/img/logo.png">
+              </a>
+            </figure>
+          </div>
+          <div class="col-md-10 d-none d-md-block">
+            <nav class="navbar__menu">
+              <a class="navbar__archor" href="#about">Sobre</a>
+              <a class="navbar__archor" href="#speakers">Palestrantes</a>
+              <a class="navbar__archor" href="#programming">Programação</a>
+              <a class="navbar__archor" href="#">Inscrições</a>
             </nav>
+          </div>
+          <div class="col text-right d-block d-md-none">
+            <button class="navbar__toggle-button">
+              <i class="fa fa-bars"></i>
+            </button>
+          </div>
         </div>
-    </header>
+      </div>
+    </div>
+    <div class="menu-mobile">
+      <nav id="menu" class="menu-mobile__content">
+        <a class="navbar__archor" href="#about">Sobre</a>
+        <a class="navbar__archor" href="#speakers">Palestrantes</a>
+        <a class="navbar__archor" href="#programming">Programação</a>
+        <a class="navbar__archor" href="#">Inscrições</a>
+      </nav>
+    </div>
+  </header>
+    
 
     <div class="main">
         <div class="container">
@@ -76,20 +79,20 @@
                         <h2 class="login__title">Entre com seu idUFFS</h2>
                         <div class="login__form">
                             <form class="form" action="">
-                                <div class="form__text">
-                                    <input type="text" class="input__name" name="txtName" id="idName"
+                                <div class="form__content">
+                                    <input type="text" class="form__input" name="txtName" id="idName"
                                         placeholder="IdUFFS">
                                 </div>
-                                <div class="form__pass">
-                                    <input type="password" class="input__pass" name="txtPass" id="idPass"
+                                <div class="form__content">
+                                    <input type="password" class="form__input" name="txtPass" id="idPass"
                                         placeholder="Senha">
                                 </div>
                                 <div class="form__check">
-                                    <input type="checkbox" class="input__check" name="txtCheck" id="idCheck">
+                                    <input type="checkbox" class="form__check" name="txtCheck" id="idCheck">
                                     <label for="idCheck">Lembrar meu usuário</label>
                                 </div>
-                                <div class="form__btn-submit">
-                                    <button type="submit" class="input__btn" name="txtBtn" id="idBtn">entrar</button>
+                                <div class="form__btn">
+                                    <button type="submit" class="form__btn-submit" name="txtBtn" id="idBtn">entrar</button>
                                 </div>
 
                             </form>
@@ -110,6 +113,7 @@
             </div>
         </div>
     </div>
+    <script src="assets/js/index.js"></script>
 </body>
 
 </html>
