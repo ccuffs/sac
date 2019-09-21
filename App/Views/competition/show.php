@@ -4,16 +4,16 @@ use App\Helpers\UtilsHelper;
 
 <div class="jumbotron">
     <div class="container">
-        <h1>Eventos</h1>
-        <p>Gerenciar eventos</p>
+        <h1>Competições</h1>
+        <p>Gerenciar competições</p>
     </div>
 </div>
 
 <div class="container">
     <div>
-        <a href="<?= UtilsHelper::base_url("/admin/evento") ?>" class="btn btn-default">Voltar</a>
-        <a href="<?= UtilsHelper::base_url("/admin/evento/" . $competition->id . "/edit") ?>" class="btn btn-primary">Editar</a>
-        <a href="<?= UtilsHelper::base_url("/admin/evento/" . $competition->id . "/delete") ?>" class="btn btn-warning">Remover</a>
+        <a href="<?= UtilsHelper::base_url("/admin/campeonato") ?>" class="btn btn-default">Voltar</a>
+        <a href="<?= UtilsHelper::base_url("/admin/campeonato/" . $competition->id . "/edit") ?>" class="btn btn-primary">Editar</a>
+        <a href="<?= UtilsHelper::base_url("/admin/campeonato/" . $competition->id . "/delete") ?>" class="btn btn-warning">Remover</a>
     </div>
     <br>
     <div class="panel panel-default">
