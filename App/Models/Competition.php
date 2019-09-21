@@ -3,29 +3,35 @@
 namespace App\Models;
 
 class Competition extends Model {
-  public static function getById($theId) {
-    $result = null;
-    $query = SELF::conn()->prepare("SELECT * FROM competition WHERE id = ?");
-    
-    if ($query->execute(array($theId))) {
-      $result = $query->fetch();
+    protected $table = "competition";
+
+    public static function findById($id) {
+        $result = null;
+        $query = SELF::conn()->prepare("SELECT * FROM competition WHERE id = :id");
+        $query->execute([
+            'id' => $id
+        ]);
+        
+        $data = $query->fetch();
+        if (!$data) {
+            return null;
+        }
+        
+        return SELF::newByData($data);
     }
-    
-    return $result;
-  }
   
-  public static function findAll() {
-    $result = array();
-    $query = SELF::conn()->prepare("SELECT * FROM competition WHERE 1");
-    
-    if ($query->execute()) {
-      while ($aRow = $query->fetch()) {
-        $result[$aRow['id']] = $aRow;
-      }
+    public function findAll() {
+        $result = [];
+        $query = SELF::conn()->prepare("SELECT * FROM competition");
+        
+        if ($query->execute()) {
+            while ($data = $query->fetch()) {
+                $result[] = SELF::newByData($data);
+            }
+        }
+            
+        return $result;
     }
-    
-    return $result;
-  }
   
   public function findTeams($theCompetitionId) {
     $result = array();
@@ -78,21 +84,61 @@ class Competition extends Model {
     return $result;
   }
   
-  public static function create($theCompetitionInfo) {
-    $result 	= false;
-    $query = SELF::conn()->prepare("INSERT INTO competition (title, headline, description, prizes, rules, style)
-                                          VALUES (:title, :headline, :description, :prizes, :rules, :style)");
-    
-    $query_params = [
-      "title" => $theCompetitionInfo['title'],
-      "headline" => $theCompetitionInfo['headline'],
-      "description" => $theCompetitionInfo['description'],
-      "prizes" => $theCompetitionInfo['prizes'],
-      "rules" => $theCompetitionInfo['rules'],
-      "style" => $theCompetitionInfo['style']
-    ];
-    
-    $result = $query->execute($query_params);
-    return $result;
-  }
+    public function create() {
+        $sql = "INSERT INTO competition (title , headline , rules , prizes , description) VALUES
+                    (:title, :headline, :rules, :prizes, :description)";
+
+        $query = SELF::conn()->prepare($sql);
+
+        $query->bindParam('title', $this->title);
+        $query->bindParam('description', $this->description);
+        $query->bindParam('title', $this->title);
+        $query->bindParam('headline', $this->headline);
+        $query->bindParam('rules', $this->rules);
+        $query->bindParam('prizes', $this->prizes);
+
+        $result = $query->execute();
+        if (!$result) return false;
+        return SELF::conn()->lastInsertId(); 
+    }
+
+    public function update() {
+        $sql = "UPDATE `competition`
+            SET
+                title = :title,
+                headline = :headline,
+                prizes = :prizes,
+                rules = :rules,
+                description = :description
+            WHERE id = :id    
+        ";
+
+        $query = SELF::conn()->prepare($sql);
+
+        $this->fk_competition = null;
+
+        $query->bindParam('id', $this->id);
+        $query->bindParam('title', $this->title);
+        $query->bindParam('headline', $this->headline);
+        $query->bindParam('prizes', $this->prizes);
+        $query->bindParam('rules', $this->rules);
+        $query->bindParam('description', $this->description);
+        
+        $result = $query->execute();
+
+        return $result;
+    }
+
+    private static function newByData ($data) {
+        $data = (object) $data;
+        $event = new SELF();
+        $event->id = $data->id;
+        $event->title = $data->title;
+        $event->headline = $data->headline;
+        $event->description = $data->description;
+        $event->prizes = $data->prizes;
+        $event->rules = $data->rules;
+        $event->style = $data->style;
+        return $event;
+    }
 }

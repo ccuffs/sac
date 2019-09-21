@@ -6,92 +6,122 @@ use App\Helpers\View;
 use App\Models\User;
 use App\Models\Competition;
 use App\Helpers\AuthHelper;
+use App\Helpers\UtilsHelper;
 
 class CompetitionController {
     public function index ($request, $response, $args) {
-        AuthHelper::allowAuthenticated();
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        $user = AuthHelper::getAuthenticatedUser();
         
-        $data			= array();
-        $user 			= User::getById($_SESSION['user']);
-        $isAdmin 		= $user->isLevel(User::USER_LEVEL_ADMIN);
-        $competition 	= isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
-        
-        $data['user'] = $user;
-        
-        if (!$isAdmin) {
-            View::render('restricted');
-            return $response;
-        }
-        
-        $data['competition'] = Competition::getById($competition);
-        
-        View::render('competition-manager', $data);
+        $data = [
+            'user' => $user,
+            'events' => Competition::findAll()
+        ];
+
+        View::render('layout/header', $data);
+        View::render('competition/index', $data);
+        View::render('layout/footer', $data);
+
         return $response;
     }
 
     public function create ($request, $response, $args) {
-        AuthHelper::allowAuthenticated();
-        $data			= array();
-        $user 			= User::getById($_SESSION['user']);
-        $isAdmin 		= $user->isLevel(User::USER_LEVEL_ADMIN);
-        $competition 	= isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
-        $data['user'] = $user;
-        $data['createdOrUpdated'] 	= Competition::create($_POST);
-
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        $user = AuthHelper::getAuthenticatedUser();
+        $isAdmin = $user->isLevel(User::USER_LEVEL_ADMIN);
+        
         if (!$isAdmin) {
             View::render('restricted');
             return $response;
         }
+        
+        $competitions = Competition::findAll();
 
-        $data['competition'] = Competition::getById($competition);
+        $title = 'Evento';
 
-        View::render('competition-manager', $data);
+        $data = compact(['user', 'competitions', 'title']);
+
+        View::render('layout/header', $data);
+        View::render('competition/create', $data);
+        View::render('layout/footer', $data);
         return $response;
     }
 
-    /* TODO: test this function */
-    public function show ($request, $response, $args)
-    {
-        $aId 					= isset($_REQUEST['competition']) ? $_REQUEST['competition'] : 0;
-        $aComptetition 			= Competition::getById($aId);
-        $aAuthenticated 		= AuthHelper::isAuthenticated();	
-        $aTeam					= null;
-        $user					= null;
-        $isAdmin				= false;
-        $aCompetitors			= userFindAll();
-        
-        if($aAuthenticated) {
-            $user				= AuthHelper::getAuthenticatedUser();
-            $aTeam				= competitionFindTeamByLeaderId($aId, $user['id']);
-            
-            $isAdmin 			= $user->isLevel(User::USER_LEVEL_ADMIN);
+    public function store ($request, $response, $args) {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        $competition = new Competition();
+        $body = $request->getParsedBody();
+        $competition->setAttr('title', $body['title']);
+        $competition->setAttr('description', $body['description']);
+        $competition->setAttr('headline', $body['headline']);
+        $competition->setAttr('prizes', $body['prizes']);
+        $competition->setAttr('rules', $body['rules']);
+        $id = $competition->save();
+
+        if (!$id) {
+            return $response
+                ->withHeader('Location', UtilsHelper::base_url("/admin/campeonato/create"))
+                ->withStatus(302);   
         }
 
-        if (isset($_REQUEST['register']) && $aComptetition != null && $aAuthenticated && $user != null) {
-            $aTeamId = @$_REQUEST['id'];
-            
-            $aTeam['fk_leader'] = $user['id'];
-            $aTeam['name']		= isset($_POST['name']) ? $_POST['name'] : '';
-            $aTeam['url'] 		= isset($_POST['url']) ? $_POST['url'] : '';
-            $aTeam['members'] 	= serialize(array(@$_POST['member0'], @$_POST['member1'], @$_POST['member2'], @$_POST['member3'], @$_POST['member4']));
-            
-            $aOk = competitionUpdateOrCreateTeam($aComptetition['id'], $aTeamId, $aTeam);
-            $aTeam = competitionFindTeamByLeaderId($aComptetition['id'], $user['id']);
-        }
+        return $response
+            ->withHeader('Location', UtilsHelper::base_url("/admin/campeonato/$id"))
+            ->withStatus(302);   
+    }
 
-        if($aTeam != null) {
-            $aArray = @unserialize($aTeam['members']);
-            $aTeam['members'] = $aArray === false ? array() : $aArray;
-        }
+    public function show ($request, $response, $args) {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        $user = AuthHelper::getAuthenticatedUser();
         
-        View::render('competition', array(
-            'competition' 		=> $aComptetition,
-            'teams' 			=> competitionFindTeams($aId),
-            'team' 				=> $aTeam,
-            'competitors' 		=> $aCompetitors,
-            'authenticated'		=> $aAuthenticated,
-            'isAdmin'			=> $isAdmin,
-        ));
+        $competition = Competition::findById($args['id']);
+
+        $data = compact(['user', 'competition']);
+
+        View::render('layout/header', $data);
+        View::render('competition/show', $data);
+        View::render('layout/footer', $data);
+
         return $response;
+    }
+
+    public function edit ($request, $response, $args) {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        $user = AuthHelper::getAuthenticatedUser();
+        
+        /* TODO: 404 if not exists */
+        $competition = Competition::findById($args['id']);
+
+        $data = compact(['user', 'competition']);
+
+        View::render('layout/header', $data);
+        View::render('competition/edit', $data);
+        View::render('layout/footer', $data);
+
+        return $response;
+    }
+
+    public function update ($request, $response, $args) {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        $competition = Competition::findById($args['id']);
+        $body = $request->getParsedBody();
+        $competition->setAttr('title', $body['title']);
+        $competition->setAttr('description', $body['description']);
+        $competition->setAttr('rules', $body['rules']);
+        $competition->setAttr('prizes', $body['prizes']);
+        $competition->setAttr('headline', $body['headline']);
+        $competition->save();
+
+        return $response
+            ->withHeader('Location', UtilsHelper::base_url("/admin/campeonato/".$args['id']))
+            ->withStatus(302);      
+    }
+
+    public function delete ($request, $response, $args) {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        $competition = Competition::findById($args['id']);
+        $competition->delete();
+        return $response
+            ->withHeader('Location', UtilsHelper::base_url("/admin/campeonato"))
+            ->withStatus(302);  
     }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 08, 2019 at 06:33 AM
+-- Generation Time: Sep 21, 2019 at 05:15 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.8
 
@@ -19,36 +19,36 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: sac
+-- Database: `sac`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table attending
+-- Table structure for table `attending`
 --
 
-CREATE TABLE attending (
-  fk_event int(10) UNSIGNED NOT NULL,
-  fk_user int(10) UNSIGNED NOT NULL,
-  date int(11) NOT NULL,
-  paid int(11) NOT NULL
+CREATE TABLE `attending` (
+  `fk_event` int(10) UNSIGNED NOT NULL,
+  `fk_user` int(10) UNSIGNED NOT NULL,
+  `date` int(11) NOT NULL,
+  `paid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table competition
+-- Table structure for table `competition`
 --
 
-CREATE TABLE competition (
-  id int(10) UNSIGNED NOT NULL,
-  title varchar(255) NOT NULL,
-  headline varchar(255) NOT NULL,
-  description text NOT NULL,
-  prizes text NOT NULL,
-  rules text NOT NULL,
-  style varchar(255) NOT NULL
+CREATE TABLE `competition` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `headline` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `prizes` text NOT NULL,
+  `rules` text NOT NULL,
+  `style` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -58,76 +58,76 @@ CREATE TABLE competition (
 --
 
 CREATE TABLE `event` (
-  id int(11) UNSIGNED NOT NULL,
-  fk_competition int(10) UNSIGNED DEFAULT NULL,
-  day tinyint(4) NOT NULL,
-  month tinyint(4) NOT NULL,
-  time varchar(200) NOT NULL,
-  title varchar(255) NOT NULL,
-  description text NOT NULL,
-  place varchar(200) NOT NULL,
-  price float NOT NULL DEFAULT 0,
-  capacity int(11) NOT NULL DEFAULT 0,
-  waiting_capacity int(11) NOT NULL DEFAULT 0,
-  ghost bit(1) DEFAULT b'0'
+  `id` int(11) UNSIGNED NOT NULL,
+  `fk_competition` int(10) UNSIGNED DEFAULT NULL,
+  `day` tinyint(4) NOT NULL,
+  `month` tinyint(4) NOT NULL,
+  `time` varchar(200) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `place` varchar(200) NOT NULL,
+  `price` float NOT NULL DEFAULT 0,
+  `capacity` int(11) NOT NULL DEFAULT 0,
+  `waiting_capacity` int(11) NOT NULL DEFAULT 0,
+  `ghost` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table payment
+-- Table structure for table `payment`
 --
 
-CREATE TABLE payment (
-  id int(10) UNSIGNED NOT NULL,
-  fk_user int(10) UNSIGNED NOT NULL,
-  date int(11) NOT NULL,
-  amount float NOT NULL DEFAULT 0,
-  status int(11) NOT NULL DEFAULT 0,
-  comment varchar(255) NOT NULL
+CREATE TABLE `payment` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `fk_user` int(10) UNSIGNED NOT NULL,
+  `date` int(11) NOT NULL,
+  `amount` float NOT NULL DEFAULT 0,
+  `status` int(11) NOT NULL DEFAULT 0,
+  `comment` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table payment_log
+-- Table structure for table `payment_log`
 --
 
-CREATE TABLE payment_log (
-  id int(10) UNSIGNED NOT NULL,
-  date int(10) UNSIGNED NOT NULL,
-  text text NOT NULL
+CREATE TABLE `payment_log` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `date` int(10) UNSIGNED NOT NULL,
+  `text` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table teams
+-- Table structure for table `teams`
 --
 
-CREATE TABLE teams (
-  id int(10) UNSIGNED NOT NULL,
-  fk_leader int(10) UNSIGNED NOT NULL,
-  fk_competition int(10) UNSIGNED NOT NULL,
-  fk_payment int(10) UNSIGNED DEFAULT NULL,
-  name varchar(255) NOT NULL,
-  members text NOT NULL,
-  url varchar(255) NOT NULL
+CREATE TABLE `teams` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `fk_leader` int(10) UNSIGNED NOT NULL,
+  `fk_competition` int(10) UNSIGNED NOT NULL,
+  `fk_payment` int(10) UNSIGNED DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `members` text NOT NULL,
+  `url` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table users
+-- Table structure for table `users`
 --
 
-CREATE TABLE users (
-  id int(11) UNSIGNED NOT NULL,
-  login varchar(40) NOT NULL,
-  cpf varchar(100) DEFAULT NULL,
-  name varchar(100) NOT NULL,
-  email varchar(100) NOT NULL,
-  type int(11) NOT NULL
+CREATE TABLE `users` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `login` varchar(40) NOT NULL,
+  `cpf` varchar(100) DEFAULT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `type` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -135,113 +135,113 @@ CREATE TABLE users (
 --
 
 --
--- Indexes for table attending
+-- Indexes for table `attending`
 --
-ALTER TABLE attending
-  ADD UNIQUE KEY main (fk_event,fk_user),
-  ADD KEY fk_event (fk_event,fk_user,paid);
+ALTER TABLE `attending`
+  ADD UNIQUE KEY `main` (`fk_event`,`fk_user`),
+  ADD KEY `fk_event` (`fk_event`,`fk_user`,`paid`);
 
 --
--- Indexes for table competition
+-- Indexes for table `competition`
 --
-ALTER TABLE competition
-  ADD PRIMARY KEY (id);
+ALTER TABLE `competition`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `event`
 --
 ALTER TABLE `event`
-  ADD PRIMARY KEY (id),
-  ADD KEY day (day,month),
-  ADD KEY fk_competition (fk_competition);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `day` (`day`,`month`),
+  ADD KEY `fk_competition` (`fk_competition`);
 
 --
--- Indexes for table payment
+-- Indexes for table `payment`
 --
-ALTER TABLE payment
-  ADD PRIMARY KEY (id),
-  ADD KEY fk_user (fk_user),
-  ADD KEY status (status);
+ALTER TABLE `payment`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_user` (`fk_user`),
+  ADD KEY `status` (`status`);
 
 --
--- Indexes for table payment_log
+-- Indexes for table `payment_log`
 --
-ALTER TABLE payment_log
-  ADD PRIMARY KEY (id);
+ALTER TABLE `payment_log`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table teams
+-- Indexes for table `teams`
 --
-ALTER TABLE teams
-  ADD PRIMARY KEY (id),
-  ADD KEY fk_leader (fk_leader),
-  ADD KEY fk_competition (fk_competition),
-  ADD KEY fk_payment (fk_payment);
+ALTER TABLE `teams`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_leader` (`fk_leader`),
+  ADD KEY `fk_competition` (`fk_competition`),
+  ADD KEY `fk_payment` (`fk_payment`);
 
 --
--- Indexes for table users
+-- Indexes for table `users`
 --
-ALTER TABLE users
-  ADD PRIMARY KEY (id),
-  ADD UNIQUE KEY login (login);
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `login` (`login`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table competition
+-- AUTO_INCREMENT for table `competition`
 --
-ALTER TABLE competition
-  MODIFY id int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `competition`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY id int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table payment
+-- AUTO_INCREMENT for table `payment`
 --
-ALTER TABLE payment
-  MODIFY id int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `payment`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table payment_log
+-- AUTO_INCREMENT for table `payment_log`
 --
-ALTER TABLE payment_log
-  MODIFY id int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `payment_log`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table teams
+-- AUTO_INCREMENT for table `teams`
 --
-ALTER TABLE teams
-  MODIFY id int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `teams`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table users
+-- AUTO_INCREMENT for table `users`
 --
-ALTER TABLE users
-  MODIFY id int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `users`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table payment
+-- Constraints for table `payment`
 --
-ALTER TABLE payment
-  ADD CONSTRAINT payment_ibfk_1 FOREIGN KEY (fk_user) REFERENCES `users` (id);
+ALTER TABLE `payment`
+  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`fk_user`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table teams
+-- Constraints for table `teams`
 --
-ALTER TABLE teams
-  ADD CONSTRAINT teams_ibfk_1 FOREIGN KEY (fk_competition) REFERENCES competition (id) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT teams_ibfk_2 FOREIGN KEY (fk_leader) REFERENCES `users` (id),
-  ADD CONSTRAINT teams_ibfk_3 FOREIGN KEY (fk_payment) REFERENCES payment (id) ON UPDATE CASCADE;
+ALTER TABLE `teams`
+  ADD CONSTRAINT `teams_ibfk_1` FOREIGN KEY (`fk_competition`) REFERENCES `competition` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `teams_ibfk_2` FOREIGN KEY (`fk_leader`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `teams_ibfk_3` FOREIGN KEY (`fk_payment`) REFERENCES `payment` (`id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
