@@ -1,5 +1,5 @@
 .main {
-    background-color:transparent;
+    background-color:white;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -7,7 +7,7 @@
     align-items: center;
 }
 .login {
-    background-color: #F7F7F7;
+    background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;

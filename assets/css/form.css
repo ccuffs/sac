@@ -15,18 +15,14 @@
 }
 .form__btn{
     text-align: center;
+    
 }
-.form__btn-submit{
-    background-color: #519287;
-    border-color: transparent;
-    color: #F7F7F7;
-    text-transform: uppercase;
-    border-radius:5px;
+.btn--fluid{
     width: 100%;
-    padding: 
+    text-transform: uppercase;
 }
-.form__btn-submit:hover{
-    background-color: #0E693C;
+.btn:hover{
+    background-color: #519287;
 }
 .resources__anchor {
     color: #519287;
