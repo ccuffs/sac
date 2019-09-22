@@ -61,38 +61,4 @@ class SubscribeController {
         View::render('registrations', $aData);
         return $response;
     }
-
-    public function paymentCreate ($request, $response, $args)
-    {
-        AuthHelper::allowAuthenticated();
-	
-        $aData			= array();
-        $user 			= User::getById($_SESSION['user']);
-        $aIsAdmin 		= $user->isLevel(User::USER_LEVEL_ADMIN);
-        
-        if (!$aIsAdmin) {
-            View::render('restricted');
-            return $response;
-        }
-        
-        $aData['createdOrUpdated'] 	= Payment::create($_REQUEST['fk_user'], $_REQUEST['amount'], $_REQUEST['comment']);
-        
-        if ($aData['createdOrUpdated']) {
-            $user 	= User::getById($_REQUEST['fk_user']);
-            $aHeaders = 'From: sac@cc.uffs.edu.br' . "\r\n" . 'Reply-To: cacomputacaouffs@gmail.com';
-            mail($user->email, 'Pagamento validado - Semana Academica CC UFFS', "Olá\n\nSeu pagamento de R$ ".sprintf('%.2f', $_REQUEST['amount'])." foi validado pela organização.\n\nAtenciosamente,\nOrganização 3ª Semana Acadêmica da Computaçao - UFFS");
-        }
-        
-        $users = User::findAll();
-        
-        foreach($users as $aId => $aInfo) {
-            $users[$aId]['admin'] = $aInfo['type'] == User::USER_LEVEL_ADMIN;
-            $users[$aId]['source'] = $aInfo['type'] == User::USER_LEVEL_UFFS || $aInfo['type'] == User::USER_LEVEL_ADMIN ? 'UFFS' : 'Externo';
-        }
-        $aData['users'] = $users;
-        $aData['payments'] = Payment::findAll();
-        
-        View::render('payment-manager', $aData);
-        return $response;
-    }
 }

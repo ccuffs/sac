@@ -50,6 +50,23 @@ class Payment extends Model {
         
         return $aRet;
     }
+
+    public static function findById ($id) {
+        $sql = "SELECT *, p.id as id FROM payment AS p
+            INNER JOIN users AS u ON p.fk_user = u.id
+            WHERE p.id = :id
+        ";
+        $query = SELF::conn()->prepare($sql);
+        
+        $payment = null;
+        if ($query->execute(['id' => $id])) {
+            if($data = $query->fetch()) {
+                $payment = SELF::newByDataWithUser($data);
+            }
+        }
+        
+        return $payment;
+    }
     
     public static function findAll() {
         $list = [];
@@ -92,15 +109,21 @@ class Payment extends Model {
         return $aRet;
     }
     
-    public static function create($theUserId, $theAmount, $theComment) {
-        $aRet = false;
-        $aQuery = SELF::conn()->prepare("INSERT INTO payment (id, fk_user, date, amount, status, comment) VALUES (NULL, ?, ?, ?, ?, ?)");
-        
-        if ($aQuery->execute(array($theUserId, time(), $theAmount, SELF::PAYMENT_CONFIRMED, $theComment))) {
-            $aRet = SELF::conn()->lastInsertId();
-        }
-        
-        return $aRet;
+    public function create() {
+        $sql = "INSERT INTO payment (fk_user , amount , comment , date , status) VALUES
+                    (:fk_user, :amount, :comment, :date, :status)";
+
+        $query = SELF::conn()->prepare($sql);
+
+        $query->bindParam('fk_user', $this->fk_user);
+        $query->bindParam('amount', $this->amount);
+        $query->bindParam('comment', $this->comment);
+        $query->bindParam('date', $this->date);
+        $query->bindParam('status', $this->status);
+
+        $result = $query->execute();
+        if (!$result) return false;
+        return SELF::conn()->lastInsertId(); 
     }
     
     public static function updateStatus($theId, $theStatus) {

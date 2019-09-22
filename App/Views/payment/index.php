@@ -22,7 +22,7 @@ use App\Helpers\UtilsHelper;
 		}
 	} -->
 
-	<form method="post" name="formPayment" id="formPayment">
+	<form method="post">
 		<input type="hidden" name="addEntry" value="1" />
 		
 		<div class="row">
@@ -92,7 +92,7 @@ use App\Helpers\UtilsHelper;
 									<td><?= date('d/m/Y', $payment->date) ?></td>
 									<td><?= $payment->comment ?></td>
 									<td>R$ <?= sprintf('%.2f', $payment->amount) ?></td>
-									<td><a href="javascript:void(0)" onclick="SAC.deletePayment('.$aInfo['id'].');" title="Apagar pagamento"><i class="fa fa-trash-o"></i></a></td>
+									<td><a href="<?= UtilsHelper::base_url("/admin/pagamento/{$payment->id}/delete") ?>" title="Apagar pagamento"><i class="fa fa-trash-o"></i></a></td>
 								</tr>
                             <?php endforeach; ?>
 						</tbody>
@@ -102,5 +102,4 @@ use App\Helpers\UtilsHelper;
 		</div>
 	</div>
 	
-	</div>
-?>
+</div>
