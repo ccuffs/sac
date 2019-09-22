@@ -55,16 +55,16 @@ class User extends Model {
     }
     
     public function findAll() {
-        $aRet = array();
-        $aQuery = SELF::conn()->prepare("SELECT id, login, name, email, type FROM users WHERE 1 ORDER BY name ASC");
+        $list = array();
+        $query = SELF::conn()->prepare("SELECT * FROM users ORDER BY name ASC");
         
-        if ($aQuery->execute()) {	
-            while ($aRow = $aQuery->fetch()) {
-                $aRet[$aRow['id']] = $aRow;
+        if ($query->execute()) {	
+            while ($raw = $query->fetch()) {
+                $list[] = SELF::newByData($raw);
             }
         }
         
-        return $aRet;
+        return $list;
     }
     
     public function isLevel($theLevel) {
@@ -73,6 +73,10 @@ class User extends Model {
     
     public function getConferencePrice() {
         return $this->type == SELF::USER_LEVEL_EXTERNAL ? CONFERENCE_PRICE_EXTERNAL : CONFERENCE_PRICE;
+    }
+
+    public function getBond() {
+        return $this->type == 2 ? "Externo" : "UFFS";
     }
 
     public static function findByUsername ($username) {
@@ -108,7 +112,7 @@ class User extends Model {
         return $success;
     }
 
-    private static function newByData ($data) {
+    public static function newByData ($data) {
         $data = (object) $data;
         $user = new SELF();
         $user->id = $data->id;

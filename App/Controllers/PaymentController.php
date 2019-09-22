@@ -3,12 +3,30 @@
 namespace App\Controllers;
 
 use App\Models\Subscription;
+use App\Models\User;
 use App\Models\Payment;
 use App\Helpers\AuthHelper;
+use App\Helpers\View;
 
 require_once dirname(__FILE__).'/../../lib/PagSeguroLibrary/PagSeguroLibrary.php';
 
 class PaymentController {
+    public function index ($request, $response, $args)
+    {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        $user = AuthHelper::getAuthenticatedUser();
+        
+        $users = User::findAll();
+        $payments = Payment::findAll();
+
+        $data = compact('user', 'users', 'payments');
+        
+        View::render('layout/header', $data);
+        View::render('payment/index', $data);
+        View::render('layout/footer', $data);
+        return $response;
+    }
+
     public function apiIndex ($request, $response, $args)
     {
         AuthHelper::AllowAuthenticated();

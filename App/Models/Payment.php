@@ -8,6 +8,14 @@ use App\Helpers\DatabaseHelper;
 class Payment extends Model {
     protected $table = "payment";
 
+    public $id;
+    public $fk_user;
+    public $date;
+    public $amount;
+    public $status;
+    public $comment;
+    public $user;
+
     const PAYMENT_CONFIRMED = 3;
     const PAYMENT_AVAILABLE = 4;
     
@@ -44,27 +52,30 @@ class Payment extends Model {
     }
     
     public static function findAll() {
-        $aRet = array();
-        $aQuery = SELF::conn()->prepare("SELECT * FROM payment WHERE 1");
+        $list = [];
+        $sql = "SELECT *, p.id as id FROM payment AS p
+            INNER JOIN users AS u ON p.fk_user = u.id
+        ";
+        $query = SELF::conn()->prepare($sql);
         
-        if ($aQuery->execute(array())) {
-            while ($aRow = $aQuery->fetch()) {
-                $aRet[$aRow['id']] = $aRow;
+        if ($query->execute()) {
+            while ($data = $query->fetch()) {
+                $list[] = SELF::newByDataWithUser($data);
             }
         }
         
-        return $aRet;
+        return $list;
     }
 
-    public static function calculateUserDept($theUserInfo) {
+    public static function calculateUserDept($user) {
         $aRet = 0;
-        $aEvents = Event::findByUserIsAttending($theUserInfo->id);
+        $aEvents = Event::findByUserIsAttending($user->id);
         
         foreach($aEvents as $aId => $aInfo) {
             $aRet += $aInfo['price'];
         }
     
-        $aRet += $theUserInfo->type == User::USER_LEVEL_EXTERNAL ? CONFERENCE_PRICE_EXTERNAL : CONFERENCE_PRICE;
+        $aRet += $user->type == User::USER_LEVEL_EXTERNAL ? CONFERENCE_PRICE_EXTERNAL : CONFERENCE_PRICE;
         
         return $aRet;
     }
@@ -126,5 +137,30 @@ class Payment extends Model {
         }
         
         return $aRet;
+    }
+
+    private static function newByData ($data) {
+        $data = (object) $data;
+        $event = new SELF();
+        $event->id = $data->id;
+        $event->fk_user = $data->fk_user;
+        $event->date = $data->date;
+        $event->amount = $data->amount;
+        $event->status = $data->status;
+        $event->comment = $data->comment;
+        return $event;
+    }
+
+    private static function newByDataWithUser ($data) {
+        $data = (object) $data;
+        $event = new SELF();
+        $event->id = $data->id;
+        $event->fk_user = $data->fk_user;
+        $event->date = $data->date;
+        $event->amount = $data->amount;
+        $event->status = $data->status;
+        $event->comment = $data->comment;
+        $event->user = User::newByData(array_merge((array) $data, ['id' => $data->fk_user]));
+        return $event;
     }
 }

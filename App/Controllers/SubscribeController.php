@@ -62,37 +62,6 @@ class SubscribeController {
         return $response;
     }
 
-    public function payment ($request, $response, $args)
-    {
-        AuthHelper::allowAuthenticated();
-	
-        $aData			= array();
-        $user 			= User::getById($_SESSION['user']);
-        $aIsAdmin 		= $user->isLevel(User::USER_LEVEL_ADMIN);
-        
-        if (!$aIsAdmin) {
-            View::render('restricted');
-            return $response;
-        }
-        
-        if (isset($_REQUEST['delete'])) {
-            $aData['createdOrUpdated'] = paymentDelete($_REQUEST['delete']);
-        }
-        
-        $users = User::findAll();
-        
-        foreach($users as $aId => $aInfo) {
-            $users[$aId]['admin'] = $aInfo['type'] == User::USER_LEVEL_ADMIN;
-            $users[$aId]['source'] = $aInfo['type'] == User::USER_LEVEL_UFFS || $aInfo['type'] == User::USER_LEVEL_ADMIN ? 'UFFS' : 'Externo';
-        }
-        
-        $aData['users'] = $users;
-        $aData['payments'] = Payment::findAll();
-        
-        View::render('payment-manager', $aData);
-        return $response;
-    }
-
     public function paymentCreate ($request, $response, $args)
     {
         AuthHelper::allowAuthenticated();
