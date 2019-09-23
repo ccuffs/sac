@@ -113,8 +113,10 @@ function layoutHeader($theTitle) {
 		echo '<link href="'.UtilsHelper::base_url('/css/bootstrap.css').'" rel="stylesheet">';
 		echo '<link href="'.UtilsHelper::base_url('/css/style.css').'" rel="stylesheet" media="screen">';
 		echo '<link href="'.UtilsHelper::base_url('/css/print.css').'" rel="stylesheet" media="print">';
-		if ($theTitle == 'Permissoes')
+		if ($theTitle == 'Permissoes'){
 			echo '<link href="'.UtilsHelper::base_url('/css/permissoes.css').'" rel="stylesheet" media="screen">';
+			echo '<link href="https://codeseven.github.io/toastr/build/toastr.min.css" rel="stylesheet" type = "text/css" />';
+		}
 		
 		echo '<!-- Le fav and touch icons -->';
 		echo '<link rel="shortcut icon" href="img/favicon.ico">';
@@ -124,9 +126,11 @@ function layoutHeader($theTitle) {
 		
 		echo '<!-- FontAwesome -->';
 		echo '<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">';
-		
+
 		echo '<script src="'.UtilsHelper::base_url('/js/jquery.js').'"></script>';
 		echo '<script src="'.UtilsHelper::base_url('/js/bootstrap.js').'"></script>';
+		if ($theTitle == 'Permissoes')
+			echo '<script src="https://codeseven.github.io/toastr/build/toastr.min.js" type="text/javascript"></script>';
 		echo '<script src="'.UtilsHelper::base_url('/js/sac.js').'"></script>';
 	echo '</head>';
 	

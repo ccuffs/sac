@@ -8,7 +8,7 @@
     $aData = View::data();
 ?>
 
-    <div class="container">
+    <div class="container user-permission">
         <div class="row">
             <?php foreach ($aData as $user): ?>
             <div class="col-md-3">
@@ -17,7 +17,7 @@
                             if($user->isLevel(User::USER_LEVEL_ADMIN)){
                                 echo 'bg-info';
                             }
-                            else if ($user->isLevel(User::CO_ORGANIZER)){
+                            else if ($user->isLevel(User::USER_CO_ORGANIZER)){
                                 echo 'bg-success';
                             }
                             else if ($user->isLevel(User::USER_LEVEL_UFFS)){
@@ -49,7 +49,7 @@
                                 <label for="permission"> Permissão</label>
                                 <select class="form-control" id="permission">
                                     <option value = 4 <?php if($user->isLevel(User::USER_LEVEL_ADMIN)) echo 'selected'; ?>>Administrador</option>
-                                    <option value = 3 <?php if($user->isLevel(User::CO_ORGANIZER)) echo 'selected'; ?>>Co-organizador</option>
+                                    <option value = 3 <?php if($user->isLevel(User::USER_CO_ORGANIZER)) echo 'selected'; ?>>Co-organizador</option>
                                     <option value = 2 <?php if($user->isLevel(User::USER_LEVEL_UFFS)) echo 'selected' ?>>Estudante UFFS</option>
                                     <option value = 1 <?php if($user->isLevel(User::USER_LEVEL_EXTERNAL)) echo 'selected;' ?>>Comunidade Externa</option>
                                 </select>

@@ -85,3 +85,7 @@
 .d-none {
     display: none;
 }
+
+.user-permission {
+    min-height: 83vh;
+}

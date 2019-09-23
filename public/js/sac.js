@@ -73,18 +73,7 @@ var SAC = new function() {
 	};
 
 	this.userPermission = function() {
-		const USER_LEVEL_EXTERNAL = 1;
-		const USER_LEVEL_UFFS = 2;
-		const CO_ORGANIZER = 3;
-		const USER_LEVEL_ADMIN = 4;
 		const colorClasses = ['bg-danger', 'bg-warning', 'bg-success', 'bg-info']
-		/*$(".edit").click(function(e) {
-			let target = e.currentTarget;
-			let selectInput = target.nextElementSibling.nextElementSibling.children[0];
-
-			$(selectInput).css('display', 'block');
-			// console.log(e);
-		});*/
 
 		function removeColorClass(colorClass, card){
 			colorClasses.forEach(color => {
@@ -108,14 +97,14 @@ var SAC = new function() {
 				data: {
 					'type' : permission
 				},
-			})
-			.done(function(data){
-				console.log(data);
-			})
-			.fail(function(data){
-				console.log(data);
+				success : function(data) {
+					toastr['success']('Permissão alterada com sucesso');
+					console.log(data);
+				},
+				fail : function(data) {
+					toastr['danger']('Ocorre algum erro, se fode aí troxa');
+				}
 			});
-
 		});
 		
 	}

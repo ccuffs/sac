@@ -8,10 +8,12 @@ use App\Helpers\View;
 
 class UserController {
 
+    private $responseMessage = array();
+
     public function index($request, $response, $args) {
         
         AuthHelper::allowAuthenticated();
-        $users = User::findByRole([User::USER_LEVEL_UFFS, User::USER_LEVEL_ADMIN, User::CO_ORGANIZER]);
+        $users = User::findByRole([User::USER_LEVEL_UFFS, User::USER_LEVEL_ADMIN, User::USER_CO_ORGANIZER]);
 
         View::render('auth/users', $users);
 
@@ -28,9 +30,11 @@ class UserController {
             $user = User::getById($id);
             $user->type = $userNewRole;
             $user->save();
-            return $response->withStatus(200);
+            $this->responseMessage['message'] = "Permissao atualizada com sucesso!";
+            return $response->withJson($this->responseMessage, 200);
         }
-        return $response->withStatus(500);
+        $this->responseMessage['message'] = "Ocorre algum erro, se aí troxa";
+        return $response->withJson($this->responseMessage, 500);
     }
 
 }

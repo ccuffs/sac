@@ -7,7 +7,7 @@ class User extends Model {
     
     const USER_LEVEL_EXTERNAL = 1;
     const USER_LEVEL_UFFS = 2;
-    const CO_ORGANIZER = 3;
+    const USER_CO_ORGANIZER = 3;
     const USER_LEVEL_ADMIN = 4;
 
     public $id;
