@@ -23,10 +23,20 @@ use App\Helpers\UtilsHelper;
 	} -->
 
 	<form method="post">
-		<input type="hidden" name="addEntry" value="1" />
-		
 		<div class="row">
 			<div class="col-md-4">
+				<div class="form-group">
+					<label class="control-label">Tipo de cadastro</label>
+					<select payment-select-method class="col-lg-6 form-control">
+						<option value="id">Usuário</option>
+						<option value="cpf">Cpf</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-4" payment-show-method="id">
 				<div class="form-group">
 					<label class="control-label">Usuário</label>
 					<select name="fk_user" class="col-lg-6 form-control">
@@ -37,6 +47,13 @@ use App\Helpers\UtilsHelper;
                             </option>
                         <?php endforeach; ?>
 					</select>
+				</div>
+			</div>
+
+			<div class="col-md-4 hidden" payment-show-method="cpf">
+				<div class="form-group">
+					<label class="control-label">Cpf</label>
+					<input type="text" name="cpf" class="col-lg-6 form-control" /><br/>
 				</div>
 			</div>
 		
@@ -103,3 +120,5 @@ use App\Helpers\UtilsHelper;
 	</div>
 	
 </div>
+
+<script src="<?= UtilsHelper::base_url("/js/payment.js") ?>"></script>
