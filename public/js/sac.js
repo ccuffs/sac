@@ -71,4 +71,52 @@ var SAC = new function() {
 			$('.nao-uffs').slideDown();
 		}
 	};
+
+	this.userPermission = function() {
+		const USER_LEVEL_EXTERNAL = 1;
+		const USER_LEVEL_UFFS = 2;
+		const CO_ORGANIZER = 3;
+		const USER_LEVEL_ADMIN = 4;
+		const colorClasses = ['bg-danger', 'bg-warning', 'bg-success', 'bg-info']
+		/*$(".edit").click(function(e) {
+			let target = e.currentTarget;
+			let selectInput = target.nextElementSibling.nextElementSibling.children[0];
+
+			$(selectInput).css('display', 'block');
+			// console.log(e);
+		});*/
+
+		function removeColorClass(colorClass, card){
+			colorClasses.forEach(color => {
+				if (colorClass.match(color))
+					$(card).removeClass(color);
+			});
+		}
+
+		$("#permission").change(function(e){
+			let card = e.currentTarget.offsetParent.lastElementChild;
+			let permission = $(this).val();
+			let userId = $(e.currentTarget.offsetParent.children[0].children[0]).val();
+			
+			let colorClass = $(card).attr('class');
+			removeColorClass(colorClass, card);
+			$(card).addClass(colorClasses[permission - 1]);
+
+			$.ajax({
+				type: 'POST',
+				url : 'http://localhost/sac/admin/permissoes/'+userId,
+				data: {
+					'type' : permission
+				},
+			})
+			.done(function(data){
+				console.log(data);
+			})
+			.fail(function(data){
+				console.log(data);
+			});
+
+		});
+		
+	}
 };

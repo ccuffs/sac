@@ -55,6 +55,10 @@ function layoutAdminNavBar($user) {
 				echo '<li role="presentation" class="dropdown-header">Inscrições</li>';
 				echo '<li><a href="'.UtilsHelper::base_url("/admin/inscricoes").'">Listar</a></li>';
 				echo '<li><a href="'.UtilsHelper::base_url("/admin/pagamento").'">Pagamentos</a></li>';
+
+				echo '<li class="divider"></li>';
+				echo '<li role="presentation" class="dropdown-header">Gerenciar Permissões</li>';
+				echo '<li><a href="'.UtilsHelper::base_url("/admin/permissoes").'">Usuários</a></li>';
 				
 				echo '<li class="divider"></li>';
 				echo '<li role="presentation" class="dropdown-header">Frequência</li>';
@@ -109,6 +113,8 @@ function layoutHeader($theTitle) {
 		echo '<link href="'.UtilsHelper::base_url('/css/bootstrap.css').'" rel="stylesheet">';
 		echo '<link href="'.UtilsHelper::base_url('/css/style.css').'" rel="stylesheet" media="screen">';
 		echo '<link href="'.UtilsHelper::base_url('/css/print.css').'" rel="stylesheet" media="print">';
+		if ($theTitle == 'Permissoes')
+			echo '<link href="'.UtilsHelper::base_url('/css/permissoes.css').'" rel="stylesheet" media="screen">';
 		
 		echo '<!-- Le fav and touch icons -->';
 		echo '<link rel="shortcut icon" href="img/favicon.ico">';
@@ -162,7 +168,10 @@ function layoutPrintUser($theUserId, $theUserInfo = null, $theSimplified = false
 	if ($theUserInfo != null) {
 		$aRole = $theUserInfo->type == User::USER_LEVEL_ADMIN ? '<span class="label label-info">Admin</span> ' : '';
 		$aAvatar = '<img src="'.(DEBUG_MODE ? '' : 'http://avatars.io/email/'.$theUserInfo->email).'" class="img-circle" title="'.$theUserInfo->name.'" style="'.($theSimplified ? 'width: 25px;' : '').'" />';
-	
+		//https://moodle-academico.uffs.edu.br/pluginfile.php/200522/user/icon
+
+		//$aAvatar = '<img src="'.'https://moodle-academico.uffs.edu.br/pluginfile.php/'. $theUserId.'" class="img-circle" title="'.$theUserInfo->name.'" style="'.($theSimplified ? 'width: 25px;' : '').'" />';
+
 		if ($theSimplified) {
 			echo '<a href="#">'. $aAvatar . ' ' . $aRole . '<strong>'.$theUserInfo->name.'</strong></a>';
 			

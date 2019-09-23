@@ -22,7 +22,7 @@ class SubscribeController {
         }
         
         $users 						= User::findAll();
-        $aPaidCredit					= Payment::findUsersWithPaidCredit();
+        $aPaidCredit				= Payment::findUsersWithPaidCredit();
         
         $aData['total_paid']			= 0;					
         $aData['users_paid_total'] 		= 0;

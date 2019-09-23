@@ -86,7 +86,7 @@ use App\Models\User;
 								<li role="presentation" class="dropdown-header">Inscrições</li>
 								<li><a href="<?= UtilsHelper::base_url("/admin/inscricoes")?>">Listar</a></li>
 								<li><a href="<?= UtilsHelper::base_url("/admin/pagamento")?>">Pagamentos</a></li>
-							
+
 								<li class="divider"></li>
 								<li role="presentation" class="dropdown-header">Frequência</li>
 								<li><a href="javascript:void(0);">Gerenciar</a></li>

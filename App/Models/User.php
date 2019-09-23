@@ -5,9 +5,10 @@ namespace App\Models;
 class User extends Model {
     protected $table = "user";
     
-    const USER_LEVEL_UFFS = 1;
-    const USER_LEVEL_EXTERNAL = 2;
-    const USER_LEVEL_ADMIN = 3;
+    const USER_LEVEL_EXTERNAL = 1;
+    const USER_LEVEL_UFFS = 2;
+    const CO_ORGANIZER = 3;
+    const USER_LEVEL_ADMIN = 4;
 
     public $id;
     public $login;
@@ -67,6 +68,31 @@ class User extends Model {
         return $aRet;
     }
     
+    public function findByRole($roles) {
+        
+        $query_result = array();
+        $query = SELF::conn()->prepare("SELECT * FROM users WHERE type = :role");
+
+        foreach ($roles as $role) {
+            $find_something = $query->execute([
+                'role' => $role
+            ]);
+
+            if ($find_something){
+                while($aRow = $query->fetch()){
+                    $query_result[$aRow['id']] = $aRow;
+                }
+            }
+        }
+
+        $users_model = array();
+        foreach($query_result as $user) {
+            array_push($users_model, User::newByData($user));
+        }
+
+        return $users_model;
+    }
+
     public function isLevel($theLevel) {
         return $this->type == $theLevel;
     }
@@ -105,6 +131,28 @@ class User extends Model {
             'type' => $this->type || 1
         ]);
         $this->id = SELF::conn()->lastInsertId();
+        return $success;
+    }
+
+    public function update() {
+        $sql = "UPDATE users SET
+            login = :login,
+            cpf = :cpf,
+            name = :name,
+            email = :email,
+            type = :type
+        ";
+
+        $query = SELF::conn()->prepare($sql);
+
+        $success = $query->execute([
+            'login' => $this->login,
+            'cpf' => $this->cpf,
+            'name' => $this->name,
+            'email' => $this->email,
+            'type' => $this->type
+        ]);
+
         return $success;
     }
 
