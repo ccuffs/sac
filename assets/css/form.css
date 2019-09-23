@@ -1,0 +1,34 @@
+
+.form__input{
+    border-color: #CDCDCD;  
+    border-radius: 4px;
+    width: 100%;
+    padding-left: 5px;
+}
+
+.form__input::placeholder {
+    padding-left:3px;
+    color:#757575;
+}
+.form__check{
+    color:black;
+}
+.form__btn{
+    text-align: center;
+    
+}
+.btn--fluid{
+    width: 100%;
+    text-transform: uppercase;
+}
+.btn:hover{
+    background-color: #519287;
+}
+.resources__anchor {
+    color: #519287;
+}
+
+.resources__anchor:hover {
+    color: #519287;
+}
+    
