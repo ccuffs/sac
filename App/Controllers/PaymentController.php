@@ -34,11 +34,12 @@ class PaymentController {
         $user = AuthHelper::getAuthenticatedUser();
 
         $payment = new Payment();
-        $payment->setAttr('amount', $_POST['amount']);
+        $payment->setAttr('amount', @$_POST['amount']);
+        $payment->setAttr('cpf', @$_POST['cpf']);
         $payment->setAttr('status', Payment::PAYMENT_CONFIRMED);
         $payment->setAttr('date', time());
-        $payment->setAttr('comment', $_POST['comment']);
-        $payment->setAttr('fk_user', $_POST['fk_user']);
+        $payment->setAttr('comment', @$_POST['comment']);
+        $payment->setAttr('fk_user', @$_POST['fk_user']);
         $payment->save();
         
         // if ($aData['createdOrUpdated']) {

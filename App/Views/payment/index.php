@@ -28,7 +28,7 @@ use App\Helpers\UtilsHelper;
 				<div class="form-group">
 					<label class="control-label">Tipo de cadastro</label>
 					<select payment-select-method class="col-lg-6 form-control">
-						<option value="id">Usuário</option>
+						<option value="fk_user">Usuário</option>
 						<option value="cpf">Cpf</option>
 					</select>
 				</div>
@@ -36,10 +36,10 @@ use App\Helpers\UtilsHelper;
 		</div>
 		<br>
 		<div class="row">
-			<div class="col-md-4" payment-show-method="id">
+			<div class="col-md-4" payment-show-method="fk_user">
 				<div class="form-group">
 					<label class="control-label">Usuário</label>
-					<select name="fk_user" class="col-lg-6 form-control">
+					<select payment-show-input="fk_user" class="col-lg-6 form-control">
 						<option value=""></option>
 						<?php foreach($users as $user): ?>
 							<option value="<?= $user->id ?>">
@@ -53,7 +53,7 @@ use App\Helpers\UtilsHelper;
 			<div class="col-md-4 hidden" payment-show-method="cpf">
 				<div class="form-group">
 					<label class="control-label">Cpf</label>
-					<input type="text" name="cpf" class="col-lg-6 form-control" /><br/>
+					<input type="text" payment-show-input="cpf" class="col-lg-6 form-control" /><br/>
 				</div>
 			</div>
 		
@@ -74,7 +74,7 @@ use App\Helpers\UtilsHelper;
 			<div class="col-md-1">
 				<div class="form-group">
 				<label class="control-label"></label>
-					<input type="submit" name="submit" value="Adicionar pagamento" class="btn btn-success" />
+					<button class="btn btn-success"> Adicionar pagamento </button>
 				</div>
 			</div>
 		</div>
@@ -98,6 +98,7 @@ use App\Helpers\UtilsHelper;
 						<tbody>
 							<?php foreach($payments as $payment): ?>
 								<tr>
+									<?php if ($payment->user): ?>
 									<td><?= $payment->user->getBond() ?></td>
 									<td>
                                         <?= $payment->user->name ?>
@@ -106,6 +107,11 @@ use App\Helpers\UtilsHelper;
                                         <?php endif; ?>
                                     </td>
 									<td><?= $payment->user->cpf ?></td>
+									<?php else: ?>
+									<td>-</td>
+									<td>-</td>
+									<td><?= $payment->cpf ?></td>
+									<?php endif; ?>
 									<td><?= date('d/m/Y', $payment->date) ?></td>
 									<td><?= $payment->comment ?></td>
 									<td>R$ <?= sprintf('%.2f', $payment->amount) ?></td>

@@ -10,6 +10,7 @@ class Payment extends Model {
 
     public $id;
     public $fk_user;
+    public $cpf;
     public $date;
     public $amount;
     public $status;
@@ -70,14 +71,19 @@ class Payment extends Model {
     
     public static function findAll() {
         $list = [];
-        $sql = "SELECT *, p.id as id FROM payment AS p
-            INNER JOIN users AS u ON p.fk_user = u.id
+        $sql = "SELECT *, p.id as id, u.id as fk_user, IF(u.cpf is null, p.cpf, u.cpf) AS cpf 
+            FROM payment AS p
+            LEFT JOIN users AS u ON p.fk_user = u.id OR p.cpf = u.cpf 
         ";
         $query = SELF::conn()->prepare($sql);
         
         if ($query->execute()) {
             while ($data = $query->fetch()) {
-                $list[] = SELF::newByDataWithUser($data);
+                if ($data['fk_user']) {
+                    $list[] = SELF::newByDataWithUser($data);
+                } else {
+                    $list[] = SELF::newByData($data);
+                }
             }
         }
         
@@ -110,12 +116,13 @@ class Payment extends Model {
     }
     
     public function create() {
-        $sql = "INSERT INTO payment (fk_user , amount , comment , date , status) VALUES
-                    (:fk_user, :amount, :comment, :date, :status)";
+        $sql = "INSERT INTO payment (fk_user, cpf, amount , comment , date , status) VALUES
+                    (:fk_user, :cpf, :amount, :comment, :date, :status)";
 
         $query = SELF::conn()->prepare($sql);
 
         $query->bindParam('fk_user', $this->fk_user);
+        $query->bindParam('cpf', $this->cpf);
         $query->bindParam('amount', $this->amount);
         $query->bindParam('comment', $this->comment);
         $query->bindParam('date', $this->date);
@@ -164,26 +171,28 @@ class Payment extends Model {
 
     private static function newByData ($data) {
         $data = (object) $data;
-        $event = new SELF();
-        $event->id = $data->id;
-        $event->fk_user = $data->fk_user;
-        $event->date = $data->date;
-        $event->amount = $data->amount;
-        $event->status = $data->status;
-        $event->comment = $data->comment;
-        return $event;
+        $payment = new SELF();
+        $payment->id = $data->id;
+        $payment->fk_user = $data->fk_user;
+        $payment->cpf = $data->cpf;
+        $payment->date = $data->date;
+        $payment->amount = $data->amount;
+        $payment->status = $data->status;
+        $payment->comment = $data->comment;
+        return $payment;
     }
 
     private static function newByDataWithUser ($data) {
         $data = (object) $data;
-        $event = new SELF();
-        $event->id = $data->id;
-        $event->fk_user = $data->fk_user;
-        $event->date = $data->date;
-        $event->amount = $data->amount;
-        $event->status = $data->status;
-        $event->comment = $data->comment;
-        $event->user = User::newByData(array_merge((array) $data, ['id' => $data->fk_user]));
-        return $event;
+        $payment = new SELF();
+        $payment->id = $data->id;
+        $payment->fk_user = $data->fk_user;
+        $payment->cpf = $data->cpf;
+        $payment->date = $data->date;
+        $payment->amount = $data->amount;
+        $payment->status = $data->status;
+        $payment->comment = $data->comment;
+        $payment->user = User::newByData(array_merge((array) $data, ['id' => $data->fk_user]));
+        return $payment;
     }
 }
