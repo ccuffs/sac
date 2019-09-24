@@ -97,12 +97,11 @@ var SAC = new function() {
 				data: {
 					'type' : permission
 				},
-				success : function(data) {
-					toastr['success']('Permissão alterada com sucesso');
-					console.log(data);
+				success : function(data, textStatus, request) {
+					toastr['success'](request.getResponseHeader('message'));
 				},
-				fail : function(data) {
-					toastr['danger']('Ocorre algum erro, se fode aí troxa');
+				error : function(request, textStatus, errorThrown) {
+					toastr['danger'](request.getResponseHeader('message'));
 				}
 			});
 		});

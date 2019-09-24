@@ -30,11 +30,12 @@ class UserController {
             $user = User::getById($id);
             $user->type = $userNewRole;
             $user->save();
-            $this->responseMessage['message'] = "Permissao atualizada com sucesso!";
-            return $response->withJson($this->responseMessage, 200);
+
+            return $response->withAddedHeader('message', "Permissao atualizada com sucesso!");
         }
-        $this->responseMessage['message'] = "Ocorre algum erro, se aí troxa";
-        return $response->withJson($this->responseMessage, 500);
+
+        $response = $response->withAddedHeader('message', "Ocorreu algum erro, se fode aí troxa");
+        return $response->withStatus(500);
     }
 
 }
