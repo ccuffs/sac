@@ -2,9 +2,6 @@
     use App\Helpers\View;
     use App\Models\User;
     
-    require_once dirname(__FILE__).'/../layout.php';
-    
-    layoutHeader('Permissoes');
     $aData = View::data();
 ?>
 
@@ -64,4 +61,3 @@
     <script type="text/javascript">
         SAC.userPermission();
     </script>
-<?php layoutFooter(); ?>

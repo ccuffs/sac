@@ -15,7 +15,9 @@ class UserController {
         AuthHelper::allowAuthenticated();
         $users = User::findByRole([User::USER_LEVEL_UFFS, User::USER_LEVEL_ADMIN, User::USER_CO_ORGANIZER]);
 
+        View::render('layout/header', array('controller' => 'UserController'));
         View::render('auth/users', $users);
+        View::render('layout/footer');
 
         return $response;
     }

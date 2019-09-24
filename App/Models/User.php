@@ -140,7 +140,8 @@ class User extends Model {
             cpf = :cpf,
             name = :name,
             email = :email,
-            type = :type
+            type = :type 
+            WHERE id = :userId
         ";
 
         $query = SELF::conn()->prepare($sql);
@@ -150,7 +151,8 @@ class User extends Model {
             'cpf' => $this->cpf,
             'name' => $this->name,
             'email' => $this->email,
-            'type' => $this->type
+            'type' => $this->type,
+            'userId' => $this->id
         ]);
 
         return $success;

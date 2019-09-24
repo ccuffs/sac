@@ -28,10 +28,23 @@ use App\Models\User;
 		<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 		<link rel="apple-touch-icon" sizes="72x72" href="/img/apple-touch-icon-72x72.png">
 		<link rel="apple-touch-icon" sizes="114x114" href="/img/apple-touch-icon-114x114.png">
+
+		<?php
+			if ($controller == 'UserController'){
+				echo '<link href="'.UtilsHelper::base_url('/css/permissoes.css').'" rel="stylesheet" media="screen">';
+				echo '<link href="https://codeseven.github.io/toastr/build/toastr.min.css" rel="stylesheet" type = "text/css" />';
+			} 
+		?>
 		
 		<!-- FontAwesome -->
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 		
+		<?php
+			if ($controller == 'UserController'){
+				echo '<script src="https://codeseven.github.io/toastr/build/toastr.min.js" type="text/javascript"></script>';
+			} 
+		?>
+
 		<script src="<?= UtilsHelper::base_url('/js/jquery.js') ?>"></script>
 		<script src="<?= UtilsHelper::base_url('/js/bootstrap.js') ?>"></script>
 		<script src="<?= UtilsHelper::base_url('/js/sac.js') ?>"></script>
@@ -61,7 +74,7 @@ use App\Models\User;
 							<li><a href="<?= UtilsHelper::base_url("/logout")?>"><i class="fa fa-sign-out"></i> Sair</a></li>
 							</ul>
 						</li>
-					<?php else: ?> 
+					<?php else: ?>
 						<li class="dropdown">
 							<a role="button" class="btn btn-info" style="margin-top: 7px;">
 								<span class="fa fa-user"></span> Inscrever-se
