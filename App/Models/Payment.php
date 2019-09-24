@@ -8,6 +8,15 @@ use App\Helpers\DatabaseHelper;
 class Payment extends Model {
     protected $table = "payment";
 
+    public $id;
+    public $fk_user;
+    public $cpf;
+    public $date;
+    public $amount;
+    public $status;
+    public $comment;
+    public $user;
+
     const PAYMENT_CONFIRMED = 3;
     const PAYMENT_AVAILABLE = 4;
     
@@ -42,29 +51,54 @@ class Payment extends Model {
         
         return $aRet;
     }
-    
-    public static function findAll() {
-        $aRet = array();
-        $aQuery = SELF::conn()->prepare("SELECT * FROM payment WHERE 1");
+
+    public static function findById ($id) {
+        $sql = "SELECT *, p.id as id FROM payment AS p
+            INNER JOIN users AS u ON p.fk_user = u.id
+            WHERE p.id = :id
+        ";
+        $query = SELF::conn()->prepare($sql);
         
-        if ($aQuery->execute(array())) {
-            while ($aRow = $aQuery->fetch()) {
-                $aRet[$aRow['id']] = $aRow;
+        $payment = null;
+        if ($query->execute(['id' => $id])) {
+            if($data = $query->fetch()) {
+                $payment = SELF::newByDataWithUser($data);
             }
         }
         
-        return $aRet;
+        return $payment;
+    }
+    
+    public static function findAll() {
+        $list = [];
+        $sql = "SELECT *, p.id as id, u.id as fk_user, IF(u.cpf is null, p.cpf, u.cpf) AS cpf 
+            FROM payment AS p
+            LEFT JOIN users AS u ON p.fk_user = u.id OR p.cpf = u.cpf 
+        ";
+        $query = SELF::conn()->prepare($sql);
+        
+        if ($query->execute()) {
+            while ($data = $query->fetch()) {
+                if ($data['fk_user']) {
+                    $list[] = SELF::newByDataWithUser($data);
+                } else {
+                    $list[] = SELF::newByData($data);
+                }
+            }
+        }
+        
+        return $list;
     }
 
-    public static function calculateUserDept($theUserInfo) {
+    public static function calculateUserDept($user) {
         $aRet = 0;
-        $aEvents = Event::findByUserIsAttending($theUserInfo->id);
+        $aEvents = Event::findByUserIsAttending($user->id);
         
         foreach($aEvents as $aId => $aInfo) {
             $aRet += $aInfo['price'];
         }
     
-        $aRet += $theUserInfo->type == User::USER_LEVEL_EXTERNAL ? CONFERENCE_PRICE_EXTERNAL : CONFERENCE_PRICE;
+        $aRet += $user->type == User::USER_LEVEL_EXTERNAL ? CONFERENCE_PRICE_EXTERNAL : CONFERENCE_PRICE;
         
         return $aRet;
     }
@@ -81,15 +115,22 @@ class Payment extends Model {
         return $aRet;
     }
     
-    public static function create($theUserId, $theAmount, $theComment) {
-        $aRet = false;
-        $aQuery = SELF::conn()->prepare("INSERT INTO payment (id, fk_user, date, amount, status, comment) VALUES (NULL, ?, ?, ?, ?, ?)");
-        
-        if ($aQuery->execute(array($theUserId, time(), $theAmount, SELF::PAYMENT_CONFIRMED, $theComment))) {
-            $aRet = SELF::conn()->lastInsertId();
-        }
-        
-        return $aRet;
+    public function create() {
+        $sql = "INSERT INTO payment (fk_user, cpf, amount , comment , date , status) VALUES
+                    (:fk_user, :cpf, :amount, :comment, :date, :status)";
+
+        $query = SELF::conn()->prepare($sql);
+
+        $query->bindParam('fk_user', $this->fk_user);
+        $query->bindParam('cpf', $this->cpf);
+        $query->bindParam('amount', $this->amount);
+        $query->bindParam('comment', $this->comment);
+        $query->bindParam('date', $this->date);
+        $query->bindParam('status', $this->status);
+
+        $result = $query->execute();
+        if (!$result) return false;
+        return SELF::conn()->lastInsertId(); 
     }
     
     public static function updateStatus($theId, $theStatus) {
@@ -126,5 +167,32 @@ class Payment extends Model {
         }
         
         return $aRet;
+    }
+
+    private static function newByData ($data) {
+        $data = (object) $data;
+        $payment = new SELF();
+        $payment->id = $data->id;
+        $payment->fk_user = $data->fk_user;
+        $payment->cpf = $data->cpf;
+        $payment->date = $data->date;
+        $payment->amount = $data->amount;
+        $payment->status = $data->status;
+        $payment->comment = $data->comment;
+        return $payment;
+    }
+
+    private static function newByDataWithUser ($data) {
+        $data = (object) $data;
+        $payment = new SELF();
+        $payment->id = $data->id;
+        $payment->fk_user = $data->fk_user;
+        $payment->cpf = $data->cpf;
+        $payment->date = $data->date;
+        $payment->amount = $data->amount;
+        $payment->status = $data->status;
+        $payment->comment = $data->comment;
+        $payment->user = User::newByData(array_merge((array) $data, ['id' => $data->fk_user]));
+        return $payment;
     }
 }
