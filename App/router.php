@@ -39,10 +39,11 @@ $app->get('/admin/campeonato/{id}/edit', 'App\Controllers\CompetitionController:
 $app->post('/admin/campeonato/{id}/edit', 'App\Controllers\CompetitionController:update');
 $app->get('/admin/campeonato/{id}/delete', 'App\Controllers\CompetitionController:delete');
 
-$app->post('/admin/evento', 'App\Controllers\EventController:create');
+$app->get('/admin/pagamento', 'App\Controllers\PaymentController:index');
+$app->post('/admin/pagamento', 'App\Controllers\PaymentController:store');
+$app->get('/admin/pagamento/{id}/delete', 'App\Controllers\PaymentController:delete');
+
 $app->get('/admin/inscricoes', 'App\Controllers\SubscribeController:index');
-$app->get('/admin/pagamento', 'App\Controllers\SubscribeController:payment');
-$app->post('/admin/pagamento', 'App\Controllers\SubscribeController:paymentCreate');
 $app->get('/attempt/{id}', 'App\Controllers\EventController:attempt');
 
 $app->get('/times', 'App\Controllers\TeamController:index');

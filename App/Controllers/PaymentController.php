@@ -3,12 +3,65 @@
 namespace App\Controllers;
 
 use App\Models\Subscription;
+use App\Models\User;
 use App\Models\Payment;
 use App\Helpers\AuthHelper;
+use App\Helpers\UtilsHelper;
+use App\Helpers\View;
 
 require_once dirname(__FILE__).'/../../lib/PagSeguroLibrary/PagSeguroLibrary.php';
 
 class PaymentController {
+    public function index ($request, $response, $args)
+    {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        $user = AuthHelper::getAuthenticatedUser();
+        
+        $users = User::findAll();
+        $payments = Payment::findAll();
+
+        $data = compact('user', 'users', 'payments');
+        
+        View::render('layout/header', $data);
+        View::render('payment/index', $data);
+        View::render('layout/footer', $data);
+        return $response;
+    }
+
+    public function store ($request, $response, $args)
+    {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        $user = AuthHelper::getAuthenticatedUser();
+
+        $payment = new Payment();
+        $payment->setAttr('amount', @$_POST['amount']);
+        $payment->setAttr('cpf', @$_POST['cpf']);
+        $payment->setAttr('status', Payment::PAYMENT_CONFIRMED);
+        $payment->setAttr('date', time());
+        $payment->setAttr('comment', @$_POST['comment']);
+        $payment->setAttr('fk_user', @$_POST['fk_user']);
+        $payment->save();
+        
+        // if ($aData['createdOrUpdated']) {
+        //     $user 	= User::getById($_REQUEST['fk_user']);
+        //     $aHeaders = 'From: sac@cc.uffs.edu.br' . "\r\n" . 'Reply-To: cacomputacaouffs@gmail.com';
+        //     mail($user->email, 'Pagamento validado - Semana Academica CC UFFS', "Olá\n\nSeu pagamento de R$ ".sprintf('%.2f', $_REQUEST['amount'])." foi validado pela organização.\n\nAtenciosamente,\nOrganização 3ª Semana Acadêmica da Computaçao - UFFS");
+        // }
+
+        return $response
+            ->withHeader('Location', UtilsHelper::base_url("/admin/pagamento"))
+            ->withStatus(302);
+    }
+
+    public function delete ($request, $response, $args) {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        $payment = Payment::findById($args['id']);
+        $payment->delete();
+        return $response
+            ->withHeader('Location', UtilsHelper::base_url("/admin/pagamento"))
+            ->withStatus(302);  
+    }
+
     public function apiIndex ($request, $response, $args)
     {
         AuthHelper::AllowAuthenticated();
@@ -34,140 +87,5 @@ class PaymentController {
 
         \App\Helpers\View::render('ajax-payments', $aData);
         return $response;
-    }
-
-    /* TODO: test this function */
-    public function execute ()
-    {
-        AuthHelper::AllowAuthenticated();
-        
-        $aUser 		= AuthHelper::getAuthenticatedUser();
-        $aUser 		= userGetById($aUser['id']);
-        
-        $aMustPay 	= Payment::calculateUserDept($aUser['id']) + CONFERENCE_PRICE;
-        $aCredit 	= Payment::calculateUserCredit($aUser['id']);
-        $aDebit		= $aMustPay - $aCredit;
-        
-        if ($aDebit < 0) {
-            echo 'Você não precisa pagar porque possui créditos!';
-            exit();
-        }
-        
-        $aRef = paymentCreate($aUser['id'], $aDebit);
-        
-        if ($aRef === false) {
-            echo 'Problema na criação do pagamento.';
-            exit();
-        }
-        
-        // Instantiate a new payment request
-        $paymentRequest = new PagSeguroPaymentRequest();
-
-        // Set the currency
-        $paymentRequest->setCurrency("BRL");
-
-        // Add an item for this payment request
-        $aProduto = @$_REQUEST['id'] == 2 ? 'Inscrição de Time - Campeonato CS:GO' : 'Inscrição Semana Academica Computacao (2014) - UFFS';
-        $paymentRequest->addItem('0001', $aProduto, 1, $aDebit);
-
-        // Set a reference code for this payment request. It is useful to identify this payment
-        // in future notifications.
-        $paymentRequest->setReference($aRef);
-
-        // Set shipping information for this payment request
-        $sedexCode = PagSeguroShippingType::getCodeByType('SEDEX');
-        $paymentRequest->setShippingType($sedexCode);
-        $paymentRequest->setShippingAddress(
-            '89801001',
-            'Rod. SC 459 Km 02, Campus UFFS',
-            'S/N',
-            '',
-            '',
-            'Chapeco',
-            'SC',
-            'BRA'
-        );
-
-        // Set your customer information.
-        $paymentRequest->setSender(
-            $aUser['name'],
-            $aUser['email'],
-            '',
-            '',
-            'CPF',
-            ''
-        );
-
-        // Set the url used by PagSeguro to redirect user after checkout process ends
-        $paymentRequest->setRedirectUrl("http://cc.uffs.edu.br/sac/");
-
-        try {
-
-            /*
-            * #### Credentials #####
-            * Replace the parameters below with your credentials (e-mail and token)
-            * You can also get your credentials from a config file. See an example:
-            * $credentials = PagSeguroConfig::getAccountCredentials();
-            */
-            $credentials = new PagSeguroAccountCredentials(PAGSEGURO_EMAIL, PAGSEGURO_TOKEN);
-
-            // Register this payment request in PagSeguro to obtain the payment URL to redirect your customer.
-            $url = $paymentRequest->register($credentials);
-            
-            header('Location: ' . $url);
-            exit();
-            
-        } catch (PagSeguroServiceException $e) {
-            die($e->getMessage());
-        }
-    }
-
-    /* TODO: test this function */
-    public function pagseguro ()
-    {
-        function transactionNotification($notificationCode) {
-            /*
-             * #### Credentials #####
-             * Replace the parameters below with your credentials (e-mail and token)
-             * You can also get your credentials from a config file. See an example:
-             * $credentials = PagSeguroConfig::getAccountCredentials();
-             */
-            $credentials = new PagSeguroAccountCredentials(PAGSEGURO_EMAIL, PAGSEGURO_TOKEN);
-            
-            try {
-                $transaction = PagSeguroNotificationService::checkTransaction($credentials, $notificationCode);
-                $ref = $transaction->getReference();
-                
-                paymentLog('Updating ref=' . $ref . ' to ' . $transaction->getStatus()->getValue());
-                paymentUpdateStatus($ref, $transaction->getStatus()->getValue());
-                
-                // Do something with $transaction
-            } catch (PagSeguroServiceException $e) {
-            
-                paymentLog($e->getMessage());
-            }
-        }
-        
-        $code = (isset($_POST['notificationCode']) && trim($_POST['notificationCode']) !== "" ?	trim($_POST['notificationCode']) : null);
-        $type = (isset($_POST['notificationType']) && trim($_POST['notificationType']) !== "" ?	trim($_POST['notificationType']) : null);
-    
-        if ($code && $type) {
-            $notificationType = new PagSeguroNotificationType($type);
-            $strType = $notificationType->getTypeFromValue();
-    
-            switch ($strType) {
-                case 'TRANSACTION':
-                    transactionNotification($code);
-                    break;
-    
-                default:
-                    paymentLog("Unknown notification type [" . $notificationType->getValue() . "] " . print_r($_POST, true));
-            }
-    
-        } else {
-            paymentLog('Invalid notification parameters. ' . print_r($_POST, true));
-        }
-        
-        echo 'Lost anything? :)';
     }
 }
