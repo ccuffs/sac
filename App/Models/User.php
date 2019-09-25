@@ -138,7 +138,6 @@ class User extends Model {
         return $success;
     }
 
-<<<<<<< HEAD
     public function update() {
         $sql = "UPDATE users SET
             login = :login,
@@ -164,9 +163,6 @@ class User extends Model {
     }
 
     private static function newByData ($data) {
-=======
-    public static function newByData ($data) {
->>>>>>> 17d6a223b6a2cb728b40b108d70abb48afb5ba1a
         $data = (object) $data;
         $user = new SELF();
         $user->id = $data->id;
