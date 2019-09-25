@@ -82,7 +82,8 @@ var SAC = new function() {
 			});
 		}
 
-		$("#permission").change(function(e){
+		$(".permission").change(function(e){
+
 			let card = e.currentTarget.offsetParent.lastElementChild;
 			let permission = $(this).val();
 			let userId = $(e.currentTarget.offsetParent.children[0].children[0]).val();
@@ -98,10 +99,10 @@ var SAC = new function() {
 					'type' : permission
 				},
 				success : function(data, textStatus, request) {
-					toastr['success'](request.getResponseHeader('message'));
+					toastr.success(request.getResponseHeader('message'));
 				},
 				error : function(request, textStatus, errorThrown) {
-					toastr['danger'](request.getResponseHeader('message'));
+					toastr.danger(request.getResponseHeader('message'));
 				}
 			});
 		});

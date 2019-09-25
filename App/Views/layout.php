@@ -120,6 +120,8 @@ function layoutHeader($theTitle) {
 		echo '<link rel="apple-touch-icon" sizes="72x72" href="/img/apple-touch-icon-72x72.png">';
 		echo '<link rel="apple-touch-icon" sizes="114x114" href="/img/apple-touch-icon-114x114.png">';
 		
+		echo '<link href="'.UtilsHelper::base_url('/css/permissoes.css').'" rel="stylesheet" media="screen">';
+		
 		echo '<!-- FontAwesome -->';
 		echo '<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">';
 

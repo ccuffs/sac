@@ -29,23 +29,16 @@ use App\Models\User;
 		<link rel="apple-touch-icon" sizes="72x72" href="/img/apple-touch-icon-72x72.png">
 		<link rel="apple-touch-icon" sizes="114x114" href="/img/apple-touch-icon-114x114.png">
 
-		<?php
-			if ($controller == 'UserController'){
-				echo '<link href="'.UtilsHelper::base_url('/css/permissoes.css').'" rel="stylesheet" media="screen">';
-				echo '<link href="https://codeseven.github.io/toastr/build/toastr.min.css" rel="stylesheet" type = "text/css" />';
-			} 
-		?>
+		<link href="<?= UtilsHelper::base_url('/css/permissoes.css') ?>" rel="stylesheet" media="screen">
 		
 		<!-- FontAwesome -->
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 		
-		<?php
-			if ($controller == 'UserController'){
-				echo '<script src="https://codeseven.github.io/toastr/build/toastr.min.js" type="text/javascript"></script>';
-			} 
-		?>
+		<!-- Toastr -->
+		<link href="https://codeseven.github.io/toastr/build/toastr.min.css" type = "text/css" rel="stylesheet" />
 
 		<script src="<?= UtilsHelper::base_url('/js/jquery.js') ?>"></script>
+		<script src="https://codeseven.github.io/toastr/build/toastr.min.js" type="text/javascript"></script>
 		<script src="<?= UtilsHelper::base_url('/js/bootstrap.js') ?>"></script>
 		<script src="<?= UtilsHelper::base_url('/js/sac.js') ?>"></script>
 	</head>
@@ -99,6 +92,10 @@ use App\Models\User;
 								<li role="presentation" class="dropdown-header">Inscrições</li>
 								<li><a href="<?= UtilsHelper::base_url("/admin/inscricoes")?>">Listar</a></li>
 								<li><a href="<?= UtilsHelper::base_url("/admin/pagamento")?>">Pagamentos</a></li>
+
+								<li class="divider"></li>
+								<li role="presentation" class="dropdown-header">Gerenciar Permissões</li>
+								<li><a href="<?= UtilsHelper::base_url("/admin/permissoes") ?>">Usuários</a></li>
 
 								<li class="divider"></li>
 								<li role="presentation" class="dropdown-header">Frequência</li>

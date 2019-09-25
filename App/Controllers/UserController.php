@@ -13,9 +13,11 @@ class UserController {
     public function index($request, $response, $args) {
         
         AuthHelper::allowAuthenticated();
-        $users = User::findByRole([User::USER_LEVEL_UFFS, User::USER_LEVEL_ADMIN, User::USER_CO_ORGANIZER]);
+        $users = User::findByRole([User::USER_LEVEL_UFFS, User::USER_LEVEL_ADMIN, User::USER_CO_ORGANIZER, User::USER_LEVEL_EXTERNAL]);
 
-        View::render('layout/header', array('controller' => 'UserController'));
+        $userAuth = AuthHelper::getAuthenticatedUser();
+
+        View::render('layout/header', array('user' => $userAuth));
         View::render('auth/users', $users);
         View::render('layout/footer');
 
