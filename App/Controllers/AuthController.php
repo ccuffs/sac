@@ -35,7 +35,7 @@ class AuthController {
         return  $response;
     }
 
-    public function login ($request, $response, $args) {
+    public function login ($request, $response, $args) {          
         AuthHelper::allowNonAuthenticated();
         $aLoginError 	= false;
         $aHasAccount 	= false;
@@ -63,6 +63,7 @@ class AuthController {
         }
 
         $_SESSION['user'] = $user->id;
+        $_SESSION['request_uri'] = $request->getUri();
 
         return $response
             ->withHeader('Location', $request->getUri() . "/..")

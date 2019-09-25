@@ -5,9 +5,10 @@ namespace App\Models;
 class User extends Model {
     protected $table = "user";
     
-    const USER_LEVEL_UFFS = 1;
-    const USER_LEVEL_EXTERNAL = 2;
-    const USER_LEVEL_ADMIN = 3;
+    const USER_LEVEL_EXTERNAL = 1;
+    const USER_LEVEL_UFFS = 2;
+    const USER_CO_ORGANIZER = 3;
+    const USER_LEVEL_ADMIN = 4;
 
     public $id;
     public $login;
@@ -67,6 +68,31 @@ class User extends Model {
         return $list;
     }
     
+    public function findByRole($roles) {
+        
+        $query_result = array();
+        $query = SELF::conn()->prepare("SELECT * FROM users WHERE type = :role");
+
+        foreach ($roles as $role) {
+            $find_something = $query->execute([
+                'role' => $role
+            ]);
+
+            if ($find_something){
+                while($aRow = $query->fetch()){
+                    $query_result[$aRow['id']] = $aRow;
+                }
+            }
+        }
+
+        $users_model = array();
+        foreach($query_result as $user) {
+            array_push($users_model, User::newByData($user));
+        }
+
+        return $users_model;
+    }
+
     public function isLevel($theLevel) {
         return $this->type == $theLevel;
     }
@@ -112,7 +138,31 @@ class User extends Model {
         return $success;
     }
 
-    public static function newByData ($data) {
+    public function update() {
+        $sql = "UPDATE users SET
+            login = :login,
+            cpf = :cpf,
+            name = :name,
+            email = :email,
+            type = :type 
+            WHERE id = :userId
+        ";
+
+        $query = SELF::conn()->prepare($sql);
+
+        $success = $query->execute([
+            'login' => $this->login,
+            'cpf' => $this->cpf,
+            'name' => $this->name,
+            'email' => $this->email,
+            'type' => $this->type,
+            'userId' => $this->id
+        ]);
+
+        return $success;
+    }
+
+    private static function newByData ($data) {
         $data = (object) $data;
         $user = new SELF();
         $user->id = $data->id;

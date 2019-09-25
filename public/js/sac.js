@@ -65,4 +65,41 @@ var SAC = new function() {
 			$('.nao-uffs').slideDown();
 		}
 	};
+
+	this.userPermission = function() {
+		const colorClasses = ['bg-danger', 'bg-warning', 'bg-success', 'bg-info']
+
+		function removeColorClass(colorClass, card){
+			colorClasses.forEach(color => {
+				if (colorClass.match(color))
+					$(card).removeClass(color);
+			});
+		}
+
+		$(".permission").change(function(e){
+
+			let card = e.currentTarget.offsetParent.lastElementChild;
+			let permission = $(this).val();
+			let userId = $(e.currentTarget.offsetParent.children[0].children[0]).val();
+			
+			let colorClass = $(card).attr('class');
+			removeColorClass(colorClass, card);
+			$(card).addClass(colorClasses[permission - 1]);
+
+			$.ajax({
+				type: 'POST',
+				url : 'http://localhost/sac/admin/permissoes/'+userId,
+				data: {
+					'type' : permission
+				},
+				success : function(data, textStatus, request) {
+					toastr.success(request.getResponseHeader('message'));
+				},
+				error : function(request, textStatus, errorThrown) {
+					toastr.danger(request.getResponseHeader('message'));
+				}
+			});
+		});
+		
+	}
 };

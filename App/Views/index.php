@@ -6,7 +6,6 @@
 	require_once dirname(__FILE__).'/layout.php';
 	
 	layoutHeader('Programação');
-	
 	$aData 			= View::data();
 	$aEvents 		= $aData['events'];
 	$aAttending 	= $aData['authenticated'] ? $aData['attending'] : array();

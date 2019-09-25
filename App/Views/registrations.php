@@ -39,7 +39,7 @@
 						echo '<table class="table table-hover">';
 							echo '<thead>';
 								echo '<th style="width: 40%;">Nome</th>';
-								echo '<th style="width: 25%;">CPF</th>';
+								echo '<th style="width: 25%;">CPF / Login UFFS</th>';
 								echo '<th style="width: 25%;">E-mail</th>';
 								echo '<th style="width: 5%;">Vínculo</th>';
 								echo '<th style="width: 5%;">Pagou?</th>';
