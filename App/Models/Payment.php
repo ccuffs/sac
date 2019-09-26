@@ -16,6 +16,7 @@ class Payment extends Model {
     public $status;
     public $comment;
     public $user;
+    private static $total_paid;
 
     const PAYMENT_CONFIRMED = 3;
     const PAYMENT_AVAILABLE = 4;
@@ -37,6 +38,14 @@ class Payment extends Model {
     
     public static function isBeingAnalyzed($thePaymentInfo) {
         return $thePaymentInfo == null || ($thePaymentInfo['status'] != 3 && $thePaymentInfo['status'] != 4);
+    }
+
+    public function getTotalPaid() {
+        if (isset(SELF::$total_paid)) return SELF::$total_paid;
+        $query = SELF::conn()->query("SELECT sum(amount) as total FROM payment");
+        $data = (object) $query->fetch();
+        SELF::$total_paid = (float) $data->total;
+        return SELF::$total_paid;
     }
     
     public static function findByUser($theUserId) {

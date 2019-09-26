@@ -16,6 +16,7 @@ class User extends Model {
     public $name;
     public $email;
     public $type;
+    private $total_paid;
 
     public static function getById($theUserId) {
         $user = null;
@@ -96,6 +97,14 @@ class User extends Model {
     public function isLevel($theLevel) {
         return $this->type == $theLevel;
     }
+
+    public function isExternal() {
+        return $this->type == User::USER_LEVEL_EXTERNAL;
+    }
+
+    public function isInternal() {
+        return !$this->isExternal();
+    }
     
     public function getConferencePrice() {
         return $this->type == SELF::USER_LEVEL_EXTERNAL ? CONFERENCE_PRICE_EXTERNAL : CONFERENCE_PRICE;
@@ -103,6 +112,20 @@ class User extends Model {
 
     public function getBond() {
         return $this->type == 2 ? "Externo" : "UFFS";
+    }
+
+    /* This is not so performatic but it will work, improve it if you want */
+    public function getTotalPaid() {
+        if (isset($this->total_paid)) return $this->total_paid;
+        $sql = "SELECT sum(p.amount) as total FROM users AS u
+            LEFT JOIN payment AS p
+                ON u.id = p.fk_user OR u.cpf = p.cpf
+            WHERE u.id = :user_id
+            GROUP BY u.id";
+        $query = SELF::conn()->prepare($sql);
+        $query->execute(['user_id' => $this->id]);
+        $data = (object) $query->fetch();
+        return (double) $data->total;
     }
 
     public static function findByUsername ($username) {
@@ -162,7 +185,7 @@ class User extends Model {
         return $success;
     }
 
-    private static function newByData ($data) {
+    public static function newByData ($data) {
         $data = (object) $data;
         $user = new SELF();
         $user->id = $data->id;

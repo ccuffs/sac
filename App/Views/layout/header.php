@@ -36,7 +36,9 @@ use App\Models\User;
 		
 		<!-- Toastr -->
 		<link href="https://codeseven.github.io/toastr/build/toastr.min.css" type = "text/css" rel="stylesheet" />
-
+		<script>
+			var BASE_URL = "<?= BASE_URL ?>"
+		</script>
 		<script src="<?= UtilsHelper::base_url('/js/jquery.js') ?>"></script>
 		<script src="https://codeseven.github.io/toastr/build/toastr.min.js" type="text/javascript"></script>
 		<script src="<?= UtilsHelper::base_url('/js/bootstrap.js') ?>"></script>

@@ -43,7 +43,7 @@ $app->get('/admin/pagamento', 'App\Controllers\PaymentController:index');
 $app->post('/admin/pagamento', 'App\Controllers\PaymentController:store');
 $app->get('/admin/pagamento/{id}/delete', 'App\Controllers\PaymentController:delete');
 
-$app->get('/admin/inscricoes', 'App\Controllers\SubscribeController:index');
+$app->get('/admin/inscricoes', 'App\Controllers\PaymentController:stats');
 $app->get('/attempt/{id}', 'App\Controllers\EventController:attempt');
 
 $app->get('/times', 'App\Controllers\TeamController:index');
