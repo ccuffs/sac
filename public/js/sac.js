@@ -88,7 +88,7 @@ var SAC = new function() {
 
 			$.ajax({
 				type: 'POST',
-				url : 'http://localhost/sac/admin/permissoes/'+userId,
+				url : BASE_URL + '/admin/permissoes/'+userId,
 				data: {
 					'type' : permission
 				},
