@@ -28,6 +28,35 @@ class PaymentController {
         return $response;
     }
 
+    public function stats ($request, $response, $args) {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        $user = AuthHelper::getAuthenticatedUser();	
+
+        $users = User::findAll();
+        $total_paid = Payment::getTotalPaid();			
+        $users_paid_total = 0;
+        $users_nonpaid_total = 0;
+        $users_insiders = 0;
+        $users_outsiders = 0;
+        $users_total = count($users);
+
+        /* I`m not using $user because it will overwrite the $user variable above */
+        foreach($users as $user_item) {
+            if ($user_item->isInternal()) {
+                $users_insiders++;
+            } else {
+                $users_outsiders++;
+            }
+        }
+        
+        $data = compact('user', 'users', 'total_paid', 'users_paid_total', 'users_nonpaid_total', 'users_insiders', 'users_outsiders', 'users_total');
+        
+        View::render('layout/header', $data);
+        View::render('payment/stats', $data);
+        View::render('layout/footer', $data);
+        return $response;
+    }
+
     public function store ($request, $response, $args)
     {
         AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
