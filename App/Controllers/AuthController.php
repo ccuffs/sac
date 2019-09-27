@@ -14,24 +14,7 @@ class AuthController {
     }
 
     public function loginForm ($request, $response, $args) {
-        AuthHelper::allowNonAuthenticated();
-	
-        $aLoginError = false;
-        $aIsUFFS = isset($_POST['uffs']) && $_POST['uffs'] == '1';
-        $aHasAccount = false;
-        
-        View::render('layout/header');
-        View::render('auth/login', array(
-            'loginError' => $aLoginError,
-            'user' => @$_POST['user'],
-            'uffs' => !isset($_POST['uffs']) ? '1' : $_POST['uffs'],
-            'email' => @$_POST['email'],
-            'name' => @$_POST['name'],
-            'passworde' => @$_POST['passworde'],
-            'password' => @$_POST['password'],
-            'isLogin' => true
-        ));
-        View::render('layout/footer');
+        View::render('login');
         return  $response;
     }
 

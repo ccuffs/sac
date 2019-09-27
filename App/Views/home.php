@@ -1,27 +1,29 @@
+<?php
+use App\helpers\UtilsHelper;
+?>
+
 <!doctype html>
 <html lang="pt-br">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="shortcut icon" href="assets/img/favicon.ico" />
+  <link rel="shortcut icon" href="<?= UtilsHelper::base_url("/img/favicon.ico") ?>" />
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap-reboot.min.css">
-  <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap-grid.min.css">
-  <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap-utilities.min.css">
+  <link rel="stylesheet" href="<?= UtilsHelper::base_url("/vendor/bootstrap/css/bootstrap-reboot.min.css") ?>">
+  <link rel="stylesheet" href="<?= UtilsHelper::base_url("/vendor/bootstrap/css/bootstrap-grid.min.css") ?>">
+  <link rel="stylesheet" href="<?= UtilsHelper::base_url("/vendor/bootstrap/css/bootstrap-utilities.min.css") ?>">
   <!--FontAwesome-->
-  <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="<?= UtilsHelper::base_url("/vendor/fontawesome/css/all.min.css") ?>">
   <!-- index CSS -->
-  <link rel="stylesheet" href="assets/css/fonts.css">
-  <link rel="stylesheet" href="assets/css/index.css">
-  <link rel="stylesheet" href="assets/css/card.css">
-  <link rel="stylesheet" href="assets/css/buttons.css">
-  <link rel="stylesheet" href="assets/css/navbar.css">
-  <link rel="stylesheet" href="assets/css/section.css">
-  <link rel="stylesheet" href="assets/css/animations.css">
+  <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/fonts.css") ?>">
+  <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/index.css") ?>">
+  <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/card.css") ?>">
+  <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/buttons.css") ?>">
+  <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/navbar.css") ?>">
+  <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/section.css") ?>">
+  <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/animations.css") ?>">
   <link href="https://fonts.googleapis.com/css?family=Trebuchet+MS:400,600,700&display=swap" rel="stylesheet">
-  <!-- <link rel="stylesheet" href="assets/css/tables.css">
-  <link rel="stylesheet" href="assets/css/text.css"> -->
 
   <title>SACC | UFFS</title>
 </head>
@@ -35,7 +37,7 @@
           <div class="col col-md-2">
             <figure class="navbar__logo">
               <a href="#">
-                <img src="assets/img/logo.png">
+                <img src="<?= UtilsHelper::base_url("/img/logo.png") ?>">
               </a>
             </figure>
           </div>
@@ -44,7 +46,7 @@
               <a class="navbar__archor" href="#about">Sobre</a>
               <a class="navbar__archor" href="#speakers">Palestrantes</a>
               <a class="navbar__archor" href="#programming">Programação</a>
-              <a class="navbar__archor" href="#">Inscrições</a>
+              <a class="navbar__archor" href="<?= UtilsHelper::base_url("/login")?>">Inscrições</a>
             </nav>
           </div>
           <div class="col text-right d-block d-md-none">
@@ -60,7 +62,7 @@
         <a class="navbar__archor" href="#about">Sobre</a>
         <a class="navbar__archor" href="#speakers">Palestrantes</a>
         <a class="navbar__archor" href="#programming">Programação</a>
-        <a class="navbar__archor" href="#">Inscrições</a>
+        <a class="navbar__archor" href="<?= UtilsHelper::base_url("/login")?>">Inscrições</a>
       </nav>
     </div>
   </header>
@@ -326,7 +328,7 @@
         </div>
 </section>
 
-  <script src="assets/js/index.js"></script>
+  <script src="<?= UtilsHelper::base_url("/js/website/index.js") ?>"></script>
 </body>
 
 </html>

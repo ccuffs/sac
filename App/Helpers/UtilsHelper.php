@@ -40,7 +40,7 @@ class UtilsHelper {
 		return htmlspecialchars($theScript, ENT_QUOTES, "UTF-8");
 	}
 	
-	public static function base_url($url) {
+	public static function base_url($url = "") {
 		/* TODO: Config this */
 		return BASE_URL . $url;
 	}

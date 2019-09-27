@@ -38,7 +38,7 @@ class HomeController {
             $data['isAdmin'] = $user->isLevel(User::USER_LEVEL_ADMIN);
         }
         
-        \App\Helpers\View::render('index', $data);
+        \App\Helpers\View::render('home', $data);
         return $response;
     }
 }
