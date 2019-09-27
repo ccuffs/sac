@@ -1,0 +1,53 @@
+
+.btn {
+    border: none;
+    overflow:none;
+    color: inherit;
+    font: inherit;
+    background-color: #FFF;
+    color: #000000;
+    padding: 0.625em 2.188em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius:0.125em;
+    font-weight: bold;
+
+}
+.btn--small {
+    padding: .25rem .5rem;
+    font-size: .875rem;
+
+}
+
+.btn--medium{
+    padding: .5rem 1rem;
+    line-height: 1.5;
+}
+
+.btn--large{
+    padding: 1.1rem 3rem;
+    line-height: 1.5;
+}
+
+.btn--primary{
+    background-color:#00693E;
+    color:#FFF;   
+}
+
+.btn--secondary{
+    background-color: #6D6D6D;
+    color: #FFF;
+}
+
+.btn--danger{
+    background-color: #F53240; 
+    color: #FFF;  
+}
+
+.btn--ghost{
+    background-color:transparent;
+    border:1px solid #4CAF50;
+    color:#FFF;
+}
