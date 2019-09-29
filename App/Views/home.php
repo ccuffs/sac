@@ -1,5 +1,5 @@
 <?php
-use App\helpers\UtilsHelper;
+use App\Helpers\UtilsHelper;
 ?>
 
 <!doctype html>

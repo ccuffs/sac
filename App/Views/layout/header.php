@@ -1,8 +1,8 @@
 <?php 
-use App\Helpers\View;
-use App\Helpers\UtilsHelper;
-use App\Helpers\AuthHelper;
-use App\Models\User;
+	use App\Helpers\View;
+	use App\Helpers\UtilsHelper;
+	use App\Helpers\AuthHelper;
+	use App\Models\User;
 ?>
 
 <!DOCTYPE html>

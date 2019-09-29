@@ -127,4 +127,4 @@ use App\Helpers\UtilsHelper;
 	
 </div>
 
-<script src="<?= UtilsHelper::base_url("/js/payment.js") ?>"></script>
+<script src="<?= UtilsHelper::base_url("/js/admin/payment.js") ?>"></script>
