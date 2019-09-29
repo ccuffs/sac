@@ -14,7 +14,7 @@
 .intro::before {
     content: "";
     display: block;
-    background-color: rgba(0, 105, 62, .7);
+    background-color: rgba(0, 105, 62, .6);
     position: absolute;
     top: 0;
     left: 0;
