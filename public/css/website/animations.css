@@ -1,0 +1,93 @@
+@keyframes animateTopDown {
+    from {
+        transform: translateY(-200%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes animateBottomUp {
+    from {
+        transform: translateY(200%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes animateLeftRight {
+    from {
+        transform: translateX(-200%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes animateRightLeft {
+    from {
+        transform: translateX(200%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes animateRightLeftStrong {
+    from {
+        transform: translateX(300%);
+        opacity: 0;
+    }
+
+    40% {
+        transform: translateX(200%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+section .animate-top-down {
+    animation: animateTopDown ease-out 0.6s;
+}
+
+section .animate-bottom-up {
+    animation: animateBottomUp ease-out 0.6s;
+}
+
+section .animate-left-right {
+    animation: animateLeftRight ease-out 0.6s;
+}
+
+section .animate-right-left {
+    animation: animateRightLeft ease-out 0.6s;
+}
+
+section .animate-right-left-2 {
+    animation: animateRightLeftStrong ease-out 1s;
+}
+
+section .animate-right-left-3 {
+    animation: animateRightLeftStrong ease-out 1.2s;
+}
