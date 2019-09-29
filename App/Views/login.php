@@ -38,7 +38,7 @@ use App\Helpers\UtilsHelper;
         <div class="row align-items-center">
           <div class="col col-md-2">
             <figure class="navbar__logo">
-              <a href="#">
+              <a href="<?= UtilsHelper::base_url("/") ?>">
                 <img src="<?= UtilsHelper::base_url("/img/logo.png") ?>">
               </a>
             </figure>
@@ -76,17 +76,17 @@ use App\Helpers\UtilsHelper;
                 <div class="col-md-10">
                     <div class="login ">
                         <div class="login__logo">
-                            <img src="assets/img/logo.png" alt="Logo SACC">
+                            <img src="<?= UtilsHelper::base_url("/img/logo.png")?>" alt="Logo SACC">
                         </div>
                         <h2 class="login__title">Entre com seu idUFFS</h2>
                         <div class="login__form">
-                            <form class="form" action="">
+                            <form class="form" method="post">
                                 <div class="form__content">
-                                    <input type="text" class="form__input" name="txtName" id="idName"
+                                    <input type="text" class="form__input" name="user" id="idName"
                                         placeholder="IdUFFS">
                                 </div>
                                 <div class="form__content">
-                                    <input type="password" class="form__input" name="txtPass" id="idPass"
+                                    <input type="password" class="form__input" name="password" id="idPass"
                                         placeholder="Senha">
                                 </div>
                                 <div class="form__check">

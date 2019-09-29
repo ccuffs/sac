@@ -19,7 +19,6 @@ class AuthController {
     }
 
     public function login ($request, $response, $args) {          
-        AuthHelper::allowNonAuthenticated();
         $aLoginError 	= false;
         $aHasAccount 	= false;
         
