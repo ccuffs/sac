@@ -1,5 +1,6 @@
 <?php 
 use App\Models\User;
+use App\Models\Event;
 use App\Helpers\View;
 use App\Helpers\UtilsHelper;  
 ?>
@@ -27,19 +28,19 @@ use App\Helpers\UtilsHelper;
 			<div class="col-md-4">
 				<div class="form-group">
 					<label class="control-label">Tipo de cadastro</label>
-					<select payment-select-method class="col-lg-6 form-control">
+					<select payment-select-method class="form-control">
 						<option value="fk_user">Usuário</option>
 						<option value="cpf">Cpf</option>
 					</select>
+					<br>
 				</div>
 			</div>
 		</div>
-		<br>
 		<div class="row">
 			<div class="col-md-4" payment-show-method="fk_user">
 				<div class="form-group">
 					<label class="control-label">Usuário</label>
-					<select payment-show-input="fk_user" class="col-lg-6 form-control">
+					<select payment-show-input="fk_user" class="form-control">
 						<option value=""></option>
 						<?php foreach($users as $user): ?>
 							<option value="<?= $user->id ?>">
@@ -53,30 +54,49 @@ use App\Helpers\UtilsHelper;
 			<div class="col-md-4 hidden" payment-show-method="cpf">
 				<div class="form-group">
 					<label class="control-label">Cpf</label>
-					<input type="text" payment-show-input="cpf" class="col-lg-6 form-control" /><br/>
+					<input type="text" payment-show-input="cpf" class="form-control" /><br/>
+				</div>
+			</div>
+
+			<div class="col-md-3">
+				<div class="form-group">
+					<label class="control-label">Tipo</label>
+					<select name="type" payment-select-type="type" class="form-control">
+						<option value="subscription">Inscrição</option>
+						<option value="event">Evento</option>
+						<option value="">Outro</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-md-3 hidden" payment-show-type="event">
+				<div class="form-group">
+					<label class="control-label">Eventos</label>
+					<select name="fk_event" payment-input-type="event" class="form-control">
+						<?php foreach ($events as $event): ?>
+						<option value="<?= $event->id ?>"><?= $event->title ?></option>
+						<?php endforeach; ?>
+					</select>
 				</div>
 			</div>
 		
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<div class="form-group">
 					<label class="control-label">Valor</label>
-					<input type="text" name="amount" class="col-lg-6 form-control" /><br/>
+					<input type="text" name="amount" class="form-control" /><br/>
 				</div>
 			</div>
 			
 			<div class="col-md-4">
 				<div class="form-group">
 					<label class="control-label">Comentário</label>
-					<input type="text" name="comment" class="col-lg-6 form-control" /><br/>
+					<input type="text" name="comment" class="form-control" /><br/>
 				</div>
 			</div>
 			
-			<div class="col-md-1">
-				<div class="form-group">
-				<label class="control-label"></label>
-					<button class="btn btn-success"> Adicionar pagamento </button>
-				</div>
-			</div>
+		</div>
+		<div>
+			<button class="btn btn-success"> Adicionar pagamento </button>
 		</div>
 	</form>
 	
