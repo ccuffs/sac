@@ -57,16 +57,7 @@ class User extends Model {
     }
     
     public function findAll() {
-        $list = array();
-        $query = SELF::conn()->prepare("SELECT * FROM users ORDER BY name ASC");
-        
-        if ($query->execute()) {	
-            while ($raw = $query->fetch()) {
-                $list[] = SELF::newByData($raw);
-            }
-        }
-        
-        return $list;
+        return SELF::getInstancesByQuery("SELECT * FROM users ORDER BY name ASC");
     }
     
     public function findByRole($roles) {
@@ -92,6 +83,33 @@ class User extends Model {
         }
 
         return $users_model;
+    }
+
+    public function findPaying () {
+        return SELF::getInstancesByQuery("SELECT u.* FROM users AS u
+            INNER JOIN payment AS p
+            ON u.id = p.fk_user or u.cpf = p.cpf
+            GROUP BY u.id
+        ");
+    }
+
+    public function findNonPaying () {
+        return SELF::getInstancesByQuery("SELECT u.* from users as u
+            left join payment as p on (u.id = p.fk_user OR u.cpf = p.cpf)
+            where p.id is null group by u.id
+        ");
+    }
+
+    public function findInsiders () {
+        return SELF::getInstancesByQuery("SELECT * from users
+            where type != ".User::USER_LEVEL_EXTERNAL ."
+        ");
+    }
+
+    public function findOutsiders () {
+        return SELF::getInstancesByQuery("SELECT * from users
+            where type = ".User::USER_LEVEL_EXTERNAL ."
+        ");
     }
 
     public function isLevel($theLevel) {
@@ -196,4 +214,17 @@ class User extends Model {
         $user->type = $data->type;
         return $user;
     }
+
+    private static function getInstancesByQuery($sql) {
+        $list = [];
+        $query = SELF::conn()->prepare($sql);
+        
+        if ($query->execute()) {	
+            while ($raw = $query->fetch()) {
+                $list[] = SELF::newByData($raw);
+            }
+        }
+        
+        return $list;
+    } 
 }

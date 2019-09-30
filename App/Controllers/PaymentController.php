@@ -36,20 +36,11 @@ class PaymentController {
 
         $users = User::findAll();
         $total_paid = Payment::getTotalPaid();			
-        $users_paid_total = 0;
-        $users_nonpaid_total = 0;
-        $users_insiders = 0;
-        $users_outsiders = 0;
+        $users_paid_total = count(User::findPaying());
+        $users_nonpaid_total = count(User::findNonPaying());
+        $users_insiders = count(User::findInsiders());
+        $users_outsiders = count(User::findOutsiders());
         $users_total = count($users);
-
-        /* I`m not using $user because it will overwrite the $user variable above */
-        foreach($users as $user_item) {
-            if ($user_item->isInternal()) {
-                $users_insiders++;
-            } else {
-                $users_outsiders++;
-            }
-        }
         
         $data = compact('user', 'users', 'total_paid', 'users_paid_total', 'users_nonpaid_total', 'users_insiders', 'users_outsiders', 'users_total');
         
