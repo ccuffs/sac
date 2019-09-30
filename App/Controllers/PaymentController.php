@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Subscription;
 use App\Models\User;
+use App\Models\Event;
 use App\Models\Payment;
 use App\Helpers\AuthHelper;
 use App\Helpers\UtilsHelper;
@@ -19,8 +20,9 @@ class PaymentController {
         
         $users = User::findAll();
         $payments = Payment::findAll();
+        $events = Event::findPriceds();
 
-        $data = compact('user', 'users', 'payments');
+        $data = compact('user', 'events', 'users', 'payments');
         
         View::render('layout/header', $data);
         View::render('payment/index', $data);
@@ -34,20 +36,11 @@ class PaymentController {
 
         $users = User::findAll();
         $total_paid = Payment::getTotalPaid();			
-        $users_paid_total = 0;
-        $users_nonpaid_total = 0;
-        $users_insiders = 0;
-        $users_outsiders = 0;
+        $users_paid_total = count(User::findPaying());
+        $users_nonpaid_total = count(User::findNonPaying());
+        $users_insiders = count(User::findInsiders());
+        $users_outsiders = count(User::findOutsiders());
         $users_total = count($users);
-
-        /* I`m not using $user because it will overwrite the $user variable above */
-        foreach($users as $user_item) {
-            if ($user_item->isInternal()) {
-                $users_insiders++;
-            } else {
-                $users_outsiders++;
-            }
-        }
         
         $data = compact('user', 'users', 'total_paid', 'users_paid_total', 'users_nonpaid_total', 'users_insiders', 'users_outsiders', 'users_total');
         
@@ -69,13 +62,9 @@ class PaymentController {
         $payment->setAttr('date', time());
         $payment->setAttr('comment', @$_POST['comment']);
         $payment->setAttr('fk_user', @$_POST['fk_user']);
+        $payment->setAttr('type', @$_POST['type']);
+        $payment->setAttr('fk_event', @$_POST['fk_event']);
         $payment->save();
-        
-        // if ($aData['createdOrUpdated']) {
-        //     $user 	= User::getById($_REQUEST['fk_user']);
-        //     $aHeaders = 'From: sac@cc.uffs.edu.br' . "\r\n" . 'Reply-To: cacomputacaouffs@gmail.com';
-        //     mail($user->email, 'Pagamento validado - Semana Academica CC UFFS', "Olá\n\nSeu pagamento de R$ ".sprintf('%.2f', $_REQUEST['amount'])." foi validado pela organização.\n\nAtenciosamente,\nOrganização 3ª Semana Acadêmica da Computaçao - UFFS");
-        // }
 
         return $response
             ->withHeader('Location', UtilsHelper::base_url("/admin/pagamento"))

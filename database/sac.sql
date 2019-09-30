@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 21, 2019 at 05:15 AM
+-- Generation Time: Sep 30, 2019 at 05:44 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.8
 
@@ -80,11 +80,14 @@ CREATE TABLE `event` (
 
 CREATE TABLE `payment` (
   `id` int(10) UNSIGNED NOT NULL,
-  `fk_user` int(10) UNSIGNED NOT NULL,
+  `fk_user` int(10) UNSIGNED DEFAULT NULL,
+  `cpf` varchar(20) DEFAULT NULL,
   `date` int(11) NOT NULL,
   `amount` float NOT NULL DEFAULT 0,
   `status` int(11) NOT NULL DEFAULT 0,
-  `comment` varchar(255) NOT NULL
+  `comment` varchar(255) NOT NULL,
+  `type` enum('subscription','event') DEFAULT NULL,
+  `fk_event` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -161,7 +164,8 @@ ALTER TABLE `event`
 ALTER TABLE `payment`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_user` (`fk_user`),
-  ADD KEY `status` (`status`);
+  ADD KEY `status` (`status`),
+  ADD KEY `fk_event` (`fk_event`);
 
 --
 -- Indexes for table `payment_log`
@@ -233,7 +237,8 @@ ALTER TABLE `users`
 -- Constraints for table `payment`
 --
 ALTER TABLE `payment`
-  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`fk_user`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`fk_user`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `payment_ibfk_2` FOREIGN KEY (`fk_event`) REFERENCES `event` (`id`);
 
 --
 -- Constraints for table `teams`

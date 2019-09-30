@@ -18,4 +18,25 @@
             })
         })
     })
+
+    document.querySelectorAll('[payment-select-type]').forEach(function (actionEl) {
+        actionEl.addEventListener('change', function() {
+            document.querySelectorAll('[payment-show-type]').forEach(function (el) {
+                el.classList.add('hidden')
+            })
+            document.querySelectorAll('[payment-input-type]').forEach(function (el) {
+                el.removeAttribute('name');
+            })
+            document.querySelectorAll('[payment-show-type='+actionEl.value+']').forEach(function(el) {
+                el.classList.remove('hidden')
+            })
+            document.querySelectorAll('[payment-input-type='+actionEl.value+']').forEach(function(el) {
+                el.setAttribute('name', el.getAttribute('data-name'));
+            })
+        })
+    })
+    document.querySelectorAll('[payment-input-type]').forEach(function (el) {
+        el.setAttribute('data-name', el.getAttribute('name'))
+        el.removeAttribute('name');
+    })
 })()
