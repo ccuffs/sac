@@ -114,7 +114,7 @@ use App\Helpers\UtilsHelper;
 									<?php endif; ?>
 									<td><?= date('d/m/Y', $payment->date) ?></td>
 									<td><?= $payment->comment ?></td>
-									<td>R$ <?= sprintf('%.2f', $payment->amount) ?></td>
+									<td>R$ <?= str_replace('.',',', sprintf('%.2f', $payment->amount)) ?></td>
 									<td><a href="<?= UtilsHelper::base_url("/admin/pagamento/{$payment->id}/delete") ?>" title="Apagar pagamento"><i class="fa fa-trash-o"></i></a></td>
 								</tr>
                             <?php endforeach; ?>
