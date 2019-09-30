@@ -51,17 +51,17 @@ class Payment extends Model {
         return SELF::$total_paid;
     }
     
-    public static function findByUser($theUserId) {
-        $aRet = array();
-        $aQuery = SELF::conn()->prepare("SELECT * FROM payment WHERE fk_user = ?");
+    public static function findByUser($user) {
+        $query = SELF::conn()->prepare("SELECT * FROM payment WHERE fk_user = ? or cpf = ?");
         
-        if ($aQuery->execute(array($theUserId))) {
-            while ($aRow = $aQuery->fetch()) {
-                $aRet[$aRow['id']] = $aRow;
+        $list = [];
+        if ($query->execute([$user->id, $user->cpf])) {
+            while ($data = $query->fetch()) {
+                $list[] = SELF::newByData($data);
             }
         }
         
-        return $aRet;
+        return $list;
     }
 
     public static function findById ($id) {
@@ -193,6 +193,7 @@ class Payment extends Model {
         $payment->amount = $data->amount;
         $payment->status = $data->status;
         $payment->comment = $data->comment;
+        $payment->type = $data->type;
         return $payment;
     }
 
@@ -206,6 +207,7 @@ class Payment extends Model {
         $payment->amount = $data->amount;
         $payment->status = $data->status;
         $payment->comment = $data->comment;
+        $payment->type = $data->type;
         $payment->user = User::newByData(array_merge((array) $data, ['id' => $data->fk_user]));
         return $payment;
     }

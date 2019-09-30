@@ -17,9 +17,9 @@ class UserController {
 
         $userAuth = AuthHelper::getAuthenticatedUser();
 
-        View::render('layout/header', array('user' => $userAuth));
+        View::render('layout/admin/header', array('user' => $userAuth));
         View::render('auth/users', $users);
-        View::render('layout/footer');
+        View::render('layout/admin/footer');
 
         return $response;
     }

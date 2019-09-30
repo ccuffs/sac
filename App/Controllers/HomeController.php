@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Subscription;
 use App\Helpers\AuthHelper;
 use App\Helpers\UtilsHelper;
+use App\Helpers\View;
 
 class HomeController {
     public function home ($request, $response, $args) {
@@ -38,7 +39,9 @@ class HomeController {
             $data['isAdmin'] = $user->isLevel(User::USER_LEVEL_ADMIN);
         }
         
-        \App\Helpers\View::render('home', $data);
+        View::render('layout/website/header', $data);
+        View::render('home', $data);
+        View::render('layout/website/footer', $data);
         return $response;
     }
 }

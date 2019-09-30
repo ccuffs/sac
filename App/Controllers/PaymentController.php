@@ -24,9 +24,9 @@ class PaymentController {
 
         $data = compact('user', 'events', 'users', 'payments');
         
-        View::render('layout/header', $data);
+        View::render('layout/admin/header', $data);
         View::render('payment/index', $data);
-        View::render('layout/footer', $data);
+        View::render('layout/admin/footer', $data);
         return $response;
     }
 
@@ -44,9 +44,9 @@ class PaymentController {
         
         $data = compact('user', 'users', 'total_paid', 'users_paid_total', 'users_nonpaid_total', 'users_insiders', 'users_outsiders', 'users_total');
         
-        View::render('layout/header', $data);
+        View::render('layout/admin/header', $data);
         View::render('payment/stats', $data);
-        View::render('layout/footer', $data);
+        View::render('layout/admin/footer', $data);
         return $response;
     }
 

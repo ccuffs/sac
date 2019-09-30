@@ -14,7 +14,10 @@ class AuthController {
     }
 
     public function loginForm ($request, $response, $args) {
+
+        View::render('layout/website/header');
         View::render('login');
+        View::render('layout/website/footer');
         return  $response;
     }
 
@@ -23,11 +26,11 @@ class AuthController {
         $aHasAccount 	= false;
         
         if (!isset($_POST['user'], $_POST['password'])) {
-            View::render('layout/header', $data);
+            View::render('layout/admin/header', $data);
             View::render('auth/login', array(
                 'loginError' => true
             ));
-            View::render('layout/footer', $data);
+            View::render('layout/admin/footer', $data);
             return $response;
         }
 
@@ -36,11 +39,11 @@ class AuthController {
         $user = AuthHelper::loginUsingPortal($username, $_POST['password']);
 
         if (!$user) {
-            View::render('layout/header', $data);
+            View::render('layout/admin/header', $data);
             View::render('auth/login', array(
                 'loginError' => true
             ));
-			View::render('layout/footer', $data);
+			View::render('layout/admin/footer', $data);
             return $response;
         }
 
@@ -50,6 +53,16 @@ class AuthController {
         return $response
             ->withHeader('Location', $request->getUri() . "/..")
             ->withStatus(302);
+    }
+
+    public function profile () {
+        $user = AuthHelper::getAuthenticatedUser();
+
+        $data = compact('user');
+
+        View::render('layout/website/header', $data);
+        View::render('auth/profile', $data);
+        View::render('layout/website/footer', $data);
     }
 
     public function subscriptionForm ($request, $response, $args) {

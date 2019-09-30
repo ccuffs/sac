@@ -17,6 +17,7 @@ class User extends Model {
     public $email;
     public $type;
     private $total_paid;
+    private $payments;
 
     public static function getById($theUserId) {
         $user = null;
@@ -110,6 +111,10 @@ class User extends Model {
         return SELF::getInstancesByQuery("SELECT * from users
             where type = ".User::USER_LEVEL_EXTERNAL ."
         ");
+    }
+
+    public function getPayments () {
+        return Payment::findByUser($this);
     }
 
     public function isLevel($theLevel) {
