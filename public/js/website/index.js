@@ -41,3 +41,17 @@ window.onscroll = function(event) {
         }
     }
 }
+
+let idName = document.querySelector("#idName");
+
+if (idName != null){
+    idName.addEventListener('keyup', function(){
+        let intValue = parseInt(this.value);
+    
+        if (!isNaN(intValue)){
+            $(this).mask('000.000.000-00');
+        }
+        else
+            $(this).unmask();
+    });
+}

@@ -111,5 +111,8 @@ use App\Helpers\UtilsHelper;
         </div>
     </form>
     </div>
+    <script text="text/javascript">
+        SAC.addMasks();
+    </script>
 
 </div>

@@ -1,4 +1,6 @@
 var SAC = new function() {
+	
+	
 	var changeAttending = function(theEventId, theAction) {
 		$('#panel-event-' + theEventId).html('<i class="fa fa-circle-o-notch fa-spin"></i>');
 
@@ -81,10 +83,6 @@ var SAC = new function() {
 			let card = e.currentTarget.offsetParent.lastElementChild;
 			let permission = $(this).val();
 			let userId = $(e.currentTarget.offsetParent.children[0].children[0]).val();
-			
-			let colorClass = $(card).attr('class');
-			removeColorClass(colorClass, card);
-			$(card).addClass(colorClasses[permission - 1]);
 
 			$.ajax({
 				type: 'POST',
@@ -93,13 +91,23 @@ var SAC = new function() {
 					'type' : permission
 				},
 				success : function(data, textStatus, request) {
-					toastr.success(request.getResponseHeader('message'));
+
+					let colorClass = $(card).attr('class');
+					removeColorClass(colorClass, card);
+					$(card).addClass(colorClasses[permission - 1]);
+					toastr.success(request.getResponseHeader('message'), {timeOut : 30, extendedTimeOut : 60});
+
 				},
 				error : function(request, textStatus, errorThrown) {
-					toastr.danger(request.getResponseHeader('message'));
+					toastr.danger(request.getResponseHeader('message'), {timeOut : 30, extendedTimeOut : 60});
 				}
 			});
 		});
-		
+	}
+
+	this.addMasks = function(){
+		$("input[name=amount]").mask('000.000.000.000.000,00', {reverse: true});
+		$("input[name=price]").mask('000.000.000.000.000,00', {reverse: true});
+		$("input[name=cpf]").mask('000.000.000-00');
 	}
 };

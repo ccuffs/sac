@@ -35,11 +35,12 @@
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 		
 		<!-- Toastr -->
-		<link href="https://codeseven.github.io/toastr/build/toastr.min.css" type = "text/css" rel="stylesheet" />
+		<link href="https://codeseven.github.io/toastr/build/toastr.min.css" type="text/css" rel="stylesheet" />
 		<script>
 			var BASE_URL = "<?= BASE_URL ?>"
 		</script>
 		<script src="<?= UtilsHelper::base_url('/js/admin/jquery.js') ?>"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js" type="text/javascript"></script>
 		<script src="https://codeseven.github.io/toastr/build/toastr.min.js" type="text/javascript"></script>
 		<script src="<?= UtilsHelper::base_url('/js/admin/bootstrap.js') ?>"></script>
 		<script src="<?= UtilsHelper::base_url('/js/admin/sac.js') ?>"></script>

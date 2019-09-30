@@ -68,8 +68,6 @@ use App\Helpers\UtilsHelper;
       </nav>
     </div>
   </header>
-    
-
     <div class="main">
         <div class="container">
             <div class="row justify-content-center">
@@ -116,6 +114,7 @@ use App\Helpers\UtilsHelper;
         </div>
     </div>
     <script src="<?= UtilsHelper::base_url("/js/website/index.js") ?>"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js" type="text/javascript"></script>
 </body>
 
 </html>

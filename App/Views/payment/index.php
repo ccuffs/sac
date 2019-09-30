@@ -128,3 +128,6 @@ use App\Helpers\UtilsHelper;
 </div>
 
 <script src="<?= UtilsHelper::base_url("/js/admin/payment.js") ?>"></script>
+<script text="text/javascript">
+	SAC.addMasks();
+</script>
