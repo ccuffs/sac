@@ -15,6 +15,13 @@ class AuthController {
     }
 
     public function loginForm ($request, $response, $args) {
+        $user = AuthHelper::getAuthenticatedUser();
+
+        if ($user) {
+            return $response
+                ->withHeader('Location', UtilsHelper::base_url("/perfil"))
+                ->withStatus(302);  
+        }
 
         View::render('layout/website/header');
         View::render('login');
@@ -58,6 +65,12 @@ class AuthController {
 
     public function profile ($request, $response, $args) {
         $user = AuthHelper::getAuthenticatedUser();
+
+        if (!$user) {
+            return $response
+            ->withHeader('Location', UtilsHelper::base_url("/login"))
+            ->withStatus(302);  
+        }
 
         $data = compact('user');
 
