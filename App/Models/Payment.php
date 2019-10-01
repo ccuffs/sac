@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Event;
 use App\Helpers\DatabaseHelper;
+use App\Helpers\UtilsHelper;
 
 class Payment extends Model {
     protected $table = "payment";
@@ -65,7 +66,7 @@ class Payment extends Model {
 
     public static function findById ($id) {
         $sql = "SELECT *, p.id as id FROM payment AS p
-            INNER JOIN users AS u ON p.fk_user = u.id
+            LEFT JOIN users AS u ON p.fk_user = u.id OR u.cpf = p.cpf
             WHERE p.id = :id
         ";
         $query = SELF::conn()->prepare($sql);
@@ -133,7 +134,7 @@ class Payment extends Model {
         $query = SELF::conn()->prepare($sql);
 
         $query->bindParam('fk_user', $this->fk_user);
-        $query->bindParam('cpf', $this->cpf);
+        $query->bindParam('cpf', UtilsHelper::getOnlyNumbers($this->cpf));
         $query->bindParam('amount', $this->amount);
         $query->bindParam('comment', $this->comment);
         $query->bindParam('date', $this->date);
