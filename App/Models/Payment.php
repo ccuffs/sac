@@ -52,7 +52,9 @@ class Payment extends Model {
     }
     
     public static function findByUser($user) {
-        $query = SELF::conn()->prepare("SELECT * FROM payment WHERE fk_user = ? or cpf = ?");
+        $query = SELF::conn()->prepare("SELECT * FROM payment
+            WHERE fk_user = ? or cpf = ?
+        ");
         
         $list = [];
         if ($query->execute([$user->id, $user->cpf])) {

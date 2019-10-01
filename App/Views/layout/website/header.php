@@ -1,5 +1,8 @@
 <?php
 use App\Helpers\UtilsHelper;
+use App\Helpers\AuthHelper;
+
+$_user = AuthHelper::getAuthenticatedUser();
 ?>
 
 <!doctype html>
@@ -50,7 +53,11 @@ use App\Helpers\UtilsHelper;
               <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#about")?>">Sobre</a>
               <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#speakers")?>">Palestrantes</a>
               <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#programming")?>">Programação</a>
+              <?php if ($_user): ?>
+              <a class="navbar__archor" href="<?= UtilsHelper::base_url("/perfil")?>">Perfil</a>
+              <?php else: ?>
               <a class="navbar__archor" href="<?= UtilsHelper::base_url("/login")?>">Inscrições</a>
+              <?php endif; ?>
             </nav>
           </div>
           <div class="col text-right d-block d-md-none">
@@ -66,7 +73,11 @@ use App\Helpers\UtilsHelper;
         <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#about")?>">Sobre</a>
         <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#speakers")?>">Palestrantes</a>
         <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#programming")?>">Programação</a>
+        <?php if ($_user): ?>
+        <a class="navbar__archor" href="<?= UtilsHelper::base_url("/perfil")?>">Perfil</a>
+        <?php else: ?>
         <a class="navbar__archor" href="<?= UtilsHelper::base_url("/login")?>">Inscrições</a>
+        <?php endif; ?>
       </nav>
     </div>
   </header>
