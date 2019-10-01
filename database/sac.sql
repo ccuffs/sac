@@ -135,6 +135,18 @@ CREATE TABLE `users` (
   `registration` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+---
+--- Table structure for table `speakers`
+---
+
+create table speakers (
+    `id` int NOT NULL,
+	  `name` varchar(100),
+    `description` text,
+    `img_path` varchar(255),
+    PRIMARY KEY (`id`)
+)
+
 --
 -- Indexes for dumped tables
 --
