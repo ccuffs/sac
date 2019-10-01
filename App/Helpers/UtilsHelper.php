@@ -53,6 +53,10 @@ class UtilsHelper {
         return str_replace('R$', '', str_replace(',', '.', $money));
 	}
 	
+	public function format_money_view($money) {
+		return 'R$ ' . str_replace('.', ',', sprintf("%.2f", $money));
+	}
+
 	public function format_cpf($cpf) {
 		return str_replace('-', '', str_replace('.','',$cpf));
 	}
