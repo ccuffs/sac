@@ -7,7 +7,22 @@ use Slim\Factory\AppFactory;
 $app = AppFactory::create();
 
 $app->addRoutingMiddleware();
+
+$customErrorHandler = function ($request, $exception, $displayErrorDetails, $logErrors, $logErrorDetails)
+use ($app)
+{
+    $payload = [
+        'error' => $exception->getMessage(),
+        'code' => $exception->getCode()
+    ];
+    $response = $app->getResponseFactory()->createResponse();
+    \App\Controllers\ErrorController::notFound($request, $response, []);
+
+    return $response;
+};
+
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
+$errorMiddleware->setDefaultErrorHandler($customErrorHandler);
 
 $app->setBasePath('/sac');
 
