@@ -56,8 +56,8 @@ class PaymentController {
         $user = AuthHelper::getAuthenticatedUser();
 
         $payment = new Payment();
-        $payment->setAttr('amount', str_replace(',','.',@$_POST['amount']));
-        $payment->setAttr('cpf', @$_POST['cpf']);
+        $payment->setAttr('amount', @UtilsHelper::format_money(@$_POST['amount']));
+        $payment->setAttr('cpf', @UtilsHelper::format_cpf(@$_POST['cpf']));
         $payment->setAttr('status', Payment::PAYMENT_CONFIRMED);
         $payment->setAttr('date', time());
         $payment->setAttr('comment', @$_POST['comment']);

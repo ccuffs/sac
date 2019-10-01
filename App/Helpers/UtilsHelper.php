@@ -25,16 +25,20 @@ class UtilsHelper {
 		$aDay = date('N', mktime(0, 0, 0, $theMonth, $theDay, date('Y')));
 		
 		$aWeek = array(
-			1 => 'segunda-feira',
-			2 => 'terça-feira',
-			3 => 'quarta-feira',
-			4 => 'quinta-feira',
-			5 => 'sexta-feira',
-			6 => 'sábado',
-			7 => 'domingo'
+			1 => 'Segunda',
+			2 => 'Terça',
+			3 => 'Quarta',
+			4 => 'Quinta',
+			5 => 'Sexta',
+			6 => 'Sábado',
+			7 => 'Domingo'
 		);
 		return isset($aWeek[$aDay]) ? $aWeek[$aDay] : '?';
 	}
+
+	/*public static function getWeekDay($date) {
+		return date('w', strtotime($date));
+	}*/
 	
 	public static function out($theScript) {
 		return htmlspecialchars($theScript, ENT_QUOTES, "UTF-8");
@@ -43,6 +47,23 @@ class UtilsHelper {
 	public static function base_url($url = "") {
 		/* TODO: Config this */
 		return BASE_URL . $url;
+	}
+
+	public function format_money($money){
+        return str_replace('R$', '', str_replace(',', '.', $money));
+	}
+	
+	public function format_cpf($cpf) {
+		return str_replace('-', '', str_replace('.','',$cpf));
+	}
+
+	function mask($mask, $content){
+	
+		for($i=0;$i<strlen($content);$i++){
+			$mask[strpos($mask,"#")] = $content[$i];
+		}
+		return $mask;
+	
 	}
 }
 

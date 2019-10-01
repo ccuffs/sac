@@ -186,54 +186,44 @@ use App\Helpers\UtilsHelper;
     <div class="container">
       <h2 class="programming__title title" scroll-sensitive="animate-top-down">Programação</h2>
 
-      <div class="programming-item">
-        <div class="row">
-          <div class="col-12 col-lg-6">
-            <div class="programming-item__day" scroll-sensitive="animate-left-right">Segunda, 07 de Outubro</div>
-          </div>
-          <div class="col-12 col-lg-6">
-            <div class="">
-              <div class="lecture" scroll-sensitive="animate-right-left">
-                <div class="lecture__time">
-                  13:30<br>
-                  14:20
-                </div>
-                <div class="lecture__details">
-                  <span class="lecture__title">
-                    Titulo Palestra/Evento
-                  </span><br>
-                  <span class="lecture__speaker">Nome Pastrante(UFFS-Chapecó)</span>
-                </div>
+      
+      <!--
+        <?= print_r($data['events']) ?>
+        <?= print_r($data['events']['5 de Maio (domingo)'])?>
+      <?=  $data['events'][0]; ?>
+      -->
+      <?php foreach ($data['events'] as $week_day): ?>
+          <?php $event_head = reset($week_day) ?>
+          <div class="programming-item">
+            <div class="row">
+              <div class="col-12 col-lg-6">
+                <div class="programming-item__day" scroll-sensitive="animate-left-right"><?= UtilsHelper::weekDayToString($event_head->day, $event_head->month) .', '. (strlen($event_head->day) == 1 ? '0'.$event_head->day : $event_head->day) . ' de ' . UtilsHelper::monthToString($event_head->month)?></div>
               </div>
-              <div class="lecture" scroll-sensitive="animate-right-left-2">
-                  <div class="lecture__time">
-                    13:30<br>
-                    14:20
-                  </div>
-                  <div class="lecture__details ">
-                    <span class="lecture__title">
-                      Titulo Palestra/Evento
-                    </span><br>
-                    <span class="lecture__speaker">Nome Pastrante(UFFS-Chapecó)</span>
-                  </div>
+
+              <div class="col-12 col-lg-6">
+                  <?php foreach ($week_day as $day): ?>
+                    
+                    <div class="lecture" scroll-sensitive="animate-right-left">
+                      <div class="lecture__time">
+                        <?= $day->time ?>
+                      </div>
+                      <div class="lecture__details">
+                        <span class="lecture__title">
+                          <?= $day->title ?>
+                        </span><br>
+                        <span class="lecture__speaker"><?= isset($day->speaker) ? $day->speaker : 'Fausto Silva' ?></span><br>
+                        <span> Horário: <?= $day->time ?></span><br>
+                        <span> Local: <?= $day->place ?></span>
+                      </div>
+                    </div>
+                  <?php endforeach;?>
               </div>
-              <div class="lecture" scroll-sensitive="animate-right-left-3">
-                  <div class="lecture__time">
-                    13:30<br>
-                    14:20
-                  </div>
-                  <div class="lecture__details ">
-                    <span class="lecture__title">
-                      Titulo Palestra/Evento
-                    </span><br>
-                    <span class="lecture__speaker">Nome Pastrante(UFFS-Chapecó)</span>
-                  </div>
-              </div>
+
             </div>
           </div>
-        </div>
-      </div>
-      <div class="programming-item">
+        <?php endforeach; ?>
+
+      <!-- <div class="programming-item">
         <div class="row">
           <div class="col-12 col-lg-6">
             <div class="programming-item__day" scroll-sensitive="animate-left-right">Terça 08 de Outubro</div>
@@ -325,7 +315,7 @@ use App\Helpers\UtilsHelper;
               </div>
             </div>
           </div>
-        </div>
+        </div>-->
 </section>
 
   <script src="<?= UtilsHelper::base_url("/js/website/index.js") ?>"></script>
