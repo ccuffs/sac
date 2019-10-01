@@ -222,7 +222,7 @@ use App\Helpers\UtilsHelper;
                         <span> <?= $event->place ?></span> <br>
 
                         <span class="event__strong"> Custo: </span>
-                        <span> <?= UtilsHelper::format_money_view($event->price) ?></span>
+                        <span> <?= $event->price > 0 ? UtilsHelper::format_money_view($event->price) : 'Gratuito'?></span>
 
                       </div>
                     </div>
