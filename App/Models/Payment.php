@@ -19,6 +19,7 @@ class Payment extends Model {
     public $type;
     public $fk_user;
     public $fk_event;
+    private $event;
     private static $total_paid;
 
     const PAYMENT_CONFIRMED = 3;
@@ -81,6 +82,12 @@ class Payment extends Model {
         }
         
         return $payment;
+    }
+
+    public function getEvent() {
+        if ($this->event || !$this->fk_event) return $this->event;
+        $this->event = Event::findById($this->fk_event);
+        return $this->event;
     }
     
     public static function findAll() {
@@ -190,6 +197,7 @@ class Payment extends Model {
         $payment = new SELF();
         $payment->id = $data->id;
         $payment->fk_user = $data->fk_user;
+        $payment->fk_event = $data->fk_event;
         $payment->cpf = $data->cpf;
         $payment->date = $data->date;
         $payment->amount = $data->amount;
@@ -204,6 +212,7 @@ class Payment extends Model {
         $payment = new SELF();
         $payment->id = $data->id;
         $payment->fk_user = $data->fk_user;
+        $payment->fk_event = $data->fk_event;
         $payment->cpf = $data->cpf;
         $payment->date = $data->date;
         $payment->amount = $data->amount;

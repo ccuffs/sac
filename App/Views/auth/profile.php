@@ -1,5 +1,7 @@
 <?php
 use App\Helpers\UtilsHelper;
+use App\Models\Event;
+use App\Models\Payment;
 ?>
 
 <div class="profile">
@@ -42,7 +44,7 @@ use App\Helpers\UtilsHelper;
                         $message = "Inscrição no evento aprovada!";
                         break;
                     case 'event':
-                        $message = "Inscrição na atividade"; 
+                        $message = "Inscrição na atividade <b>" . $payment->getEvent()->title . "</b>"; 
                         break;
                     ?>
                     <?php endswitch; ?> 
