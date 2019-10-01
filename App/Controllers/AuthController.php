@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Helpers\View;
 use App\Helpers\AuthHelper;
+use App\Helpers\UtilsHelper;
 
 class AuthController {
     public function logout ($request, $response, $args) {
@@ -51,11 +52,11 @@ class AuthController {
         $_SESSION['request_uri'] = $request->getUri();
 
         return $response
-            ->withHeader('Location', $request->getUri() . "/..")
-            ->withStatus(302);
+            ->withHeader('Location', UtilsHelper::base_url("/perfil"))
+            ->withStatus(302);  
     }
 
-    public function profile () {
+    public function profile ($request, $response, $args) {
         $user = AuthHelper::getAuthenticatedUser();
 
         $data = compact('user');
@@ -63,6 +64,7 @@ class AuthController {
         View::render('layout/website/header', $data);
         View::render('auth/profile', $data);
         View::render('layout/website/footer', $data);
+        return $response;
     }
 
     public function subscriptionForm ($request, $response, $args) {
