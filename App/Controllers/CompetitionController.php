@@ -18,9 +18,9 @@ class CompetitionController {
             'events' => Competition::findAll()
         ];
 
-        View::render('layout/header', $data);
+        View::render('layout/admin/header', $data);
         View::render('competition/index', $data);
-        View::render('layout/footer', $data);
+        View::render('layout/admin/footer', $data);
 
         return $response;
     }
@@ -41,9 +41,9 @@ class CompetitionController {
 
         $data = compact(['user', 'competitions', 'title']);
 
-        View::render('layout/header', $data);
+        View::render('layout/admin/header', $data);
         View::render('competition/create', $data);
-        View::render('layout/footer', $data);
+        View::render('layout/admin/footer', $data);
         return $response;
     }
 
@@ -77,9 +77,9 @@ class CompetitionController {
 
         $data = compact(['user', 'competition']);
 
-        View::render('layout/header', $data);
+        View::render('layout/admin/header', $data);
         View::render('competition/show', $data);
-        View::render('layout/footer', $data);
+        View::render('layout/admin/footer', $data);
 
         return $response;
     }
@@ -93,9 +93,9 @@ class CompetitionController {
 
         $data = compact(['user', 'competition']);
 
-        View::render('layout/header', $data);
+        View::render('layout/admin/header', $data);
         View::render('competition/edit', $data);
-        View::render('layout/footer', $data);
+        View::render('layout/admin/footer', $data);
 
         return $response;
     }

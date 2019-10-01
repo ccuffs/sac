@@ -6,9 +6,9 @@ use App\Helpers\View;
 
 class ErrorController {
     function notFound ($request, $response, $args) {
-        View::render('layout/header');
+        View::render('layout/website/header');
         View::render('errors/404');
-        View::render('layout/footer');
+        View::render('layout/website/footer');
         return $response;
     }
 }
