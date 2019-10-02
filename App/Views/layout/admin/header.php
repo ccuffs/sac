@@ -41,6 +41,7 @@
 		</script>
 		<script src="<?= UtilsHelper::base_url('/js/admin/jquery.js') ?>"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js" type="text/javascript"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js" type="text/javascript"></script>
 		<script src="https://codeseven.github.io/toastr/build/toastr.min.js" type="text/javascript"></script>
 		<script src="<?= UtilsHelper::base_url('/js/admin/bootstrap.js') ?>"></script>
 		<script src="<?= UtilsHelper::base_url('/js/admin/sac.js') ?>"></script>

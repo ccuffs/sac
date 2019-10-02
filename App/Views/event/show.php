@@ -25,7 +25,7 @@ use App\Helpers\UtilsHelper;
             <p><b>Data:</b> <?= $event->day ?>/<?= $event->month ?></p>
             <p><b>Horário:</b> <?= $event->time ?></p>
             <p><b>Local:</b> <?= $event->place ?></p>
-            <p><b>Preço:</b> R$<?= str_replace('.', ',', $event->price) ?></p>
+            <p><b>Preço:</b> R$ <?=' '.str_replace('.',',', sprintf('%.2f', $event->price, 2)); ?></p>
             <p><b>Capacidade: </b> <?= $event->capacity ?></p>
             <p><b>Fantasma: </b> <?= $event->ghost ? "Sim" : "Não" ?></p>
             <p><b>Descrição:</b> <?= $event->description ?></p>
