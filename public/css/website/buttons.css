@@ -33,11 +33,11 @@
 
 .btn--primary{
     background-color:#00693E;
-    color:#FFF !important; 
+    color:#FFF;   
 }
 
 .btn--secondary{
-    background-color: #6D6D6D;
+    background-color:#1F344E;
     color: #FFF;
 }
 
@@ -49,5 +49,5 @@
 .btn--ghost{
     background-color:transparent;
     border:1px solid #4CAF50;
-    color:#FFF;
+    color:#1f344e;
 }

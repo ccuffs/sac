@@ -1,3 +1,7 @@
+<?php
+use App\Helpers\UtilsHelper;
+?>
+
 <section class="intro" id="intro">
   <div class="intro__content">
     <div class="container">
@@ -10,38 +14,44 @@
 
 <section class="about section" id="about">
   <div class="container">
-    <div class="row justify-content-between">
-      <div class="col-12 col-md-5" scroll-sensitive="animate-left-right">
-        <h2 class="about__title title">O que é SACC?</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a velit accumsan, condimentum libero eu,
-          vestibulum tellus. Sed nulla leo, varius a fringilla in, fringilla id arcu. In hac habitasse platea
-          dictumst. Vivamus nec augue vitae turpis varius ultricies in at mauris. Mauris in elementum enim. Fusce eget
-          faucibus dui. Nunc quis semper ex.</p>
-      </div>
-      <div class="col-12 col-md-6">
+    <div class="row justify-content-between flex-md-row-reverse">
+      <div class="col-12 col-md-6 col-lg-5">
+        <div class="about-item--redirect animate-right-left" scroll-sensitive="animate-left-right">
+          <div class="ticket-wrapper d-flex flex-column">
+            <div class="ticket-wrapper__title" scroll-sensitive="animate-left-right">
+              <img src="<?= UtilsHelper::base_url("/img/icon-ticket.png") ?>" alt="Tickey">
+              <h2 class="about__title">Inscreva-se</h2>
+            </div>
+            <div class="ticket-wrapper__buttons "scroll-sensitive="animate-right-left-3">
+              <a href="<?= UtilsHelper::base_url("/login") ?>" class="btn btn--secondary">Estudante UFFS</a>
+              <!-- <button class="btn btn--primary">Visitante</button> -->
+            </div>
+          </div>
+        </div>
+      </div>  
+      <div class="col-12 col-md-6" scroll-sensitive="animate-left-right">
+        <div class="about-item" scroll-sensitive="animate-right-left">
+          <h2 class="about__title title">O que é SACC?</h2>
+          <p>A semana acadêmica do curso de Ciência da computação é um momento de troca de conhecimentos proporcionado
+          por docentes e discentes, no qual há uma semana de palestras e minicursos, relacionados à tecnologia.</p>
+        </div>
         <div class="about-item" scroll-sensitive="animate-right-left">
           <h3 class="about-item__title title">Por quê ir?</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a velit accumsan, condimentum libero eu,
-            vestibulum tellus. Sed nulla leo, varius a fringilla in, fringilla id arcu. In hac habitasse platea
-            dictumst. Mauris in elementum enim. Nunc quis semper ex.</p>
-        </div>
-        <div class="about-item" scroll-sensitive="animate-right-left-2">
-          <h3 class="about-item__title title">Objetivo</h3>
-          <p>Lorem ipsum dolor sit amet, elit. Aliquam a velit accumsan, condimentum libero eu, vestibulum tellus. Sed
-            nulla leo, varius a fringilla in, fringilla id arcu. In hac habitasse platea dictumst. Vitae turpis varius
-            ultricies in at mauris. Fusce eget faucibus dui. Nunc quis semper ex.</p>
-        </div>
-        <div class="about-item" scroll-sensitive="animate-right-left-3">
-          <h3 class="about-item__title title">Para quem?</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a velit accumsan, vestibulum tellus.
-            Vivamus rarius ultricies in at mauris. Mauris in elementum enim. Fusce eget faucibus dui. Nunc quis semper
-            ex.</p>
+          <p>A SACC busca oferecer, aos alunos e ao público em geral, a oportunidade de conviver e interagir com
+            diversas áreas da computação, por meio de palestras, mesas-redondas e workshops é também uma
+            oportunidade
+            de alunos apresentarem pesquisas,interagirem e compartilharem seus conhecimentos com outras pessoas.</p>
+          </div>
+          <div class="about-item" scroll-sensitive="animate-right-left-3">
+            <h3 class="about-item__title title">Para quem?</h3>
+            <p> O evento é aberto para todos os interessados por tecnologia.</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-
+    
 <section class="speakers section" id="speakers">
   <div class="container">
     <h2 class="speakers__title title" scroll-sensitive="animate-top-down">Palestrantes</h2>
