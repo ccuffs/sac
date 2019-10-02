@@ -130,7 +130,7 @@ use App\Helpers\UtilsHelper;
 									<?php else: ?>
 									<td>-</td>
 									<td>-</td>
-									<td><?= $payment->cpf ?></td>
+									<td><?= UtilsHelper::mask("###.###.###-##", $payment->cpf) ?></td>
 									<?php endif; ?>
 									<td><?= date('d/m/Y', $payment->date) ?></td>
 									<td><?= $payment->comment ?></td>

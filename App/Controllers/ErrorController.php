@@ -11,4 +11,10 @@ class ErrorController {
         View::render('layout/website/footer');
         return $response;
     }
+
+    function generic ($request, $response, $args) {
+        $payload = $args[0];
+        View::render('errors/generic', $payload);
+        return $response;
+    }
 }

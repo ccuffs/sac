@@ -12,12 +12,17 @@ $customErrorHandler = function ($request, $exception, $displayErrorDetails, $log
 use ($app)
 {
     $payload = [
-        'error' => $exception->getMessage(),
+        'message' => $exception->getMessage(),
+        'trace' => $exception->getTrace(),
         'code' => $exception->getCode()
     ];
     $response = $app->getResponseFactory()->createResponse();
-    \App\Controllers\ErrorController::notFound($request, $response, []);
-
+    if ($payload['code'] == 404) {
+        \App\Controllers\ErrorController::notFound($request, $response, []);
+        return $response;
+    }
+    
+    \App\Controllers\ErrorController::generic($request, $response, [$payload]);
     return $response;
 };
 

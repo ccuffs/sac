@@ -75,7 +75,7 @@ class EventController {
         $event->setAttr('month', $body['month']);
         $event->setAttr('place', $body['place']);
         $event->setAttr('ghost', $body['ghost']);
-        $event->setAttr('price', str_replace(',', '.', $body['price']));
+        $event->setAttr('price', UtilsHelper::format_money($body['price']));
         $event->setAttr('capacity', $body['capacity']);
         $event->setAttr('waitingCapacity', $body['waiting_capacity']);
         $event->setAttr('fk_competition', $body['fk_competition']);
@@ -128,7 +128,7 @@ class EventController {
         $event->setAttr('month', $body['month']);
         $event->setAttr('place', $body['place']);
         $event->setAttr('ghost', $body['ghost']);
-        $event->setAttr('price', str_replace(',', '.', $body['price']));
+        $event->setAttr('price', UtilsHelper::format_money($body['price'])); 
         $event->setAttr('capacity', $body['capacity']);
         $event->setAttr('waitingCapacity', $body['waiting_capacity']);
         $event->setAttr('fk_competition', $body['fk_competition']);

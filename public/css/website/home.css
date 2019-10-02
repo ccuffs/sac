@@ -172,3 +172,8 @@
         margin-top: 0;
     }
 }
+
+.event__strong {
+    font-weight: 600;
+    color: #00693c; 
+}
