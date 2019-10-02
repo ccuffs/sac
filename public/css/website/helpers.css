@@ -1,0 +1,11 @@
+.wrapper {
+    padding-top: 80px;
+}
+
+.color-primary {
+    color: #00693E !important;
+}
+
+.title.title--lg {
+    font-size: 50px;
+}

@@ -36,9 +36,9 @@ class UtilsHelper {
 		return isset($aWeek[$aDay]) ? $aWeek[$aDay] : '?';
 	}
 
-	/*public static function getWeekDay($date) {
-		return date('w', strtotime($date));
-	}*/
+	public function getOnlyNumbers($text) {
+		return preg_replace("/[^0-9]/", "", $text);
+	}
 	
 	public static function out($theScript) {
 		return htmlspecialchars($theScript, ENT_QUOTES, "UTF-8");

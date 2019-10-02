@@ -7,7 +7,22 @@ use Slim\Factory\AppFactory;
 $app = AppFactory::create();
 
 $app->addRoutingMiddleware();
+
+$customErrorHandler = function ($request, $exception, $displayErrorDetails, $logErrors, $logErrorDetails)
+use ($app)
+{
+    $payload = [
+        'error' => $exception->getMessage(),
+        'code' => $exception->getCode()
+    ];
+    $response = $app->getResponseFactory()->createResponse();
+    \App\Controllers\ErrorController::notFound($request, $response, []);
+
+    return $response;
+};
+
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
+$errorMiddleware->setDefaultErrorHandler($customErrorHandler);
 
 $app->setBasePath('/sac');
 
@@ -20,6 +35,7 @@ $app->get('/login', 'App\Controllers\AuthController:loginForm');
 $app->get('/inscricao', 'App\Controllers\AuthController:subscriptionForm');
 $app->post('/login', 'App\Controllers\AuthController:login');
 $app->get('/logout', 'App\Controllers\AuthController:logout');
+$app->get('/perfil', 'App\Controllers\AuthController::profile');
 $app->get('/admin/permissoes', 'App\Controllers\UserController:index');
 $app->post('/admin/permissoes/{id}', 'App\Controllers\UserController:update');
 

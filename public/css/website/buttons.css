@@ -33,7 +33,7 @@
 
 .btn--primary{
     background-color:#00693E;
-    color:#FFF;   
+    color:#FFF !important; 
 }
 
 .btn--secondary{
