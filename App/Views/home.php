@@ -1,3 +1,7 @@
+<?php 
+use App\Helpers\UtilsHelper;
+?>
+
 <section class="intro" id="intro">
   <div class="intro__content">
     <div class="container">
