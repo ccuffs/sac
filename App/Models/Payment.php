@@ -9,13 +9,16 @@ class Payment extends Model {
     protected $table = "payment";
 
     public $id;
-    public $fk_user;
     public $cpf;
     public $date;
     public $amount;
     public $status;
     public $comment;
     public $user;
+    public $type;
+    public $fk_user;
+    public $fk_event;
+    private static $total_paid;
 
     const PAYMENT_CONFIRMED = 3;
     const PAYMENT_AVAILABLE = 4;
@@ -37,6 +40,14 @@ class Payment extends Model {
     
     public static function isBeingAnalyzed($thePaymentInfo) {
         return $thePaymentInfo == null || ($thePaymentInfo['status'] != 3 && $thePaymentInfo['status'] != 4);
+    }
+
+    public function getTotalPaid() {
+        if (isset(SELF::$total_paid)) return SELF::$total_paid;
+        $query = SELF::conn()->query("SELECT sum(amount) as total FROM payment");
+        $data = (object) $query->fetch();
+        SELF::$total_paid = (float) $data->total;
+        return SELF::$total_paid;
     }
     
     public static function findByUser($theUserId) {
@@ -116,8 +127,8 @@ class Payment extends Model {
     }
     
     public function create() {
-        $sql = "INSERT INTO payment (fk_user, cpf, amount , comment , date , status) VALUES
-                    (:fk_user, :cpf, :amount, :comment, :date, :status)";
+        $sql = "INSERT INTO payment (fk_user, cpf, amount , comment , date , status, type, fk_event ) VALUES
+                    (:fk_user, :cpf, :amount, :comment, :date, :status, :type, :fk_event)";
 
         $query = SELF::conn()->prepare($sql);
 
@@ -127,6 +138,8 @@ class Payment extends Model {
         $query->bindParam('comment', $this->comment);
         $query->bindParam('date', $this->date);
         $query->bindParam('status', $this->status);
+        $query->bindParam('type', $this->type);
+        $query->bindParam('fk_event', $this->fk_event);
 
         $result = $query->execute();
         if (!$result) return false;

@@ -1,6 +1,6 @@
 <?php
 
-@define('BASE_URL', "http://localhost:80/sac");
+@define('BASE_URL', "http://localhost/sac");
 
 // Database info
 @define('DB_DSN', 'mysql:host=localhost;dbname=sac;port=3307');

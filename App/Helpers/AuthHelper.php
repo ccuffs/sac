@@ -99,6 +99,10 @@ class AuthHelper {
 
 		if (User::isUsernameAvailable($user_data->username)) {
 			$user = SELF::getUserByData($user_data);
+
+			if(is_numeric($username[0])){
+				$user->cpf = str_replace(array('.', '-'),'', $username);
+			}
 			$user->save();
 			return $user;
 		}

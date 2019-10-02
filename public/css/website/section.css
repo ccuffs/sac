@@ -1,0 +1,145 @@
+.intro {
+    background-image: url(../../img/banner.jpg);
+    background-position: 55%;
+    height: 100vh;
+    font-size: 22px;
+    color: white;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.intro::before {
+    content: "";
+    display: block;
+    background-color: rgba(0, 105, 62, .6);
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+.intro__content {
+    z-index: 2;
+    text-align: center;
+}
+
+.intro__big-title {
+    font-size: 34px;
+}
+
+@media (min-width: 768px) {
+    .intro {
+        font-size: 30px;
+        background-position: center;
+    }
+
+    .intro__big-title {
+        font-size: 55px;
+    }
+}
+
+/* About */
+.about__title {
+    color: #1f344e;
+    font-size: 2.6rem;
+}
+
+.about-item {
+    margin: 2em 0;
+}
+
+.about-item__title {
+    color: #00693c;
+    font-size: 2.4rem;
+}
+
+@media (min-width: 768px) {
+    .about__title {
+        font-size: 3.1rem;
+    }
+
+    .about-item {
+        margin-top: 0;
+        margin-bottom: 2.5em;
+    }
+
+    .about-item__title {
+        font-size: 2.6rem;
+    }
+}
+
+/* Section */
+.speakers {
+    background-color: rgba(0, 105, 62, .1);
+}
+
+.speakers__title {
+    font-size: 2.8em;
+    text-align: center;
+    margin-bottom: .6em;
+    color: #00693c;
+}
+
+.speaker-card__title {
+    color: #1f344e;
+    font-size: 1.8em;
+    margin: 0;
+}
+
+.speaker-card__subtitle {
+    color: #1f344e;
+    font-size: 1.3em;
+    margin-bottom: .4em;
+    line-height: 1.4;
+}
+
+@media (min-width: 768px) {
+    .speakers__title {
+        font-size: 3.5em;
+    }
+}
+/*programming*/
+.lecture{
+    margin-bottom: 1rem;
+    margin-top: .9rem;
+    display: flex;
+}
+.programming__title{
+    font-size: 2.8em;
+    text-align: center;
+    color: #00693c;
+}
+.programming-item__day{
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-top: 0.2em;
+    color: #00693c;
+}   
+.lecture__time{
+    color:#1f344e;
+    margin-right: 11px;
+}
+.lecture__title{
+    color:#1f344e;
+    font-size: 1.5em;
+    line-height: 1.2;
+}
+.lecture__speaker{
+    color:#00693c;
+}
+
+@media (min-width: 992px) {
+    .programming-item{
+        margin-bottom: 1rem; 
+    }  
+
+    .programming-item__day{
+        text-align: right;
+        margin-top: 0;
+    }
+}

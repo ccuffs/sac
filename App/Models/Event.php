@@ -33,9 +33,21 @@ class Event extends Model {
         return SELF::newByData($data);
     }
   
-    public function findAll() {
+    public static function findAll() {
         $result = [];
         $query = SELF::conn()->prepare("SELECT * FROM event WHERE 1 ORDER BY day ASC, month ASC, time ASC");
+        
+        if ($query->execute()) {
+            while ($event_data = $query->fetch()) {
+                $result[] = SELF::newByData($event_data);
+            }
+        }
+        
+        return $result;
+    }
+
+    public static function findPriceds() {
+        $query = SELF::conn()->prepare("SELECT * FROM event WHERE price > 0 ORDER BY day ASC, month ASC, time ASC");
         
         if ($query->execute()) {
             while ($event_data = $query->fetch()) {

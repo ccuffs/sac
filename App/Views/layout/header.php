@@ -1,8 +1,8 @@
 <?php 
-use App\Helpers\View;
-use App\Helpers\UtilsHelper;
-use App\Helpers\AuthHelper;
-use App\Models\User;
+	use App\Helpers\View;
+	use App\Helpers\UtilsHelper;
+	use App\Helpers\AuthHelper;
+	use App\Models\User;
 ?>
 
 <!DOCTYPE html>
@@ -19,9 +19,9 @@ use App\Models\User;
 		<![endif]-->
 		
 		<!-- Le styles -->
-		<link href="<?= UtilsHelper::base_url('/css/bootstrap.min.css') ?>" rel="stylesheet">
-		<link href="<?= UtilsHelper::base_url('/css/style.css') ?>" rel="stylesheet" media="screen">
-		<link href="<?= UtilsHelper::base_url('/css/print.css') ?>" rel="stylesheet" media="print">
+		<link href="<?= UtilsHelper::base_url('/css/admin/bootstrap.min.css') ?>" rel="stylesheet">
+		<link href="<?= UtilsHelper::base_url('/css/admin/style.css') ?>" rel="stylesheet" media="screen">
+		<link href="<?= UtilsHelper::base_url('/css/admin/print.css') ?>" rel="stylesheet" media="print">
 		
 		<!-- Le fav and touch icons -->
 		<link rel="shortcut icon" href="img/favicon.ico">
@@ -29,18 +29,21 @@ use App\Models\User;
 		<link rel="apple-touch-icon" sizes="72x72" href="/img/apple-touch-icon-72x72.png">
 		<link rel="apple-touch-icon" sizes="114x114" href="/img/apple-touch-icon-114x114.png">
 
-		<link href="<?= UtilsHelper::base_url('/css/permissoes.css') ?>" rel="stylesheet" media="screen">
+		<link href="<?= UtilsHelper::base_url('/css/admin/permissoes.css') ?>" rel="stylesheet" media="screen">
 		
 		<!-- FontAwesome -->
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 		
 		<!-- Toastr -->
-		<link href="https://codeseven.github.io/toastr/build/toastr.min.css" type = "text/css" rel="stylesheet" />
-
-		<script src="<?= UtilsHelper::base_url('/js/jquery.js') ?>"></script>
+		<link href="https://codeseven.github.io/toastr/build/toastr.min.css" type="text/css" rel="stylesheet" />
+		<script>
+			var BASE_URL = "<?= BASE_URL ?>"
+		</script>
+		<script src="<?= UtilsHelper::base_url('/js/admin/jquery.js') ?>"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js" type="text/javascript"></script>
 		<script src="https://codeseven.github.io/toastr/build/toastr.min.js" type="text/javascript"></script>
-		<script src="<?= UtilsHelper::base_url('/js/bootstrap.js') ?>"></script>
-		<script src="<?= UtilsHelper::base_url('/js/sac.js') ?>"></script>
+		<script src="<?= UtilsHelper::base_url('/js/admin/bootstrap.js') ?>"></script>
+		<script src="<?= UtilsHelper::base_url('/js/admin/sac.js') ?>"></script>
 	</head>
 	
 	<body>
