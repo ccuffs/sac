@@ -23,7 +23,7 @@ use App\Helpers\UtilsHelper;
               <h2 class="about__title">Inscreva-se</h2>
             </div>
             <div class="ticket-wrapper__buttons "scroll-sensitive="animate-right-left-3">
-              <a href="<?= UtilsHelper::base_url("/login") ?>" class="btn btn--secondary">Estudante UFFS</a>
+              <a href="<?= UtilsHelper::base_url("/login") ?>" class="btn btn--subscription btn--secondary">Estudante UFFS</a>
               <!-- <button class="btn btn--primary">Visitante</button> -->
             </div>
           </div>
@@ -32,19 +32,33 @@ use App\Helpers\UtilsHelper;
       <div class="col-12 col-md-6" scroll-sensitive="animate-left-right">
         <div class="about-item" scroll-sensitive="animate-right-left">
           <h2 class="about__title title">O que é SACC?</h2>
-          <p>A semana acadêmica do curso de Ciência da computação é um momento de troca de conhecimentos proporcionado
-          por docentes e discentes, no qual há uma semana de palestras e minicursos, relacionados à tecnologia.</p>
+          <p>A semana acadêmica do curso de Ciência da computação
+          é um momento de troca de conhecimentos proporcionado por
+          docentes e discentes, no qual há uma semana de palestras,
+          minicursos e <i>workshops</i>, relacionados à tecnologia.</p>
         </div>
         <div class="about-item" scroll-sensitive="animate-right-left">
-          <h3 class="about-item__title title">Por quê ir?</h3>
-          <p>A SACC busca oferecer, aos alunos e ao público em geral, a oportunidade de conviver e interagir com
-            diversas áreas da computação, por meio de palestras, mesas-redondas e workshops é também uma
-            oportunidade
-            de alunos apresentarem pesquisas,interagirem e compartilharem seus conhecimentos com outras pessoas.</p>
+          <h3 class="about-item__title title">Por quê participar?</h3>
+          <p>
+            A SACC busca oferecer aos alunos e ao público em geral
+            a oportunidade de absorver e compartilhar conhecimento, 
+            conviver e interagir com diversas áreas da computação,
+            por meio de palestras, mesas-redondas e <i>workshops</i>.
+            Ela é também uma oportunidade para os estudantes tornarem
+            público seus esforços e resultados de suas pesquisas, além
+            de que a semana acadêmica proporciona aos estudantes e professores
+            um ambiente de relaxamento visto que grande parte da comunidade
+            vive uma maçante rotina de aulas, provas, trabalhos e projetos.
+          </p>
+
           </div>
           <div class="about-item" scroll-sensitive="animate-right-left-3">
             <h3 class="about-item__title title">Para quem?</h3>
-            <p> O evento é aberto para todos os interessados por tecnologia.</p>
+            <p>
+              O evento é aberto para todos os interessados por tecnologia
+              e principalmente para aqueles que acreditam que o curso de ciência
+              da computação vai muito além da sala de aula.
+            </p>
           </div>
         </div>
       </div>
