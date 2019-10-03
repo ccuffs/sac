@@ -178,10 +178,3 @@
     color: #00693c; 
 }
 
-.btn--subscription {
-    text-decoration: none !important;
-}
-
-.btn--subscription:hover {
-    color: #1F344E;
-}

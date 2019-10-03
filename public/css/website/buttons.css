@@ -8,7 +8,7 @@
     color: #000000;
     padding: 0.625em 2.188em;
     text-align: center;
-    text-decoration: none;
+    text-decoration: none !important;
     display: inline-block;
     font-size: 16px;
     border-radius:0.125em;
@@ -39,6 +39,10 @@
 .btn--secondary{
     background-color:#1F344E;
     color: #FFF;
+}
+
+.btn--secondary:hover {
+    color: #1F344E;
 }
 
 .btn--danger{
