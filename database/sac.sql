@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 30, 2019 at 05:44 AM
+-- Generation Time: Oct 05, 2019 at 01:14 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.8
 
@@ -130,7 +130,8 @@ CREATE TABLE `users` (
   `cpf` varchar(100) DEFAULT NULL,
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `type` int(11) NOT NULL
+  `type` int(11) DEFAULT 2,
+  `registration` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
