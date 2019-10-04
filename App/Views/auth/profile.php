@@ -29,6 +29,15 @@ use App\Models\Payment;
                     <th>CPF:</th>
                     <td><?= $user->cpf ?></td>
                 </tr>
+                <tr>
+                    <th>Matricula:</th>
+                    <td>
+                        <form action="<?= UtilsHelper::base_url("/perfil/atualizar") ?>" method="post">
+                            <input type="text" name="registration" value="<?= $user->registration ?>">
+                            <button class="btn btn--primary btn--small">Salvar</button>
+                        </form>
+                    </td>
+                </tr>
             </table>
         </div>
         <div class="profile__card">

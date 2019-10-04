@@ -16,25 +16,9 @@ class User extends Model {
     public $name;
     public $email;
     public $type;
+    public $registration;
     private $total_paid;
     private $payments;
-
-    public static function getById($theUserId) {
-        $user = null;
-        $query = SELF::conn()->prepare("SELECT id, login, name, email, type FROM users WHERE id = ?");
-        
-        if ($query->execute(array($theUserId))) {	
-            $data = $query->fetch();
-            $user = new User();
-            $user->id = $data['id'];
-            $user->login = $data['login'];
-            $user->name = $data['name'];
-            $user->email = $data['email'];
-            $user->type = $data['type'];
-        }
-        
-        return $user;
-    }
 
     public static function isUsernameAvailable ($username) {
         $sql = "SELECT count(*) as amount FROM users WHERE login=:username";
@@ -168,6 +152,7 @@ class User extends Model {
         $sql = "INSERT INTO users SET
             name = :name,
             cpf = :cpf,
+            registration = :registration,
             login = :login,
             email = :email,
             type = :type
@@ -176,6 +161,7 @@ class User extends Model {
         $success = $query->execute([
             'name' => $this->name,
             'cpf' => $this->cpf,
+            'registration' => $this->registration,
             'login' => $this->login,
             'email' => $this->email,
             'type' => $this->type || 1
@@ -188,6 +174,7 @@ class User extends Model {
         $sql = "UPDATE users SET
             login = :login,
             cpf = :cpf,
+            registration = :registration,
             name = :name,
             email = :email,
             type = :type 
@@ -200,6 +187,7 @@ class User extends Model {
             'login' => $this->login,
             'cpf' => $this->cpf,
             'name' => $this->name,
+            'registration' => $this->registration,
             'email' => $this->email,
             'type' => $this->type,
             'userId' => $this->id
@@ -214,6 +202,7 @@ class User extends Model {
         $user->id = $data->id;
         $user->login = $data->login;
         $user->cpf = $data->cpf;
+        $user->registration = $data->registration;
         $user->name = $data->name;
         $user->email = $data->email;
         $user->type = $data->type;
