@@ -26,7 +26,7 @@ class UserController {
 
     public function update($request, $response, $args) {
 
-        AuthHelper::allowAuthenticated();
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN, "JSON");
 
         if(isset($_REQUEST['type']) && isset($args['id'])){
             $userNewRole = $_REQUEST['type'];

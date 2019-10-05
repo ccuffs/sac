@@ -64,7 +64,7 @@ var SAC = new function() {
 			$('.nao-uffs').slideUp();
 		} else {
 			$('.uffs').slideUp();
-			$('.nao-uffs').slideDown();
+			$('.nao-uffs').slideDown();toastr
 		}
 	};
 
@@ -91,15 +91,13 @@ var SAC = new function() {
 					'type' : permission
 				},
 				success : function(data, textStatus, request) {
-
 					let colorClass = $(card).attr('class');
 					removeColorClass(colorClass, card);
 					$(card).addClass(colorClasses[permission - 1]);
 					toastr.success(request.getResponseHeader('message'), {timeOut : 30, extendedTimeOut : 60});
-
 				},
 				error : function(request, textStatus, errorThrown) {
-					toastr.danger(request.getResponseHeader('message'), {timeOut : 30, extendedTimeOut : 60});
+					toastr.error(request.getResponseHeader('message'), {timeOut : 30, extendedTimeOut : 60});
 				}
 			});
 		});
