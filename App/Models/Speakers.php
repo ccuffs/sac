@@ -7,6 +7,7 @@
         public $id;
         public $name;
         public $img_path;
+        public $fk_events;
         public $description;
 
         public function create(){
@@ -27,12 +28,21 @@
             return $success;
         }
 
-        public function update(){
+        public function update() {
             $sql = "UPDATE speakers set
                 name = :name,
                 description = :description,
                 $img_path = :img_path
-                WHERE id = :userId"
+                WHERE id = :userId";
+            
+            $query = SELF::conn()->prepare($sql);
+
+            $success = $query->execute([
+                'name' => $this->name, 
+                'description' => $this->description,
+                'img_path' => $this->img_path,
+                'fk_events' => $this->fk_events
+            ]);
         }
     }
 ?>

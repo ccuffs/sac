@@ -106,6 +106,9 @@
 								<li><a href="javascript:void(0);">Gerenciar</a></li>
 							</ul>
 						</li>
+						<li>
+							<a  href="<?= UtilsHelper::base_url("/admin/speakers")?>"> Palestrantes </a>
+						</li>
 					</ul>
 				<?php endif; ?>
 			</div>

@@ -41,8 +41,7 @@ class AuthHelper {
 		$title = '401';
 		$isAuthenticated = AuthHelper::isAuthenticated();
 		$user = AuthHelper::getAuthenticatedUser();
-		$isAdmin = !$isAuthenticated || !$user->isLevel($level);
-		if($isAdmin && $type == 'HTML') {
+		if(!$isAuthenticated || !$user->hasPermission($level)) {
 			$data = compact(['user', 'title']);
 			View::render('layout/admin/header', $data);
 			View::render('errors/401', $data);

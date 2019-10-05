@@ -15,11 +15,11 @@ class UserController {
         AuthHelper::allowAuthenticated();
         $users = User::findByRole([User::USER_LEVEL_UFFS, User::USER_LEVEL_ADMIN, User::USER_CO_ORGANIZER, User::USER_LEVEL_EXTERNAL]);
 
-        $userAuth = AuthHelper::getAuthenticatedUser();
+        $authUser = AuthHelper::getAuthenticatedUser();
 
-        View::render('layout/admin/header', array('user' => $userAuth));
-        View::render('auth/users', $users);
-        View::render('layout/admin/footer');
+        View::render('layout/header', array('user' => $authUser));
+        View::render('auth/users', array('users' => $users, 'authUser' => $authUser));
+        View::render('layout/footer');
 
         return $response;
     }
@@ -27,6 +27,8 @@ class UserController {
     public function update($request, $response, $args) {
 
         AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN, "JSON");
+
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
 
         if(isset($_REQUEST['type']) && isset($args['id'])){
             $userNewRole = $_REQUEST['type'];
