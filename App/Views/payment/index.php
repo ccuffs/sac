@@ -54,7 +54,7 @@ use App\Helpers\UtilsHelper;
 			<div class="col-md-4 hidden" payment-show-method="cpf">
 				<div class="form-group">
 					<label class="control-label">Cpf</label>
-					<input type="text" payment-show-input="cpf" class="form-control" /><br/>
+					<input type="text" payment-show-input="cpf" class="form-control" />
 				</div>
 			</div>
 
@@ -83,14 +83,14 @@ use App\Helpers\UtilsHelper;
 			<div class="col-md-3">
 				<div class="form-group">
 					<label class="control-label">Valor</label>
-					<input type="text" name="amount" class="form-control" /><br/>
+					<input type="text" name="amount" class="form-control" />
 				</div>
 			</div>
 			
 			<div class="col-md-4">
 				<div class="form-group">
 					<label class="control-label">Comentário</label>
-					<input type="text" name="comment" class="form-control" /><br/>
+					<input type="text" name="comment" class="form-control" />
 				</div>
 			</div>
 			
@@ -130,7 +130,7 @@ use App\Helpers\UtilsHelper;
 									<?php else: ?>
 									<td>-</td>
 									<td>-</td>
-									<td><?= $payment->cpf ?></td>
+									<td><?= UtilsHelper::mask("###.###.###-##", $payment->cpf) ?></td>
 									<?php endif; ?>
 									<td><?= date('d/m/Y', $payment->date) ?></td>
 									<td><?= $payment->comment ?></td>

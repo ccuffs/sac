@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Event;
 use App\Helpers\DatabaseHelper;
+use App\Helpers\UtilsHelper;
 
 class Payment extends Model {
     protected $table = "payment";
@@ -18,6 +19,7 @@ class Payment extends Model {
     public $type;
     public $fk_user;
     public $fk_event;
+    private $event;
     private static $total_paid;
 
     const PAYMENT_CONFIRMED = 3;
@@ -50,22 +52,24 @@ class Payment extends Model {
         return SELF::$total_paid;
     }
     
-    public static function findByUser($theUserId) {
-        $aRet = array();
-        $aQuery = SELF::conn()->prepare("SELECT * FROM payment WHERE fk_user = ?");
+    public static function findByUser($user) {
+        $query = SELF::conn()->prepare("SELECT * FROM payment
+            WHERE fk_user = ? or cpf = ?
+        ");
         
-        if ($aQuery->execute(array($theUserId))) {
-            while ($aRow = $aQuery->fetch()) {
-                $aRet[$aRow['id']] = $aRow;
+        $list = [];
+        if ($query->execute([$user->id, $user->cpf])) {
+            while ($data = $query->fetch()) {
+                $list[] = SELF::newByData($data);
             }
         }
         
-        return $aRet;
+        return $list;
     }
 
     public static function findById ($id) {
         $sql = "SELECT *, p.id as id FROM payment AS p
-            INNER JOIN users AS u ON p.fk_user = u.id
+            LEFT JOIN users AS u ON p.fk_user = u.id OR u.cpf = p.cpf
             WHERE p.id = :id
         ";
         $query = SELF::conn()->prepare($sql);
@@ -78,6 +82,12 @@ class Payment extends Model {
         }
         
         return $payment;
+    }
+
+    public function getEvent() {
+        if ($this->event || !$this->fk_event) return $this->event;
+        $this->event = Event::findById($this->fk_event);
+        return $this->event;
     }
     
     public static function findAll() {
@@ -133,7 +143,7 @@ class Payment extends Model {
         $query = SELF::conn()->prepare($sql);
 
         $query->bindParam('fk_user', $this->fk_user);
-        $query->bindParam('cpf', $this->cpf);
+        $query->bindParam('cpf', UtilsHelper::getOnlyNumbers($this->cpf));
         $query->bindParam('amount', $this->amount);
         $query->bindParam('comment', $this->comment);
         $query->bindParam('date', $this->date);
@@ -187,11 +197,13 @@ class Payment extends Model {
         $payment = new SELF();
         $payment->id = $data->id;
         $payment->fk_user = $data->fk_user;
+        $payment->fk_event = $data->fk_event;
         $payment->cpf = $data->cpf;
         $payment->date = $data->date;
         $payment->amount = $data->amount;
         $payment->status = $data->status;
         $payment->comment = $data->comment;
+        $payment->type = $data->type;
         return $payment;
     }
 
@@ -200,11 +212,13 @@ class Payment extends Model {
         $payment = new SELF();
         $payment->id = $data->id;
         $payment->fk_user = $data->fk_user;
+        $payment->fk_event = $data->fk_event;
         $payment->cpf = $data->cpf;
         $payment->date = $data->date;
         $payment->amount = $data->amount;
         $payment->status = $data->status;
         $payment->comment = $data->comment;
+        $payment->type = $data->type;
         $payment->user = User::newByData(array_merge((array) $data, ['id' => $data->fk_user]));
         return $payment;
     }

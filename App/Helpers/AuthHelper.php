@@ -43,9 +43,9 @@ class AuthHelper {
         $title = '401';
         $data = compact(['user', 'title']);
 		if(!AuthHelper::isAuthenticated()) {
-			View::render('layout/header', $data);
+			View::render('layout/admin/header', $data);
 			View::render('errors/401', $data);
-			View::render('layout/footer', $data);
+			View::render('layout/admin/footer', $data);
 			exit();
 		}
 	}
@@ -56,9 +56,9 @@ class AuthHelper {
 		$user = AuthHelper::getAuthenticatedUser();
 		if(!$isAuthenticated || !$user->isLevel($level)) {
 			$data = compact(['user', 'title']);
-			View::render('layout/header', $data);
+			View::render('layout/admin/header', $data);
 			View::render('errors/401', $data);
-			View::render('layout/footer', $data);
+			View::render('layout/admin/footer', $data);
 			exit();
 		}
 	}

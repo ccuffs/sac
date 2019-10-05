@@ -65,7 +65,7 @@ use App\Helpers\UtilsHelper;
             <div class="col-md-3">
                 <div class="form-group">
                     <label class="control-label">Custo</label>
-                    <input required type="text" name="price" value="<?= @$event->price ?>" class="form-control">
+                    <input required type="text" name="price" value="<?= str_replace('.',',', sprintf('%.2f', @$event->price, 2)) ?>" class="form-control">
                 </div>
             </div>
         </div>

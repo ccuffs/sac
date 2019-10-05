@@ -99,7 +99,7 @@ class Event extends Model {
         $query->bindParam('title', $this->title);
         $query->bindParam('description', $this->description);
         $query->bindParam('place', $this->place);
-        $query->bindParam('price', $this->price);
+        $query->bindParam('price', \App\Helpers\UtilsHelper::format_money($this->price));
         $query->bindParam('capacity', $this->capacity);
         $query->bindParam('waiting_capacity', $this->waitingCapacity);
         $query->bindParam('ghost', $this->ghost);
