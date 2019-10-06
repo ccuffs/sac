@@ -76,7 +76,7 @@
 							<a role="button" class="btn btn-info" style="margin-top: 7px;">
 								<span class="fa fa-user"></span> Inscrever-se
 							</a> 
-							<a href="<?= UtilsHelper::base_url("/login")?>" role="button" class="btn btn-success" style="margin-top: 7px;">
+							<a href="<?= UtilsHelper::base_url("/inscricao")?>" role="button" class="btn btn-success" style="margin-top: 7px;">
 								<span class="fa fa-user"></span> Login
 							</a>
 						</li>

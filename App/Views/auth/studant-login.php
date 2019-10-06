@@ -21,17 +21,14 @@ use App\Helpers\UtilsHelper;
                                 <input type="password" class="form__input" name="password" id="idPass"
                                     placeholder="Senha">
                             </div>
-                            <div class="form__check">
-                                <input type="checkbox" class="form__check" name="txtCheck" id="idCheck">
-                                <label for="idCheck">Lembrar meu usuário</label>
-                            </div>
                             <div class="form__btn">
                                 <button type="submit" class="btn btn--primary btn--fluid" name="txtBtn" id="idBtn">entrar</button>
                             </div>
 
                         </form>
                         <div class="form__resources">
-                            <a class="resources__anchor"href="https://id.uffs.edu.br/id/XUI/?realm=/#forgotUsername/" target="_blank">
+                            <a href="<?= UtilsHelper::base_url("/inscricao/visitante/cadastro") ?>" class="resources__anchor">Visitante?</a>
+                            <a class="resources__anchor" href="https://id.uffs.edu.br/id/XUI/?realm=/#forgotUsername/" target="_blank">
                                 Não sabe seu idUFFS?
                             </a>
                             <a class="resources__anchor" href="https://id.uffs.edu.br/id/XUI/?realm=/#passwordReset/ " target="_blank">

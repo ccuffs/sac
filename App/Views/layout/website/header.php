@@ -56,7 +56,7 @@ $_user = AuthHelper::getAuthenticatedUser();
               <?php if ($_user): ?>
               <a class="navbar__archor" href="<?= UtilsHelper::base_url("/perfil")?>">Perfil</a>
               <?php else: ?>
-              <a class="navbar__archor" href="<?= UtilsHelper::base_url("/login")?>">Inscrições</a>
+              <a class="navbar__archor" href="<?= UtilsHelper::base_url("/inscricao")?>">Inscrições</a>
               <?php endif; ?>
             </nav>
           </div>
@@ -76,7 +76,7 @@ $_user = AuthHelper::getAuthenticatedUser();
         <?php if ($_user): ?>
         <a class="navbar__archor" href="<?= UtilsHelper::base_url("/perfil")?>">Perfil</a>
         <?php else: ?>
-        <a class="navbar__archor" href="<?= UtilsHelper::base_url("/login")?>">Inscrições</a>
+        <a class="navbar__archor" href="<?= UtilsHelper::base_url("/inscricao")?>">Inscrições</a>
         <?php endif; ?>
       </nav>
     </div>

@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Helpers\AuthHelper;
+use App\Helpers\UtilsHelper;
+
 class User extends Model {
     protected $table = "user";
     
@@ -139,6 +142,23 @@ class User extends Model {
         $sql = "SELECT * FROM users WHERE login = :username";
         $query = SELF::conn()->prepare($sql);
         $query->execute(['username' => $username]);
+        $user_data = $query->fetch();
+
+        if (!$user_data) {
+            return null;
+        }
+        
+        return SELF::newByData($user_data);
+    }
+
+    public static function findByCredentials ($username, $password) {
+        $password = AuthHelper::hash($password);
+        $sql = "SELECT * FROM users WHERE login = :username AND password = :password";
+        $query = SELF::conn()->prepare($sql);
+        $query->execute([
+            'username' => $username,
+            'password' => $password
+        ]);
         $user_data = $query->fetch();
 
         if (!$user_data) {

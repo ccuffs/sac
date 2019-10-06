@@ -10,27 +10,21 @@ use App\Helpers\UtilsHelper;
                     <div class="login__logo">
                         <img src="<?= UtilsHelper::base_url("/img/logo.png")?>" alt="Logo SACC">
                     </div>
-                    <h2 class="login__title">Visitante - Inscrição</h2>
+                    <h2 class="login__title">Visitante - Login</h2>
                     <form class="login__form" method="post">
-                        <div class="form__content">
-                            <input type="text" required class="form__input" name="name" placeholder="Nome">
-                        </div>
                         <div class="form__content">
                             <input type="email" required class="form__input" name="user" placeholder="E-mail">
                         </div>
                         <div class="form__content">
                             <input type="password" required class="form__input" name="password" placeholder="Senha">
                         </div>
-                        <div class="form__content">
-                            <input type="password" required class="form__input" name="password_confirm" placeholder="Confirmar senha">
-                        </div>
-                        <button type="submit" class="btn btn--primary btn--fluid">Registrar</button>
+                        <button type="submit" class="btn btn--primary btn--fluid">Login</button>
                     </form>
                     <div class="text-center">
                         <hr>
-                        <span>Já é inscrito?</span>
+                        <span>Não tem conta?</span>
                     </div>
-                    <a href="<?= UtilsHelper::base_url("/inscricao/visitante/login")?>" class="btn btn--secondary btn--fluid">Login</a>
+                    <a href="<?= UtilsHelper::base_url("/inscricao/visitante/cadastro")?>" class="btn btn--secondary btn--fluid">Registrar</a>
                     <div class="form__resources">
                         <a class="resources__anchor" href="<?= UtilsHelper::base_url("/inscricao/aluno")?>">
                             Estudante UFFS
