@@ -9,7 +9,7 @@ use App\Helpers\View;
 
 class AuthHelper {
 	public static function hash($thePassword) {
-		return md5($thePassword . PASSWORD_SALT);
+		return sha1($thePassword . PASSWORD_SALT);
 	}
 	
 	public static function getAuthenticatedUser() {
@@ -90,6 +90,7 @@ class AuthHelper {
 			if(is_numeric($username[0])){
 				$user->cpf = str_replace(array('.', '-'),'', $username);
 			}
+			$user->type = User::USER_LEVEL_UFFS;
 			$user->save();
 			return $user;
 		}

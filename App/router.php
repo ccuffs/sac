@@ -38,6 +38,7 @@ $app->post('/api/attending-event/update-subscription', 'App\Controllers\Attendin
 
 $app->get('/login', 'App\Controllers\AuthController:loginForm');
 $app->get('/inscricao', 'App\Controllers\AuthController:externalRegisterForm');
+$app->post('/inscricao', 'App\Controllers\AuthController:externalRegister');
 $app->post('/login', 'App\Controllers\AuthController:login');
 $app->get('/logout', 'App\Controllers\AuthController:logout');
 $app->get('/perfil', 'App\Controllers\AuthController:profile');

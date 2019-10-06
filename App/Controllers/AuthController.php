@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\User;
 use App\Helpers\View;
 use App\Helpers\AuthHelper;
 use App\Helpers\UtilsHelper;
@@ -43,6 +44,26 @@ class AuthController {
         View::render('layout/website/footer');
         return $response;
     }
+
+    public function externalRegister ($request, $response, $args) {
+        if (empty($_POST['user']) || empty($_POST['name']) || empty($_POST['password']) || empty($_POST['password_confirm'])) {
+            return $response
+                ->withHeader('Location', UtilsHelper::base_url("/inscricao"))
+                ->withStatus(302);  
+        }
+        $user = new User();
+        $user->name = $_POST['name'];
+        $user->login = $_POST['user'];
+        $user->email = $_POST['user'];
+        $user->password = AuthHelper::hash($_POST['password']);
+        $user->type = User::USER_LEVEL_EXTERNAL;
+        $user->save();
+        $_SESSION['user'] = $user->id;
+        return $response
+            ->withHeader('Location', UtilsHelper::base_url("/perfil"))
+            ->withStatus(302);
+    }
+
     
     public function profileUpdate ($request, $response, $args) {
         $user = AuthHelper::getAuthenticatedUser();

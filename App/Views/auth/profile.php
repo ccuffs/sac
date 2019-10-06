@@ -27,8 +27,18 @@ use App\Models\Payment;
                 </tr>
                 <tr>
                     <th>CPF:</th>
+                    <?php if ($user->isInternal()): ?>
                     <td><?= $user->cpf ?></td>
+                    <?php else: ?>
+                    <td>
+                        <form action="<?= UtilsHelper::base_url("/perfil/atualizar") ?>" method="post">
+                            <input type="text" name="registration" value="<?= $user->registration ?>">
+                            <button class="btn btn--primary btn--small">Salvar</button>
+                        </form>
+                    </td>
+                    <?php endif; ?>
                 </tr>
+                <?php if ($user->isInternal()): ?>
                 <tr>
                     <th>Matricula:</th>
                     <td>
@@ -38,6 +48,7 @@ use App\Models\Payment;
                         </form>
                     </td>
                 </tr>
+                <?php endif; ?>
             </table>
         </div>
         <div class="profile__card">

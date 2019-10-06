@@ -152,6 +152,7 @@ class User extends Model {
         $sql = "INSERT INTO users SET
             name = :name,
             cpf = :cpf,
+            password = :password,
             registration = :registration,
             login = :login,
             email = :email,
@@ -161,10 +162,11 @@ class User extends Model {
         $success = $query->execute([
             'name' => $this->name,
             'cpf' => $this->cpf,
+            'password' => $this->password,
             'registration' => $this->registration,
             'login' => $this->login,
             'email' => $this->email,
-            'type' => $this->type || 1
+            'type' => $this->type ? $this->type : 1
         ]);
         $this->id = SELF::conn()->lastInsertId();
         return $success;
@@ -174,6 +176,7 @@ class User extends Model {
         $sql = "UPDATE users SET
             login = :login,
             cpf = :cpf,
+            password = :password,
             registration = :registration,
             name = :name,
             email = :email,
@@ -186,6 +189,7 @@ class User extends Model {
         $success = $query->execute([
             'login' => $this->login,
             'cpf' => $this->cpf,
+            'password' => $this->password,
             'name' => $this->name,
             'registration' => $this->registration,
             'email' => $this->email,
@@ -202,6 +206,7 @@ class User extends Model {
         $user->id = $data->id;
         $user->login = $data->login;
         $user->cpf = $data->cpf;
+        $user->password = $data->password;
         $user->registration = $data->registration;
         $user->name = $data->name;
         $user->email = $data->email;
