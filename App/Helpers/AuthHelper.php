@@ -5,8 +5,6 @@ namespace App\Helpers;
 require_once dirname(__FILE__). '/../../vendor/rmccue/requests/library/Requests.php';
 
 use App\Models\User;
-use App\Helpers\DatabaseHelper;
-use App\Helpers\AuthHelper;
 use App\Helpers\View;
 
 class AuthHelper {
@@ -23,17 +21,6 @@ class AuthHelper {
 	public static function allowNonAuthenticated() {
 		if(AuthHelper::isAuthenticated()) {
 			header('Location: index.php');
-			exit();
-		}
-	}
-	
-	public static function allowAdmin() {
-		if(!AuthHelper::isAuthenticated()) {
-			header('Location: login.php');
-			exit();
-			
-		} else {
-			header('Location: restricted.php');
 			exit();
 		}
 	}
