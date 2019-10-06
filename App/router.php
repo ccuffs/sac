@@ -36,12 +36,17 @@ $app->get('/', 'App\Controllers\HomeController:home');
 $app->get('/api/payment/', 'App\Controllers\PaymentController:apiIndex');
 $app->post('/api/attending-event/update-subscription', 'App\Controllers\AttendingEventController:updateSubscription');
 
-$app->get('/login', 'App\Controllers\AuthController:loginForm');
-$app->get('/inscricao', 'App\Controllers\AuthController:subscriptionForm');
-$app->post('/login', 'App\Controllers\AuthController:login');
+$app->get('/inscricao', 'App\Controllers\AuthController:subscription');
+$app->get('/inscricao/aluno', 'App\Controllers\AuthController:studantLoginForm');
+$app->post('/inscricao/aluno', 'App\Controllers\AuthController:studantLogin');
+$app->get('/inscricao/visitante/cadastro', 'App\Controllers\AuthController:externalRegisterForm');
+$app->post('/inscricao/visitante/cadastro', 'App\Controllers\AuthController:externalRegister');
+$app->get('/inscricao/visitante/login', 'App\Controllers\AuthController:externalLoginForm');
+$app->post('/inscricao/visitante/login', 'App\Controllers\AuthController:externalLogin');
+
 $app->get('/logout', 'App\Controllers\AuthController:logout');
-$app->get('/perfil', 'App\Controllers\AuthController::profile');
-$app->post('/perfil/atualizar', 'App\Controllers\AuthController::profileUpdate');
+$app->get('/perfil', 'App\Controllers\AuthController:profile');
+$app->post('/perfil/atualizar', 'App\Controllers\AuthController:profileUpdate');
 
 $app->get('/admin/permissoes', 'App\Controllers\UserController:index');
 $app->post('/admin/permissoes/{id}', 'App\Controllers\UserController:update');

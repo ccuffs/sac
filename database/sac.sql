@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 05, 2019 at 01:14 AM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.8
+-- Generation Time: Oct 06, 2019 at 11:12 PM
+-- Server version: 10.3.17-MariaDB
+-- PHP Version: 7.3.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -127,6 +127,7 @@ CREATE TABLE `teams` (
 CREATE TABLE `users` (
   `id` int(11) UNSIGNED NOT NULL,
   `login` varchar(40) NOT NULL,
+  `password` text DEFAULT NULL,
   `cpf` varchar(100) DEFAULT NULL,
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
