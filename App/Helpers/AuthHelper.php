@@ -67,7 +67,7 @@ class AuthHelper {
 		unset($_SESSION['user']);
 	}
 	
-	public function isAuthenticated() {
+	public static function isAuthenticated() {
 		return isset($_SESSION['user']);
 	}
 	
