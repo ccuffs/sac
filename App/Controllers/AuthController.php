@@ -11,7 +11,7 @@ class AuthController {
         AuthHelper::logout();
 	    return $response
             ->withHeader('Location', $request->getUri() . "/..")
-            ->withStatus(302);      
+            ->withStatus(302);
     }
 
     public function loginForm ($request, $response, $args) {
@@ -43,6 +43,15 @@ class AuthController {
         View::render('layout/website/footer');
         return $response;
     }
+    
+    public function profileUpdate ($request, $response, $args) {
+        $user = AuthHelper::getAuthenticatedUser();
+        $user->registration = @$_POST['registration'];
+        $user->save();
+        return $response
+            ->withHeader('Location', UtilsHelper::base_url("/perfil"))
+            ->withStatus(302);
+    }
 
     public function login ($request, $response, $args) {          
         if (!isset($_POST['user'], $_POST['password'])) {
@@ -70,7 +79,7 @@ class AuthController {
 
         return $response
             ->withHeader('Location', UtilsHelper::base_url("/perfil"))
-            ->withStatus(302);  
+            ->withStatus(302);
     }
 
     public function profile ($request, $response, $args) {

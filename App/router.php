@@ -41,6 +41,8 @@ $app->get('/inscricao', 'App\Controllers\AuthController:externalRegisterForm');
 $app->post('/login', 'App\Controllers\AuthController:login');
 $app->get('/logout', 'App\Controllers\AuthController:logout');
 $app->get('/perfil', 'App\Controllers\AuthController:profile');
+$app->post('/perfil/atualizar', 'App\Controllers\AuthController:profileUpdate');
+
 $app->get('/admin/permissoes', 'App\Controllers\UserController:index');
 $app->post('/admin/permissoes/{id}', 'App\Controllers\UserController:update');
 

@@ -31,7 +31,7 @@ class UserController {
         if(isset($_REQUEST['type']) && isset($args['id'])){
             $userNewRole = $_REQUEST['type'];
             $id = $args['id'];
-            $user = User::getById($id);
+            $user = User::findById($id);
             $user->type = $userNewRole;
             $user->save();
 
