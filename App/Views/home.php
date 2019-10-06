@@ -24,7 +24,7 @@ use App\Helpers\UtilsHelper;
             </div>
             <div class="ticket-wrapper__buttons "scroll-sensitive="animate-right-left-3">
               <a href="<?= UtilsHelper::base_url("/inscricao/aluno") ?>" class="btn btn--secondary">Estudante UFFS</a>
-              <a href="<?= UtilsHelper::base_url("/inscricao/visitante") ?>" class="btn btn--primary">Visitante</a>
+              <a href="<?= UtilsHelper::base_url("/inscricao/visitante/cadastro") ?>" class="btn btn--primary">Visitante</a>
             </div>
           </div>
         </div>
