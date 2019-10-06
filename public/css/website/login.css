@@ -17,6 +17,23 @@
     padding: 30px;
     border-radius: 5px;
 }
+
+.login__form {
+    width: 100%;
+}
+
+.form__input {
+    border: 2px solid #9b9b9b;
+    padding: .3em .7em; 
+    box-shadow: 0 0 0 0 rgba(0, 107, 62, 0.4);
+    transition: .3s all ease;
+}
+
+.form__input:focus {
+    border-color: rgba(0, 107, 62, 0.9);
+    box-shadow: 0 0 0 .2rem rgba(0, 107, 62, 0.4);
+}
+
 .form__content {
     display: flex;
     justify-content: center;

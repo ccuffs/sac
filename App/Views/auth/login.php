@@ -1,56 +1,49 @@
-<?php 
-	require_once dirname(__FILE__).'/../layout.php';
-	
-	use App\Helpers\View;
-
-	$aData 			= View::data();
-	$aUser			= $aData['user'];
-	$aUffs			= $aData['uffs'];
-	$aPassword		= $aData['password'];
-	$aIsLogin		= $aData['isLogin'];
+<?php
+use App\Helpers\UtilsHelper;
 ?>
 
-<div class="jumbotron">
-	<div class="container">
-		<h1>Login</h1>
-		<p>Informe seus dados para efetuar login</p>
-	</div>
-</div>
+<div class="login-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-6">
+                <div class="login ">
+                    <div class="login__logo">
+                        <img src="<?= UtilsHelper::base_url("/img/logo.png")?>" alt="Logo SACC">
+                    </div>
+                    <h2 class="login__title">Entre com seu idUFFS</h2>
+                    <div class="login__form">
+                        <form class="form" method="post">
+                            <div class="form__content">
+                                <input type="text" class="form__input" name="user" id="idName"
+                                    placeholder="IdUFFS">
+                            </div>
+                            <div class="form__content">
+                                <input type="password" class="form__input" name="password" id="idPass"
+                                    placeholder="Senha">
+                            </div>
+                            <div class="form__check">
+                                <input type="checkbox" class="form__check" name="txtCheck" id="idCheck">
+                                <label for="idCheck">Lembrar meu usuário</label>
+                            </div>
+                            <div class="form__btn">
+                                <button type="submit" class="btn btn--primary btn--fluid" name="txtBtn" id="idBtn">entrar</button>
+                            </div>
 
-<div class="container">
-	<form class="form-horizontal" action="login" method="post" role="form">
-		<div class="form-group">
-			<div class="form-group  <?= $aData['loginError'] ? 'error' : '' ?> ">
-				<label class="col-md-3 control-label">CPF</label>
-				<div class="col-md-5">
-					<input name="user" type="text" placeholder="Informe seu CPF" value="<?= $aUser ?>" class="form-control">
-				</div>
-			</div>
-			
-			<div class="form-group  <?= $aData['loginError'] ? 'error' : '' ?>  uffs" style="display:  <?= $aUffs == '1' ? 'block' : 'none' ?> ;">
-				<label class="col-md-3 control-label">Senha*</label>
-				<div class="col-md-5">
-					<input name="password" type="password" placeholder="Senha de acesso"  value="<?= $aPassword ?>" class="form-control">
-					<?= $aData['loginError'] ? '<span class="help-inline">Usuário ou senha inválidos.</span><br/>' : '' ?> 
-				</div>
-			</div>
-			
-			<div class="form-group">
-				<div class="col-md-3"></div>
-				<div class="col-md-6">
-					<button type="submit" class="btn btn-success">Entrar</button>
-				</div>
-			</div>
-		</div>
-	</form>
-</div>
-
-<div class="container">
-	<div class="row">
-		<div class="col-md-3"></div>
-		<div class="col-md-5">
-			<div class="alert alert-warning" role="alert"><strong>*OBS:</strong> Se você é aluno/professor da UFFS, use sua senha do <strong>Moodle</strong> para efetuar login.</div>
-			<p>Em caso de problemas com o cadastro ou senha, escreva para <strong><a href="mailto:cacomputacaouffs@gmail.com">cacomputacao@gmail.com</a></strong>.</p>
-		</div>
-	</div>			
+                        </form>
+                        <div class="form__resources">
+                            <a class="resources__anchor"href="https://id.uffs.edu.br/id/XUI/?realm=/#forgotUsername/" target="_blank">
+                                Não sabe seu idUFFS?
+                            </a>
+                            <a class="resources__anchor" href="https://id.uffs.edu.br/id/XUI/?realm=/#passwordReset/ " target="_blank">
+                                Esqueceu a Senha?
+                            </a>
+                            <a class="resources__anchor" href="https://ati.uffs.edu.br/public.pl?CategoryID=17" target="_blank">
+                                Ajuda
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

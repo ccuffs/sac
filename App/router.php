@@ -37,7 +37,7 @@ $app->get('/api/payment/', 'App\Controllers\PaymentController:apiIndex');
 $app->post('/api/attending-event/update-subscription', 'App\Controllers\AttendingEventController:updateSubscription');
 
 $app->get('/login', 'App\Controllers\AuthController:loginForm');
-$app->get('/inscricao', 'App\Controllers\AuthController:subscriptionForm');
+$app->get('/inscricao', 'App\Controllers\AuthController:externalRegisterForm');
 $app->post('/login', 'App\Controllers\AuthController:login');
 $app->get('/logout', 'App\Controllers\AuthController:logout');
 $app->get('/perfil', 'App\Controllers\AuthController:profile');

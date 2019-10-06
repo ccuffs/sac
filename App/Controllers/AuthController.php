@@ -24,28 +24,38 @@ class AuthController {
         }
 
         View::render('layout/website/header');
-        View::render('login');
+        View::render('auth/login');
         View::render('layout/website/footer');
         return  $response;
     }
 
+    public function externalRegisterForm ($request, $response, $args) {
+        $user = AuthHelper::getAuthenticatedUser();
+
+        if ($user) {
+            return $response
+                ->withHeader('Location', UtilsHelper::base_url("/perfil"))
+                ->withStatus(302);  
+        }
+
+        View::render('layout/website/header');
+        View::render('auth/external-register');
+        View::render('layout/website/footer');
+        return $response;
+    }
+
     public function login ($request, $response, $args) {          
-        $aLoginError 	= false;
-        $aHasAccount 	= false;
-        
         if (!isset($_POST['user'], $_POST['password'])) {
-            View::render('layout/admin/header', $data);
-            View::render('auth/login', array(
-                'loginError' => true
-            ));
-            View::render('layout/admin/footer', $data);
-            return $response;
+            return $response
+                ->withHeader('Location', UtilsHelper::base_url("/login"))
+                ->withStatus(302);  
         }
 
         $username = $_POST['user'];
 
         $user = AuthHelper::loginUsingPortal($username, $_POST['password']);
 
+        /* TODO: Use flash messages and redirect */
         if (!$user) {
             View::render('layout/admin/header', $data);
             View::render('auth/login', array(
@@ -77,26 +87,6 @@ class AuthController {
         View::render('layout/website/header', $data);
         View::render('auth/profile', $data);
         View::render('layout/website/footer', $data);
-        return $response;
-    }
-
-    public function subscriptionForm ($request, $response, $args) {
-        AuthHelper::allowNonAuthenticated();
-	
-        $aLoginError 	= false;
-        $aIsUFFS 		= isset($_POST['uffs']) && $_POST['uffs'] == '1';
-        $aHasAccount 	= false;
-
-        View::render('auth/register', array(
-            'loginError' => $aLoginError,
-            'user' => @$_POST['user'],
-            'uffs' => !isset($_POST['uffs']) ? '1' : $_POST['uffs'],
-            'email' => @$_POST['email'],
-            'name' => @$_POST['name'],
-            'passworde' => @$_POST['passworde'],
-            'password' => @$_POST['password'],
-            'isLogin' => false
-        ));
         return $response;
     }
 }
