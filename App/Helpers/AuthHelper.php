@@ -37,15 +37,22 @@ class AuthHelper {
 		}
 	}
 
-	public static function restrictToPermission($level) {
+	public static function restrictToPermission($level, $type = "HTML") {
 		$title = '401';
 		$isAuthenticated = AuthHelper::isAuthenticated();
 		$user = AuthHelper::getAuthenticatedUser();
-		if(!$isAuthenticated || !$user->isLevel($level)) {
+		$isAdmin = !$isAuthenticated || !$user->isLevel($level);
+		if($isAdmin && $type == 'HTML') {
 			$data = compact(['user', 'title']);
 			View::render('layout/admin/header', $data);
 			View::render('errors/401', $data);
 			View::render('layout/admin/footer', $data);
+			exit();
+		} else if ($isAdmin && $type == 'JSON') {
+			header("message: 'Usuário não autorizado!'");
+			header("Content-Type: text/html; charset=UTF-8")
+			http_response_code(401);
+			echo json_encode($obj);
 			exit();
 		}
 	}
