@@ -64,7 +64,7 @@ var SAC = new function() {
 			$('.nao-uffs').slideUp();
 		} else {
 			$('.uffs').slideUp();
-			$('.nao-uffs').slideDown();toastr
+			$('.nao-uffs').slideDown();
 		}
 	};
 
