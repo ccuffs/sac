@@ -1,7 +1,6 @@
 <?php
 use App\Helpers\UtilsHelper;
-use App\Models\Event;
-use App\Models\Payment;
+use App\Models\User;
 ?>
 
 <div class="profile">
@@ -11,6 +10,9 @@ use App\Models\Payment;
                 <h1 class="profile__title title">Perfil</h1>
             </div>
             <div class="col text-right">
+                <?php if ($user->isLevel(User::USER_LEVEL_ADMIN)): ?>
+                <a href="<?= UtilsHelper::base_url("/admin") ?>" class="btn btn--medium btn--secondary">Dashboard</a>
+                <?php endif; ?>
                 <a href="<?= UtilsHelper::base_url("/logout") ?>" class="btn btn--medium btn--primary">Sair</a>
             </div>
         </div>
@@ -73,8 +75,60 @@ use App\Models\Payment;
                 <?php endforeach;  ?>
             </ul>
             <?php else: ?>
-                Nenhuma incrição confirmada até o momento. <br>
-                Por favor, contate o CA para efetuar o pagamento de sua inscrição.
+                <p> Nenhuma incrição confirmada até o momento. <br>
+                Por favor, contate o CA para efetuar o pagamento de sua inscrição.</p>
+            <div>
+            <div>
+                <p>Confira a tabela de preços da semana acâdemica!</p>
+                <table class="table table--lg table--bordered">
+                    <tr class="bg-primary-light">
+                        <th>Lote</th>
+                        <?php if($user->isInternal()): ?>
+                        <th>Estudante UFFS</th>
+                        <?php else: ?>
+                        <th>Visitante</th>
+                        <?php endif; ?>
+                    </tr>
+                    <tr>
+                        <td><b>1º lote</b></td>
+                        <?php if($user->isInternal()): ?>
+                        <td>R$ 5,00</td>
+                        <?php else: ?>
+                        <td>R$ 30,00</td>
+                        <?php endif; ?>
+                    </tr>
+                    <tr>
+                        <td><b>2º lote</b></td>
+                        <?php if($user->isInternal()): ?>
+                        <td>R$ 10,00</td>
+                        <?php else: ?>
+                        <td>R$ 35,00</td>
+                        <?php endif; ?>
+                    </tr>
+                    <tr>
+                        <td><b>No dia</b></td>
+                        <?php if($user->isInternal()): ?>
+                        <td>R$ 15,00</td>
+                        <?php else: ?>
+                        <td>R$ 40,00</td>
+                        <?php endif; ?>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <br>
+        <h2 class="title" scroll-sensitive="animate-top-down">Formas de pagamento</h2>
+        <div class="row">
+            <div class="col-lg-6">
+                <h3 class="title">Transferencia bancaria</h3>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Praesentium cum nulla laborum, sunt omnis temporibus nihil dolores</p>
+            </div>
+            <div class="col-lg-6">
+                <h3 class="title">Dinheiro</h3>
+                <p>Pagamento por dinheiro nas mãos de algum membro do CA. Para entrar com contato em o CA envie um e-mail para ... ou entre em contato pelas redes sociais:</p>
+            </div>
+        </div>
+    </div>
             <?php endif; ?>
         </div>
     </div>

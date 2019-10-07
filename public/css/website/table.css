@@ -22,6 +22,10 @@
     text-align: left;
 }
 
+.table--bordered td, .table--bordered th{
+    border: 1px solid #dee2e6;
+}
+
 .table--stripped > thead > tr,
 .table--stripped > tbody > tr {
     border: none;

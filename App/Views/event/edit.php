@@ -93,7 +93,7 @@ use App\Helpers\UtilsHelper;
                 <select name="fk_competition" class="form-control">
                     <option value=""></option>
                     <?php foreach($competitions as $id => $competition): ?>
-                        <option value="<?= $id ?>" <?= (@$event->fk_competition == $id ? 'selected="selected"' : '') ?>> <?= $competition['title'] ?></option>
+                        <option value="<?= $id ?>" <?= (@$event->fk_competition == $id ? 'selected="selected"' : '') ?>> <?= $competition->title ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
