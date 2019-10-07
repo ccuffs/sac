@@ -29,7 +29,7 @@ use ($app)
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
 $errorMiddleware->setDefaultErrorHandler($customErrorHandler);
 
-$app->setBasePath('/sac');
+$app->setBasePath(PATH_URL);
 
 $app->get('/', 'App\Controllers\HomeController:home');
 

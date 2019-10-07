@@ -1,11 +1,13 @@
 <?php
 
-@define('BASE_URL', "http://localhost/sac");
+@define('DOMAIN_URL', "http://localhost");
+@define('PATH_URL', '/sac');
+@define('BASE_URL', DOMAIN_URL . PATH_URL);
 
 // Database info
 @define('DB_DSN', 'mysql:host=localhost;dbname=sac;port=3307');
 @define('DB_USER', 'root');
-@define('DB_PASSWORD', '');
+@define('DB_PASSWORD', 'root');
 
 // Password
 @define('PASSWORD_SALT', 'dlaejhdwieugr34712-13fkj3-122045*&@#$)*&Gkdf*%$@I&$fdfd');
