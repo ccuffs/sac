@@ -6,6 +6,10 @@
     color: #00693E !important;
 }
 
+.bg-primary-light {
+    background-color: rgba(0, 155, 62, .1);
+}
+
 .title.title--lg {
     font-size: 50px;
 }
