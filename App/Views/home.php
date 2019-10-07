@@ -139,8 +139,10 @@ use App\Helpers\UtilsHelper;
                         </span><br>
                         <span> <?= $event->description?> </span> <br>
 
+                        <?php if (isset($event->speaker)): ?>
                         <span class="event__strong"> Palestrante: </span>
-                        <span> <?= isset($event->speaker) ? $event->speaker : 'Fausto Silva' ?> </span><br>
+                        <span> <?= $event->speaker ?> </span><br>
+                        <?php endif; ?>
 
                         <span class="event__strong"> Início: </span>
                         <span> <?= $event->time . ' hrs'?> </span><br>

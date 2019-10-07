@@ -1,7 +1,6 @@
 <?php
 use App\Helpers\UtilsHelper;
-use App\Models\Event;
-use App\Models\Payment;
+use App\Models\User;
 ?>
 
 <div class="profile">
@@ -11,6 +10,9 @@ use App\Models\Payment;
                 <h1 class="profile__title title">Perfil</h1>
             </div>
             <div class="col text-right">
+                <?php if ($user->isLevel(User::USER_LEVEL_ADMIN)): ?>
+                <a href="<?= UtilsHelper::base_url("/admin") ?>" class="btn btn--medium btn--secondary">Dashboard</a>
+                <?php endif; ?>
                 <a href="<?= UtilsHelper::base_url("/logout") ?>" class="btn btn--medium btn--primary">Sair</a>
             </div>
         </div>

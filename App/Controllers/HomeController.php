@@ -44,4 +44,15 @@ class HomeController {
         View::render('layout/website/footer', $data);
         return $response;
     }
+
+    public function dashboard ($request, $response, $args) {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        $user = AuthHelper::getAuthenticatedUser();
+        
+        $data = compact(['user']);
+        View::render('layout/admin/header', $data);
+        View::render('dashboard', $data);
+        View::render('layout/admin/footer', $data);
+        return $response;
+    }
 }
