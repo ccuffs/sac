@@ -63,6 +63,7 @@ class AuthHelper {
 			exit();
 		} else if ($isAdmin && $type == 'JSON') {
 			header("message: 'Usuário não autorizado!'");
+			header("Content-Type: text/html; charset=UTF-8")
 			http_response_code(401);
 			echo json_encode($obj);
 			exit();

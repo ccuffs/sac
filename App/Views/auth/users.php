@@ -65,6 +65,6 @@
             <?php endforeach;?>
         </div>
     </div>
-    <script type="text/javascript">
+    <script type="text/javascript" content="text/html; charset=utf-8">
         SAC.userPermission();
     </script>
