@@ -4,10 +4,12 @@
 @define('PATH_URL', '/sac');
 @define('BASE_URL', DOMAIN_URL . PATH_URL);
 
+@define('IDUFFS_TOKEN', 'eyAidHlwIjogIkpXVCIsICJhbGciOiAiSFMyNTYiIH0.eyAib3RrIjogIjF1a3VvMGUybzVoZnRuNHRqNTFjaGdrazcxIiwgInJlYWxtIjogImRjPW9wZW5hbSxkYz1mb3JnZXJvY2ssZGM9b3JnIiwgInNlc3Npb25JZCI6ICJBUUlDNXdNMkxZNFNmY3hJTkJtZzFJM09sR1N1MzhlMGVSeDlXa05fUWhfNElMVS4qQUFKVFNRQUNNREVBQWxOTEFCUXROalE0TWpZMU5UZzNNekl4T0RBMk5UWXlOQUFDVXpFQUFBLi4qIiB9.wulSO8eW8lkBNm6xH06FtwV95ZI4KW6WfC-aiQj5w3s');
+
 // Database info
 @define('DB_DSN', 'mysql:host=localhost;dbname=sac;port=3307');
 @define('DB_USER', 'root');
-@define('DB_PASSWORD', 'root');
+@define('DB_PASSWORD', '');
 
 // Password
 @define('PASSWORD_SALT', 'dlaejhdwieugr34712-13fkj3-122045*&@#$)*&Gkdf*%$@I&$fdfd');
