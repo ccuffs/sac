@@ -140,20 +140,19 @@ CREATE TABLE `users` (
 ---
 
 create table speakers (
-    `id` int(10) UNSIGNED NOT NULL,
-	  `name` varchar(100),
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `name` varchar(100),
     `img_path` varchar(255),
     `description` text,
-    `fk_event` int(11) UNSIGNED DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-ALTER TABLE `speakers`
-  ADD CONSTRAINT `speakers_ibfk_1` FOREIGN KEY (`fk_event`) REFERENCES `event` (`id`);
 
 --
 -- Indexes for dumped tables
 --
+
+ALTER TABLE `events` 
+  ADD COLUMN `fk_speaker` int(11) UNSIGNED DEFAULT NULL
 
 --
 -- Indexes for table `attending`

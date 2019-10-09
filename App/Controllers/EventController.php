@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Helpers\View;
 use App\Models\User;
+use App\Models\Speaker;
 use App\Models\Event;
 use App\Models\Competition;
 use App\Models\Payment;
@@ -13,7 +14,7 @@ use App\Helpers\UtilsHelper;
 
 class EventController {
     public function index ($request, $response, $args) {
-        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        //AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
         $user = AuthHelper::getAuthenticatedUser();
         
         $data = [
@@ -30,13 +31,14 @@ class EventController {
     }
 
     public function show ($request, $response, $args) {
-        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        //AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
         $user = AuthHelper::getAuthenticatedUser();
         
         $event = Event::findById($args['id']);
         $title = 'Evento';
+        $speaker = Speaker::findById($event->fk_speaker)->name;
 
-        $data = compact(['user', 'event', 'title']);
+        $data = compact(['user', 'event', 'title', 'speaker']);
 
         View::render('layout/admin/header', $data);
         View::render('event/show', $data);
@@ -46,7 +48,7 @@ class EventController {
     }
 
     public function edit ($request, $response, $args) {
-        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        //AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
         $user = AuthHelper::getAuthenticatedUser();
         
         /* TODO: 404 if not exists */
@@ -55,7 +57,9 @@ class EventController {
 
         $title = 'Evento';
 
-        $data = compact(['user', 'event', 'competitions', 'title']);
+        $speakers = Speaker::findAll($event->fk_speaker);
+        
+        $data = compact(['user', 'event', 'competitions', 'title','speakers']);
 
         View::render('layout/admin/header', $data);
         View::render('event/edit', $data);
@@ -65,7 +69,7 @@ class EventController {
     }
 
     public function update ($request, $response, $args) {
-        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        //AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
         $event = Event::findById($args['id']);
         $body = $request->getParsedBody();
         $event->setAttr('title', $body['title']);
@@ -79,6 +83,7 @@ class EventController {
         $event->setAttr('capacity', $body['capacity']);
         $event->setAttr('waitingCapacity', $body['waiting_capacity']);
         $event->setAttr('fk_competition', $body['fk_competition']);
+        $event->setAttr('fk_speaker', $body['speaker']);
         $event->save();
 
         return $response
@@ -96,20 +101,22 @@ class EventController {
     }
 
     public function create ($request, $response, $args) {
-        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        /*AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
         $user = AuthHelper::getAuthenticatedUser();
-        $isAdmin = $user->isLevel(User::USER_LEVEL_ADMIN);
+        // /$isAdmin = $user->isLevel(User::USER_LEVEL_ADMIN);
         
-        if (!$isAdmin) {
+        /*if (!$isAdmin) {
             View::render('restricted');
             return $response;
-        }
+        }*/
         
         $competitions = Competition::findAll();
 
         $title = 'Evento';
 
-        $data = compact(['user', 'competitions', 'title']);
+        $speakers = Speaker::findAll();
+
+        $data = compact(['user', 'competitions', 'title', 'speakers']);
 
         View::render('layout/admin/header', $data);
         View::render('event/create', $data);
@@ -118,7 +125,8 @@ class EventController {
     }
 
     public function store ($request, $response, $args) {
-        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        //AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+
         $event = new Event();
         $body = $request->getParsedBody();
         $event->setAttr('title', $body['title']);
@@ -132,6 +140,7 @@ class EventController {
         $event->setAttr('capacity', $body['capacity']);
         $event->setAttr('waitingCapacity', $body['waiting_capacity']);
         $event->setAttr('fk_competition', $body['fk_competition']);
+        $event->setAttr('fk_speaker', $body['speaker']);
         $id = $event->save();
 
         if (!$id) {

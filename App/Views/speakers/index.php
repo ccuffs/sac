@@ -15,7 +15,7 @@ use App\Helpers\UtilsHelper;
 
 <div class="container">
     <div>
-        <a href = "<?= UtilsHelper::base_url("/admin/speakers/create") ?>" class="btn btn-success">Adicionar</a>
+        <a href = "<?= UtilsHelper::base_url("/admin/palestrantes/create") ?>" class="btn btn-success">Adicionar</a>
     </div>
     <br>
 
@@ -24,11 +24,23 @@ use App\Helpers\UtilsHelper;
         <tr>
             <th> Nome </th>
             <th> Descrição </th>
+            <th> Palestra </th>
         </tr>
 
-        <tr>
-            <td> Olá  </td>
-            <td> Mundo </td>
-        </tr>
+        <?php foreach($speakers as $speaker): ?>
+            <tr>
+                <td> <?= $speaker->name ?>  </td>
+                <td> <?= $speaker->description ?> </td>
+                <td>
+                    <?foreach($events as $event): ?>
+                            <?php if(isset($event->fk_speaker) && $speaker->id == $event->fk_speaker): ?>
+                                <span>
+                                    <?= $event->title ?> 
+                                </span>
+                            <?php endif; ?>
+                    <?php endforeach; ?>
+                </td>
+            </tr>
+        <? endforeach; ?>
     </table>
 </div>
