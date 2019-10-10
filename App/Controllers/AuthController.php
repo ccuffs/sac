@@ -89,9 +89,17 @@ class AuthController {
     public function externalRegister ($request, $response, $args) {
         if (empty($_POST['user']) || empty($_POST['name']) || empty($_POST['password']) || empty($_POST['password_confirm'])) {
             return $response
-                ->withHeader('Location', UtilsHelper::base_url("/inscricao"))
+                ->withHeader('Location', UtilsHelper::base_url("/inscricao/visitante/cadastro"))
                 ->withStatus(302);  
         }
+
+        if ($_POST['password'] != $_POST['password_confirm']) {
+            FlashMessage::setMessage('registerError', 'As senhas precisam ser iguais');
+            return $response
+                ->withHeader('Location', UtilsHelper::base_url("/inscricao/visitante/cadastro"))
+                ->withStatus(302);
+        }
+
         $user = new User();
         $user->name = $_POST['name'];
         $user->login = $_POST['user'];
