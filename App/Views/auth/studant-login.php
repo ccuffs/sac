@@ -1,5 +1,6 @@
 <?php
 use App\Helpers\UtilsHelper;
+use App\Helpers\FlashMessage;
 ?>
 
 <div class="login-section">
@@ -12,6 +13,9 @@ use App\Helpers\UtilsHelper;
                     </div>
                     <h2 class="login__title">Entre com seu idUFFS</h2>
                     <div class="login__form">
+                        <?php if (FlashMessage::hasMessage('loginError')): ?>
+                        <div class="alert alert--error"><?= FlashMessage::getMessage('loginError') ?></div>
+                        <?php endif; ?>
                         <form class="form" method="post">
                             <div class="form__content">
                                 <input type="text" class="form__input" name="user" id="idName"

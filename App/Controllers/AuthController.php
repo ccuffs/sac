@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\User;
 use App\Helpers\View;
 use App\Helpers\AuthHelper;
+use App\Helpers\FlashMessage;
 use App\Helpers\UtilsHelper;
 
 class AuthController {
@@ -55,14 +56,11 @@ class AuthController {
 
         $user = AuthHelper::loginUsingPortal($username, $_POST['password']);
 
-        /* TODO: Use flash messages and redirect */
         if (!$user) {
-            View::render('layout/admin/header', $data);
-            View::render('auth/studant-login', array(
-                'loginError' => true
-            ));
-			View::render('layout/admin/footer', $data);
-            return $response;
+            FlashMessage::setMessage('loginError', 'Login ou senha inválidos, tente novamente');
+            return $response
+                ->withHeader('Location', UtilsHelper::base_url("/inscricao/aluno"))
+                ->withStatus(302);
         }
 
         $_SESSION['user'] = $user->id;
@@ -138,6 +136,7 @@ class AuthController {
 
         $user = User::findByCredentials($_POST['user'], $_POST['password']);
         if (!$user) {
+            FlashMessage::setMessage('loginError', 'Login ou senha inválidos, tente novamente');
             return $response
                 ->withHeader('Location', UtilsHelper::base_url("/inscricao/visitante/login"))
                 ->withStatus(302);

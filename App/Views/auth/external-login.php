@@ -1,5 +1,6 @@
 <?php
 use App\Helpers\UtilsHelper;
+use App\Helpers\FlashMessage;
 ?>
 
 <div class="login-section">
@@ -12,6 +13,9 @@ use App\Helpers\UtilsHelper;
                     </div>
                     <h2 class="login__title">Visitante - Login</h2>
                     <form class="login__form" method="post">
+                        <?php if (FlashMessage::hasMessage('loginError')): ?>
+                        <div class="alert alert--error"><?= FlashMessage::getMessage('loginError') ?></div>
+                        <?php endif; ?>
                         <div class="form__content">
                             <input type="email" required class="form__input" name="user" placeholder="E-mail">
                         </div>

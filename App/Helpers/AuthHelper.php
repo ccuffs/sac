@@ -81,10 +81,7 @@ class AuthHelper {
 		$user_token = SELF::getLoginToken($username, $password);
 
 		if(!isset($user_token)) {
-			return [
-				"user" => $username,
-				"authenticated" => false
-			];
+			return null;
 		}
 
 		$user_data = SELF::getUserInPortal($username, $user_token);
