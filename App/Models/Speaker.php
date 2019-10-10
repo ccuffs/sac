@@ -60,6 +60,13 @@
         public function findAll(){
             return SELF::getInstancesByQuery("SELECT * FROM speakers ORDER BY name ASC");
         }
+
+        public function findByEvent ($event) {
+            return SELF::getInstancesByQuery(
+                "SELECT * FROM speakers WHERE fk_event = :fk_event ORDER BY name ASC",
+                ['fk_event' => $event->id]
+            );
+        }
         
         public static function newByData ($data) {
             $data = (object) $data;
@@ -85,11 +92,11 @@
             return SELF::newByData($raw);
         }
 
-        private static function getInstancesByQuery($sql) {
+        private static function getInstancesByQuery($sql, $data = []) {
             $list = [];
             $query = SELF::conn()->prepare($sql);
             
-            if ($query->execute()) {	
+            if ($query->execute($data)) {	
                 while ($raw = $query->fetch()) {
                     $list[] = SELF::newByData($raw);
                 }

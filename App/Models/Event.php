@@ -17,6 +17,7 @@ class Event extends Model {
     public $waitingCapacity;
     public $ghost;
     public $fk_competition;
+    private $speakers;
 
     public static function findById($id) {
         $result = null;
@@ -69,6 +70,13 @@ class Event extends Model {
         }
         
         return $result;
+    }
+
+    public function getSpeakers() {
+        if (!isset($this->speakers)) {
+            $this->speakers = Speaker::findByEvent($this);
+        }
+        return $this->speakers;
     }
 
     public function update() {

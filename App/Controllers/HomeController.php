@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Event;
 use App\Models\User;
+use App\Models\Speaker;
 use App\Models\Subscription;
 use App\Helpers\AuthHelper;
 use App\Helpers\UtilsHelper;
@@ -15,29 +16,26 @@ class HomeController {
         $data = array();
         $user = AuthHelper::getAuthenticatedUser();
         
-        $data['events'] = array();
         $events = Event::findAll();
+        $speakers = Speaker::findAll();
+
+        $day_programming = [];
         
         foreach($events as $id => $event) {
             $date = $event->day . ' de ' . UtilsHelper::monthToString($event->month) . ' ('.UtilsHelper::weekDayToString($event->day, $event->month).')';
             
-            if (!isset($data['events'][$date])) {
-                $data['events'][$date] = array();
+            if (!isset($day_programming[$date])) {
+                $day_programming[$date] = array();
             }
             
-            $data['events'][$date][$id] = $event;
+            $day_programming[$date][$id] = $event;
         }
         
         if ($authenticated) {
             $data['attending']	= Subscription::findByUserId($user->id);
         }
 
-        $data['authenticated'] = $authenticated;
-        $data['isAdmin'] = false;
-
-        if ($user) {
-            $data['isAdmin'] = $user->isLevel(User::USER_LEVEL_ADMIN);
-        }
+        $data = compact('user', 'day_programming', 'events', 'speakers');
         
         View::render('layout/website/header', $data);
         View::render('home', $data);
