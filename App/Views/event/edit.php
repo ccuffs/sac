@@ -12,7 +12,7 @@ use App\Helpers\UtilsHelper;
 
 <div class="container">
     <div>
-        <a href="<?= UtilsHelper::base_url("/admin/evento") ?>" class="btn btn-default">Voltar</a>
+        <a href="<?= UtilsHelper::base_url("/admin/evento/{$event->id}") ?>" class="btn btn-default">Voltar</a>
     </div>
     <br>
 

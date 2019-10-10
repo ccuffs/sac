@@ -11,7 +11,7 @@ class UserController {
     private $responseMessage = array();
 
     public function index($request, $response, $args) {
-        
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
         AuthHelper::allowAuthenticated();
         $users = User::findByRole([User::USER_LEVEL_UFFS, User::USER_LEVEL_ADMIN, User::USER_CO_ORGANIZER, User::USER_LEVEL_EXTERNAL]);
 
@@ -25,10 +25,7 @@ class UserController {
     }
 
     public function update($request, $response, $args) {
-
         AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN, "JSON");
-
-        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
 
         if(isset($_REQUEST['type']) && isset($args['id'])){
             $userNewRole = $_REQUEST['type'];
@@ -40,7 +37,7 @@ class UserController {
             return $response->withAddedHeader('message', "Permissao atualizada com sucesso!");
         }
 
-        $response = $response->withAddedHeader('message', "Ocorreu algum erro, se fode aí troxa");
+        $response = $response->withAddedHeader('message', "Ocorreu algum erro.");
         return $response->withStatus(500);
     }
 

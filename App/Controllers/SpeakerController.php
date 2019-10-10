@@ -56,20 +56,19 @@ class SpeakerController {
         $speaker->setAttr('img_path', $img_file_name);
 
         if ($img->getError() === UPLOAD_ERR_OK) {
-            print_r(UPLOAD_FOLDER.'/'.$img_file_name);
             $img->moveTo(UPLOAD_FOLDER.'/'.$img_file_name);  
         }
 
-        $id = $speaker->save();
+        $success = $speaker->save();
 
-        if (!$id) {
+        if (!$success) {
             return $response
                 ->withHeader('Location', UtilsHelper::base_url("/admin/palestrantes/create"))
                 ->withStatus(302);   
         }
 
         return $response
-            ->withHeader('Location', UtilsHelper::base_url("/admin/palestrantes/$id"))
+            ->withHeader('Location', UtilsHelper::base_url("/admin/palestrantes/{$speaker->id}"))
             ->withStatus(302);
 
         return $response;   
@@ -110,6 +109,19 @@ class SpeakerController {
         $body = $request->getParsedBody();
         $speaker->setAttr('name', $body['name']);
         $speaker->setAttr('description', $body['description']);
+
+        $img = $request->getUploadedFiles()['img'];
+        $img_file_name = $img->getClientFilename();
+
+        if (!empty($img->getClientFilename())) {
+            if ($img->getError() === UPLOAD_ERR_OK) {
+                $img->moveTo(UPLOAD_FOLDER.'/'.$img_file_name);  
+                @unlink(UPLOAD_FOLDER.'/'.$speaker->img_path);
+                $speaker->setAttr('img_path', $img_file_name);
+            }
+        }
+
+        
         $speaker->save();
 
         return $response

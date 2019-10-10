@@ -15,7 +15,7 @@ use App\Helpers\UtilsHelper;
 
 <div class="container">
     <div>
-        <a href="<?= UtilsHelper::base_url("/admin/palestrantes") ?>" class="btn btn-success"> Voltar </a>
+        <a href="<?= UtilsHelper::base_url("/admin/palestrantes/{$speaker->id}") ?>" class="btn btn-success"> Voltar </a>
     </div>
     <br>
 
@@ -35,18 +35,21 @@ use App\Helpers\UtilsHelper;
                 </div>
             </div>
             
-            <div class="col-md-8">
+            <div class="col-sm-7 col-md-5">
                 <div class="form-group">
                     <label> Imagem </label>
                     <div class="alert alert-warning">
                         Apenas insira uma foto caso queira substituir a atual.
                     </div>
-                    <?= @$speaker->img_path ?>
+                    <?php if (@$speaker->img_path): ?>
+                    <img src="<?= UtilsHelper::storage_url(@$speaker->img_path) ?>" alt="<?= @$speaker->name ?> foto" style="width: 100%">
+                    <br><br>
+                    <?php endif; ?>
                     <input type="file" name="img"/>
                 </div>
             </div>
 
-            <div class="col-md-7">
+            <div class="col-md-12">
                 <button type="submit" class="btn btn-success">Salvar</button>
             </div>
             
