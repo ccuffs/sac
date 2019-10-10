@@ -49,6 +49,20 @@ use App\Helpers\UtilsHelper;
                 </div>
             </div>
 
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label class="control-label">Evento</label>
+                    <select name="fk_event" class="form-control">
+                        <option value=""></option>
+                        <?php foreach($events as $event): ?>
+                            <option 
+                                <?= $speaker->fk_event == $event->id ? "selected" : "" ?>
+                            value="<?= $event->id ?>"> <?= $event->title ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+
             <div class="col-md-12">
                 <button type="submit" class="btn btn-success">Salvar</button>
             </div>

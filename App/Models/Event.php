@@ -17,7 +17,6 @@ class Event extends Model {
     public $waitingCapacity;
     public $ghost;
     public $fk_competition;
-    public $fk_speaker;
 
     public static function findById($id) {
         $result = null;
@@ -85,8 +84,7 @@ class Event extends Model {
                 capacity = :capacity,
                 waiting_capacity = :waiting_capacity,
                 ghost = :ghost,
-                fk_competition = :fk_competition,
-                fk_speaker = :fk_speaker 
+                fk_competition = :fk_competition
             WHERE id = :id    
         ";
 
@@ -106,7 +104,6 @@ class Event extends Model {
         $query->bindParam('waiting_capacity', $this->waitingCapacity);
         $query->bindParam('ghost', $this->ghost);
         $query->bindParam('fk_competition', $this->fk_competition);
-        $query->bindParam('fk_speaker', $this->fk_speaker);
 
         $result = $query->execute();
 
@@ -114,13 +111,12 @@ class Event extends Model {
     }
   
     public function create() {
-        $sql = "INSERT INTO event (fk_competition , fk_speaker , day , month , time , title , description , place , price , capacity , waiting_capacity , ghost) VALUES
-                    (:fk_competition, :fk_speaker, :day, :month, :time, :title, :description, :place, :price, :capacity, :waiting_capacity, :ghost)";
+        $sql = "INSERT INTO event (fk_competition , day , month , time , title , description , place , price , capacity , waiting_capacity , ghost) VALUES
+                    (:fk_competition, :day, :month, :time, :title, :description, :place, :price, :capacity, :waiting_capacity, :ghost)";
 
         $query = SELF::conn()->prepare($sql);
 
         $query->bindParam('fk_competition', $this->fk_competition);
-        $query->bindParam('fk_speaker', $this->fk_speaker);
         $query->bindParam('day', $this->day);
         $query->bindParam('month', $this->month);
         $query->bindParam('time', $this->time);
@@ -152,7 +148,6 @@ class Event extends Model {
         $event->waitingCapacity = $data->waiting_capacity;
         $event->ghost = $data->ghost;
         $event->fk_competition = $data->fk_competition;
-        $event->fk_speaker = $data->fk_speaker;
         return $event;
     }
 }

@@ -22,7 +22,6 @@ use App\Helpers\UtilsHelper;
         </div>
         <div class="panel-body">
             <p><b>Título:</b> <?= $event->title ?></p>
-            <p><b>Palestrante:</b> <?= $data['speaker'] ?></p>
             <p><b>Data:</b> <?= $event->day ?>/<?= $event->month ?></p>
             <p><b>Horário:</b> <?= $event->time ?></p>
             <p><b>Local:</b> <?= $event->place ?></p>

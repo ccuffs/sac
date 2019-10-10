@@ -6,22 +6,25 @@
 
         public $id;
         public $name;
-        public $img_path;
-        public $fk_events;
         public $description;
+        public $img_path;
+        public $fk_event;
+        private $event;
 
         public function create(){
             $sql = "INSERT INTO speakers set
                 name = :name,
                 description = :description,
-                img_path = :img_path
+                img_path = :img_path,
+                fk_event = :fk_event
             ";
 
             $query = SELF::conn()->prepare($sql);
             $success = $query->execute([
                 'name' => $this->name,
                 'description' => $this->description,
-                'img_path' => $this->img_path
+                'img_path' => $this->img_path,
+                'fk_event' => $this->fk_event
             ]);
 
             $this->id = SELF::conn()->lastInsertId();
@@ -32,8 +35,9 @@
             $sql = "UPDATE speakers set
                 name = :name,
                 description = :description,
-                img_path = :img_path
-                WHERE id = :speaker_id";
+                img_path = :img_path,
+                fk_event = :fk_event
+                WHERE id = :id";
             
             $query = SELF::conn()->prepare($sql);
 
@@ -41,8 +45,16 @@
                 'name' => $this->name, 
                 'description' => $this->description,
                 'img_path' => $this->img_path,
-                'speaker_id' => $this->id
+                'fk_event' => $this->fk_event,
+                'id' => $this->id
             ]);
+        }
+
+        public function getEvent() {
+            if (!isset($this->event)) {
+                $this->event = Event::findById($this->fk_event);
+            }
+            return $this->event;
         }
 
         public function findAll(){
@@ -56,6 +68,7 @@
             $speaker->name = $data->name;
             $speaker->description = $data->description;
             $speaker->img_path = $data->img_path;
+            $speaker->fk_event = $data->fk_event;
             return $speaker;
         }
 

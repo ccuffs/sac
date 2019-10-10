@@ -49,6 +49,7 @@ class SpeakerController {
         $body = $request->getParsedBody();
         $speaker->setAttr('name', $body['name']);
         $speaker->setAttr('description', $body['description']);
+        $speaker->setAttr('fk_event', $body['fk_event']);
         
         $img = $request->getUploadedFiles()['img'];
         $img_file_name = $img->getClientFilename();
@@ -94,7 +95,9 @@ class SpeakerController {
         $user = AuthHelper::getAuthenticatedUser();
         
         $speaker = Speaker::findById($args['id']);
-        $data = compact(['user', 'speaker']);
+        $events = Event::findAll();
+
+        $data = compact(['user', 'speaker', 'events']);
 
         View::render('layout/admin/header', $data);
         View::render('speaker/edit', $data);
@@ -109,6 +112,7 @@ class SpeakerController {
         $body = $request->getParsedBody();
         $speaker->setAttr('name', $body['name']);
         $speaker->setAttr('description', $body['description']);
+        $speaker->setAttr('fk_event', $body['fk_event']);
 
         $img = $request->getUploadedFiles()['img'];
         $img_file_name = $img->getClientFilename();
@@ -121,7 +125,6 @@ class SpeakerController {
             }
         }
 
-        
         $speaker->save();
 
         return $response

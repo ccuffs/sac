@@ -33,6 +33,6 @@ use App\Helpers\UtilsHelper;
                 <td> <?= $speaker->description ?> </td>
                 <td width="50"><a href="<?= UtilsHelper::base_url("/admin/palestrantes/" . $speaker->id) ?>" class="btn btn-primary">Visualizar</a></td>
             </tr>
-        <? endforeach; ?>
+        <?php endforeach; ?>
     </table>
 </div>

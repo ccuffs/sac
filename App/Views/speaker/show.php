@@ -24,6 +24,7 @@ use App\Helpers\UtilsHelper;
             <p><b>Nome:</b> <?= $speaker->name ?></p>
             <p><b>Descrição:</b> <?= $speaker->description ?></p>
             <p><b>Imagem:</b> <br> <img width="400" src="<?= UtilsHelper::storage_url($speaker->img_path) ?>"></p>
+            <p><b>Evento:</b> <?= $speaker->getEvent()->title ?></p>
         </div>
     </div>
 </div>

@@ -22,26 +22,18 @@ use App\Helpers\UtilsHelper;
             <div class="col-md-8">
                 <div class="form-group">
                     <label class="control-label">Título</label>
-                    <input required type="text" name="title" class="form-control" />
+                    <input required type="text" name="title" value="<?= @$event->title ?>" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Dia</label>
+                    <input required type="number" name="day" value="<?= @$event->day ?>" class="form-control">
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label class="control-label">Palestrante</label>
-                    <select required name="speaker" class="form-control">
-                        <?php foreach($data['speakers'] as $speaker): ?>
-                            <option value="<?= $speaker->id?>"
-                                <?php if ($speaker->id == $event->fk_speaker):?>
-                                    selected
-                                <?php endif;?>
-                             >
-                             <?= $speaker->name ?> </option>
-                        <?php endforeach;?>
-                    </select>
-                </div>
-            </div>
-            
             <div class="col-md-4">
                 <div class="form-group">
                     <label class="control-label">Mês</label>
@@ -79,9 +71,6 @@ use App\Helpers\UtilsHelper;
                     <input required type="text" name="price" value="<?= str_replace('.',',', sprintf('%.2f', @$event->price, 2)) ?>" class="form-control">
                 </div>
             </div>
-        </div>
-        
-        <div class="row">
         </div>
             
         <div class="row">

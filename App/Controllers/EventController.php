@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Helpers\View;
 use App\Models\User;
-use App\Models\Speaker;
 use App\Models\Event;
 use App\Models\Competition;
 use App\Models\Payment;
@@ -35,10 +34,8 @@ class EventController {
         $user = AuthHelper::getAuthenticatedUser();
         
         $event = Event::findById($args['id']);
-        $title = 'Evento';
-        $speaker = Speaker::findById($event->fk_speaker)->name;
 
-        $data = compact(['user', 'event', 'title', 'speaker']);
+        $data = compact(['user', 'event']);
 
         View::render('layout/admin/header', $data);
         View::render('event/show', $data);
@@ -57,9 +54,7 @@ class EventController {
 
         $title = 'Evento';
 
-        $speakers = Speaker::findAll($event->fk_speaker);
-        
-        $data = compact(['user', 'event', 'competitions', 'title','speakers']);
+        $data = compact(['user', 'event', 'competitions', 'title']);
 
         View::render('layout/admin/header', $data);
         View::render('event/edit', $data);
@@ -83,7 +78,6 @@ class EventController {
         $event->setAttr('capacity', $body['capacity']);
         $event->setAttr('waitingCapacity', $body['waiting_capacity']);
         $event->setAttr('fk_competition', $body['fk_competition']);
-        $event->setAttr('fk_speaker', $body['speaker']);
         $event->save();
 
         return $response
@@ -108,9 +102,7 @@ class EventController {
 
         $title = 'Evento';
 
-        $speakers = Speaker::findAll();
-
-        $data = compact(['user', 'competitions', 'title', 'speakers']);
+        $data = compact(['user', 'competitions', 'title']);
 
         View::render('layout/admin/header', $data);
         View::render('event/create', $data);
@@ -134,7 +126,6 @@ class EventController {
         $event->setAttr('capacity', $body['capacity']);
         $event->setAttr('waitingCapacity', $body['waiting_capacity']);
         $event->setAttr('fk_competition', $body['fk_competition']);
-        $event->setAttr('fk_speaker', $body['speaker']);
         $id = $event->save();
 
         if (!$id) {
