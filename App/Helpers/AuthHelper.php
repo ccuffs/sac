@@ -41,13 +41,14 @@ class AuthHelper {
 		$title = '401';
 		$isAuthenticated = AuthHelper::isAuthenticated();
 		$user = AuthHelper::getAuthenticatedUser();
-		if(!$isAuthenticated || !$user->hasPermission($level)) {
+		$hasAccess = $isAuthenticated && $user->hasPermission($level);
+		if(!$hasAccess && $type == "HTML") {
 			$data = compact(['user', 'title']);
 			View::render('layout/admin/header', $data);
 			View::render('errors/401', $data);
 			View::render('layout/admin/footer', $data);
 			exit();
-		} else if ($isAdmin && $type == 'JSON') {
+		} else if (!$hasAccess && $type == "JSON") {
 			header("message: 'Usuário não autorizado!'");
 			header("Content-Type: text/html; charset=UTF-8");
 			http_response_code(401);

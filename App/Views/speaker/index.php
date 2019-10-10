@@ -31,15 +31,7 @@ use App\Helpers\UtilsHelper;
             <tr>
                 <td> <?= $speaker->name ?>  </td>
                 <td> <?= $speaker->description ?> </td>
-                <td>
-                    <?foreach($events as $event): ?>
-                            <?php if(isset($event->fk_speaker) && $speaker->id == $event->fk_speaker): ?>
-                                <span>
-                                    <?= $event->title ?> 
-                                </span>
-                            <?php endif; ?>
-                    <?php endforeach; ?>
-                </td>
+                <td width="50"><a href="<?= UtilsHelper::base_url("/admin/palestrantes/" . $speaker->id) ?>" class="btn btn-primary">Visualizar</a></td>
             </tr>
         <? endforeach; ?>
     </table>

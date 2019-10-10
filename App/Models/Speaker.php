@@ -32,8 +32,8 @@
             $sql = "UPDATE speakers set
                 name = :name,
                 description = :description,
-                $img_path = :img_path
-                WHERE id = :userId";
+                img_path = :img_path
+                WHERE id = :speaker_id";
             
             $query = SELF::conn()->prepare($sql);
 
@@ -41,7 +41,7 @@
                 'name' => $this->name, 
                 'description' => $this->description,
                 'img_path' => $this->img_path,
-                'fk_events' => $this->fk_events
+                'speaker_id' => $this->id
             ]);
         }
 

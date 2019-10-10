@@ -11,15 +11,8 @@ use App\Helpers\View;
 use App\Models\Speaker;
 
 class SpeakerController {
-
-    private $responseMessage = array();
-
-    private static $IMG_PATH = __DIR__ . '/../../public/img';
-    
-    //private static $IMG_PATH = '/home/arufonsekun/Imagens';
-    
     public function index($request, $response, $args) {
-        
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
         $user = AuthHelper::getAuthenticatedUser();
 
         $speakers = Speaker::findAll();
@@ -27,78 +20,110 @@ class SpeakerController {
 
         $data = compact('user', 'events', 'speakers');
 
-        View::render('layout/header', $data);
-        View::render('speakers/index', $data);
-        View::render('layout/footer');
+        View::render('layout/admin/header', $data);
+        View::render('speaker/index', $data);
+        View::render('layout/admin/footer');
 
         return $response;
     }
     
     public function create($request, $response, $args) {
-        
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
         $user = AuthHelper::getAuthenticatedUser();
 
         $events = Event::findAll();
 
         $data = compact('user', 'events');
 
-        View::render('layout/header', $data);
-        View::render('speakers/create', $data);
-        View::render('layout/footer');
+        View::render('layout/admin/header', $data);
+        View::render('speaker/create', $data);
+        View::render('layout/admin/footer');
 
         return $response;
     }
 
     public function store($request, $response, $args) {
-
-        //AuthHelper::restrictToPermission(User::USER_CO_ORGANIZER);
+        AuthHelper::restrictToPermission(User::USER_CO_ORGANIZER);
 
         $speaker = new Speaker();
         $body = $request->getParsedBody();
         $speaker->setAttr('name', $body['name']);
         $speaker->setAttr('description', $body['description']);
+        
         $img = $request->getUploadedFiles()['img'];
-        $speaker->setAttr('img_path', $img->getClientFilename());
+        $img_file_name = $img->getClientFilename();
 
+        $speaker->setAttr('img_path', $img_file_name);
 
-        $img_client_file_name = $img->getClientFilename();
-
-        // echo SpeakerController::$IMG_PATH.'/'.$img_client_file_name;
-        // exit();
-
-        // echo $img->getClientFilename();
-        // exit();
-
-        /*if ($img->getError() === UPLOAD_ERR_OK) {
-            $img->moveTo('/opt/lampp/htdocs/sac/public/img/'.$img_client_file_name);  
-        }*/
+        if ($img->getError() === UPLOAD_ERR_OK) {
+            print_r(UPLOAD_FOLDER.'/'.$img_file_name);
+            $img->moveTo(UPLOAD_FOLDER.'/'.$img_file_name);  
+        }
 
         $id = $speaker->save();
 
         if (!$id) {
             return $response
-                ->withHeader('Location', UtilsHelper::base_url("/admin/campeonato/create"))
+                ->withHeader('Location', UtilsHelper::base_url("/admin/palestrantes/create"))
                 ->withStatus(302);   
         }
 
         return $response
-            ->withHeader('Location', UtilsHelper::base_url("/admin/campeonato/$id"))
+            ->withHeader('Location', UtilsHelper::base_url("/admin/palestrantes/$id"))
             ->withStatus(302);
 
-        return $response;
+        return $response;   
+    }
+
+    public function show ($request, $response, $args) {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        $user = AuthHelper::getAuthenticatedUser();
         
+        $speaker = Speaker::findById($args['id']);
+
+        $data = compact(['user', 'speaker', 'speaker']);
+
+        View::render('layout/admin/header', $data);
+        View::render('speaker/show', $data);
+        View::render('layout/admin/footer', $data);
+
+        return $response;
     }
 
-    private function moveUploadedFile($directory, $uploadedFile) {
-        $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
-        $basename = bin2hex(random_bytes(8));
-        $filename = sprintf('%s.%0.8s', $basename, $extension);
+    public function edit ($request, $response, $args) {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        $user = AuthHelper::getAuthenticatedUser();
+        
+        $speaker = Speaker::findById($args['id']);
+        $data = compact(['user', 'speaker']);
 
-        $uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . $filename);
+        View::render('layout/admin/header', $data);
+        View::render('speaker/edit', $data);
+        View::render('layout/admin/footer', $data);
 
-        return $filename;
+        return $response;
     }
 
+    public function update ($request, $response, $args) {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        $speaker = Speaker::findById($args['id']);
+        $body = $request->getParsedBody();
+        $speaker->setAttr('name', $body['name']);
+        $speaker->setAttr('description', $body['description']);
+        $speaker->save();
 
+        return $response
+            ->withHeader('Location', UtilsHelper::base_url("/admin/palestrantes/".$args['id']))
+            ->withStatus(302);      
+    }
+
+    public function delete ($request, $response, $args) {
+        AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+        $speaker = Speaker::findById($args['id']);
+        $speaker->delete();
+        return $response
+            ->withHeader('Location', UtilsHelper::base_url("/admin/palestrantes"))
+            ->withStatus(302);  
+    }
 }
 
