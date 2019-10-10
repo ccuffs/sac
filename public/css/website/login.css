@@ -1,10 +1,12 @@
 .login-section {
     background-color:white;
-    width: 100vw;
-    height: 100vh;
+    min-width: 100vw;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 100px;
+    padding-bottom: 40px;
 }
 .login {
     background-color: white;

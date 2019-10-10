@@ -127,7 +127,7 @@ CREATE TABLE `teams` (
 CREATE TABLE `users` (
   `id` int(11) UNSIGNED NOT NULL,
   `login` varchar(40) NOT NULL,
-  `password` text DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
   `cpf` varchar(100) DEFAULT NULL,
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,

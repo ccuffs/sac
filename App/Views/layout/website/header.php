@@ -28,6 +28,7 @@ $_user = AuthHelper::getAuthenticatedUser();
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/animations.css") ?>">
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/navbar.css") ?>">
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/form.css") ?>">
+  <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/alert.css") ?>">
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/home.css") ?>">
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/login.css") ?>">
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/profile.css") ?>">
