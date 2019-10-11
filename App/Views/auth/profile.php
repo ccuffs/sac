@@ -84,6 +84,7 @@ use App\Models\User;
                     <tr class="bg-primary-light">
                         <th>Lote</th>
                         <?php if($user->isInternal()): ?>
+                        <th>Estudante CC UFFS</th>
                         <th>Estudante UFFS</th>
                         <?php else: ?>
                         <th>Visitante</th>
@@ -93,25 +94,22 @@ use App\Models\User;
                         <td><b>1º lote</b></td>
                         <?php if($user->isInternal()): ?>
                         <td>R$ 5,00</td>
+                        <td rowspan="3">R$ 15,00</td>
                         <?php else: ?>
-                        <td>R$ 30,00</td>
+                        <td rowspan="3">R$ 40,00</td>
                         <?php endif; ?>
                     </tr>
                     <tr>
+                        <?php if($user->isInternal()): ?>
                         <td><b>2º lote</b></td>
-                        <?php if($user->isInternal()): ?>
                         <td>R$ 10,00</td>
-                        <?php else: ?>
-                        <td>R$ 35,00</td>
                         <?php endif; ?>
                     </tr>
                     <tr>
-                        <td><b>No dia</b></td>
                         <?php if($user->isInternal()): ?>
+                        <td><b>No dia</b></td>
                         <td>R$ 15,00</td>
-                        <?php else: ?>
-                        <td>R$ 40,00</td>
-                        <?php endif; ?>
+                        <? endif; ?>
                     </tr>
                 </table>
             </div>
@@ -120,12 +118,13 @@ use App\Models\User;
         <h2 class="title" scroll-sensitive="animate-top-down">Formas de pagamento</h2>
         <div class="row">
             <div class="col-lg-6">
-                <h3 class="title">Transferencia bancaria</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Praesentium cum nulla laborum, sunt omnis temporibus nihil dolores</p>
+                <h3 class="title text-center">Dinheiro</h3>
+                <p>O pagamento deve ser feito para algum membro do CA, para contatá-los-los envie um e-mail para <a href="mailto:cacomputacaouffs@gmail.com">cacomputacaouffs@gmail.com</a> ou entre em contato pelas redes sociais:</p>
+                <p><b>Instagram:</b> <a href="https://www.instagram.com/cacomputacaouffs/" target="_blank">cacomputacaouffs</a></p>
             </div>
             <div class="col-lg-6">
-                <h3 class="title">Dinheiro</h3>
-                <p>Pagamento por dinheiro nas mãos de algum membro do CA. Para entrar com contato em o CA envie um e-mail para ... ou entre em contato pelas redes sociais:</p>
+                <h3 class="title text-center">Transferencia bancaria</h3>
+                <p class="text-center">Em breve...</p>
             </div>
         </div>
     </div>
