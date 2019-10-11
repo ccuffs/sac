@@ -12,14 +12,13 @@ class UserController {
 
     public function index($request, $response, $args) {
         AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
-        AuthHelper::allowAuthenticated();
         $users = User::findByRole([User::USER_LEVEL_UFFS, User::USER_LEVEL_ADMIN, User::USER_CO_ORGANIZER, User::USER_LEVEL_EXTERNAL]);
 
         $authUser = AuthHelper::getAuthenticatedUser();
 
-        View::render('layout/header', array('user' => $authUser));
+        View::render('layout/admin/header', array('user' => $authUser));
         View::render('auth/users', array('users' => $users, 'authUser' => $authUser));
-        View::render('layout/footer');
+        View::render('layout/admin/footer');
 
         return $response;
     }
