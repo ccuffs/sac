@@ -52,6 +52,14 @@ $app->get('/admin', 'App\Controllers\HomeController:dashboard');
 $app->get('/admin/permissoes', 'App\Controllers\UserController:index');
 $app->post('/admin/permissoes/{id}', 'App\Controllers\UserController:update');
 
+$app->get('/admin/palestrantes', 'App\Controllers\SpeakerController:index');
+$app->get('/admin/palestrantes/create', 'App\Controllers\SpeakerController:create');
+$app->post('/admin/palestrantes/create', 'App\Controllers\SpeakerController:store');
+$app->get('/admin/palestrantes/{id}', 'App\Controllers\SpeakerController:show');
+$app->get('/admin/palestrantes/{id}/edit', 'App\Controllers\SpeakerController:edit');
+$app->post('/admin/palestrantes/{id}/edit', 'App\Controllers\SpeakerController:update');
+$app->get('/admin/palestrantes/{id}/delete', 'App\Controllers\SpeakerController:delete');
+
 $app->get('/admin/evento', 'App\Controllers\EventController:index');
 $app->get('/admin/evento/create', 'App\Controllers\EventController:create');
 $app->post('/admin/evento/create', 'App\Controllers\EventController:store');

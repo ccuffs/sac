@@ -10,3 +10,9 @@
     color: #d43f3a;
     background-color: rgba(212, 63, 58, .1);
 }
+
+.alert--warning {
+    border-color: #eea236;
+    color: #eea236;
+    background-color: rgba(238, 162, 54, .1);
+}

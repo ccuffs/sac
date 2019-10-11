@@ -45,8 +45,11 @@ class UtilsHelper {
 	}
 	
 	public static function base_url($url = "") {
-		/* TODO: Config this */
 		return BASE_URL . $url;
+	}
+
+	public static function storage_url($url = "") {
+		return BASE_URL . "/storage/" . $url;
 	}
 
 	public function format_money($money){

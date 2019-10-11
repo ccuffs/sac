@@ -10,7 +10,7 @@ use App\Models\User;
                 <h1 class="profile__title title">Perfil</h1>
             </div>
             <div class="col text-right">
-                <?php if ($user->isLevel(User::USER_LEVEL_ADMIN)): ?>
+                <?php if ($user->hasPermission(User::USER_CO_ORGANIZER)): ?>
                 <a href="<?= UtilsHelper::base_url("/admin") ?>" class="btn btn--medium btn--secondary">Dashboard</a>
                 <?php endif; ?>
                 <a href="<?= UtilsHelper::base_url("/logout") ?>" class="btn btn--medium btn--primary">Sair</a>

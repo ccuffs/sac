@@ -108,6 +108,10 @@ class User extends Model {
         return $this->type == $theLevel;
     }
 
+    public function hasPermission ($level) {
+        return $this->type >= $level;
+    }
+
     public function isExternal() {
         return $this->type == User::USER_LEVEL_EXTERNAL;
     }

@@ -91,6 +91,7 @@
 								<li role="presentation" class="dropdown-header">Programação</li>
 								<li><a href="<?= UtilsHelper::base_url("/admin/evento")?>">Eventos</a></li>
 								<li><a href="<?= UtilsHelper::base_url("/admin/campeonato")?>">Campeonatos</a></li>
+								<li><a href="<?= UtilsHelper::base_url("/admin/palestrantes")?>">Palestrantes</a></li>
 							
 								<li class="divider"></li>
 								<li role="presentation" class="dropdown-header">Inscrições</li>

@@ -65,61 +65,12 @@ use App\Helpers\UtilsHelper;
     </div>
   </div>
 </section>
-    
-<!-- <section class="speakers section" id="speakers">
-  <div class="container">
-    <h2 class="speakers__title title" scroll-sensitive="animate-top-down">Palestrantes</h2>
-    <div class="spearkers__list">
-      <div class="speaker-card card" scroll-sensitive="animate-left-right">
-        <div class="card__body">
-          <div class="row align-items-center">
-            <div class="col-12 col-md-5 col-lg-4">
-              <div class="card__icon card__figure">
-                <img width="100%"
-                  src="https://media.gq.com/photos/563d215a6ff00fb522b05b01/master/pass/RIP-charlie-brown.jpg">
-              </div>
-            </div>
-            <div class="col">
-              <h3 class="speaker-card__title">Charlie Brown</h3>
-              <p class="speaker-card__subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-              <div class="speaker-card__description">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a velit accumsan, condimentum
-                  libero eu, vestibulum tellus. Sed nulla leo, varius a fringilla in, fringilla id arcu. In hac
-                  habitasse platea dictumst. </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="speaker-card card" scroll-sensitive="animate-right-left">
-        <div class="card__body">
-          <div class="row align-items-center">
-            <div class="col-12 col-md-5 col-lg-4">
-              <div class="card__icon card__figure">
-                <img width="100%"
-                  src="https://media.gq.com/photos/563d215a6ff00fb522b05b01/master/pass/RIP-charlie-brown.jpg">
-              </div>
-            </div>
-            <div class="col">
-              <h3 class="speaker-card__title">Charlie Brown</h3>
-              <p class="speaker-card__subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-              <div class="speaker-card__description">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a velit accumsan, condimentum
-                  libero eu, vestibulum tellus. Sed nulla leo, varius a fringilla in, fringilla id arcu. In hac
-                  habitasse platea dictumst. </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section> -->
 
 <section class="programming section" id="programming">
     <div class="container">
        <h2 class="programming__title title" scroll-sensitive="animate-top-down">Programação</h2>
       
-        <?php foreach ($data['events'] as $event_per_day): ?>
+        <?php foreach ($day_programming as $event_per_day): ?>
           <?php $event_head = reset($event_per_day) ?>
           <div class="programming-item">
             <div class="row">
@@ -139,10 +90,10 @@ use App\Helpers\UtilsHelper;
                         </span><br>
                         <span> <?= $event->description?> </span> <br>
 
-                        <?php if (isset($event->speaker)): ?>
+                        <?php foreach ($event->getSpeakers() as $speaker): ?>
                         <span class="event__strong"> Palestrante: </span>
-                        <span> <?= $event->speaker ?> </span><br>
-                        <?php endif; ?>
+                        <span> <?= $speaker->name ?> </span><br>
+                        <?php endforeach; ?>
 
                         <span class="event__strong"> Início: </span>
                         <span> <?= $event->time . ' hrs'?> </span><br>
@@ -150,8 +101,10 @@ use App\Helpers\UtilsHelper;
                         <span class="event__strong"> Local: </span>
                         <span> <?= $event->place ?></span> <br>
 
+                        <?php if ($event->price > 0): ?>
                         <span class="event__strong"> Custo: </span>
-                        <span> <?= $event->price > 0 ? UtilsHelper::format_money_view($event->price) : 'Gratuito'?></span>
+                        <span> <?= UtilsHelper::format_money_view($event->price) ?></span>
+                        <?php endif; ?>
 
                       </div>
                     </div>
@@ -161,6 +114,34 @@ use App\Helpers\UtilsHelper;
             </div>
         </div>
     <?php endforeach; ?>
+</section>
+
+<section class="speakers section" id="speakers">
+  <div class="container">
+    <h2 class="speakers__title title" scroll-sensitive="animate-top-down">Palestrantes</h2>
+    <div class="spearkers__list">
+      <?php foreach($speakers as $speaker): ?>
+      <div class="speaker-card card" scroll-sensitive="animate-left-right">
+        <div class="card__body">
+          <div class="row align-items-center">
+            <div class="col-12 col-md-4 col-lg-3">
+              <div class="card__icon card__figure">
+                <img width="100%"
+                  src="<?= UtilsHelper::storage_url($speaker->img_path) ?>">
+              </div>
+            </div>
+            <div class="col">
+              <h3 class="speaker-card__title"><?= $speaker->name ?></h3>
+              <!-- <p class="speaker-card__subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p> -->
+              <div class="speaker-card__description">
+                <p><?= $speaker->description ?></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <?php endforeach; ?>
+  </div>
 </section>
 
 <section class="values section" id="values">

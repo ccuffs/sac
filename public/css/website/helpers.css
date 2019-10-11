@@ -13,3 +13,7 @@
 .title.title--lg {
     font-size: 50px;
 }
+
+.img-fluid {
+    width: 100%;
+}

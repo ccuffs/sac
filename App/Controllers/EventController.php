@@ -34,9 +34,8 @@ class EventController {
         $user = AuthHelper::getAuthenticatedUser();
         
         $event = Event::findById($args['id']);
-        $title = 'Evento';
 
-        $data = compact(['user', 'event', 'title']);
+        $data = compact(['user', 'event']);
 
         View::render('layout/admin/header', $data);
         View::render('event/show', $data);
@@ -98,12 +97,6 @@ class EventController {
     public function create ($request, $response, $args) {
         AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
         $user = AuthHelper::getAuthenticatedUser();
-        $isAdmin = $user->isLevel(User::USER_LEVEL_ADMIN);
-        
-        if (!$isAdmin) {
-            View::render('restricted');
-            return $response;
-        }
         
         $competitions = Competition::findAll();
 
@@ -119,6 +112,7 @@ class EventController {
 
     public function store ($request, $response, $args) {
         AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
+
         $event = new Event();
         $body = $request->getParsedBody();
         $event->setAttr('title', $body['title']);
