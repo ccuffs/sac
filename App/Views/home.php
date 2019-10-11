@@ -124,7 +124,7 @@ use App\Helpers\UtilsHelper;
       <div class="speaker-card card" scroll-sensitive="animate-left-right">
         <div class="card__body">
           <div class="row align-items-center">
-            <div class="col-12 col-md-5 col-lg-4">
+            <div class="col-12 col-md-4 col-lg-3">
               <div class="card__icon card__figure">
                 <img width="100%"
                   src="<?= UtilsHelper::storage_url($speaker->img_path) ?>">
