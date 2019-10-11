@@ -26,7 +26,7 @@ $_user = AuthHelper::getAuthenticatedUser();
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/card.css") ?>">
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/buttons.css") ?>">
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/animations.css") ?>">
-  <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/navbar.css") ?>">
+  <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/layout.css") ?>">
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/form.css") ?>">
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/alert.css") ?>">
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/home.css") ?>">

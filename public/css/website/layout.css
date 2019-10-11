@@ -83,3 +83,16 @@
     width: 100%;
     background-color: #00693E;
 }
+
+.main-footer {
+    color: white;
+    background-color: #00693E;
+    padding: 15px 0;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.main-footer a {
+    color: white;
+    text-decoration: underline;
+}
