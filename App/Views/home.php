@@ -154,14 +154,14 @@ use App\Helpers\UtilsHelper;
                     <tr class="bg-primary-light">
                         <th>Lote</th>
                         <th>Estudante CC UFFS</th>
-                        <th>Estudante UFFS</th>
-                        <th>Visitante</th>
+                        <th class="d-none d-sm-table-cell">Estudante UFFS</th>
+                        <th class="d-none d-sm-table-cell">Visitante</th>
                     </tr>
                     <tr>
                         <td><b>1º lote</b></td>
                         <td>R$ 5,00</td>
-                        <td rowspan="3">R$ 15,00</td>
-                        <td rowspan="3">R$ 40,00</td>
+                        <td class="d-none d-sm-table-cell" rowspan="3">R$ 15,00</td>
+                        <td class="d-none d-sm-table-cell" rowspan="3">R$ 40,00</td>
                     </tr>
                     <tr>
                         <td><b>2º lote</b></td>
@@ -170,6 +170,22 @@ use App\Helpers\UtilsHelper;
                     <tr>
                         <td><b>No dia</b></td>
                         <td>R$ 15,00</td>
+                    </tr>
+                </table>
+                <table class="d-table d-sm-none mt-4 table table--lg table--bordered">
+                    <tr class="bg-primary-light">
+                        <th>Estudante UFFS</th>
+                    </tr>
+                    <tr>
+                        <td>R$ 15,00</td>
+                    </tr>
+                </table>
+                <table class="d-table d-sm-none mt-4 table table--lg table--bordered">
+                    <tr class="bg-primary-light">
+                        <th>Visitante</th>
+                    </tr>
+                    <tr>
+                        <td>R$ 40,00</td>
                     </tr>
                 </table>
             </div>
