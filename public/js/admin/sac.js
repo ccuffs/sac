@@ -104,8 +104,14 @@ var SAC = new function() {
 	}
 
 	this.addMasks = function(){
-		$("input[name=amount]").maskMoney({prefix:'R$ ', allowNegative: false, thousands:'.', decimal:',', affixesStay: false});
-		$("input[name=price]").maskMoney({prefix:'R$ ', allowNegative: false, thousands:'.', decimal:',', affixesStay: false});
+		$("input[name=amount], input[name=price]").maskMoney({
+			prefix:'R$ ',
+			allowNegative: false,
+			thousands:'.',
+			decimal:',',
+			affixesStay: false,
+			allowZero: true
+		});
 		$("input[name=cpf]").mask('000.000.000-00');
 	}
 };
