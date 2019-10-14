@@ -92,7 +92,7 @@ use App\Helpers\UtilsHelper;
 
                         <?php foreach ($event->getSpeakers() as $speaker): ?>
                         <span class="event__strong"> Palestrante: </span>
-                        <span> <?= $speaker->name ?> </span><br>
+                        <a href="#palestrante/<?= $speaker->name ?>"> <?= $speaker->name ?> </a><br>
                         <?php endforeach; ?>
 
                         <span class="event__strong"> Início: </span>
@@ -121,7 +121,7 @@ use App\Helpers\UtilsHelper;
     <h2 class="speakers__title title" scroll-sensitive="animate-top-down">Palestrantes</h2>
     <div class="spearkers__list">
       <?php foreach($speakers as $speaker): ?>
-      <div class="speaker-card card" scroll-sensitive="animate-left-right">
+      <div class="speaker-card card" id="palestrante/<?= $speaker->name ?>" scroll-sensitive="animate-left-right">
         <div class="card__body">
           <div class="row align-items-center">
             <div class="col-12 col-md-4 col-lg-3">
@@ -143,6 +143,7 @@ use App\Helpers\UtilsHelper;
       <?php endforeach; ?>
   </div>
 </section>
+
 
 <section class="values section" id="values">
     <div class="container">
