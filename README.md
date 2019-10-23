@@ -14,7 +14,7 @@ Para rodar o projeto, é necessário as seguintes dependências:
 * [MySQL](https://dev.mysql.com/downloads/installer/)
 * [Composer](https://getcomposer.org/download/)
 
-Também, é preciso instalar as depensências do projeto usando o Composer:
+Também é preciso instalar as dependências do projeto usando o Composer:
 
 ```shell
 $ composer install
