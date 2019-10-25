@@ -50,6 +50,8 @@ class Event extends Model {
     public static function findPriceds() {
         $query = SELF::conn()->prepare("SELECT * FROM event WHERE price > 0 ORDER BY day ASC, month ASC, time ASC");
         
+        $result = null;
+
         if ($query->execute()) {
             while ($event_data = $query->fetch()) {
                 $result[] = SELF::newByData($event_data);

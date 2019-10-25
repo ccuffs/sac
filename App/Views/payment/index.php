@@ -73,9 +73,11 @@ use App\Helpers\UtilsHelper;
 				<div class="form-group">
 					<label class="control-label">Eventos</label>
 					<select name="fk_event" payment-input-type="event" class="form-control">
-						<?php foreach ($events as $event): ?>
-						<option value="<?= $event->id ?>"><?= $event->title ?></option>
-						<?php endforeach; ?>
+						<?php if(isset($events)): ?>
+							<?php foreach ($events as $event): ?>
+							<option value="<?= $event->id ?>"><?= $event->title ?></option>
+							<?php endforeach; ?>
+						<?php endif;?>
 					</select>
 				</div>
 			</div>
