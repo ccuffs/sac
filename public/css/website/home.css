@@ -103,7 +103,7 @@
 }
 
 /* Section */
-.speakers {
+.speakers, .programming {
     background-color: rgba(0, 105, 62, .1);
 }
 
@@ -178,3 +178,17 @@
     color: #00693c; 
 }
 
+/* Values */
+.values__title {
+    text-align: center;
+    color: #00693c;
+    font-size: 40px;
+    margin: .3em;
+}
+
+.values__subtitle {
+    text-align: center;
+    color: #00693c;
+    font-size: 32px;
+    margin: 1em 0 .5em 0;
+}

@@ -1,5 +1,6 @@
 .profile {
     padding-top: 130px;
+    padding-bottom: 30px;
     background-color: rgba(0, 155, 62, .1);
     min-height: 100vh;
 }

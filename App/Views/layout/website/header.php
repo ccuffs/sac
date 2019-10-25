@@ -20,13 +20,15 @@ $_user = AuthHelper::getAuthenticatedUser();
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/vendor/fontawesome/css/all.min.css") ?>">
   <!-- index CSS -->
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/fonts.css") ?>">
+  <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/table.css") ?>">
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/helpers.css") ?>">
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/index.css") ?>">
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/card.css") ?>">
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/buttons.css") ?>">
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/animations.css") ?>">
-  <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/navbar.css") ?>">
+  <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/layout.css") ?>">
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/form.css") ?>">
+  <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/alert.css") ?>">
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/home.css") ?>">
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/login.css") ?>">
   <link rel="stylesheet" href="<?= UtilsHelper::base_url("/css/website/profile.css") ?>">
@@ -51,12 +53,13 @@ $_user = AuthHelper::getAuthenticatedUser();
           <div class="col-md-10 d-none d-md-block">
             <nav class="navbar__menu">
               <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#about")?>">Sobre</a>
-              <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#speakers")?>">Palestrantes</a>
+              <!-- <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#speakers")?>">Palestrantes</a> -->
               <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#programming")?>">Programação</a>
+              <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#values")?>">Valores</a>
               <?php if ($_user): ?>
               <a class="navbar__archor" href="<?= UtilsHelper::base_url("/perfil")?>">Perfil</a>
               <?php else: ?>
-              <a class="navbar__archor" href="<?= UtilsHelper::base_url("/login")?>">Inscrições</a>
+              <a class="navbar__archor" href="<?= UtilsHelper::base_url("/inscricao")?>">Inscrições</a>
               <?php endif; ?>
             </nav>
           </div>
@@ -71,12 +74,13 @@ $_user = AuthHelper::getAuthenticatedUser();
     <div class="menu-mobile">
       <nav id="menu" class="menu-mobile__content">
         <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#about")?>">Sobre</a>
-        <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#speakers")?>">Palestrantes</a>
+        <!-- <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#speakers")?>">Palestrantes</a> -->
         <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#programming")?>">Programação</a>
+        <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#values")?>">Valores</a>
         <?php if ($_user): ?>
         <a class="navbar__archor" href="<?= UtilsHelper::base_url("/perfil")?>">Perfil</a>
         <?php else: ?>
-        <a class="navbar__archor" href="<?= UtilsHelper::base_url("/login")?>">Inscrições</a>
+        <a class="navbar__archor" href="<?= UtilsHelper::base_url("/inscricao")?>">Inscrições</a>
         <?php endif; ?>
       </nav>
     </div>

@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Helpers\AuthHelper;
+use App\Helpers\UtilsHelper;
+
 class User extends Model {
     protected $table = "user";
     
@@ -16,25 +19,9 @@ class User extends Model {
     public $name;
     public $email;
     public $type;
+    public $registration;
     private $total_paid;
     private $payments;
-
-    public static function getById($theUserId) {
-        $user = null;
-        $query = SELF::conn()->prepare("SELECT id, login, name, email, type FROM users WHERE id = ?");
-        
-        if ($query->execute(array($theUserId))) {	
-            $data = $query->fetch();
-            $user = new User();
-            $user->id = $data['id'];
-            $user->login = $data['login'];
-            $user->name = $data['name'];
-            $user->email = $data['email'];
-            $user->type = $data['type'];
-        }
-        
-        return $user;
-    }
 
     public static function isUsernameAvailable ($username) {
         $sql = "SELECT count(*) as amount FROM users WHERE login=:username";
@@ -121,6 +108,10 @@ class User extends Model {
         return $this->type == $theLevel;
     }
 
+    public function hasPermission ($level) {
+        return $this->type >= $level;
+    }
+
     public function isExternal() {
         return $this->type == User::USER_LEVEL_EXTERNAL;
     }
@@ -164,10 +155,29 @@ class User extends Model {
         return SELF::newByData($user_data);
     }
 
+    public static function findByCredentials ($username, $password) {
+        $password = AuthHelper::hash($password);
+        $sql = "SELECT * FROM users WHERE login = :username AND password = :password";
+        $query = SELF::conn()->prepare($sql);
+        $query->execute([
+            'username' => $username,
+            'password' => $password
+        ]);
+        $user_data = $query->fetch();
+
+        if (!$user_data) {
+            return null;
+        }
+        
+        return SELF::newByData($user_data);
+    }
+
     public function create () {
         $sql = "INSERT INTO users SET
             name = :name,
             cpf = :cpf,
+            password = :password,
+            registration = :registration,
             login = :login,
             email = :email,
             type = :type
@@ -176,9 +186,11 @@ class User extends Model {
         $success = $query->execute([
             'name' => $this->name,
             'cpf' => $this->cpf,
+            'password' => $this->password,
+            'registration' => $this->registration,
             'login' => $this->login,
             'email' => $this->email,
-            'type' => $this->type || 1
+            'type' => $this->type ? $this->type : 1
         ]);
         $this->id = SELF::conn()->lastInsertId();
         return $success;
@@ -188,6 +200,8 @@ class User extends Model {
         $sql = "UPDATE users SET
             login = :login,
             cpf = :cpf,
+            password = :password,
+            registration = :registration,
             name = :name,
             email = :email,
             type = :type 
@@ -199,7 +213,9 @@ class User extends Model {
         $success = $query->execute([
             'login' => $this->login,
             'cpf' => $this->cpf,
+            'password' => $this->password,
             'name' => $this->name,
+            'registration' => $this->registration,
             'email' => $this->email,
             'type' => $this->type,
             'userId' => $this->id
@@ -214,6 +230,8 @@ class User extends Model {
         $user->id = $data->id;
         $user->login = $data->login;
         $user->cpf = $data->cpf;
+        $user->password = $data->password;
+        $user->registration = $data->registration;
         $user->name = $data->name;
         $user->email = $data->email;
         $user->type = $data->type;

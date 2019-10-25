@@ -12,17 +12,20 @@ use App\Helpers\UtilsHelper;
 
 <div class="container">
     <div>
-        <a href="<?= UtilsHelper::base_url("/admin/evento") ?>" class="btn btn-default">Voltar</a>
+        <a href="<?= UtilsHelper::base_url("/admin/evento/{$event->id}") ?>" class="btn btn-default">Voltar</a>
     </div>
     <br>
 
     <div class="row">
     <form class="col-md-8" method="post">
-        <div class="form-group">
-            <label class="control-label">Título</label>
-            <input required type="text" name="title" value="<?= @$event->title ?>" class="form-control" />
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label class="control-label">Título</label>
+                    <input required type="text" name="title" value="<?= @$event->title ?>" class="form-control" />
+                </div>
+            </div>
         </div>
-                
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
@@ -30,7 +33,7 @@ use App\Helpers\UtilsHelper;
                     <input required type="number" name="day" value="<?= @$event->day ?>" class="form-control">
                 </div>
             </div>
-            
+
             <div class="col-md-4">
                 <div class="form-group">
                     <label class="control-label">Mês</label>
@@ -69,9 +72,6 @@ use App\Helpers\UtilsHelper;
                 </div>
             </div>
         </div>
-        
-        <div class="row">
-        </div>
             
         <div class="row">
             <div class="col-md-4">
@@ -93,7 +93,7 @@ use App\Helpers\UtilsHelper;
                 <select name="fk_competition" class="form-control">
                     <option value=""></option>
                     <?php foreach($competitions as $id => $competition): ?>
-                        <option value="<?= $id ?>" <?= (@$event->fk_competition == $id ? 'selected="selected"' : '') ?>> <?= $competition['title'] ?></option>
+                        <option value="<?= $id ?>" <?= (@$event->fk_competition == $id ? 'selected="selected"' : '') ?>> <?= $competition->title ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

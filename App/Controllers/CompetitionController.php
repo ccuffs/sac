@@ -28,12 +28,6 @@ class CompetitionController {
     public function create ($request, $response, $args) {
         AuthHelper::restrictToPermission(User::USER_LEVEL_ADMIN);
         $user = AuthHelper::getAuthenticatedUser();
-        $isAdmin = $user->isLevel(User::USER_LEVEL_ADMIN);
-        
-        if (!$isAdmin) {
-            View::render('restricted');
-            return $response;
-        }
         
         $competitions = Competition::findAll();
 

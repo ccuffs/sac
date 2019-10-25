@@ -7,7 +7,8 @@ use App\Helpers\UtilsHelper;
     <div class="container">
       <h1 class="title intro__big-title" scroll-sensitive="animate-top-down">SEMANA ACÂDEMICA VII</h1>
       <p class="title" scroll-sensitive="animate-bottom-up">Ciência da Computação - UFFS</p>
-      <p class="title title--small" scroll-sensitive="animate-bottom-up">Universidade Federal da Fronteira Sul - Novembro/2019</p>
+      <p class="title title--small" scroll-sensitive="animate-bottom-up">Dia 4, 5 e 6 - Novembro/2019</p>
+      <p class="title title--small" scroll-sensitive="animate-bottom-up">Universidade Federal da Fronteira Sul</p>
     </div>
   </div>
 </section>
@@ -23,8 +24,8 @@ use App\Helpers\UtilsHelper;
               <h2 class="about__title">Inscreva-se</h2>
             </div>
             <div class="ticket-wrapper__buttons "scroll-sensitive="animate-right-left-3">
-              <a href="<?= UtilsHelper::base_url("/login") ?>" class="btn btn--secondary">Estudante UFFS</a>
-              <!-- <button class="btn btn--primary">Visitante</button> -->
+              <a href="<?= UtilsHelper::base_url("/inscricao/aluno") ?>" class="btn btn--secondary">Estudante UFFS</a>
+              <a href="<?= UtilsHelper::base_url("/inscricao/visitante/cadastro") ?>" class="btn btn--primary">Visitante</a>
             </div>
           </div>
         </div>
@@ -65,61 +66,12 @@ use App\Helpers\UtilsHelper;
     </div>
   </div>
 </section>
-    
-<section class="speakers section" id="speakers">
-  <div class="container">
-    <h2 class="speakers__title title" scroll-sensitive="animate-top-down">Palestrantes</h2>
-    <div class="spearkers__list">
-      <div class="speaker-card card" scroll-sensitive="animate-left-right">
-        <div class="card__body">
-          <div class="row align-items-center">
-            <div class="col-12 col-md-5 col-lg-4">
-              <div class="card__icon card__figure">
-                <img width="100%"
-                  src="https://media.gq.com/photos/563d215a6ff00fb522b05b01/master/pass/RIP-charlie-brown.jpg">
-              </div>
-            </div>
-            <div class="col">
-              <h3 class="speaker-card__title">Charlie Brown</h3>
-              <p class="speaker-card__subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-              <div class="speaker-card__description">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a velit accumsan, condimentum
-                  libero eu, vestibulum tellus. Sed nulla leo, varius a fringilla in, fringilla id arcu. In hac
-                  habitasse platea dictumst. </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="speaker-card card" scroll-sensitive="animate-right-left">
-        <div class="card__body">
-          <div class="row align-items-center">
-            <div class="col-12 col-md-5 col-lg-4">
-              <div class="card__icon card__figure">
-                <img width="100%"
-                  src="https://media.gq.com/photos/563d215a6ff00fb522b05b01/master/pass/RIP-charlie-brown.jpg">
-              </div>
-            </div>
-            <div class="col">
-              <h3 class="speaker-card__title">Charlie Brown</h3>
-              <p class="speaker-card__subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-              <div class="speaker-card__description">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a velit accumsan, condimentum
-                  libero eu, vestibulum tellus. Sed nulla leo, varius a fringilla in, fringilla id arcu. In hac
-                  habitasse platea dictumst. </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <section class="programming section" id="programming">
+<section class="programming section" id="programming">
     <div class="container">
-      <h2 class="programming__title title" scroll-sensitive="animate-top-down">Programação</h2>
+       <h2 class="programming__title title" scroll-sensitive="animate-top-down">Programação</h2>
       
-      <?php foreach ($data['events'] as $event_per_day): ?>
+        <?php foreach ($day_programming as $event_per_day): ?>
           <?php $event_head = reset($event_per_day) ?>
           <div class="programming-item">
             <div class="row">
@@ -139,8 +91,10 @@ use App\Helpers\UtilsHelper;
                         </span><br>
                         <span> <?= $event->description?> </span> <br>
 
+                        <?php foreach ($event->getSpeakers() as $speaker): ?>
                         <span class="event__strong"> Palestrante: </span>
-                        <span> <?= isset($event->speaker) ? $event->speaker : 'Fausto Silva' ?> </span><br>
+                        <a href="#palestrante/<?= $speaker->name ?>"> <?= $speaker->name ?> </a><br>
+                        <?php endforeach; ?>
 
                         <span class="event__strong"> Início: </span>
                         <span> <?= $event->time . ' hrs'?> </span><br>
@@ -148,8 +102,10 @@ use App\Helpers\UtilsHelper;
                         <span class="event__strong"> Local: </span>
                         <span> <?= $event->place ?></span> <br>
 
+                        <?php if ($event->price > 0): ?>
                         <span class="event__strong"> Custo: </span>
-                        <span> <?= $event->price > 0 ? UtilsHelper::format_money_view($event->price) : 'Gratuito'?></span>
+                        <span> <?= UtilsHelper::format_money_view($event->price) ?></span>
+                        <?php endif; ?>
 
                       </div>
                     </div>
@@ -157,6 +113,96 @@ use App\Helpers\UtilsHelper;
               </div>
 
             </div>
+        </div>
+    <?php endforeach; ?>
+</section>
+
+<section class="speakers section" id="speakers">
+  <div class="container">
+    <h2 class="speakers__title title" scroll-sensitive="animate-top-down">Palestrantes</h2>
+    <div class="spearkers__list">
+      <?php foreach($speakers as $speaker): ?>
+      <div class="speaker-card card" id="palestrante/<?= $speaker->name ?>" scroll-sensitive="animate-left-right">
+        <div class="card__body">
+          <div class="row align-items-center">
+            <div class="col-12 col-md-4 col-lg-3">
+              <div class="card__icon card__figure">
+                <img width="100%"
+                  src="<?= UtilsHelper::storage_url($speaker->img_path) ?>">
+              </div>
+            </div>
+            <div class="col">
+              <h3 class="speaker-card__title"><?= $speaker->name ?></h3>
+              <!-- <p class="speaker-card__subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p> -->
+              <div class="speaker-card__description">
+                <p><?= $speaker->description ?></p>
+              </div>
+            </div>
           </div>
-        <?php endforeach; ?>
+        </div>
+      </div>
+      <?php endforeach; ?>
+  </div>
+</section>
+
+
+<section class="values section" id="values">
+    <div class="container">
+        <h2 class="values__title title" scroll-sensitive="animate-top-down">Valores</h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <p>Confira a tabela de preços da semana acâdemica!</p>
+                <table class="table table--lg table--bordered">
+                    <tr class="bg-primary-light">
+                        <th>Lote</th>
+                        <th>Estudante CC UFFS</th>
+                        <th class="d-none d-sm-table-cell">Estudante UFFS</th>
+                        <th class="d-none d-sm-table-cell">Visitante</th>
+                    </tr>
+                    <tr>
+                        <td><b>1º lote</b></td>
+                        <td>R$ 5,00</td>
+                        <td class="d-none d-sm-table-cell" rowspan="3">R$ 15,00</td>
+                        <td class="d-none d-sm-table-cell" rowspan="3">R$ 40,00</td>
+                    </tr>
+                    <tr>
+                        <td><b>2º lote</b></td>
+                        <td>R$ 10,00</td>
+                    </tr>
+                    <tr>
+                        <td><b>No dia</b></td>
+                        <td>R$ 15,00</td>
+                    </tr>
+                </table>
+                <table class="d-table d-sm-none mt-4 table table--lg table--bordered">
+                    <tr class="bg-primary-light">
+                        <th>Estudante UFFS</th>
+                    </tr>
+                    <tr>
+                        <td>R$ 15,00</td>
+                    </tr>
+                </table>
+                <table class="d-table d-sm-none mt-4 table table--lg table--bordered">
+                    <tr class="bg-primary-light">
+                        <th>Visitante</th>
+                    </tr>
+                    <tr>
+                        <td>R$ 40,00</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <h3 class="values__subtitle title" scroll-sensitive="animate-top-down">Formas de pagamento</h2>
+        <div class="row">
+            <div class="col-lg-6">
+                <h3 class="title text-center">Dinheiro</h3>
+                <p>O pagamento deve ser feito para algum membro do CA, para contatá-los-los envie um e-mail para <a href="mailto:cacomputacaouffs@gmail.com">cacomputacaouffs@gmail.com</a> ou entre em contato pelas redes sociais:</p>
+                <p><b>Instagram:</b> <a href="https://www.instagram.com/cacomputacaouffs/" target="_blank">cacomputacaouffs</a></p>
+            </div>
+            <div class="col-lg-6">
+                <h3 class="title text-center">Transferencia bancaria</h3>
+                <p class="text-center">Em breve...</p>
+            </div>
+        </div>
+    </div>
 </section>

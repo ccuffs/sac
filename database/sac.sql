@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 30, 2019 at 05:44 AM
+-- Generation Time: Oct 11, 2019 at 04:57 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.8
 
@@ -105,6 +105,20 @@ CREATE TABLE `payment_log` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `speakers`
+--
+
+CREATE TABLE `speakers` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `img_path` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `fk_event` int(11) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `teams`
 --
 
@@ -127,10 +141,12 @@ CREATE TABLE `teams` (
 CREATE TABLE `users` (
   `id` int(11) UNSIGNED NOT NULL,
   `login` varchar(40) NOT NULL,
+  `password` varchar(50) DEFAULT NULL,
   `cpf` varchar(100) DEFAULT NULL,
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `type` int(11) NOT NULL
+  `type` int(11) DEFAULT 2,
+  `registration` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -172,6 +188,13 @@ ALTER TABLE `payment`
 --
 ALTER TABLE `payment_log`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `speakers`
+--
+ALTER TABLE `speakers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `event_id` (`fk_event`);
 
 --
 -- Indexes for table `teams`
@@ -218,6 +241,12 @@ ALTER TABLE `payment_log`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `speakers`
+--
+ALTER TABLE `speakers`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `teams`
 --
 ALTER TABLE `teams`
@@ -238,7 +267,14 @@ ALTER TABLE `users`
 --
 ALTER TABLE `payment`
   ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`fk_user`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `payment_ibfk_2` FOREIGN KEY (`fk_event`) REFERENCES `event` (`id`);
+  ADD CONSTRAINT `payment_ibfk_2` FOREIGN KEY (`fk_event`) REFERENCES `event` (`id`),
+  ADD CONSTRAINT `payment_ibfk_3` FOREIGN KEY (`fk_event`) REFERENCES `event` (`id`);
+
+--
+-- Constraints for table `speakers`
+--
+ALTER TABLE `speakers`
+  ADD CONSTRAINT `speakers_ibfk_1` FOREIGN KEY (`fk_event`) REFERENCES `event` (`id`);
 
 --
 -- Constraints for table `teams`

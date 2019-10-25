@@ -1,0 +1,18 @@
+.alert {
+    padding: 10px 15px;
+    border: 2px solid #999;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.alert--error {
+    border-color: #d43f3a;
+    color: #d43f3a;
+    background-color: rgba(212, 63, 58, .1);
+}
+
+.alert--warning {
+    border-color: #eea236;
+    color: #eea236;
+    background-color: rgba(238, 162, 54, .1);
+}

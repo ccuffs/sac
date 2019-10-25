@@ -17,6 +17,7 @@ class Event extends Model {
     public $waitingCapacity;
     public $ghost;
     public $fk_competition;
+    private $speakers;
 
     public static function findById($id) {
         $result = null;
@@ -71,6 +72,13 @@ class Event extends Model {
         return $result;
     }
 
+    public function getSpeakers() {
+        if (!isset($this->speakers)) {
+            $this->speakers = Speaker::findByEvent($this);
+        }
+        return $this->speakers;
+    }
+
     public function update() {
         $sql = "UPDATE `event`
             SET
@@ -84,7 +92,7 @@ class Event extends Model {
                 capacity = :capacity,
                 waiting_capacity = :waiting_capacity,
                 ghost = :ghost,
-                fk_competition = :fk_competition 
+                fk_competition = :fk_competition
             WHERE id = :id    
         ";
 
@@ -104,7 +112,7 @@ class Event extends Model {
         $query->bindParam('waiting_capacity', $this->waitingCapacity);
         $query->bindParam('ghost', $this->ghost);
         $query->bindParam('fk_competition', $this->fk_competition);
-        
+
         $result = $query->execute();
 
         return $result;

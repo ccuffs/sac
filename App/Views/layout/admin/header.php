@@ -76,7 +76,7 @@
 							<a role="button" class="btn btn-info" style="margin-top: 7px;">
 								<span class="fa fa-user"></span> Inscrever-se
 							</a> 
-							<a href="<?= UtilsHelper::base_url("/login")?>" role="button" class="btn btn-success" style="margin-top: 7px;">
+							<a href="<?= UtilsHelper::base_url("/inscricao")?>" role="button" class="btn btn-success" style="margin-top: 7px;">
 								<span class="fa fa-user"></span> Login
 							</a>
 						</li>
@@ -91,6 +91,7 @@
 								<li role="presentation" class="dropdown-header">Programação</li>
 								<li><a href="<?= UtilsHelper::base_url("/admin/evento")?>">Eventos</a></li>
 								<li><a href="<?= UtilsHelper::base_url("/admin/campeonato")?>">Campeonatos</a></li>
+								<li><a href="<?= UtilsHelper::base_url("/admin/palestrantes")?>">Palestrantes</a></li>
 							
 								<li class="divider"></li>
 								<li role="presentation" class="dropdown-header">Inscrições</li>

@@ -5,13 +5,11 @@ namespace App\Helpers;
 require_once dirname(__FILE__). '/../../vendor/rmccue/requests/library/Requests.php';
 
 use App\Models\User;
-use App\Helpers\DatabaseHelper;
-use App\Helpers\AuthHelper;
 use App\Helpers\View;
 
 class AuthHelper {
 	public static function hash($thePassword) {
-		return md5($thePassword . PASSWORD_SALT);
+		return sha1($thePassword . PASSWORD_SALT);
 	}
 	
 	public static function getAuthenticatedUser() {
@@ -23,17 +21,6 @@ class AuthHelper {
 	public static function allowNonAuthenticated() {
 		if(AuthHelper::isAuthenticated()) {
 			header('Location: index.php');
-			exit();
-		}
-	}
-	
-	public static function allowAdmin() {
-		if(!AuthHelper::isAuthenticated()) {
-			header('Location: login.php');
-			exit();
-			
-		} else {
-			header('Location: restricted.php');
 			exit();
 		}
 	}
@@ -50,15 +37,21 @@ class AuthHelper {
 		}
 	}
 
-	public static function restrictToPermission($level) {
+	public static function restrictToPermission($level, $type = "HTML") {
 		$title = '401';
 		$isAuthenticated = AuthHelper::isAuthenticated();
 		$user = AuthHelper::getAuthenticatedUser();
-		if(!$isAuthenticated || !$user->isLevel($level)) {
+		$hasAccess = $isAuthenticated && $user->hasPermission($level);
+		if(!$hasAccess && $type == "HTML") {
 			$data = compact(['user', 'title']);
 			View::render('layout/admin/header', $data);
 			View::render('errors/401', $data);
 			View::render('layout/admin/footer', $data);
+			exit();
+		} else if (!$hasAccess && $type == "JSON") {
+			header("message: 'Usuário não autorizado!'");
+			header("Content-Type: text/html; charset=UTF-8");
+			http_response_code(401);
 			exit();
 		}
 	}
@@ -67,7 +60,7 @@ class AuthHelper {
 		unset($_SESSION['user']);
 	}
 	
-	public function isAuthenticated() {
+	public static function isAuthenticated() {
 		return isset($_SESSION['user']);
 	}
 	
@@ -88,10 +81,7 @@ class AuthHelper {
 		$user_token = SELF::getLoginToken($username, $password);
 
 		if(!isset($user_token)) {
-			return [
-				"user" => $username,
-				"authenticated" => false
-			];
+			return null;
 		}
 
 		$user_data = SELF::getUserInPortal($username, $user_token);
@@ -103,6 +93,7 @@ class AuthHelper {
 			if(is_numeric($username[0])){
 				$user->cpf = str_replace(array('.', '-'),'', $username);
 			}
+			$user->type = User::USER_LEVEL_UFFS;
 			$user->save();
 			return $user;
 		}
@@ -111,9 +102,7 @@ class AuthHelper {
 	}
 
 	public static function getLoginToken ($username, $password) {
-		$data = '{"authId":"eyAidHlwIjogIkpXVCIsICJhbGciOiAiSFMyNTYiIH0.eyAib3RrIjogImtranZqbG9uMGlicmJ0cDVkbGQ0NXZqajI4IiwgInJlYWxtIjogImRjPW9wZW5hbSxkYz1mb3JnZXJvY2ssZGM9b3JnIiwgInNlc3Npb25JZCI6ICJBUUlDNXdNMkxZNFNmY3paUU1LV2R1akQtRlJLOC05WVBMVjZBTDZLZGlaSm1Way4qQUFKVFNRQUNNREVBQWxOTEFCUXROREl3TnpBek1UQTJNREkyTXpneE1qWTFOZ0FDVXpFQUFBLi4qIiB9.7jwDw0grbOGJwHX05mjgt0-aKM8Y4R_sWjliPklsPYs","template":"","stage":"DataStore1","header":"Entre com seu IdUFFS","callbacks":[{"type":"NameCallback","output":[{"name":"prompt","value":"IdUFFS ou CPF"}],"input":[{"name":"IDToken1","value":"USUARIO"}]},{"type":"PasswordCallback","output":[{"name":"prompt","value":"Senha"}],"input":[{"name":"IDToken2","value":"SENHA"}]}]}';
-		$data = str_replace("USUARIO", $username, $data);
-		$data = str_replace("SENHA", $password, $data);
+		$data = '{"authId":"' . IDUFFS_TOKEN . '","template":"","stage":"DataStore1","header":"Entre com seu IdUFFS","callbacks":[{"type":"NameCallback","output":[{"name":"prompt","value":"IdUFFS ou CPF"}],"input":[{"name":"IDToken1","value":"'.$username.'"}]},{"type":"PasswordCallback","output":[{"name":"prompt","value":"Senha"}],"input":[{"name":"IDToken2","value":"'.$password.'"}]}]}';
 
 		$response = RequestHelper::post(
 			'https://id.uffs.edu.br/id/json/authenticate?realm=/',

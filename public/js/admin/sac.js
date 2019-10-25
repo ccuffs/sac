@@ -91,23 +91,27 @@ var SAC = new function() {
 					'type' : permission
 				},
 				success : function(data, textStatus, request) {
-
 					let colorClass = $(card).attr('class');
 					removeColorClass(colorClass, card);
 					$(card).addClass(colorClasses[permission - 1]);
 					toastr.success(request.getResponseHeader('message'), {timeOut : 30, extendedTimeOut : 60});
-
 				},
 				error : function(request, textStatus, errorThrown) {
-					toastr.danger(request.getResponseHeader('message'), {timeOut : 30, extendedTimeOut : 60});
+					toastr.error(request.getResponseHeader('message'), {timeOut : 30, extendedTimeOut : 60});
 				}
 			});
 		});
 	}
 
 	this.addMasks = function(){
-		$("input[name=amount]").maskMoney({prefix:'R$ ', allowNegative: false, thousands:'.', decimal:',', affixesStay: false});
-		$("input[name=price]").maskMoney({prefix:'R$ ', allowNegative: false, thousands:'.', decimal:',', affixesStay: false});
+		$("input[name=amount], input[name=price]").maskMoney({
+			prefix:'R$ ',
+			allowNegative: false,
+			thousands:'.',
+			decimal:',',
+			affixesStay: false,
+			allowZero: true
+		});
 		$("input[name=cpf]").mask('000.000.000-00');
 	}
 };

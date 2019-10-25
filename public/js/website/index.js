@@ -5,6 +5,10 @@ toggleButton.addEventListener('click', function () {
     menuMobile.classList.toggle('menu-mobile--opened')
 })
 
+menuMobile.addEventListener('click', function () {
+    this.classList.remove('menu-mobile--opened')
+})
+
 
 function isElementInView(element) {
     let viewTop = window.scrollY;
