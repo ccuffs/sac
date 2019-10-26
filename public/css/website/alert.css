@@ -16,3 +16,15 @@
     color: #eea236;
     background-color: rgba(238, 162, 54, .1);
 }
+
+.alert--success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.alert--info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}

@@ -5,7 +5,7 @@ use App\Helpers\UtilsHelper;
 <section class="intro" id="intro">
   <div class="intro__content">
     <div class="container">
-      <h1 class="title intro__big-title" scroll-sensitive="animate-top-down">SEMANA ACÂDEMICA VII</h1>
+      <h1 class="title intro__big-title" scroll-sensitive="animate-top-down">VII SEMANA ACÂDEMICA</h1>
       <p class="title" scroll-sensitive="animate-bottom-up">Ciência da Computação - UFFS</p>
       <p class="title title--small" scroll-sensitive="animate-bottom-up">Dia 4, 5 e 6 - Novembro/2019</p>
       <p class="title title--small" scroll-sensitive="animate-bottom-up">Universidade Federal da Fronteira Sul</p>
