@@ -18,3 +18,11 @@
     margin-bottom: 20px;
     margin-top: 10px;
 }
+
+.instagram a {
+    text-decoration: none;
+}
+
+input[name=registration] {
+    border-radius: 6px;
+}

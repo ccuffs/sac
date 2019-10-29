@@ -28,6 +28,21 @@ window.onload = function(event) {
         let className = element.getAttribute("scroll-sensitive");
         element.classList.add(className);
     });
+
+    let pageUrl = document.URL;
+
+    let correctView = pageUrl.includes('pagamento') || pageUrl.includes('perfil');
+
+    if (correctView){
+   
+        let cpfElement = document.querySelectorAll("td")[2];
+        let cpf = cpfElement.innerHTML;
+        
+        if (cpf.length == 10)
+            cpf = '0' + cpf;
+        
+        cpfElement.innerHTML = cpf.substr(0,3) +'.' +cpf.substr(3, 3) + '.' + cpf.substr(6, 3) + '-' + cpf.substr(9,8);
+    }
 }
 
 

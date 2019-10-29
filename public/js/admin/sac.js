@@ -114,4 +114,27 @@ var SAC = new function() {
 		});
 		$("input[name=cpf]").mask('000.000.000-00');
 	}
+
+	window.onload = function() {
+
+		let tableRow = document.querySelectorAll("tr");
+
+		let pageUrl = document.URL;
+
+		let correctView = pageUrl.includes('pagamento') || pageUrl.includes('perfil');
+
+		if (correctView && tableRow.length != 1){
+
+			for(let i=1; i < tableRow.length; i++) {
+				let cpf = tableRow[i].children[2].innerHTML;
+
+				if (cpf.length == 10)
+					cpf = '0' + cpf;
+
+				tableRow[i].children[2].innerHTML = cpf.substr(0,3) +'.' +cpf.substr(3, 3) + '.' + cpf.substr(6, 3) + '-' + cpf.substr(9,8);
+			}
+
+		}
+
+	}
 };
