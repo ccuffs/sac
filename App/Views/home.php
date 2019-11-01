@@ -5,7 +5,7 @@ use App\Helpers\UtilsHelper;
 <section class="intro" id="intro">
   <div class="intro__content">
     <div class="container">
-      <h1 class="title intro__big-title" scroll-sensitive="animate-top-down">VII SEMANA ACÂDEMICA</h1>
+      <h1 class="title intro__big-title" scroll-sensitive="animate-top-down">VII SEMANA ACADÊMICA</h1>
       <p class="title" scroll-sensitive="animate-bottom-up">Ciência da Computação - UFFS</p>
       <p class="title title--small" scroll-sensitive="animate-bottom-up">Dia 4, 5 e 6 - Novembro/2019</p>
       <p class="title title--small" scroll-sensitive="animate-bottom-up">Universidade Federal da Fronteira Sul</p>
@@ -39,7 +39,7 @@ use App\Helpers\UtilsHelper;
           minicursos e <i>workshops</i>, relacionados à tecnologia.</p>
         </div>
         <div class="about-item" scroll-sensitive="animate-right-left">
-          <h3 class="about-item__title title">Por quê participar?</h3>
+          <h3 class="about-item__title title">Por que participar?</h3>
           <p>
             A SACC busca oferecer aos alunos e ao público em geral
             a oportunidade de absorver e compartilhar conhecimento, 
@@ -67,16 +67,16 @@ use App\Helpers\UtilsHelper;
   </div>
 </section>
 
-<section class="programming section" id="programming">
+<section class="schedule section" id="schedule">
     <div class="container">
-       <h2 class="programming__title title" scroll-sensitive="animate-top-down">Programação</h2>
+       <h2 class="schedule__title title" scroll-sensitive="animate-top-down">Programação</h2>
       
         <?php foreach ($day_programming as $event_per_day): ?>
           <?php $event_head = reset($event_per_day) ?>
-          <div class="programming-item">
+          <div class="schedule-item">
             <div class="row">
               <div class="col-12 col-lg-6">
-                <div class="programming-item__day" scroll-sensitive="animate-left-right"><?= UtilsHelper::weekDayToString($event_head->day, $event_head->month) .', '. (strlen($event_head->day) == 1 ? '0'.$event_head->day : $event_head->day) . ' de ' . UtilsHelper::monthToString($event_head->month)?></div>
+                <div class="schedule-item__day" scroll-sensitive="animate-left-right"><?= UtilsHelper::weekDayToString($event_head->day, $event_head->month) .', '. (strlen($event_head->day) == 1 ? '0'.$event_head->day : $event_head->day) . ' de ' . UtilsHelper::monthToString($event_head->month)?></div>
               </div>
 
               <div class="col-12 col-lg-6">
@@ -151,7 +151,7 @@ use App\Helpers\UtilsHelper;
         <h2 class="values__title title" scroll-sensitive="animate-top-down">Valores</h2>
         <div class="row justify-content-center">
             <div class="col-lg-9">
-                <p>Confira a tabela de preços da semana acâdemica!</p>
+                <p>Confira a tabela de preços da semana acadêmica!</p>
                 <table class="table table--lg table--bordered">
                     <tr class="bg-primary-light">
                         <th>Lote</th>
@@ -192,16 +192,11 @@ use App\Helpers\UtilsHelper;
                 </table>
             </div>
         </div>
-        <h3 class="values__subtitle title" scroll-sensitive="animate-top-down">Formas de pagamento</h2>
+        <h3 class="values__subtitle title" scroll-sensitive="animate-top-down">Pagamento</h2>
         <div class="row">
-            <div class="col-lg-6">
-                <h3 class="title text-center">Dinheiro</h3>
+            <div class="offset-lg-3 col-lg-6">
                 <p>O pagamento deve ser feito para algum membro do CA, para contatá-los-los envie um e-mail para <a href="mailto:cacomputacaouffs@gmail.com">cacomputacaouffs@gmail.com</a> ou entre em contato pelas redes sociais:</p>
                 <p><b>Instagram:</b> <a href="https://www.instagram.com/cacomputacaouffs/" target="_blank">cacomputacaouffs</a></p>
-            </div>
-            <div class="col-lg-6">
-                <h3 class="title text-center">Transferencia bancaria</h3>
-                <p class="text-center">Em breve...</p>
             </div>
         </div>
     </div>

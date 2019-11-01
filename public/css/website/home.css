@@ -103,7 +103,7 @@
 }
 
 /* Section */
-.speakers, .programming {
+.speakers, .schedule {
     background-color: rgba(0, 105, 62, .1);
 }
 
@@ -132,18 +132,18 @@
         font-size: 3.5em;
     }
 }
-/*programming*/
+/*schedule*/
 .lecture{
     margin-bottom: 1rem;
     margin-top: .9rem;
     display: flex;
 }
-.programming__title{
+.schedule__title{
     font-size: 2.8em;
     text-align: center;
     color: #00693c;
 }
-.programming-item__day{
+.schedule-item__day{
     font-size: 1.8rem;
     font-weight: 700;
     margin-top: 0.2em;
@@ -163,11 +163,11 @@
 }
 
 @media (min-width: 992px) {
-    .programming-item{
+    .schedule-item{
         margin-bottom: 1rem; 
     }  
 
-    .programming-item__day{
+    .schedule-item__day{
         text-align: right;
         margin-top: 0;
     }
