@@ -52,10 +52,10 @@ $_user = AuthHelper::getAuthenticatedUser();
           </div>
           <div class="col-md-10 d-none d-md-block">
             <nav class="navbar__menu">
-              <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#sobre")?>">Sobre</a>
+              <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#about")?>">Sobre</a>
               <!-- <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#palestrantes")?>">Palestrantes</a> -->
               <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#schedule")?>">Programação</a>
-              <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#valores")?>">Valores</a>
+              <a class="navbar__archor" href="<?= UtilsHelper::base_url("/#values")?>">Valores</a>
               <?php if ($_user): ?>
               <a class="navbar__archor" href="<?= UtilsHelper::base_url("/perfil")?>">Perfil</a>
               <?php else: ?>

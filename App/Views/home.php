@@ -5,9 +5,9 @@ use App\Helpers\UtilsHelper;
 <section class="intro" id="intro">
   <div class="intro__content">
     <div class="container">
-      <h1 class="title intro__big-title" scroll-sensitive="animate-top-down">VII SEMANA ACADÊMICA</h1>
+      <h1 class="title intro__big-title" scroll-sensitive="animate-top-down">VIII SEMANA ACADÊMICA</h1>
       <p class="title" scroll-sensitive="animate-bottom-up">Ciência da Computação - UFFS</p>
-      <p class="title title--small" scroll-sensitive="animate-bottom-up">Dia 4, 5 e 6 - Novembro/2019</p>
+      <p class="title title--small" scroll-sensitive="animate-bottom-up">Dia 16, 17 e 18 - Março/2022</p>
       <p class="title title--small" scroll-sensitive="animate-bottom-up">Universidade Federal da Fronteira Sul</p>
     </div>
   </div>
@@ -154,27 +154,27 @@ use App\Helpers\UtilsHelper;
                 <p>Confira a tabela de preços da semana acadêmica!</p>
                 <table class="table table--lg table--bordered">
                     <tr class="bg-primary-light">
-                        <th>Lote</th>
+                        <!--<th>Lote</th>-->
                         <th>Estudante CC UFFS</th>
-                        <th class="d-none d-sm-table-cell">Estudante UFFS</th>
+                        <!--<th class="d-none d-sm-table-cell">Estudante UFFS</th>-->
                         <th class="d-none d-sm-table-cell">Visitante</th>
                     </tr>
                     <tr>
-                        <td><b>1º lote</b></td>
-                        <td>R$ 5,00</td>
-                        <td class="d-none d-sm-table-cell" rowspan="3">R$ 15,00</td>
-                        <td class="d-none d-sm-table-cell" rowspan="3">R$ 40,00</td>
+                        <!--<td><b>1º lote</b></td>-->
+                        <td>R$ 10,00</td>
+                        <!--<td class="d-none d-sm-table-cell" rowspan="3">R$ 15,00</td>-->
+                        <td class="d-none d-sm-table-cell" rowspan="3">R$ 30,00</td>
                     </tr>
-                    <tr>
+                    <!--<tr>
                         <td><b>2º lote</b></td>
                         <td>R$ 10,00</td>
                     </tr>
                     <tr>
                         <td><b>No dia</b></td>
                         <td>R$ 15,00</td>
-                    </tr>
+                    </tr>-->
                 </table>
-                <table class="d-table d-sm-none mt-4 table table--lg table--bordered">
+                <!--<table class="d-table d-sm-none mt-4 table table--lg table--bordered">
                     <tr class="bg-primary-light">
                         <th>Estudante UFFS</th>
                     </tr>
@@ -189,14 +189,14 @@ use App\Helpers\UtilsHelper;
                     <tr>
                         <td>R$ 40,00</td>
                     </tr>
-                </table>
+                </table>-->
             </div>
         </div>
         <h3 class="values__subtitle title" scroll-sensitive="animate-top-down">Pagamento</h2>
         <div class="row">
             <div class="offset-lg-3 col-lg-6">
                 <p>O pagamento deve ser feito para algum membro do CA, para contatá-los-los envie um e-mail para <a href="mailto:cacomputacaouffs@gmail.com">cacomputacaouffs@gmail.com</a> ou entre em contato pelas redes sociais:</p>
-                <p><b>Instagram:</b> <a href="https://www.instagram.com/cacomputacaouffs/" target="_blank">cacomputacaouffs</a></p>
+                <p><b>Instagram:</b> <a href="https://www.instagram.com/caccuffs/" target="_blank">caccuffs</a></p>
             </div>
         </div>
     </div>
