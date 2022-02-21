@@ -2,6 +2,7 @@
 use App\Helpers\UtilsHelper;
 use App\Models\User;
 use App\Models\Payment;
+
 ?>
 
 <div class="profile">
@@ -78,13 +79,13 @@ use App\Models\Payment;
                     <?php endif;?>
 
                 <?php endforeach;  ?>
-            </div>
             <?php else: ?>
                 <div class="alert alert--warning" role="alert">
                     <i class="fas fa-exclamation-triangle"></i>
                     Nenhuma incrição confirmada até o momento. Por favor, contate o CA para efetuar o pagamento de sua inscrição.
                 </div>
             <div>
+            <?php endif; ?>
             <div>
                 <p>Confira a tabela de preços da semana acadêmica:</p>
                 <table class="table table--lg table--bordered">
@@ -127,9 +128,6 @@ use App\Models\Payment;
                 <p class="qrcode">
                     <img href="../img/qrcode.png" width="50"/>
             </div>
-        </div>
-    </div>
-            <?php endif; ?>
         </div>
     </div>
 </div>
