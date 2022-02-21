@@ -113,7 +113,7 @@ use App\Models\Payment;
         <div class="row">
             <div class="col-lg-6">
                 <h3 class="title text-center">Dinheiro</h3>
-                <p>O pagamento deve ser feito via pix ou para membro do CA, para contatá-los envie um e-mail para <a href="mailto:cacomputacaouffs@gmail.com">cacomputacaouffs@gmail.com</a> ou entre em contato pelas redes sociais:</p>
+                <p>O pagamento deve ser feito para algum membro do CA, para contatá-los envie um e-mail para <a href="mailto:cacomputacaouffs@gmail.com">cacomputacaouffs@gmail.com</a> ou entre em contato pelas redes sociais:</p>
                 <p class="instagram">
                     <a href="https://www.instagram.com/caccuffs/" target="_blank">
                         <!-- <img src="https://imageog.flaticon.com/icons/png/512/174/174855.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF" width="50"/> -->
@@ -122,8 +122,10 @@ use App\Models\Payment;
                 </p>
             </div>
             <div class="col-lg-6">
-                <h3 class="title text-center">Transferência bancária</h3>
-                <p class="text-center">Em breve...</p>
+                <h3 class="title text-center">Pix</h3>
+                <p class="text-center">O pagamento pode ser feito via pix. <br><b>Chave: cacomputacaouffs@gmail.com</b></p>
+                <p class="qrcode">
+                    <img href="../img/qrcode.png" width="50"/>
             </div>
         </div>
     </div>
