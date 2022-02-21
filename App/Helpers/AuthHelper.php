@@ -6,6 +6,7 @@ require_once dirname(__FILE__). '/../../vendor/rmccue/requests/library/Requests.
 
 use App\Models\User;
 use App\Helpers\View;
+use CCUFFS\Auth\AuthIdUFFS;
 
 class AuthHelper {
 	public static function hash($thePassword) {
@@ -64,27 +65,14 @@ class AuthHelper {
 		return isset($_SESSION['user']);
 	}
 	
-	private static function formatIdUffsResult ($data) {
-		return  (object) [
-			'username' => $data->username,
-			'uid' => $data->uid[0],
-			'email' => $data->mail[0],
-			'pessoa_id' => $data->pessoa_id[0],
-			'name' => $data->cn[0],
-			'cpf' => $data->employeeNumber[0],
-			'token_id' => $data->token_id,
-			'authenticated' => $data->authenticated
-		];
-	}
-
 	public static function loginUsingPortal($username, $password) {
-		$user_token = SELF::getLoginToken($username, $password);
+		$auth = new AuthIdUFFS();
 
-		if(!isset($user_token)) {
-			return null;
-		}
-
-		$user_data = SELF::getUserInPortal($username, $user_token);
+		$user_data = $auth->login([
+			'user'     => $username,
+			'password' => $password
+		]);
+		
 		if (!$user_data) { return null; }
 
 		if (User::isUsernameAvailable($user_data->username)) {
@@ -99,44 +87,6 @@ class AuthHelper {
 		}
 
 		return User::findByUsername($user_data->username);
-	}
-
-	public static function getLoginToken ($username, $password) {
-		$data = '{"authId":"' . IDUFFS_TOKEN . '","template":"","stage":"DataStore1","header":"Entre com seu IdUFFS","callbacks":[{"type":"NameCallback","output":[{"name":"prompt","value":"IdUFFS ou CPF"}],"input":[{"name":"IDToken1","value":"'.$username.'"}]},{"type":"PasswordCallback","output":[{"name":"prompt","value":"Senha"}],"input":[{"name":"IDToken2","value":"'.$password.'"}]}]}';
-
-		$response = RequestHelper::post(
-			'https://id.uffs.edu.br/id/json/authenticate?realm=/',
-			json_decode($data)
-		);
-
-		$response = json_decode($response);
-		if (!isset($response->tokenId)) {
-			return null;
-		}
-		return $response->tokenId;
-	}
-
-	public static function getUserInPortal ($username, $user_token) {
-		$userdata = RequestHelper::get(
-			"https://id.uffs.edu.br/id/json/users/$username",
-			['headers' => ["Cookie: iPlanetDirectoryPro=$user_token"]]
-		);
-		$userdata = json_decode($userdata);
-
-		if (isset($userdata->code) && $userdata->code == 401) {
-			return null;
-		}
-
-		if (isset($userdata->code) && $userdata->code == 403) {
-			$matches = null;
-			preg_match('/id=(.*?),ou=user/',$userdata->message, $matches);
-			$username_test = $matches[1];
-			return SELF::getUserInPortal($username_test, $user_token);
-		}
-
-		$userdata->token_id = $user_token;
-		$userdata->authenticated = true;
-		return SELF::formatIdUffsResult($userdata);
 	}
 
 	private static function getUserByData ($data) {
