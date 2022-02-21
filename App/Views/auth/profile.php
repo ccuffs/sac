@@ -103,21 +103,8 @@ use App\Models\Payment;
                         <td>R$ 10,00</td>
                         <td>R$ 30,00</td>
                         <?php else: ?>
-                        <!--<td rowspan="3">R$ 40,00</td>-->
                         <?php endif; ?>
                     </tr>
-                   <!-- <tr>
-                        <?php if($user->isInternal()): ?>
-                        <td><b>2º lote</b></td>
-                        <td>R$ 10,00</td>
-                        <?php endif; ?>
-                    </tr>-->
-                    <!-- <tr>
-                        <?php if($user->isInternal()): ?>
-                        <td><b>No dia</b></td>
-                        <td>R$ 15,00</td>
-                        <? endif; ?>
-                    </tr> -->
                 </table>
             </div>
         </div>
