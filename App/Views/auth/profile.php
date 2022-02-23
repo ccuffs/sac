@@ -90,33 +90,20 @@ use App\Models\Payment;
                 <p>Confira a tabela de preços da semana acadêmica:</p>
                 <table class="table table--lg table--bordered">
                     <tr class="bg-primary-light">
-                        <th>Lote</th>
+                        <!-- <th>Lote</th> -->
                         <?php if($user->isInternal()): ?>
                         <th>Estudante CC UFFS</th>
-                        <th>Estudante UFFS</th>
+                        <!--<th>Estudante UFFS</th>-->
                         <?php else: ?>
                         <th>Visitante</th>
                         <?php endif; ?>
                     </tr>
                     <tr>
-                        <td><b>1º lote</b></td>
+                        <!--<td><b>1º lote</b></td>-->
                         <?php if($user->isInternal()): ?>
-                        <td>R$ 5,00</td>
-                        <td rowspan="3">R$ 15,00</td>
-                        <?php else: ?>
-                        <td rowspan="3">R$ 40,00</td>
-                        <?php endif; ?>
-                    </tr>
-                    <tr>
-                        <?php if($user->isInternal()): ?>
-                        <td><b>2º lote</b></td>
                         <td>R$ 10,00</td>
-                        <?php endif; ?>
-                    </tr>
-                    <tr>
-                        <?php if($user->isInternal()): ?>
-                        <td><b>No dia</b></td>
-                        <td>R$ 15,00</td>
+                        <td>R$ 30,00</td>
+                        <?php else: ?>
                         <?php endif; ?>
                     </tr>
                 </table>
@@ -129,15 +116,17 @@ use App\Models\Payment;
                 <h3 class="title text-center">Dinheiro</h3>
                 <p>O pagamento deve ser feito para algum membro do CA, para contatá-los envie um e-mail para <a href="mailto:cacomputacaouffs@gmail.com">cacomputacaouffs@gmail.com</a> ou entre em contato pelas redes sociais:</p>
                 <p class="instagram">
-                    <a href="https://www.instagram.com/cacomputacaouffs/" target="_blank">
-                        <img src="https://imageog.flaticon.com/icons/png/512/174/174855.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF" width="50"/>
-                        cacomputacaouffs
+                    <a href="https://www.instagram.com/caccuffs/" target="_blank">
+                        <!-- <img src="https://imageog.flaticon.com/icons/png/512/174/174855.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF" width="50"/> -->
+                        caccuffs
                     </a>
                 </p>
             </div>
             <div class="col-lg-6">
-                <h3 class="title text-center">Transferência bancária</h3>
-                <p class="text-center">Em breve...</p>
+                <h3 class="title text-center">Pix</h3>
+                <p class="text-center">O pagamento pode ser feito via pix. <br><b>Chave: cacomputacaouffs@gmail.com</b></p>
+                <p class="qrcode">
+                    <img href="../img/qrcode.png" width="50"/>
             </div>
         </div>
     </div>
