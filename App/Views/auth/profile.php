@@ -82,7 +82,7 @@ use App\Models\Payment;
             <?php else: ?>
                 <div class="alert alert--warning" role="alert">
                     <i class="fas fa-exclamation-triangle"></i>
-                    Nenhuma incrição confirmada até o momento. Por favor, contate o CA para efetuar o pagamento de sua inscrição.
+                   <a href="https://forms.gle/QrVshyuHbJbyv8pX7" target="_blank">Faça aqui a sua inscrição</a>
                 </div>
             <div>
             <?php endif; ?>
@@ -91,20 +91,15 @@ use App\Models\Payment;
                 <table class="table table--lg table--bordered">
                     <tr class="bg-primary-light">
                         <!-- <th>Lote</th> -->
-                        <?php if($user->isInternal()): ?>
-                        <th>Estudante CC UFFS</th>
-                        <!--<th>Estudante UFFS</th>-->
-                        <?php else: ?>
-                        <th>Visitante</th>
-                        <?php endif; ?>
+                        <th>Estudante UFFS</th>
+                        <th>Visitante/Docente</th>
+                        
                     </tr>
                     <tr>
                         <!--<td><b>1º lote</b></td>-->
-                        <?php if($user->isInternal()): ?>
                         <td>R$ 10,00</td>
                         <td>R$ 30,00</td>
-                        <?php else: ?>
-                        <?php endif; ?>
+                       
                     </tr>
                 </table>
             </div>
@@ -126,7 +121,7 @@ use App\Models\Payment;
                 <h3 class="title text-center">Pix</h3>
                 <p class="text-center">O pagamento pode ser feito via pix. <br><b>Chave: cacomputacaouffs@gmail.com</b></p>
                 <p class="qrcode">
-                    <img href="../img/qrcode.png" width="50"/>
+                    <img src="../img/qrcode.png" width="50"/>
             </div>
         </div>
     </div>
