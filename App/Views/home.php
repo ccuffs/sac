@@ -155,9 +155,9 @@ use App\Helpers\UtilsHelper;
                 <table class="table table--lg table--bordered">
                     <tr class="bg-primary-light">
                         <!--<th>Lote</th>-->
-                        <th>Estudante CC UFFS</th>
+                        <th>Estudante UFFS</th>
                         <!--<th class="d-none d-sm-table-cell">Estudante UFFS</th>-->
-                        <th class="d-none d-sm-table-cell">Visitante</th>
+                        <th class="d-none d-sm-table-cell">Visitante/Docente</th>
                     </tr>
                     <tr>
                         <!--<td><b>1º lote</b></td>-->
@@ -195,9 +195,20 @@ use App\Helpers\UtilsHelper;
         <h3 class="values__subtitle title" scroll-sensitive="animate-top-down">Pagamento</h2>
         <div class="row">
             <div class="offset-lg-3 col-lg-6">
-                <p>O pagamento deve ser feito para algum membro do CA, para contatá-los-los envie um e-mail para <a href="mailto:cacomputacaouffs@gmail.com">cacomputacaouffs@gmail.com</a> ou entre em contato pelas redes sociais:</p>
+                <p>O pagamento pode ser feito para algum membro do CA, ou via pix para a chave cacomputacaouffs@gmail.com. <br>
+                 Qualquer dúvida envie um e-mail para <a href="mailto:cacomputacaouffs@gmail.com">cacomputacaouffs@gmail.com</a> ou entre em contato pelas redes sociais:</p>
                 <p><b>Instagram:</b> <a href="https://www.instagram.com/caccuffs/" target="_blank">caccuffs</a></p>
             </div>
+        </div>
+        <h3 class="values__subtitle title" scroll-sensitive="animate-top-down">Patrocínios</h2>
+        <div class="row">
+          <div class="offset-lg-3 col-lg-6" class="patrocinio">
+                <h4>Patrocínio Ouro</h4>
+                <img src="img/ouro.png" width="350px">
+                <h5>Patrocínio Prata</h5>
+                <img src="img/prata.png" width="200px">
+                
+          </div>
         </div>
     </div>
 </section>
