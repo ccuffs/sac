@@ -121,7 +121,7 @@ use App\Models\Payment;
                 <h3 class="title text-center">Pix</h3>
                 <p class="text-center">O pagamento pode ser feito via pix. <br><b>Chave: cacomputacaouffs@gmail.com</b></p>
                 <p class="qrcode">
-                    <img src="../img/qrcode.png" width="50"/>
+                    <img src="<?= UtilsHelper::base_url("/img/qrcode.png") ?>" width="50"/>
             </div>
         </div>
     </div>

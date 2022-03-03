@@ -204,9 +204,9 @@ use App\Helpers\UtilsHelper;
         <div class="row">
           <div class="offset-lg-3 col-lg-6" class="patrocinio">
                 <h4>Patrocínio Ouro</h4>
-                <img src="img/ouro.png" width="350px">
+                <img src="<?= UtilsHelper::base_url("/img/ouro.png") ?>" width="350px">
                 <h5>Patrocínio Prata</h5>
-                <img src="img/prata.png" width="200px">
+                <img src="<?= UtilsHelper::base_url("/img/ouro.png") ?>" width="200px">
                 
           </div>
         </div>
