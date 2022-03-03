@@ -206,7 +206,7 @@ use App\Helpers\UtilsHelper;
                 <h4>Patrocínio Ouro</h4>
                 <img src="<?= UtilsHelper::base_url("/img/ouro.png") ?>" width="350px">
                 <h5>Patrocínio Prata</h5>
-                <img src="<?= UtilsHelper::base_url("/img/ouro.png") ?>" width="200px">
+                <img src="<?= UtilsHelper::base_url("/img/prata.png") ?>" width="200px">
                 
           </div>
         </div>
