@@ -96,8 +96,8 @@ use App\Helpers\UtilsHelper;
                         <a href="#palestrante/<?= $speaker->name ?>"> <?= $speaker->name ?> </a><br>
                         <?php endforeach; ?>
 
-                        <span class="event__strong"> Início: </span>
-                        <span> <?= $event->time . ' hrs'?> </span><br>
+                        <span class="event__strong"> Horário: </span>
+                        <span> <?= $event->time . ''?> </span><br>
 
                         <span class="event__strong"> Local: </span>
                         <span> <?= $event->place ?></span> <br>
