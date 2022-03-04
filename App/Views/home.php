@@ -35,8 +35,8 @@ use App\Helpers\UtilsHelper;
           <h2 class="about__title title">O que é SACC?</h2>
           <p>A semana acadêmica do curso de Ciência da computação
           é um momento de troca de conhecimentos proporcionado por
-          docentes e discentes, no qual há uma semana de palestras,
-          minicursos e <i>workshops</i>, relacionados à tecnologia.</p>
+          docentes e discentes, no qual há um conjunto de palestras,
+          minicursos e <i>oficinas</i>, relacionados à tecnologia.</p>
         </div>
         <div class="about-item" scroll-sensitive="animate-right-left">
           <h3 class="about-item__title title">Por que participar?</h3>
@@ -44,12 +44,12 @@ use App\Helpers\UtilsHelper;
             A SACC busca oferecer aos alunos e ao público em geral
             a oportunidade de absorver e compartilhar conhecimento, 
             conviver e interagir com diversas áreas da computação,
-            por meio de palestras, mesas-redondas e <i>workshops</i>.
+            por meio de palestras, oficinas e minicursos.
             Ela é também uma oportunidade para os estudantes tornarem
-            público seus esforços e resultados de suas pesquisas, além
-            de que a semana acadêmica proporciona aos estudantes e professores
-            um ambiente de relaxamento visto que grande parte da comunidade
-            vive uma maçante rotina de aulas, provas, trabalhos e projetos.
+            público seus esforços e resultados de suas pesquisas, além de movimentar 
+            a rotina de estudantes e professores através de atividades diferenciadas, 
+            proporcionando momentos de aprendizagem e, 
+            ao mesmo tempo, de interação e integração da comunidade acadêmica.
           </p>
 
           </div>
@@ -195,7 +195,7 @@ use App\Helpers\UtilsHelper;
         <h3 class="values__subtitle title" scroll-sensitive="animate-top-down">Pagamento</h2>
         <div class="row">
             <div class="offset-lg-3 col-lg-6">
-                <p>O pagamento pode ser feito para algum membro do CA, ou via pix para a chave cacomputacaouffs@gmail.com. <br>
+                <p>O pagamento pode ser feito para algum membro do CA na sala 307B nos intervalos das aulas, ou via pix para a chave cacomputacaouffs@gmail.com. <br>
                  Qualquer dúvida envie um e-mail para <a href="mailto:cacomputacaouffs@gmail.com">cacomputacaouffs@gmail.com</a> ou entre em contato pelas redes sociais:</p>
                 <p><b>Instagram:</b> <a href="https://www.instagram.com/caccuffs/" target="_blank">caccuffs</a></p>
             </div>
