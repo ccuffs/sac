@@ -21,7 +21,7 @@ use App\Helpers\UtilsHelper;
           <div class="ticket-wrapper d-flex flex-column">
             <div class="ticket-wrapper__title" scroll-sensitive="animate-left-right">
               <img src="<?= UtilsHelper::base_url("/img/icon-ticket.png") ?>" alt="Tickey">
-              <h2 class="about__title">Inscreva-se</h2>
+              <h2 class="about__title">Inscreva</h2>
             </div>
             <div class="ticket-wrapper__buttons "scroll-sensitive="animate-right-left-3">
               <a href="<?= UtilsHelper::base_url("/inscricao/aluno") ?>" class="btn btn--secondary">Estudante UFFS</a>
