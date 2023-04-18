@@ -2,7 +2,7 @@
     "require": {
         "rmccue/requests": "^1.7",
         "slim/slim": "^4.2",
-        "slim/psr7": "^0.5.0",
+        "slim/psr7": "^1.6.1",
         "ccuffs/auth-iduffs": "^1.1"
     },
     "autoload": {
